@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Agents Explained: Tools, MCP, Frameworks and When They Work | LLModel.com</title>
+<meta name="description" content="AI agents explained: how LLM agents use tools, loops and memory, what MCP is in 2026, when multi-agent setups pay off, and how to keep agents reliable.">
+<link rel="canonical" href="https://llmodel.com/ai-agents-explained.html">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="google-adsense-account" content="ca-pub-6620975821265271">
+<meta name="theme-color" content="#f4f6fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12101e" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="LLModel.com">
+<meta property="og:title" content="AI Agents Explained: Tools, MCP, Frameworks and When They Work">
+<meta property="og:description" content="AI agents explained: how LLM agents use tools, loops and memory, what MCP is in 2026, when multi-agent setups pay off, and how to keep agents reliable.">
+<meta property="og:url" content="https://llmodel.com/ai-agents-explained.html">
+<meta property="og:image" content="https://llmodel.com/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="LLModel: the independent field guide to large language models">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="alternate" type="text/plain" href="llms.txt" title="llms.txt">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Martian+Mono:wght@400..500&family=Newsreader:ital,opsz,wght@0,6..72,400..650;1,6..72,400&display=swap">
+<link rel="stylesheet" href="assets/css/style.css?v=dae4813595">
+<script>(function(){var d=document.documentElement,t=null;try{t=localStorage.getItem('llm-theme')}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}d.setAttribute('data-theme',t)})();</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6620975821265271" crossorigin="anonymous"></script>
+<script type="application/ld+json">{
+ "@type": "Organization",
+ "@id": "https://llmodel.com/#org",
+ "name": "LLModel.com",
+ "url": "https://llmodel.com/",
+ "logo": "https://llmodel.com/assets/img/icon-512.png",
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://llmodel.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Guides",
+   "item": "https://llmodel.com/guides.html"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "AI agents explained"
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "Article",
+ "headline": "AI Agents Explained: Tools, MCP, Frameworks and When They Work",
+ "description": "AI agents explained: how LLM agents use tools, loops and memory, what MCP is in 2026, when multi-agent setups pay off, and how to keep agents reliable.",
+ "datePublished": "2026-10-10",
+ "dateModified": "2026-10-10",
+ "inLanguage": "en",
+ "mainEntityOfPage": "https://llmodel.com/ai-agents-explained.html",
+ "image": "https://llmodel.com/assets/img/og-image.png",
+ "author": {
+  "@type": "Organization",
+  "name": "LLModel editorial team",
+  "url": "https://llmodel.com/about.html"
+ },
+ "publisher": {
+  "@id": "https://llmodel.com/#org"
+ },
+ "keywords": "ai agents, ai agents explained, llm agents, agentic ai, model context protocol, tool calling, agent frameworks, multi-agent systems",
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is the difference between an AI agent and a chatbot?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "A chatbot answers one message at a time, and the user decides what happens next. An AI agent is given a goal and decides its own steps: it calls tools such as search, databases or code execution, reads the results and keeps going until the task is done or a limit is reached. Agents can complete multi-step work, but they cost more, take longer and need tighter controls."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is the Model Context Protocol (MCP)?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "MCP is an open standard for connecting AI applications to tools and data. You wrap a system once as an MCP server, and any compatible app, such as ChatGPT, Claude, VS Code or Cursor, can use its tools, resources and prompts. Anthropic introduced it in November 2024 and contributed it to the Linux Foundation's Agentic AI Foundation in December 2025. The current specification revision is dated 2026-07-28."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Do I need a framework to build an AI agent?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "No. A working agent can be a model API call inside a loop that runs the tools the model requests, with limits and permission checks around it. Building one by hand first shows you what frameworks abstract away. Frameworks earn their place when you need durable state, retries, tracing, human approval pauses or multi-agent orchestration, and most of them support MCP tools so integrations carry over."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How much does it cost to run an AI agent?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "It depends on steps, context size and model price, but agents typically use many times the tokens of a chat because they resend growing context on every step. In our worked example, a 10-step task costs about $0.23 at $2 per million input tokens and $10 per million output tokens, roughly 25 times a single chat call. Prompt caching cut it to about $0.08."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Are multi-agent systems better than a single agent?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Only for some tasks. Splitting work across parallel subagents helps when the job divides into independent parts, such as researching many sources at once. Anthropic reported a large gain on an internal research evaluation, but also about 15 times the tokens of a chat. For tightly coupled work like most coding, or tasks where every agent needs the same context, one well-equipped agent is usually better."
+   }
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+
+</head>
+<body class="page-ai-agents-explained">
+<a class="skip" href="#main">Skip to content</a>
+<div class="partner-bar"><a href="https://web.works/contact" target="_blank" rel="noopener"><span>Contact, if you are interested in this website / domain name / sponsorship / advertisement / partnership</span></a></div>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+    <nav class="nav" aria-label="Main"><a href="models.html">Models</a><a href="compare.html">Compare</a><a href="leaderboard.html">Rankings</a><a href="tools.html">Tools</a><a href="guides.html" aria-current="page">Learn</a><a href="videos.html">Videos</a></nav>
+    <div class="header-actions">
+      <button class="search-btn" type="button" data-open-search aria-label="Search the site"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="search-label">Search</span><span class="kbd" aria-hidden="true">/</span></button>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><svg class="theme-icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="theme-icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+      <a class="btn btn--primary btn--sm header-cta" href="hire-llm-experts.html">Get expert help</a>
+      <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile">
+    <ul><li><a href="models.html">Models</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="tools.html">Tools</a></li>
+<li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="contact.html">Contact</a></li>
+<li class="mobile-cta"><a class="btn btn--primary btn--block" href="hire-llm-experts.html">Get expert help</a></li>
+</ul>
+  </nav>
+</header>
+<main id="main">
+<nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li>
+<li><a href="guides.html">Guides</a></li>
+<li aria-current="page">AI agents explained</li>
+</ol>
+</nav>
+<div class="read-progress" id="read-progress" aria-hidden="true"></div>
+<header class="page-head wrap"><h1>AI agents explained</h1><p class="lede">How AI agents work under the hood: a language model calling tools in a loop with memory, the planning patterns they use, and where the Model Context Protocol fits as of October 2026. Covers frameworks, evaluation, cost, security and the tasks agents handle well today.</p>
+<div class="page-meta"><span>Building</span><span>Intermediate</span><span>11 min read</span><span>Updated October 10, 2026</span></div>
+</header>
+<div class="wrap article">
+  <nav class="article__toc toc" aria-label="On this page"><p class="toc-title">On this page</p>
+<ol><li><a href="#what-an-ai-agent-is">What an AI agent is</a></li>
+<li><a href="#tools-tool-calling-and-mcp">Tools, tool calling and MCP</a></li>
+<li><a href="#planning-patterns-and-memory">Planning patterns and memory</a></li>
+<li><a href="#multi-agent-systems">Multi-agent systems: when they&#x27;re worth it</a></li>
+<li><a href="#frameworks-and-platforms">Frameworks and platforms</a></li>
+<li><a href="#reliability-evaluation-cost-and-latency">Reliability, evaluation, cost and latency</a></li>
+<li><a href="#security-permissions-sandboxing-approval">Security: permissions, sandboxing and approval</a></li>
+<li><a href="#where-agents-work-today">Where agents work today, and where they don&#x27;t</a></li>
+<li><a href="#common-mistakes">Common mistakes</a></li>
+<li><a href="#next-steps">Next steps</a></li>
+</ol>
+</nav>
+  <article class="prose" id="article">
+    <div class="takeaways"><h2>Key takeaways</h2>
+<ul><li>An agent is a language model that chooses and calls tools in a loop, with memory, until the goal is met; a workflow follows paths you define in code.</li>
+<li>Start with the simplest design that works: a single call, then a workflow, and an agent only when the steps can&#x27;t be predicted.</li>
+<li>Errors compound: a step that succeeds 95 percent of the time gives roughly 36 percent success over 20 steps, so evaluate whole tasks with repeated runs.</li>
+<li>MCP is the de facto standard for connecting agents to tools; it is governed by the Linux Foundation&#x27;s Agentic AI Foundation, and its current revision is dated 2026-07-28.</li>
+<li>Agents use many times the tokens of a chat, so cap steps, cache stable prompts and trim tool output before it reaches the model.</li>
+<li>Least-privilege tools, sandboxes and human approval for irreversible actions matter more than prompt wording.</li>
+</ul>
+</div>
+    <p>An AI agent is software that uses a language model to decide what to do next, acts through tools, and keeps going until a goal is met. This guide explains how agents work, the patterns they use to plan and remember, where the Model Context Protocol stands as of October 2026, and how to make an agent reliable, affordable and safe.</p>
+
+<h2 id="what-an-ai-agent-is">What an AI agent is</h2>
+<p>An <a href="glossary-building-apps.html#ai-agent">AI agent</a> combines four building blocks:</p>
+<ul>
+<li><strong>A language model</strong> that reads the situation and picks the next step. <a href="glossary-fundamentals.html#reasoning-model">Reasoning models</a> are the usual choice because they plan well between steps.</li>
+<li><strong>Tools:</strong> functions the model can request, such as searching documents, querying a database, running code or sending an email.</li>
+<li><strong>A loop:</strong> code that runs the model, executes the tools it asks for, feeds back the results and repeats until the model finishes or hits a limit.</li>
+<li><strong>Memory:</strong> what the agent knows beyond the current request, from notes made during the task to facts stored between sessions.</li>
+</ul>
+<h3 id="agents-vs-chatbots-and-workflows">Agents vs chatbots and workflows</h3>
+<p>These labels get used loosely. A useful distinction, popularized by Anthropic's engineering team, is that a workflow runs model calls and tools along paths you wrote in code, while an agent lets the model choose its own path.</p>
+<div class="table-wrap"><table>
+<thead><tr><th></th><th>Chatbot</th><th>Workflow</th><th>Agent</th></tr>
+</thead>
+<tbody>
+<tr><td>Who decides the next step</td><td>The user, turn by turn</td><td>Your code</td><td>The model</td></tr>
+<tr><td>Tool use</td><td>None, or retrieval only</td><td>Fixed order</td><td>Chosen at run time</td></tr>
+<tr><td>Example</td><td>Help-center Q&amp;A</td><td>Extract invoice fields, validate them, file them in accounting</td><td>Investigate a failed deployment and propose a fix</td></tr>
+<tr><td>Predictability</td><td>High</td><td>High</td><td>Lower</td></tr>
+<tr><td>Cost per task</td><td>Low</td><td>Moderate</td><td>High and variable</td></tr>
+</tbody>
+</table>
+</div>
+<p>The rule of thumb: if you can write the steps down in advance, build a workflow. Use an agent when the path depends on what the model discovers along the way, as in debugging or open-ended research. Many production systems put one agentic step inside an otherwise fixed workflow.</p>
+
+<h2 id="tools-tool-calling-and-mcp">Tools, tool calling and MCP</h2>
+<h3 id="how-a-tool-call-works">How a tool call works</h3>
+<p><a href="glossary-building-apps.html#tool-calling">Tool calling</a>, also called function calling, lets the model ask your code to do something. The model never executes anything itself. Each exchange follows the same four steps:</p>
+<ol>
+<li>You send tool definitions with the request: a name, a plain-language description and a JSON Schema for the arguments.</li>
+<li>The model replies with a structured tool call, a tool name plus arguments, instead of or alongside text.</li>
+<li>Your code validates the arguments, checks permissions and runs the tool.</li>
+<li>You return the result, and the model calls more tools (sometimes several in parallel) or writes its answer.</li>
+</ol>
+<pre><code>Tool definition (field names vary slightly by provider):
+{
+  "name": "get_order_status",
+  "description": "Look up the shipping status of one order. Use when a
+                  customer asks where their order is.",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "order_id": {"type": "string", "description": "Order ID, e.g. A-10442"}
+    },
+    "required": ["order_id"]
+  }
+}
+
+Model's reply (a request, not an action):
+{"tool": "get_order_status", "arguments": {"order_id": "A-10442"}}
+
+Your code runs the lookup and sends back:
+{"order_id": "A-10442", "status": "in transit", "eta": "2026-10-14"}
+
+Model's final answer:
+"Order A-10442 is in transit and should arrive on October 14."</code></pre>
+<p>The model chooses tools by reading their descriptions, so spell out what each tool does, when to use it and what each argument means. A few well-scoped tools, such as one that finds a customer's recent orders rather than one that dumps every order, beat dozens of thin wrappers around API endpoints.</p>
+<h3 id="the-agent-loop-in-code">The agent loop in code</h3>
+<pre><code>messages = [system_prompt, user_goal]
+for step in range(MAX_STEPS):              # hard stop
+    reply = model(messages, tools)
+    if not reply.tool_calls:
+        return reply.text                  # the model is done
+    for call in reply.tool_calls:
+        require_permission(call)           # policy lives in code
+        result = run_in_sandbox(call, timeout=30)
+        messages.append(tool_result(call.id, result))
+raise StepLimitReached(messages)</code></pre>
+<p>Limits, permission checks and sandboxing live in code, not the prompt. The model proposes; your code decides what runs.</p>
+<h3 id="model-context-protocol">The Model Context Protocol (MCP)</h3>
+<p>Without a standard, every app needs custom code for every integration. The <a href="glossary-building-apps.html#model-context-protocol">Model Context Protocol</a> fixes that: wrap a system once as an MCP server, and any MCP-compatible application can use it. Anthropic introduced MCP in November 2024, and in December 2025 contributed it to the Agentic AI Foundation, a Linux Foundation project whose founding members include AWS, Anthropic, Google, Microsoft and OpenAI.</p>
+<p>The host application, such as a chat app, IDE or agent, runs one MCP client per connected server. Servers offer three main primitives: tools the model can call, resources it can read and reusable prompts. Local servers use standard input and output; remote servers use HTTP, with OAuth recommended for authorization.</p>
+<p>As of October 2026, ChatGPT, Claude, VS Code, Cursor and most agent frameworks support MCP, making it the de facto way to connect agents to tools. The current specification revision, dated 2026-07-28, made the protocol stateless, so each request carries its own version and capabilities. It also moved long-running tasks into an optional extension and deprecated the sampling, roots and logging features, so check which revision your SDKs support.</p>
+<p>Two cautions apply. Every connected tool's description takes up context on every call, so attaching dozens of servers can burn tens of thousands of <a href="glossary-fundamentals.html#token">tokens</a> before the model reads the request. And an MCP server is code you're trusting, so install servers only from trusted sources and pin versions. For agent-to-agent communication, the Agent2Agent (A2A) protocol, created by Google and now under the Linux Foundation, complements MCP.</p>
+
+<aside class="ad-slot" data-ad="in-article" aria-label="Sponsored message"><span class="ad-label">From LLModel</span><div class="ad-fill"><div class="house"><div><strong>Keep LLModel independent</strong><span>Reader support pays for data checks, new tools and contest prizes.</span></div>
+<a class="btn btn--ghost btn--sm" href="support.html">Support the site</a></div>
+</div>
+</aside>
+<h2 id="planning-patterns-and-memory">Planning patterns and memory</h2>
+<h3 id="react-style-loops">ReAct-style loops</h3>
+<p>The most common pattern alternates reasoning and acting: the model decides what to do, calls a tool, reads the result and repeats. The 2022 ReAct paper that named the pattern reported success-rate gains of 34 and 10 percentage points over imitation and reinforcement learning methods on two interactive benchmarks. Today's reasoning models can think between tool calls natively, so a plain loop with a capable model is often enough.</p>
+<h3 id="plan-and-execute">Plan-and-execute</h3>
+<p>Here the model writes a full plan first, then works through the steps, replanning only when something fails. A plan can be approved before anything happens, and a cheaper model can often carry out routine steps. The weakness is rigidity: if step three turns up a surprise, the rest of the plan may be wrong. Many coding agents blend both patterns with a to-do list they update as they go.</p>
+<h3 id="reflection">Reflection</h3>
+<p>Reflection adds a review step: the agent critiques its own output or trajectory, then retries using what it learned. In the 2023 Reflexion paper, agents that wrote down lessons from failed attempts reached 91 percent pass@1 on the HumanEval coding benchmark, against 80 percent reported for GPT-4 at the time. Reflection works best with an external signal, such as failing tests, rather than the model's opinion of its own work.</p>
+<h3 id="memory-types">Memory types</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>Memory type</th><th>What it holds</th><th>Typical implementation</th></tr>
+</thead>
+<tbody>
+<tr><td>Working</td><td>The current task: messages, tool results, notes</td><td>The <a href="glossary-fundamentals.html#context-window">context window</a>, with older turns summarized as it fills</td></tr>
+<tr><td>Semantic</td><td>Facts and preferences, such as "this customer is on the Pro plan"</td><td>A database or <a href="glossary-building-apps.html#vector-database">vector database</a>, searched when relevant</td></tr>
+<tr><td>Episodic</td><td>Records of past runs and what worked</td><td>Logs or saved reflections, retrieved by similarity</td></tr>
+<tr><td>Procedural</td><td>Standing instructions and skills</td><td>System prompts, instruction files such as AGENTS.md, reusable scripts</td></tr>
+</tbody>
+</table>
+</div>
+<p>Long-term memory is usually <a href="rag-explained.html">retrieval</a> pointed at the agent's own history, so the same design questions apply: what to store, when to recall it and who may see it.</p>
+
+<h2 id="multi-agent-systems">Multi-agent systems: when they're worth it</h2>
+<p>A multi-agent system splits work among several model instances, typically an orchestrator that plans and delegates and workers that each handle a subtask in their own context window. The benefit is separate contexts: each worker can read dozens of documents without crowding the orchestrator, and workers run in parallel.</p>
+<p>The evidence cuts both ways. In June 2025, Anthropic reported that its multi-agent research system outperformed a single agent by 90.2 percent on an internal research evaluation. The same report found agents used about 4 times the tokens of a chat and multi-agent systems about 15 times. It named poor fits too: tasks where every agent needs the same context, work with many dependencies between steps, most coding, and anything that requires real-time coordination.</p>
+<p>Use multiple agents when the job splits into independent parts, such as profiling ten competitors or checking fifty contracts against a policy, and the value of each task justifies the tokens. Otherwise, one agent with good tools is easier to build, debug and pay for.</p>
+
+<figure class="video-figure"><div class="video" data-yt="F8NKVhkZZWI"><button class="video__btn" type="button" aria-label="Play video: What are AI Agents?"><img src="https://i.ytimg.com/vi/F8NKVhkZZWI/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="video__play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></button></div>
+<figcaption>Watch: What are AI Agents? (IBM Technology). An accessible explanation of AI agents as LLM-driven systems that plan steps, call tools and act on the results instead of answering a single prompt. It helps non-specialists and managers separate real agent behavior from a chatbot with a new label.</figcaption></figure>
+<h2 id="frameworks-and-platforms">Frameworks and platforms</h2>
+<p>A model API and a loop like the one above is enough for a first agent, and it's the best way to learn what's happening. Frameworks add state management, retries, tracing, approval pauses and multi-agent orchestration. The main options as of October 2026:</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Option</th><th>Type</th><th>Languages</th><th>Best known for</th></tr>
+</thead>
+<tbody>
+<tr><td>Model API plus your own loop</td><td>No framework</td><td>Any</td><td>Full control and transparency</td></tr>
+<tr><td>LangGraph</td><td>Open-source orchestration library</td><td>Python, JavaScript</td><td>Graph-based state, durable execution, human-in-the-loop; LangChain's agents are built on it</td></tr>
+<tr><td>CrewAI</td><td>Open-source framework</td><td>Python</td><td>Role-based "crews" of agents plus event-driven "flows"</td></tr>
+<tr><td>Microsoft Agent Framework</td><td>Open-source SDK</td><td>.NET, Python, Go (preview)</td><td>Successor to AutoGen and Semantic Kernel; agents plus graph workflows</td></tr>
+<tr><td>Google Agent Development Kit</td><td>Open-source SDK</td><td>Python, TypeScript, Go, Java, Kotlin</td><td>Gemini-first but works with other models; workflow agents, MCP and A2A</td></tr>
+<tr><td>OpenAI Agents SDK</td><td>Open-source SDK</td><td>Python, TypeScript</td><td>Lightweight agents, handoffs, guardrails, sessions and tracing</td></tr>
+<tr><td>Claude Agent SDK</td><td>SDK</td><td>Python, TypeScript</td><td>Claude Code's agent loop and built-in tools as a library, with permissions, hooks and subagents</td></tr>
+<tr><td>Managed runtimes</td><td>Hosted platforms</td><td>Varies</td><td>Amazon Bedrock AgentCore, Google Cloud's Agent Runtime and Anthropic's Managed Agents host agents, sandboxes and tool connections for you</td></tr>
+</tbody>
+</table>
+</div>
+<p>Choose based on your language, how much control you need, whether you're committed to one model provider and where you'll deploy. Most support MCP tools, so integrations carry over if you switch. Our <a href="resources.html">resources page</a> tracks more frameworks.</p>
+
+<h2 id="reliability-evaluation-cost-and-latency">Reliability, evaluation, cost and latency</h2>
+<h3 id="why-errors-compound">Why errors compound</h3>
+<p>Agent failures multiply. If each step succeeds 95 percent of the time, a 20-step task succeeds only about 36 percent of the time (0.95 to the 20th power); at 99 percent per step, it's about 82 percent. Shorter tasks, checkpoints that verify progress and graceful recovery from tool errors often matter more than a slightly smarter model.</p>
+<p>Consistency is a separate problem. The 2024 τ-bench study introduced pass^k, the chance that an agent succeeds on all k attempts at the same task. Agents built on GPT-4o solved fewer than half of its tasks, and their pass^8 in the retail domain fell below 25 percent.</p>
+<h3 id="how-to-evaluate-an-agent">How to evaluate an agent</h3>
+<ul>
+<li><strong>Start small.</strong> Twenty to fifty realistic tasks with checkable outcomes will reveal the effect of early changes.</li>
+<li><strong>Grade the end state, not the path.</strong> Check whether the ticket was resolved or the tests pass, because agents can reach a correct result by different routes.</li>
+<li><strong>Repeat runs.</strong> Run each task several times and report pass^k next to the average.</li>
+<li><strong>Track operations.</strong> Record steps, tokens, cost per successful task, tool error rate and how often a person had to step in.</li>
+<li><strong>Trace everything.</strong> Log every model call, tool call and argument so you can replay failures.</li>
+<li><strong>Judge carefully.</strong> Use an <a href="glossary-evaluation.html#llm-as-a-judge">LLM-as-a-judge</a> with a rubric for open-ended output, and keep people reviewing samples.</li>
+</ul>
+<p>Public agent benchmarks are covered in our <a href="llm-benchmarks-explained.html">benchmarks guide</a>.</p>
+<h3 id="controlling-cost-and-latency">Controlling cost and latency</h3>
+<p>Agents resend their growing context on every step, so tokens climb fast. Take a 10-step task with 3,000 tokens of system prompt and tool definitions, where each step adds 1,500 tokens of output and tool results. Input totals 97,500 tokens across the run. At $2 per million input tokens and $10 per million output tokens, with 300 output tokens per step, that's about $0.23 per task, roughly 25 times a single 3,000-token chat call.</p>
+<p>If your provider bills cached input at a tenth of the normal rate, <a href="glossary-business-pricing.html#prompt-caching">prompt caching</a> the repeated prefix cuts that to under $0.08, before any cache-write surcharge. Other levers:</p>
+<ul>
+<li>Cap steps, tokens and wall-clock time per task, and fail loudly when a cap is hit.</li>
+<li>Route routine steps to a smaller model and save the strongest one for planning.</li>
+<li>Trim tool output in code before the model sees it. Anthropic described a case where calling MCP tools from code cut token use from 150,000 to 2,000.</li>
+<li>Load tool definitions on demand, and lower reasoning effort for simple steps.</li>
+</ul>
+<p>Latency adds up the same way. At 4 seconds per model turn and 1 second per tool call, a 10-step run takes about 50 seconds, so stream progress or run the agent in the background.</p>
+
+<aside class="ad-slot" data-ad="in-article-2" aria-label="Sponsored message"><span class="ad-label">From LLModel</span><div class="ad-fill"><div class="house"><div><strong>Prompt Efficiency Challenge</strong><span>Season 1 is open: solve five tasks for the fewest dollars. $500 in prizes.</span></div>
+<a class="btn btn--ghost btn--sm" href="contests.html">Read the brief</a></div>
+</div>
+</aside>
+<h2 id="security-permissions-sandboxing-approval">Security: permissions, sandboxing and approval</h2>
+<p>An agent acts with whatever permissions you give it, and anything it reads can try to redirect it through <a href="glossary-safety-governance.html#prompt-injection">prompt injection</a>. OWASP's Top 10 for Agentic Applications, published in December 2025, lists goal hijacking, tool misuse, privilege abuse and memory poisoning among the leading risks. The defenses are architectural:</p>
+<ul>
+<li><strong>Least privilege.</strong> Scope each tool narrowly: read-only where possible, per-user credentials rather than a shared admin key, and allowlisted domains and recipients.</li>
+<li><strong>Sandboxing.</strong> Run code and shell commands in a disposable container or virtual machine with no secrets, restricted network access and CPU, memory and time limits.</li>
+<li><strong>Human approval.</strong> Require confirmation for irreversible, costly or public actions such as sending, paying, deleting, deploying or changing permissions. Show the exact action and arguments, not a summary.</li>
+<li><strong>Separation.</strong> Don't let one agent hold private data, read untrusted content and send data out without a checkpoint in between.</li>
+<li><strong>Audit and stop.</strong> Log every action with what triggered it, and keep a kill switch that revokes tool access immediately.</li>
+</ul>
+<p>The <a href="llm-security-and-privacy.html">LLM security and privacy guide</a> covers these defenses and <a href="glossary-safety-governance.html#guardrails">guardrails</a> in more depth.</p>
+
+<h2 id="where-agents-work-today">Where agents work today, and where they don't</h2>
+<p>Agents succeed where results can be checked and mistakes can be undone. As of October 2026, the strongest use cases are:</p>
+<ul>
+<li><strong>Software engineering:</strong> coding agents working in a repository with tests, version control and code review.</li>
+<li><strong>Research:</strong> gathering, reading and summarizing sources with citations; mostly read-only and easy to parallelize.</li>
+<li><strong>Data analysis:</strong> writing and running code in a sandbox, where errors surface as exceptions.</li>
+<li><strong>Support and operations:</strong> narrow, well-tooled tasks such as order lookups, small refunds and runbook steps, with escalation to people.</li>
+</ul>
+<p>They still struggle with long, open-ended tasks without checkpoints, high-stakes decisions made without human sign-off, and graphical interfaces with no API, where computer-use agents remain slow and brittle. They're also poor value for simple, high-volume tasks that a single call or fixed workflow handles more cheaply. Before you build, confirm the basics:</p>
+<div class="checklist"><ul>
+<li>The steps can't be written down in advance; otherwise, build a workflow.</li>
+<li>Success can be verified automatically or with a quick human check.</li>
+<li>Risky actions are reversible or gated by approval.</li>
+<li>The value per task covers many times the token cost of a chat call.</li>
+<li>You have at least 20 realistic test tasks ready.</li>
+</ul>
+</div>
+
+<h2 id="common-mistakes">Common mistakes</h2>
+<ul>
+<li><strong>Starting with a multi-agent framework</strong> before a single loop works.</li>
+<li><strong>Giving the agent every tool just in case,</strong> which wastes context and invites misuse.</li>
+<li><strong>Vague tool descriptions and error messages.</strong> The model can only use what it understands, so errors should say how to fix the problem.</li>
+<li><strong>No step, token or time limits,</strong> so a confused agent loops until the budget runs out.</li>
+<li><strong>Judging from a few demo runs</strong> instead of repeated runs over a task set.</li>
+<li><strong>Enforcing permissions in the prompt</strong> instead of in code.</li>
+</ul>
+
+<h2 id="next-steps">Next steps</h2>
+<p>Estimate your per-task token bill with the <a href="llm-cost-calculator.html">LLM cost calculator</a>, and use the <a href="prompt-engineering-guide.html">prompt engineering guide</a> to write the system prompt and tool descriptions. Before an agent touches real data, work through the checklist in the <a href="llm-security-and-privacy.html">security and privacy guide</a>. If you'd like experienced help designing, evaluating or hardening an agent, you can <a href="hire-llm-experts.html">hire LLM experts</a>.</p>
+    <section class="sources" aria-labelledby="sources"><h2 id="sources">Sources</h2>
+<ol><li><a href="https://www.anthropic.com/engineering/building-effective-agents" target="_blank" rel="noopener">Anthropic: Building effective agents (December 2024)</a></li>
+<li><a href="https://arxiv.org/abs/2210.03629" target="_blank" rel="noopener">ReAct: Synergizing Reasoning and Acting in Language Models (Yao et al., 2022)</a></li>
+<li><a href="https://arxiv.org/abs/2303.11366" target="_blank" rel="noopener">Reflexion: Language Agents with Verbal Reinforcement Learning (Shinn et al., 2023)</a></li>
+<li><a href="https://www.anthropic.com/engineering/multi-agent-research-system" target="_blank" rel="noopener">Anthropic: How we built our multi-agent research system (June 2025)</a></li>
+<li><a href="https://modelcontextprotocol.io/specification/2026-07-28/changelog" target="_blank" rel="noopener">Model Context Protocol: Key changes in specification revision 2026-07-28</a></li>
+<li><a href="https://www.linuxfoundation.org/press/linux-foundation-announces-the-formation-of-the-agentic-ai-foundation" target="_blank" rel="noopener">Linux Foundation: Formation of the Agentic AI Foundation (December 2025)</a></li>
+<li><a href="https://arxiv.org/abs/2406.12045" target="_blank" rel="noopener">Tau-bench: A Benchmark for Tool-Agent-User Interaction (Yao et al., 2024)</a></li>
+<li><a href="https://www.anthropic.com/engineering/code-execution-with-mcp" target="_blank" rel="noopener">Anthropic: Code execution with MCP (November 2025)</a></li>
+<li><a href="https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/" target="_blank" rel="noopener">OWASP Top 10 for Agentic Applications (December 2025)</a></li>
+<li><a href="https://learn.microsoft.com/en-us/agent-framework/overview/" target="_blank" rel="noopener">Microsoft Agent Framework overview</a></li>
+</ol>
+      <p class="small muted">Written by the LLModel editorial team and checked against the sources above on October 10, 2026. Found an error? <a href="contact.html?topic=correction">Send a correction</a>.</p>
+</section>
+    <div class="share" aria-label="Share this guide"><span class="muted">Share:</span><button type="button" data-copy-link>Copy link</button><a href="https://www.linkedin.com/sharing/share-offsite/?url=https://llmodel.com/ai-agents-explained.html" target="_blank" rel="noopener">LinkedIn</a><a href="https://twitter.com/intent/tweet?url=https://llmodel.com/ai-agents-explained.html&amp;text=AI agents explained" target="_blank" rel="noopener">X</a><a href="https://news.ycombinator.com/submitlink?u=https://llmodel.com/ai-agents-explained.html&amp;t=AI agents explained" target="_blank" rel="noopener">Hacker News</a><a href="https://www.reddit.com/submit?url=https://llmodel.com/ai-agents-explained.html&amp;title=AI agents explained" target="_blank" rel="noopener">Reddit</a></div>
+  </article>
+  <aside class="article__side" aria-label="Related"><div class="panel"><h2 class="h3">Try the tools</h2>
+<ul style="margin:.5rem 0 0;padding-left:1.1rem"><li><a href="llm-cost-calculator.html">LLM API cost calculator</a></li>
+<li><a href="token-counter.html">Token counter</a></li>
+<li><a href="llm-picker.html">Which LLM should I use?</a></li>
+</ul>
+</div>
+<div class="panel"><h2 class="h3">Need hands-on help?</h2>
+<p class="small muted" style="margin-top:.4rem">Get a vendor-neutral plan for your project within 2 business days.</p>
+<a class="btn btn--primary btn--block" style="margin-top:.8rem" href="hire-llm-experts.html?from=guide-ai-agents-explained">Get expert help</a></div>
+<div class="panel newsletter-box">
+
+  <p class="muted" style="margin-top:.4rem">One short email a week: model releases, price changes and one tool worth trying. Free, and you can unsubscribe anytime.</p>
+  <form class="form" data-form="newsletter" data-subject="Newsletter signup" novalidate style="margin-top:1rem">
+    <div class="inline-form">
+      <label class="visually-hidden" for="nl-side-email">Email address</label>
+      <input class="input" type="email" id="nl-side-email" name="email" required autocomplete="email" placeholder="Your work email">
+      <button class="btn btn--primary" type="submit">Subscribe</button>
+    </div>
+    <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <div class="form-status" role="status" aria-live="polite"></div>
+  </form>
+  <p class="fine" style="margin-top:.6rem">We send one email a week and never sell your address. See the <a href="privacy.html">privacy policy</a>.</p>
+</div>
+</aside>
+</div>
+<div class="wrap wrap--read" style="margin-top:3rem"><section class="faq-wrap" aria-labelledby="faq"><h2 class="h2" id="faq" style="margin-bottom:1rem">Frequently asked questions</h2>
+<div class="faq"><details><summary>What is the difference between an AI agent and a chatbot?</summary><div class="faq__a"><p>A chatbot answers one message at a time, and the user decides what happens next. An AI agent is given a goal and decides its own steps: it calls tools such as search, databases or code execution, reads the results and keeps going until the task is done or a limit is reached. Agents can complete multi-step work, but they cost more, take longer and need tighter controls.</p>
+</div>
+</details>
+<details><summary>What is the Model Context Protocol (MCP)?</summary><div class="faq__a"><p>MCP is an open standard for connecting AI applications to tools and data. You wrap a system once as an MCP server, and any compatible app, such as ChatGPT, Claude, VS Code or Cursor, can use its tools, resources and prompts. Anthropic introduced it in November 2024 and contributed it to the Linux Foundation&#x27;s Agentic AI Foundation in December 2025. The current specification revision is dated 2026-07-28.</p>
+</div>
+</details>
+<details><summary>Do I need a framework to build an AI agent?</summary><div class="faq__a"><p>No. A working agent can be a model API call inside a loop that runs the tools the model requests, with limits and permission checks around it. Building one by hand first shows you what frameworks abstract away. Frameworks earn their place when you need durable state, retries, tracing, human approval pauses or multi-agent orchestration, and most of them support MCP tools so integrations carry over.</p>
+</div>
+</details>
+<details><summary>How much does it cost to run an AI agent?</summary><div class="faq__a"><p>It depends on steps, context size and model price, but agents typically use many times the tokens of a chat because they resend growing context on every step. In our worked example, a 10-step task costs about $0.23 at $2 per million input tokens and $10 per million output tokens, roughly 25 times a single chat call. Prompt caching cut it to about $0.08.</p>
+</div>
+</details>
+<details><summary>Are multi-agent systems better than a single agent?</summary><div class="faq__a"><p>Only for some tasks. Splitting work across parallel subagents helps when the job divides into independent parts, such as researching many sources at once. Anthropic reported a large gain on an internal research evaluation, but also about 15 times the tokens of a chat. For tightly coupled work like most coding, or tasks where every agent needs the same context, one well-equipped agent is usually better.</p>
+</div>
+</details>
+</div>
+</section>
+</div>
+<section class="wrap" aria-labelledby="more-videos" style="margin-top:3rem"><h2 class="h2" id="more-videos" style="margin-bottom:1rem">More videos on this topic</h2>
+<div class="grid grid--3"><article class="video-card" id="v-LCEmiRjPEtQ"><div class="video" data-yt="LCEmiRjPEtQ"><button class="video__btn" type="button" aria-label="Play video: Andrej Karpathy: Software Is Changing (Again)"><img src="https://i.ytimg.com/vi/LCEmiRjPEtQ/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="video__play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></button></div>
+<h3>Andrej Karpathy: Software Is Changing (Again)</h3>
+<div class="vc-meta"><span>Y Combinator</span><span>39:31</span><span>Intermediate</span><a href="https://www.youtube.com/watch?v=LCEmiRjPEtQ" target="_blank" rel="noopener">Watch on YouTube</a></div>
+<p class="muted small">Karpathy&#x27;s AI Startup School keynote frames LLMs as a new kind of computer programmed in plain English, then covers their quirks and how to build products around them. It is a strong pick for founders and engineers who want a big-picture view of where LLM-based software is heading.</p>
+</article>
+</div>
+</section>
+<section class="wrap" aria-labelledby="related" style="margin-top:3rem"><h2 class="h2" id="related" style="margin-bottom:1rem">Keep reading</h2>
+<div class="cardlist"><a class="card" href="prompt-engineering-guide.html"><span class="card__kicker">Building</span><span class="card__title">Prompt engineering: a practical guide with examples</span><span class="card__desc">A practical guide to writing prompts that work: the five parts of a prompt, core principles, eight techniques with before-and-after examples, and how reasoning models change the rules. Includes a testing workflow and a reusable template.</span><span class="card__foot"><span>Beginner</span><span>11 min read</span></span></a><a class="card" href="llm-security-and-privacy.html"><span class="card__kicker">Safety &amp; quality</span><span class="card__title">LLM security and privacy: a practical guide</span><span class="card__desc">How LLM applications get attacked and how they leak data, from prompt injection to over-privileged agents, with defenses that work in layers. Covers
+the OWASP Top 10 for LLM applications, vendor data policies, compliance basics and a pre-launch checklist.</span><span class="card__foot"><span>Intermediate</span><span>11 min read</span></span></a><a class="card" href="rag-explained.html"><span class="card__kicker">Building</span><span class="card__title">Retrieval-augmented generation (RAG) explained</span><span class="card__desc">A practical guide to retrieval-augmented generation, covering each stage of the pipeline from parsing and chunking to hybrid search, reranking and cited answers. It also explains how to evaluate RAG quality, when long context or fine-tuning fits better and how to secure the system.</span><span class="card__foot"><span>Intermediate</span><span>10 min read</span></span></a></div>
+</section>
+<div class="wrap"><section class="lead-band" aria-labelledby="lead-build-guide-ai-agents-explained">
+  <div>
+    <h2 id="lead-build-guide-ai-agents-explained">Need hands-on help building it?</h2>
+    <p>RAG, agents, fine-tuning or a production chatbot: describe the project and we&#x27;ll suggest an approach and, if you want, partners who build it.</p>
+    <ul><li>Free and vendor-neutral: no model provider pays for placement.</li>
+<li>Your details go only to partners you agree to.</li>
+</ul>
+  </div>
+  <form class="mini-form" action="hire-llm-experts.html" method="get">
+    <label for="need-build-guide-ai-agents-explained">What do you need help with?</label>
+    <select id="need-build-guide-ai-agents-explained" name="need"><option value="choose-model">Choose the right model</option>
+<option value="chatbot">Build a chatbot or assistant</option>
+<option value="rag">Answer questions over our documents (RAG)</option>
+<option value="agents">Automate work with AI agents</option>
+<option value="self-host">Fine-tune or self-host a model</option>
+<option value="cut-costs">Cut our LLM costs</option>
+<option value="security">Security, privacy or compliance review</option>
+<option value="not-sure">Not sure yet</option>
+</select>
+    <input type="hidden" name="from" value="guide-ai-agents-explained">
+    <button class="btn btn--yellow btn--block" type="submit">Start my free plan</button>
+    <p class="fine">Takes about 2 minutes. No sales calls unless you ask for one.</p>
+  </form>
+</section>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+      <p>The independent field guide to large language models. Model data checked against provider documentation; last full check October 10, 2026.</p>
+    </div>
+    <div><h2>Explore</h2>
+<ul><li><a href="models.html">Model directory</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare models</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="search.html">Search</a></li>
+</ul>
+</div>
+<div><h2>Tools</h2>
+<ul><li><a href="llm-cost-calculator.html">Cost calculator</a></li>
+<li><a href="token-counter.html">Token counter</a></li>
+<li><a href="vram-calculator.html">GPU and VRAM calculator</a></li>
+<li><a href="llm-picker.html">Which LLM should I use?</a></li>
+<li><a href="context-window-visualizer.html">Context window visualizer</a></li>
+<li><a href="prompt-builder.html">Prompt builder</a></li>
+<li><a href="self-host-vs-api-calculator.html">Self-host vs API calculator</a></li>
+</ul>
+</div>
+<div><h2>Learn</h2>
+<ul><li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+</ul>
+</div>
+<div><h2>Work with us</h2>
+<ul><li><a href="hire-llm-experts.html">Get expert help</a></li>
+<li><a href="list-your-product.html">List your product</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</div>
+<div><h2>About</h2>
+<ul><li><a href="about.html">About LLModel</a></li>
+<li><a href="editorial-policy.html">Editorial policy</a></li>
+<li><a href="privacy.html">Privacy policy</a></li>
+<li><a href="terms.html">Terms of use</a></li>
+<li><a href="disclaimer.html">Disclaimer</a></li>
+<li><a href="trademark-copyright.html">Trademark and copyright</a></li>
+<li><a href="sitemap.html">Site map</a></li>
+<li><button class="linklike" type="button" data-privacy-choices>Privacy and cookie choices</button></li>
+</ul>
+</div>
+  </div>
+  <div class="wrap footer-legal">
+    <p>&copy; 2026 LLModel.com. Independent: not affiliated with, endorsed by or sponsored by any model provider. Model and company names are trademarks of their respective owners and are used only to identify products. See <a href="trademark-copyright.html">trademark and copyright</a>.</p>
+    <p>Prices and specifications change often. Always confirm on the provider's own pricing page before you buy.</p>
+  </div>
+</footer>
+<div class="palette" id="palette" hidden role="dialog" aria-modal="true" aria-label="Search LLModel">
+  <div class="palette__box">
+    <label class="visually-hidden" for="palette-input">Search models, tools, guides and terms</label>
+    <input class="palette__input" id="palette-input" type="search" placeholder="Search models, tools, guides, terms" autocomplete="off" spellcheck="false" aria-controls="palette-list">
+    <ul class="palette__list" id="palette-list" role="listbox"></ul>
+    <div class="palette__foot"><span><span class="kbd">&uarr;</span> <span class="kbd">&darr;</span> to move</span><span><span class="kbd">Enter</span> to open</span><span><span class="kbd">Esc</span> to close</span></div>
+  </div>
+</div>
+<script src="assets/js/config.js?v=caa5324cbb"></script>
+
+<script src="assets/js/app.js?v=4b39d7c1bd" defer></script>
+<script src="assets/js/article.js?v=0235be8880" defer></script>
+</body>
+</html>
