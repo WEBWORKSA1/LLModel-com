@@ -1,0 +1,77 @@
+<!--meta
+{
+  "slug": "leaderboard",
+  "title": "LLM Rankings 2026: A Tunable Value Index of Current Large Language Models",
+  "h1": "LLM rankings you can tune",
+  "lede": "Our value index scores current models on capability tier, price, context, openness, input types and recency. The weights are yours: move the sliders or pick a preset, and the ranking updates instantly.",
+  "head_meta": ["Priced, current models only", "Data checked October 10, 2026", "<a href=\"#method\">Methodology</a>"],
+  "description": "Rank current LLMs by what matters to you: capability tier, price per token, context window, open weights, multimodal inputs and recency. A transparent, adjustable value index.",
+  "section": "rankings",
+  "crumbs": [["Home", "index.html"], ["Rankings", null]],
+  "data": ["models"],
+  "scripts": ["pages/leaderboard.js"],
+  "priority": 0.9,
+  "faq": [
+    {"q": "What is the best LLM right now?", "a": "It depends on what you weigh. With the default balanced weights, the top of this index is a mix of frontier models and strong mid-priced ones. If price matters most, efficient models jump ahead; if you need to self-host, open-weight models lead. Independent benchmark leaderboards linked on this page track raw capability."},
+    {"q": "Do you run your own benchmarks?", "a": "No. The capability input is an editorial tier based on how providers position each model and where it stands on public benchmarks and arena rankings. Everything else in the index is calculated from published facts: list prices, context windows, licenses, input types and release dates."},
+    {"q": "Can a provider pay to rank higher?", "a": "No. Rankings come only from the formula on this page and the data on each model page. Sponsorships on LLModel are labeled and never change a score, an order or a verdict."}
+  ]
+}
+-->
+<div class="wrap grid grid--sidebar" style="align-items:start">
+  <div>
+    <div class="tool tool--stack" style="margin-bottom:1.5rem">
+      <div class="tool__in">
+        <h2 class="tool-h">What matters to you?</h2>
+        <div class="seg" role="group" aria-label="Presets" id="lb-presets">
+          <button type="button" data-preset="balanced" aria-pressed="true">Balanced</button>
+          <button type="button" data-preset="capability" aria-pressed="false">Most capable</button>
+          <button type="button" data-preset="value" aria-pressed="false">Best value</button>
+          <button type="button" data-preset="selfhost" aria-pressed="false">Self-hosting</button>
+          <button type="button" data-preset="longctx" aria-pressed="false">Long context</button>
+        </div>
+        <div class="grid grid--3" style="gap:.75rem 1.5rem" id="lb-weights">
+          <div class="field"><label for="w-capability">Capability tier</label><div class="range-row"><input type="range" id="w-capability" min="0" max="100" value="40"><output for="w-capability">40</output></div></div>
+          <div class="field"><label for="w-price">Low price</label><div class="range-row"><input type="range" id="w-price" min="0" max="100" value="25"><output for="w-price">25</output></div></div>
+          <div class="field"><label for="w-context">Context window</label><div class="range-row"><input type="range" id="w-context" min="0" max="100" value="10"><output for="w-context">10</output></div></div>
+          <div class="field"><label for="w-openness">Open weights</label><div class="range-row"><input type="range" id="w-openness" min="0" max="100" value="10"><output for="w-openness">10</output></div></div>
+          <div class="field"><label for="w-multimodal">Image, audio, video input</label><div class="range-row"><input type="range" id="w-multimodal" min="0" max="100" value="5"><output for="w-multimodal">5</output></div></div>
+          <div class="field"><label for="w-recency">Newer release</label><div class="range-row"><input type="range" id="w-recency" min="0" max="100" value="10"><output for="w-recency">10</output></div></div>
+        </div>
+        <label class="check"><input type="checkbox" id="lb-open"> Only open-weight models</label>
+      </div>
+      <div class="tool__out">
+        <div class="section-head" style="margin-bottom:.5rem"><div><h2 class="h3" id="rank-h">Ranking</h2></div><span class="small muted" id="lb-count"></span></div>
+        {{ranking}}
+        <p style="margin-top:1rem"><button type="button" class="btn btn--ghost btn--sm" id="lb-more">Show all models</button></p>
+      </div>
+    </div>
+    {{ad:content}}
+    <section class="prose" aria-labelledby="method" style="margin-top:2.5rem">
+      <h2 id="method">Methodology</h2>
+      <p>The index scores each current model with a published list price from 0 to 1 on six factors, multiplies each score by your weight, and rescales the total to 100. Legacy models and models without a confirmed price are left out so that every model is scored on the same inputs.</p>
+      <ul>
+        <li><strong>Capability tier.</strong> Frontier scores 1.0, advanced 0.75, efficient 0.5 and compact 0.3, plus 0.05 for a reasoning mode. Tiers are our editorial grouping of provider positioning and public benchmark standings; they are not our own test results.</li>
+        <li><strong>Low price.</strong> Blended price (three parts input to one part output) on a log scale: the cheapest model scores 1, the most expensive 0. A log scale stops a single very expensive model from flattening everyone else.</li>
+        <li><strong>Context window.</strong> Maximum context on a log scale between the smallest and largest window in the set.</li>
+        <li><strong>Open weights.</strong> 1 if you can download the weights, 0 if not. License terms vary, so read them on the model page.</li>
+        <li><strong>Inputs.</strong> One third of a point for each non-text input type (images, audio, video or PDF), capped at 1.</li>
+        <li><strong>Newer release.</strong> Release date scaled between the oldest and newest model in the set.</li>
+      </ul>
+      <p>The index is a shortlisting aid. It can't tell you which model writes the best answer for your task; only a test on your own data can. For raw capability, check the independent leaderboards below, which run their own evaluations.</p>
+    </section>
+    <section aria-labelledby="indep" style="margin-top:2.5rem">
+      <h2 class="h2" id="indep" style="margin-bottom:1rem">Independent leaderboards and benchmarks</h2>
+      {{leaderboard_links}}
+      <p class="small muted" style="margin-top:.75rem">Read <a href="llm-benchmarks-explained.html">LLM benchmarks explained</a> before you trust any single score.</p>
+    </section>
+  </div>
+  <aside class="aside-box">
+    <h2 class="h3">Shortlists by job</h2>
+    {{hub_pills}}
+    <h2 class="h3" style="margin-top:1.25rem">Turn a ranking into a decision</h2>
+    <p class="small muted" style="margin-top:.4rem">Tell us your use case and constraints. We'll come back with a shortlist and a test plan for your data.</p>
+    <a class="btn btn--primary btn--block" style="margin-top:.8rem" href="hire-llm-experts.html?need=choose-model&amp;from=rankings">Get a vendor-neutral shortlist</a>
+  </aside>
+</div>
+<div class="wrap">{{lead:choose,choose-model}}</div>

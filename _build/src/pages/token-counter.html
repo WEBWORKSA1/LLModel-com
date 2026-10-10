@@ -1,0 +1,62 @@
+<!--meta
+{
+  "slug": "token-counter",
+  "title": "Token Counter: Count LLM Tokens and Estimate Cost per Model",
+  "h1": "Token counter",
+  "lede": "Paste any text to estimate its tokens, then get an exact count with OpenAI's o200k tokenizer and see how the text splits. The table prices it as input on current models.",
+  "head_meta": ["Your text never leaves your browser", "Prices checked October 10, 2026"],
+  "description": "Free token counter for GPT, Claude, Gemini and open models: estimate tokens, get an exact count with OpenAI's o200k tokenizer, visualize token splits and price your text per model.",
+  "section": "tools",
+  "crumbs": [["Home", "index.html"], ["Tools", "tools.html"], ["Token counter", null]],
+  "data": ["models"],
+  "scripts": ["tools/tokens.js"],
+  "priority": 0.9,
+  "faq": [
+    {"q": "How many tokens is a word?", "a": "In English, a token averages about three quarters of a word, so 100 words is roughly 130 tokens and 1,000 tokens is about 750 words. Short common words are usually one token; long or rare words split into several. Other languages, code and numbers often use more tokens per word."},
+    {"q": "Do all models count tokens the same way?", "a": "No. Each model family has its own tokenizer, so the same text can produce noticeably different counts on different models. The exact count here uses OpenAI's o200k tokenizer; treat counts for other providers as estimates and check their own token-counting tools for billing-grade numbers."},
+    {"q": "Is my text uploaded anywhere?", "a": "No. Counting happens in your browser. The exact tokenizer is a JavaScript file downloaded from a public CDN; your text stays on your device."},
+    {"q": "Why does the cost table only price input?", "a": "Because the text you paste is what you'd send. The response is billed separately as output tokens, usually at several times the input rate. Use the cost calculator to price both sides of a full workload."}
+  ]
+}
+-->
+<div class="wrap">
+  <div class="tool tool--stack">
+    <div class="tool__in">
+      <div class="field">
+        <label for="tc-text">Your text</label>
+        <textarea class="textarea" id="tc-text" rows="9" spellcheck="false">Large language models read text as tokens: short chunks of characters that map to numbers. A common English word is often a single token, while rare words, numbers and code split into several. Paste your own prompt here to see how many tokens it uses and what it would cost to send.</textarea>
+      </div>
+      <div class="btn-row">
+        <button type="button" class="btn btn--primary btn--sm" id="tc-exact">Count exactly with OpenAI's tokenizer</button>
+        <button type="button" class="btn btn--ghost btn--sm" id="tc-clear">Clear</button>
+        <span class="small muted" id="tc-status" aria-live="polite">Loads a 1 MB tokenizer from a public CDN the first time.</span>
+      </div>
+    </div>
+    <div class="tool__out">
+      <div class="out-grid" id="tc-stats" aria-live="polite"></div>
+      <h2 class="h3" style="margin:1.5rem 0 .6rem">How the text splits</h2>
+      <div class="token-view" id="tc-view"><span>Run the exact count to see each token highlighted.</span></div>
+      <h2 class="h3" style="margin:1.5rem 0 .6rem">What it costs to send</h2>
+      <div class="table-wrap"><table class="table" id="tc-table"><thead><tr><th>Model</th><th class="num">Once</th><th class="num">1,000 times</th><th class="num">Share of context</th></tr></thead><tbody></tbody></table></div>
+      <p class="small muted" style="margin-top:.6rem">Input only, at list price. Counts for non-OpenAI models are estimates because each family uses its own tokenizer.</p>
+    </div>
+  </div>
+  {{ad:tool-result}}
+</div>
+
+<section class="section" aria-labelledby="what-h">
+  <div class="wrap wrap--read prose">
+    <h2 id="what-h">What a token is</h2>
+    <p>A tokenizer breaks text into pieces from a fixed vocabulary, usually built with byte-pair encoding: the most frequent character sequences in the training data become single tokens. That's why "the" is one token while "tokenization" might be two or three, and why a long number can take one token per few digits.</p>
+    <p>Tokens matter for three reasons. They set the price, since APIs bill per million input and output tokens. They set the limits, because a model's context window and maximum output are measured in tokens. And they explain some odd behavior, like models miscounting letters in a word they see as one or two tokens.</p>
+    <h3 id="rules">Rules of thumb for English</h3>
+    <ul>
+      <li>1 token is about 4 characters or three quarters of a word.</li>
+      <li>100 tokens is about 75 words; a dense page of 500 words is roughly 650-700 tokens.</li>
+      <li>Code, JSON, URLs and non-English text usually take more tokens per character.</li>
+      <li>Spaces belong to the following word, so " cat" and "cat" can be different tokens.</li>
+    </ul>
+    <p>Read more in <a href="context-windows-explained.html">context windows explained</a> and <a href="llm-api-pricing-explained.html">LLM API pricing explained</a>, or price a whole workload in the <a href="llm-cost-calculator.html">cost calculator</a>.</p>
+  </div>
+</section>
+<div class="wrap">{{lead:costs,cut-costs}}</div>
