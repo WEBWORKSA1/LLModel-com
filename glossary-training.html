@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Training Terms: LLM Glossary (24 Definitions) | LLModel.com</title>
+<meta name="description" content="Plain-English definitions of 24 training terms for large language models, including pretraining, fine-tuning, LoRA and RLHF.">
+<link rel="canonical" href="https://llmodel.com/glossary-training.html">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="google-adsense-account" content="ca-pub-6620975821265271">
+<meta name="theme-color" content="#f4f6fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12101e" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="LLModel.com">
+<meta property="og:title" content="Training Terms: LLM Glossary (24 Definitions)">
+<meta property="og:description" content="Plain-English definitions of 24 training terms for large language models, including pretraining, fine-tuning, LoRA and RLHF.">
+<meta property="og:url" content="https://llmodel.com/glossary-training.html">
+<meta property="og:image" content="https://llmodel.com/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="LLModel: the independent field guide to large language models">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="alternate" type="text/plain" href="llms.txt" title="llms.txt">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Martian+Mono:wght@400..500&family=Newsreader:ital,opsz,wght@0,6..72,400..650;1,6..72,400&display=swap">
+<link rel="stylesheet" href="assets/css/style.css?v=dae4813595">
+<script>(function(){var d=document.documentElement,t=null;try{t=localStorage.getItem('llm-theme')}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}d.setAttribute('data-theme',t)})();</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6620975821265271" crossorigin="anonymous"></script>
+<script type="application/ld+json">{
+ "@type": "Organization",
+ "@id": "https://llmodel.com/#org",
+ "name": "LLModel.com",
+ "url": "https://llmodel.com/",
+ "logo": "https://llmodel.com/assets/img/icon-512.png",
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://llmodel.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Glossary",
+   "item": "https://llmodel.com/glossary.html"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "Training"
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "DefinedTermSet",
+ "name": "LLM glossary: training",
+ "url": "https://llmodel.com/glossary-training.html",
+ "hasDefinedTerm": [
+  {
+   "@type": "DefinedTerm",
+   "name": "Catastrophic forgetting",
+   "description": "When training on new data makes a model lose skills or knowledge it previously had.",
+   "url": "https://llmodel.com/glossary-training.html#catastrophic-forgetting"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Checkpoint",
+   "description": "A saved snapshot of a model's weights, and often its training state, at a point in training.",
+   "url": "https://llmodel.com/glossary-training.html#checkpoint"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Cross-entropy loss",
+   "description": "The standard training objective for LLMs, measuring how much probability the model gave the correct next token.",
+   "url": "https://llmodel.com/glossary-training.html#cross-entropy-loss"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Direct preference optimization (DPO)",
+   "description": "A simpler alternative to RLHF that trains directly on preferred-versus-rejected answer pairs.",
+   "url": "https://llmodel.com/glossary-training.html#dpo"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Distillation",
+   "description": "Training a smaller student model to imitate a larger teacher model's outputs.",
+   "url": "https://llmodel.com/glossary-training.html#distillation"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Epoch",
+   "description": "One complete pass of a training process through the entire training dataset.",
+   "url": "https://llmodel.com/glossary-training.html#epoch"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Fine-tuning",
+   "description": "Further training a pretrained model on a smaller, targeted dataset to change its behavior.",
+   "url": "https://llmodel.com/glossary-training.html#fine-tuning"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Group relative policy optimization (GRPO)",
+   "description": "A reinforcement learning method that scores each answer against a group of answers to the same prompt.",
+   "url": "https://llmodel.com/glossary-training.html#grpo"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Instruction tuning",
+   "description": "Supervised training on instruction-and-response examples so a model learns to follow requests.",
+   "url": "https://llmodel.com/glossary-training.html#instruction-tuning"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Learning rate",
+   "description": "The setting that controls how big a step the model's weights take on each training update.",
+   "url": "https://llmodel.com/glossary-training.html#learning-rate"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "LoRA (low-rank adaptation)",
+   "description": "A cheap fine-tuning method that trains small add-on matrices instead of the whole model.",
+   "url": "https://llmodel.com/glossary-training.html#lora"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Model collapse",
+   "description": "Quality decay when models are trained repeatedly on data generated by earlier models.",
+   "url": "https://llmodel.com/glossary-training.html#model-collapse"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Overfitting",
+   "description": "When a model learns its training examples too closely and performs worse on new data.",
+   "url": "https://llmodel.com/glossary-training.html#overfitting"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Parallelism (data, tensor, pipeline, expert)",
+   "description": "Ways of splitting a model's training or serving across many GPUs so it fits in memory and runs faster.",
+   "url": "https://llmodel.com/glossary-training.html#parallelism"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Parameter-efficient fine-tuning (PEFT)",
+   "description": "A family of fine-tuning methods that train a small number of new or selected parameters instead of the whole model.",
+   "url": "https://llmodel.com/glossary-training.html#peft"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Post-training",
+   "description": "Everything done to a pretrained model to turn it into a useful, safer assistant.",
+   "url": "https://llmodel.com/glossary-training.html#post-training"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Pretraining",
+   "description": "The first, most expensive training stage, where a model learns language by predicting the next token.",
+   "url": "https://llmodel.com/glossary-training.html#pretraining"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Proximal policy optimization (PPO)",
+   "description": "A reinforcement learning algorithm that improves a model in small, controlled steps; the classic RLHF optimizer.",
+   "url": "https://llmodel.com/glossary-training.html#ppo"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "QLoRA",
+   "description": "LoRA fine-tuning on top of a 4-bit quantized base model, cutting memory needs dramatically.",
+   "url": "https://llmodel.com/glossary-training.html#qlora"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Reinforcement learning from human feedback (RLHF)",
+   "description": "Training a model to produce answers people prefer, using a reward model learned from human rankings.",
+   "url": "https://llmodel.com/glossary-training.html#rlhf"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Reinforcement learning with verifiable rewards (RLVR)",
+   "description": "Reinforcement learning where rewards come from automatic checks, such as a correct answer or passing tests.",
+   "url": "https://llmodel.com/glossary-training.html#rlvr"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Reward model",
+   "description": "A model trained to score responses by how much people, or a rubric, would prefer them.",
+   "url": "https://llmodel.com/glossary-training.html#reward-model"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Scaling laws",
+   "description": "Empirical rules that predict how model quality improves as you add parameters, data and compute.",
+   "url": "https://llmodel.com/glossary-training.html#scaling-laws"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Synthetic data",
+   "description": "Training or test data generated by a model or program rather than collected from people.",
+   "url": "https://llmodel.com/glossary-training.html#synthetic-data"
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+
+</head>
+<body class="page-glossary-training">
+<a class="skip" href="#main">Skip to content</a>
+<div class="partner-bar"><a href="https://web.works/contact" target="_blank" rel="noopener"><span>Contact, if you are interested in this website / domain name / sponsorship / advertisement / partnership</span></a></div>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+    <nav class="nav" aria-label="Main"><a href="models.html">Models</a><a href="compare.html">Compare</a><a href="leaderboard.html">Rankings</a><a href="tools.html">Tools</a><a href="guides.html" aria-current="page">Learn</a><a href="videos.html">Videos</a></nav>
+    <div class="header-actions">
+      <button class="search-btn" type="button" data-open-search aria-label="Search the site"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="search-label">Search</span><span class="kbd" aria-hidden="true">/</span></button>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><svg class="theme-icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="theme-icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+      <a class="btn btn--primary btn--sm header-cta" href="hire-llm-experts.html">Get expert help</a>
+      <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile">
+    <ul><li><a href="models.html">Models</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="tools.html">Tools</a></li>
+<li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="contact.html">Contact</a></li>
+<li class="mobile-cta"><a class="btn btn--primary btn--block" href="hire-llm-experts.html">Get expert help</a></li>
+</ul>
+  </nav>
+</header>
+<main id="main">
+<nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li aria-current="page">Training</li>
+</ol>
+</nav>
+<header class="page-head wrap"><h1>LLM glossary: training</h1><p class="lede">How models learn: pretraining, fine-tuning and LoRA, preference methods such as RLHF, DPO and GRPO, scaling laws, and the problems that show up along the way. 24 terms, each with a short definition, a fuller explanation and links to related terms.</p>
+<div class="page-meta"><span>Updated October 10, 2026</span><span><a href="glossary.html">All 169 terms</a></span></div>
+</header>
+<div class="wrap">
+<nav class="pill-nav" aria-label="Other glossary topics"><a href="glossary-fundamentals.html">Fundamentals</a><a href="glossary-architecture.html">Model architecture</a><a href="glossary-inference-deployment.html">Inference and deployment</a><a href="glossary-prompting.html">Prompting</a><a href="glossary-building-apps.html">Building LLM apps</a><a href="glossary-evaluation.html">Evaluation and benchmarks</a><a href="glossary-safety-governance.html">Safety and governance</a><a href="glossary-business-pricing.html">Business and pricing</a></nav>
+<div class="filters" style="margin-top:1.5rem"><div class="filters__top"><label class="visually-hidden" for="gl-q">Filter terms</label><input class="input" id="gl-q" type="search" placeholder="Filter 24 terms" autocomplete="off"></div>
+<p class="result-count" id="gl-count" aria-live="polite">24 terms</p>
+</div>
+<aside class="ad-slot" data-ad="glossary-top" aria-label="Sponsored message"><span class="ad-label">From LLModel</span><div class="ad-fill"><div class="house"><div><strong>Price your workload</strong><span>Compare the monthly bill for your token volume across every priced model.</span></div>
+<a class="btn btn--ghost btn--sm" href="llm-cost-calculator.html">Open the calculator</a></div>
+</div>
+</aside>
+<div id="gl-list"><div class="terms"><article class="term" id="catastrophic-forgetting" data-cat="Training" data-text="catastrophic forgetting catastrophic interference"><h3>Catastrophic forgetting <span class="aka">catastrophic interference</span><a class="anchor" href="#catastrophic-forgetting" aria-label="Link to Catastrophic forgetting">#</a></h3>
+<p class="short">When training on new data makes a model lose skills or knowledge it previously had.</p>
+<p class="def">Catastrophic forgetting happens when fine-tuning on a narrow task overwrites what a model learned before. Train a general assistant heavily on legal contract summaries and it may summarize contracts well but get noticeably worse at coding, casual conversation or following unrelated instructions. The risk grows with aggressive learning rates, many epochs and data that looks nothing like the original training mix. Common mitigations include parameter-efficient methods such as LoRA, which leave the base weights untouched, mixing some general-purpose examples into the fine-tuning set, and evaluating on a broad test suite rather than only the target task.</p>
+<div class="rel tags"><a class="tag" href="#fine-tuning">Fine-tuning</a><a class="tag" href="#lora">LoRA (low-rank adaptation)</a><a class="tag" href="#learning-rate">Learning rate</a><a class="tag" href="#overfitting">Overfitting</a></div>
+</article>
+<article class="term" id="checkpoint" data-cat="Training" data-text="checkpoint model checkpoint weights file"><h3>Checkpoint <span class="aka">model checkpoint, weights file</span><a class="anchor" href="#checkpoint" aria-label="Link to Checkpoint">#</a></h3>
+<p class="short">A saved snapshot of a model&#x27;s weights, and often its training state, at a point in training.</p>
+<p class="def">A checkpoint is a saved copy of a model&#x27;s parameters at a particular moment, usually written every few hundred or thousand training steps. A full training checkpoint also stores optimizer state, so a crashed run can resume where it stopped, and teams keep several so they can roll back if quality drops. In everyday use, people also call any downloadable set of model weights a checkpoint, such as a fine-tuned variant on Hugging Face. Checkpoints come in formats such as safetensors, PyTorch files or GGUF for local inference. Safetensors is preferred for sharing because, unlike older pickle-based files, it cannot execute code when loaded.</p>
+<div class="rel tags"><a class="tag" href="glossary-fundamentals.html#parameters">Parameters</a><a class="tag" href="glossary-inference-deployment.html#gguf">GGUF</a><a class="tag" href="#epoch">Epoch</a></div>
+</article>
+<article class="term" id="cross-entropy-loss" data-cat="Training" data-text="cross-entropy loss loss loss function training loss negative log-likelihood"><h3>Cross-entropy loss <span class="aka">loss, loss function, training loss, negative log-likelihood</span><a class="anchor" href="#cross-entropy-loss" aria-label="Link to Cross-entropy loss">#</a></h3>
+<p class="short">The standard training objective for LLMs, measuring how much probability the model gave the correct next token.</p>
+<p class="def">Loss is the number training tries to drive down, and for language models it is almost always cross-entropy: the negative logarithm of the probability the model assigned to the token that actually came next, averaged over every position. If the model gave the right token a probability of 0.25, that position contributes about 1.39 to the loss; a probability of 0.9 contributes only about 0.11. Watching loss curves is the main way to monitor training, with validation loss on held-out data revealing overfitting. Cross-entropy also connects directly to perplexity: exponentiate the average loss and you get perplexity, so a loss of 2.0 corresponds to a perplexity of about 7.4.</p>
+<div class="rel tags"><a class="tag" href="glossary-evaluation.html#perplexity">Perplexity</a><a class="tag" href="#pretraining">Pretraining</a><a class="tag" href="#overfitting">Overfitting</a><a class="tag" href="glossary-inference-deployment.html#logits">Logits</a></div>
+</article>
+<article class="term" id="dpo" data-cat="Training" data-text="direct preference optimization (dpo) dpo"><h3>Direct preference optimization (DPO) <span class="aka">DPO</span><a class="anchor" href="#dpo" aria-label="Link to Direct preference optimization (DPO)">#</a></h3>
+<p class="short">A simpler alternative to RLHF that trains directly on preferred-versus-rejected answer pairs.</p>
+<p class="def">Direct preference optimization, introduced in a 2023 paper by Rafailov and colleagues, gets much of the benefit of RLHF without training a separate reward model or running a reinforcement learning loop. You give it examples of a prompt, a preferred answer and a rejected answer, and a simple classification-style loss raises the likelihood of the preferred answer relative to the rejected one, measured against a frozen reference model. The paper showed that this objective is mathematically tied to the RLHF goal, with the reward implicit in the model itself. DPO is stable, cheap and easy to run with open-source tools, so it is a common choice for preference-tuning open models.</p>
+<div class="rel tags"><a class="tag" href="#rlhf">Reinforcement learning from human feedback (RLHF)</a><a class="tag" href="#reward-model">Reward model</a><a class="tag" href="#fine-tuning">Fine-tuning</a><a class="tag" href="#post-training">Post-training</a></div>
+</article>
+<article class="term" id="distillation" data-cat="Training" data-text="distillation knowledge distillation model distillation"><h3>Distillation <span class="aka">knowledge distillation, model distillation</span><a class="anchor" href="#distillation" aria-label="Link to Distillation">#</a></h3>
+<p class="short">Training a smaller student model to imitate a larger teacher model&#x27;s outputs.</p>
+<p class="def">Distillation transfers ability from a large teacher model to a smaller, cheaper student. The student learns either from the teacher&#x27;s full probability distributions over next tokens, which carry richer signal than a single right answer, or simply from large volumes of text the teacher generated. In January 2025, for example, DeepSeek released several small open models fine-tuned on reasoning traces from its much larger R1 model, and they scored far higher on math and coding benchmarks than earlier models of similar size. Distillation is how many small and fast models get their quality. Check the terms of service first: many API providers prohibit using their outputs to train competing models.</p>
+<div class="rel tags"><a class="tag" href="glossary-fundamentals.html#small-language-model">Small language model (SLM)</a><a class="tag" href="#synthetic-data">Synthetic data</a><a class="tag" href="#fine-tuning">Fine-tuning</a><a class="tag" href="glossary-fundamentals.html#reasoning-model">Reasoning model</a></div>
+</article>
+<article class="term" id="epoch" data-cat="Training" data-text="epoch training epoch"><h3>Epoch <span class="aka">training epoch</span><a class="anchor" href="#epoch" aria-label="Link to Epoch">#</a></h3>
+<p class="short">One complete pass of a training process through the entire training dataset.</p>
+<p class="def">An epoch is one full pass over your training data. With 10,000 examples and a batch size of 16, one epoch is 625 training steps. Large pretraining runs often see most of their data only once or a few times because the corpus is so big, while fine-tuning jobs typically run one to three epochs over a much smaller dataset. More epochs let the model absorb the examples more thoroughly, but past a point it starts memorizing them, which shows up as validation loss rising while training loss keeps falling. Hosted fine-tuning services usually let you set the epoch count or choose it automatically.</p>
+<div class="rel tags"><a class="tag" href="#overfitting">Overfitting</a><a class="tag" href="#learning-rate">Learning rate</a><a class="tag" href="#fine-tuning">Fine-tuning</a><a class="tag" href="#checkpoint">Checkpoint</a></div>
+</article>
+<article class="term" id="fine-tuning" data-cat="Training" data-text="fine-tuning finetuning model fine-tuning"><h3>Fine-tuning <span class="aka">finetuning, model fine-tuning</span><a class="anchor" href="#fine-tuning" aria-label="Link to Fine-tuning">#</a></h3>
+<p class="short">Further training a pretrained model on a smaller, targeted dataset to change its behavior.</p>
+<p class="def">Fine-tuning continues training an existing model on your own examples so it adopts a style, format or narrow skill. A support team might fine-tune on a few thousand past tickets so replies match house tone and ticket categories. Full fine-tuning updates every parameter; parameter-efficient methods such as LoRA update a small add-on instead and are far cheaper. Fine-tuning is best for consistent behavior and format, not for teaching fresh facts: knowledge that changes often belongs in retrieval. Before you fine-tune, check whether better prompting or a few examples in the prompt already get you there, and keep a held-out test set to prove the gain.</p>
+<div class="rel tags"><a class="tag" href="#lora">LoRA (low-rank adaptation)</a><a class="tag" href="#peft">Parameter-efficient fine-tuning (PEFT)</a><a class="tag" href="#instruction-tuning">Instruction tuning</a><a class="tag" href="glossary-building-apps.html#rag">Retrieval-augmented generation (RAG)</a></div>
+</article>
+<article class="term" id="grpo" data-cat="Training" data-text="group relative policy optimization (grpo) grpo"><h3>Group relative policy optimization (GRPO) <span class="aka">GRPO</span><a class="anchor" href="#grpo" aria-label="Link to Group relative policy optimization (GRPO)">#</a></h3>
+<p class="short">A reinforcement learning method that scores each answer against a group of answers to the same prompt.</p>
+<p class="def">GRPO is a variant of PPO introduced in DeepSeek&#x27;s DeepSeekMath paper in February 2024 and later used to train the DeepSeek-R1 reasoning model. Instead of training a separate value model to judge how good an answer should be, it samples a group of answers to the same question, say eight attempts at a math problem, scores each one, and uses the group&#x27;s average score as the baseline. Answers that beat the average are reinforced and the rest are discouraged. Dropping the value model saves memory and simplifies training, which made GRPO a popular choice for reinforcement learning with verifiable rewards.</p>
+<div class="rel tags"><a class="tag" href="#ppo">Proximal policy optimization (PPO)</a><a class="tag" href="#rlvr">Reinforcement learning with verifiable rewards (RLVR)</a><a class="tag" href="glossary-fundamentals.html#reasoning-model">Reasoning model</a><a class="tag" href="#rlhf">Reinforcement learning from human feedback (RLHF)</a></div>
+</article>
+<article class="term" id="instruction-tuning" data-cat="Training" data-text="instruction tuning instruction fine-tuning supervised fine-tuning sft"><h3>Instruction tuning <span class="aka">instruction fine-tuning, supervised fine-tuning, SFT</span><a class="anchor" href="#instruction-tuning" aria-label="Link to Instruction tuning">#</a></h3>
+<p class="short">Supervised training on instruction-and-response examples so a model learns to follow requests.</p>
+<p class="def">Instruction tuning is supervised fine-tuning on pairs of instructions and good responses, such as &#x27;Summarize this email in two bullet points&#x27; followed by an ideal summary. It turns a base model, which merely continues text, into one that treats your input as a task to complete. Research in 2021 and 2022, including Google&#x27;s FLAN and OpenAI&#x27;s InstructGPT work, showed that training on many varied instructions helps models handle instructions they have never seen. Datasets range from tens of thousands to millions of examples, written by people, generated by stronger models, or both. Instruction tuning is usually the first post-training step, followed by preference training.</p>
+<div class="rel tags"><a class="tag" href="#fine-tuning">Fine-tuning</a><a class="tag" href="#post-training">Post-training</a><a class="tag" href="glossary-fundamentals.html#chat-model">Chat model</a><a class="tag" href="#rlhf">Reinforcement learning from human feedback (RLHF)</a></div>
+</article>
+<article class="term" id="learning-rate" data-cat="Training" data-text="learning rate lr step size"><h3>Learning rate <span class="aka">LR, step size</span><a class="anchor" href="#learning-rate" aria-label="Link to Learning rate">#</a></h3>
+<p class="short">The setting that controls how big a step the model&#x27;s weights take on each training update.</p>
+<p class="def">The learning rate determines how far the weights move in response to each batch of training data. Too high and training becomes unstable or wipes out useful knowledge; too low and the model barely changes or takes far longer to train. Most runs use a schedule: a short warmup that ramps the rate up, followed by gradual decay, often along a cosine curve. Sensible values depend on the method. LoRA fine-tuning commonly uses values around 1e-4 to 2e-4, while full fine-tuning of a large model usually needs a rate an order of magnitude smaller. Treat it as the first hyperparameter to tune when results disappoint.</p>
+<div class="rel tags"><a class="tag" href="#fine-tuning">Fine-tuning</a><a class="tag" href="#epoch">Epoch</a><a class="tag" href="#cross-entropy-loss">Cross-entropy loss</a><a class="tag" href="#catastrophic-forgetting">Catastrophic forgetting</a></div>
+</article>
+<aside class="ad-slot" data-ad="in-article-2" aria-label="Sponsored message"><span class="ad-label">From LLModel</span><div class="ad-fill"><div class="house"><div><strong>Prompt Efficiency Challenge</strong><span>Season 1 is open: solve five tasks for the fewest dollars. $500 in prizes.</span></div>
+<a class="btn btn--ghost btn--sm" href="contests.html">Read the brief</a></div>
+</div>
+</aside>
+<article class="term" id="lora" data-cat="Training" data-text="lora (low-rank adaptation) low-rank adaptation lora adapter"><h3>LoRA (low-rank adaptation) <span class="aka">low-rank adaptation, LoRA adapter</span><a class="anchor" href="#lora" aria-label="Link to LoRA (low-rank adaptation)">#</a></h3>
+<p class="short">A cheap fine-tuning method that trains small add-on matrices instead of the whole model.</p>
+<p class="def">Low-rank adaptation, published in 2021, freezes a model&#x27;s original weights and trains small pairs of matrices injected into selected layers. Their product approximates the change full fine-tuning would make, using a tiny fraction of the trainable parameters; the paper reported roughly 10,000 times fewer trainable parameters than full fine-tuning of GPT-3 175B. A trained adapter is often just tens of megabytes, so you can keep one per customer or task and swap them on a single base model. Adapters can also be merged into the base weights, which avoids any extra inference latency. LoRA is the default starting point for fine-tuning open models.</p>
+<div class="rel tags"><a class="tag" href="#qlora">QLoRA</a><a class="tag" href="#peft">Parameter-efficient fine-tuning (PEFT)</a><a class="tag" href="#fine-tuning">Fine-tuning</a><a class="tag" href="#catastrophic-forgetting">Catastrophic forgetting</a></div>
+</article>
+<article class="term" id="model-collapse" data-cat="Training" data-text="model collapse"><h3>Model collapse <a class="anchor" href="#model-collapse" aria-label="Link to Model collapse">#</a></h3>
+<p class="short">Quality decay when models are trained repeatedly on data generated by earlier models.</p>
+<p class="def">Model collapse describes a degenerative cycle in which models trained on the outputs of previous models gradually lose the rare and varied parts of the original data distribution. Each generation over-represents what is common, so later models produce blander, more repetitive and eventually distorted text. A 2024 paper in Nature demonstrated the effect when each generation was trained mainly on the previous generation&#x27;s output. Follow-up research found that keeping the original human data in the mix, rather than replacing it, largely avoids collapse. As more of the web becomes AI-written, curating and tracking data provenance matters more for anyone building training sets.</p>
+<div class="rel tags"><a class="tag" href="#synthetic-data">Synthetic data</a><a class="tag" href="#pretraining">Pretraining</a><a class="tag" href="glossary-safety-governance.html#data-poisoning">Data poisoning</a></div>
+</article>
+<article class="term" id="overfitting" data-cat="Training" data-text="overfitting"><h3>Overfitting <a class="anchor" href="#overfitting" aria-label="Link to Overfitting">#</a></h3>
+<p class="short">When a model learns its training examples too closely and performs worse on new data.</p>
+<p class="def">Overfitting occurs when a model fits the quirks of its training set instead of the general pattern, so it does well on examples it has seen and poorly on new ones. In LLM fine-tuning, the telltale signs are validation loss that starts climbing while training loss keeps dropping, and outputs that parrot phrases from training examples. Small datasets and too many epochs make it more likely. Fixes include stopping training earlier, using fewer epochs or a lower learning rate, adding more varied data, and always holding back a test set the model never trains on. Memorizing benchmark questions is a related problem, known as contamination.</p>
+<div class="rel tags"><a class="tag" href="#epoch">Epoch</a><a class="tag" href="#fine-tuning">Fine-tuning</a><a class="tag" href="glossary-evaluation.html#benchmark-contamination">Benchmark contamination</a><a class="tag" href="#cross-entropy-loss">Cross-entropy loss</a></div>
+</article>
+<article class="term" id="parallelism" data-cat="Training" data-text="parallelism (data, tensor, pipeline, expert) distributed training model parallelism multi-gpu training"><h3>Parallelism (data, tensor, pipeline, expert) <span class="aka">distributed training, model parallelism, multi-GPU training</span><a class="anchor" href="#parallelism" aria-label="Link to Parallelism (data, tensor, pipeline, expert)">#</a></h3>
+<p class="short">Ways of splitting a model&#x27;s training or serving across many GPUs so it fits in memory and runs faster.</p>
+<p class="def">Large models are far too big and slow to train on one chip, so the work is spread across many GPUs in several ways at once. Data parallelism gives each GPU a copy of the model and a different slice of each batch, then averages their gradients; sharding methods such as ZeRO and FSDP split the bulky optimizer state to save memory. Tensor parallelism splits individual weight matrices across GPUs and needs very fast links between them. Pipeline parallelism places different layers on different GPUs, like stations on an assembly line. Expert parallelism spreads a mixture-of-experts model&#x27;s experts across devices. Tensor and pipeline parallelism are also used to serve models too large for a single GPU.</p>
+<div class="rel tags"><a class="tag" href="glossary-inference-deployment.html#gpu">GPU (graphics processing unit)</a><a class="tag" href="glossary-architecture.html#mixture-of-experts">Mixture of experts (MoE)</a><a class="tag" href="#pretraining">Pretraining</a><a class="tag" href="glossary-inference-deployment.html#vram">VRAM (GPU memory)</a></div>
+</article>
+<article class="term" id="peft" data-cat="Training" data-text="parameter-efficient fine-tuning (peft) peft parameter-efficient tuning"><h3>Parameter-efficient fine-tuning (PEFT) <span class="aka">PEFT, parameter-efficient tuning</span><a class="anchor" href="#peft" aria-label="Link to Parameter-efficient fine-tuning (PEFT)">#</a></h3>
+<p class="short">A family of fine-tuning methods that train a small number of new or selected parameters instead of the whole model.</p>
+<p class="def">Parameter-efficient fine-tuning is the umbrella term for adapting a model while leaving almost all of its original weights frozen. Instead, you train a small set of extra parameters: low-rank matrices in LoRA, small bottleneck layers called adapters, or learned prompt vectors in prefix and prompt tuning. The benefits are practical. Training fits on far smaller GPUs, each fine-tuned variant is a small file rather than a full copy of the model, and one base model can serve many tasks by swapping adapters. For large shifts in behavior or domain, full fine-tuning can still edge ahead, but PEFT is the sensible default for most teams.</p>
+<div class="rel tags"><a class="tag" href="#lora">LoRA (low-rank adaptation)</a><a class="tag" href="#qlora">QLoRA</a><a class="tag" href="#fine-tuning">Fine-tuning</a></div>
+</article>
+<article class="term" id="post-training" data-cat="Training" data-text="post-training"><h3>Post-training <a class="anchor" href="#post-training" aria-label="Link to Post-training">#</a></h3>
+<p class="short">Everything done to a pretrained model to turn it into a useful, safer assistant.</p>
+<p class="def">Post-training covers the stages that follow pretraining and shape how a model behaves. A typical recipe starts with supervised fine-tuning on high-quality example conversations, adds preference training such as RLHF or DPO so the model favors answers people rate highly, and increasingly includes reinforcement learning on checkable tasks like math and coding to build reasoning skill. Safety training, tool-use training and tuning for specific formats happen here too. Post-training has traditionally needed far less compute than pretraining, though reinforcement learning budgets are growing fast, and it largely determines the personality, helpfulness and refusal behavior you notice when you use a model, which is why two models built on similar base models can feel very different.</p>
+<div class="rel tags"><a class="tag" href="#pretraining">Pretraining</a><a class="tag" href="#instruction-tuning">Instruction tuning</a><a class="tag" href="#rlhf">Reinforcement learning from human feedback (RLHF)</a><a class="tag" href="#rlvr">Reinforcement learning with verifiable rewards (RLVR)</a></div>
+</article>
+<article class="term" id="pretraining" data-cat="Training" data-text="pretraining pre-training"><h3>Pretraining <span class="aka">pre-training</span><a class="anchor" href="#pretraining" aria-label="Link to Pretraining">#</a></h3>
+<p class="short">The first, most expensive training stage, where a model learns language by predicting the next token.</p>
+<p class="def">Pretraining is the stage where a model learns general language ability by predicting the next token across a huge corpus of web pages, books, code and other text, typically trillions of tokens. No human labels are needed: the text itself supplies the right answers. This stage has traditionally consumed most of a model&#x27;s training compute, often running for weeks or months on thousands of GPUs, and it fixes most of what the model knows, including its knowledge cutoff. The output is a base model, which then goes through post-training to become a useful assistant. Very few organizations pretrain frontier models; most teams adapt existing ones.</p>
+<div class="rel tags"><a class="tag" href="glossary-fundamentals.html#base-model">Base model</a><a class="tag" href="#post-training">Post-training</a><a class="tag" href="#scaling-laws">Scaling laws</a><a class="tag" href="glossary-fundamentals.html#knowledge-cutoff">Knowledge cutoff</a></div>
+</article>
+<article class="term" id="ppo" data-cat="Training" data-text="proximal policy optimization (ppo) ppo"><h3>Proximal policy optimization (PPO) <span class="aka">PPO</span><a class="anchor" href="#ppo" aria-label="Link to Proximal policy optimization (PPO)">#</a></h3>
+<p class="short">A reinforcement learning algorithm that improves a model in small, controlled steps; the classic RLHF optimizer.</p>
+<p class="def">Proximal policy optimization, published by OpenAI researchers in 2017, is a reinforcement learning method that updates a policy in small, clipped steps so a single batch can&#x27;t change it too drastically. In RLHF, the policy is the language model: it generates answers, a reward model scores them, and PPO nudges the model toward higher-scoring behavior. The full setup is heavy, because training typically juggles four models at once: the policy, a frozen reference copy, the reward model and a value model that estimates expected reward. That cost and complexity motivated lighter alternatives such as DPO, which skips reinforcement learning entirely, and GRPO, which drops the value model.</p>
+<div class="rel tags"><a class="tag" href="#rlhf">Reinforcement learning from human feedback (RLHF)</a><a class="tag" href="#reward-model">Reward model</a><a class="tag" href="#grpo">Group relative policy optimization (GRPO)</a><a class="tag" href="#dpo">Direct preference optimization (DPO)</a></div>
+</article>
+<article class="term" id="qlora" data-cat="Training" data-text="qlora quantized lora"><h3>QLoRA <span class="aka">quantized LoRA</span><a class="anchor" href="#qlora" aria-label="Link to QLoRA">#</a></h3>
+<p class="short">LoRA fine-tuning on top of a 4-bit quantized base model, cutting memory needs dramatically.</p>
+<p class="def">QLoRA, introduced in 2023, combines LoRA with an aggressively quantized base model. The frozen base weights are stored in 4-bit precision using a format called NormalFloat4, while the small LoRA adapters train in higher precision. Extra tricks, such as quantizing the quantization constants and paging optimizer memory to the CPU when the GPU runs short, squeeze memory further. The paper fine-tuned a 65B-parameter model on a single 48 GB GPU, a job that would otherwise need a multi-GPU server. Today QLoRA is a standard way to fine-tune 7B to 70B models on one workstation or rented cloud GPU, with quality close to 16-bit LoRA.</p>
+<div class="rel tags"><a class="tag" href="#lora">LoRA (low-rank adaptation)</a><a class="tag" href="glossary-inference-deployment.html#quantization">Quantization</a><a class="tag" href="#peft">Parameter-efficient fine-tuning (PEFT)</a><a class="tag" href="glossary-inference-deployment.html#vram">VRAM (GPU memory)</a></div>
+</article>
+<article class="term" id="rlhf" data-cat="Training" data-text="reinforcement learning from human feedback (rlhf) rlhf"><h3>Reinforcement learning from human feedback (RLHF) <span class="aka">RLHF</span><a class="anchor" href="#rlhf" aria-label="Link to Reinforcement learning from human feedback (RLHF)">#</a></h3>
+<p class="short">Training a model to produce answers people prefer, using a reward model learned from human rankings.</p>
+<p class="def">RLHF tunes a model toward responses people actually prefer. Annotators compare pairs of answers to the same prompt and pick the better one; those comparisons train a reward model that scores any response; then reinforcement learning, classically PPO, adjusts the language model to earn higher scores while a penalty keeps it from drifting too far from its starting point. OpenAI&#x27;s 2022 InstructGPT paper reported that people preferred outputs from a 1.3B-parameter RLHF model over those of the 175B GPT-3. RLHF improves helpfulness and tone but can also reward flattery and confident-sounding answers, so it is often combined with other methods.</p>
+<div class="rel tags"><a class="tag" href="#reward-model">Reward model</a><a class="tag" href="#ppo">Proximal policy optimization (PPO)</a><a class="tag" href="#dpo">Direct preference optimization (DPO)</a><a class="tag" href="glossary-safety-governance.html#alignment">Alignment</a></div>
+</article>
+<article class="term" id="rlvr" data-cat="Training" data-text="reinforcement learning with verifiable rewards (rlvr) rlvr rl with verifiable rewards"><h3>Reinforcement learning with verifiable rewards (RLVR) <span class="aka">RLVR, RL with verifiable rewards</span><a class="anchor" href="#rlvr" aria-label="Link to Reinforcement learning with verifiable rewards (RLVR)">#</a></h3>
+<p class="short">Reinforcement learning where rewards come from automatic checks, such as a correct answer or passing tests.</p>
+<p class="def">Reinforcement learning with verifiable rewards trains a model on tasks where correctness can be checked by a program rather than judged by people or a learned reward model. A math answer either matches the reference or it doesn&#x27;t; generated code either passes the unit tests or fails. The model attempts many such problems, and successful attempts are reinforced, often with algorithms like GRPO. Because the reward is hard to fake, this approach scales well and is a central ingredient in modern reasoning models. Its limit is coverage: open-ended writing, advice and design work lack a clean pass-or-fail check, so they still rely on preference-based methods.</p>
+<div class="rel tags"><a class="tag" href="#grpo">Group relative policy optimization (GRPO)</a><a class="tag" href="glossary-fundamentals.html#reasoning-model">Reasoning model</a><a class="tag" href="#reward-model">Reward model</a><a class="tag" href="#post-training">Post-training</a></div>
+</article>
+<article class="term" id="reward-model" data-cat="Training" data-text="reward model preference model rm"><h3>Reward model <span class="aka">preference model, RM</span><a class="anchor" href="#reward-model" aria-label="Link to Reward model">#</a></h3>
+<p class="short">A model trained to score responses by how much people, or a rubric, would prefer them.</p>
+<p class="def">A reward model takes a prompt and a response and outputs a single number estimating how good the response is. It is usually trained on human comparisons: shown two answers and told which one people preferred, it learns to give the winner a higher score. During RLHF, that score acts as the training signal for the language model. Reward models are imperfect proxies, and a policy optimized hard against one can find loopholes, for example by producing longer or more flattering answers that score well without being better. This problem, called reward hacking, is why training also penalizes drifting far from the original model.</p>
+<div class="rel tags"><a class="tag" href="#rlhf">Reinforcement learning from human feedback (RLHF)</a><a class="tag" href="#ppo">Proximal policy optimization (PPO)</a><a class="tag" href="glossary-safety-governance.html#alignment">Alignment</a><a class="tag" href="glossary-safety-governance.html#sycophancy">Sycophancy</a></div>
+</article>
+<article class="term" id="scaling-laws" data-cat="Training" data-text="scaling laws neural scaling laws chinchilla scaling"><h3>Scaling laws <span class="aka">neural scaling laws, Chinchilla scaling</span><a class="anchor" href="#scaling-laws" aria-label="Link to Scaling laws">#</a></h3>
+<p class="short">Empirical rules that predict how model quality improves as you add parameters, data and compute.</p>
+<p class="def">Scaling laws are empirical relationships showing that a model&#x27;s loss falls smoothly and predictably as you increase parameters, training data and compute. OpenAI researchers described these power laws in 2020. DeepMind&#x27;s 2022 Chinchilla study refined them: for a fixed compute budget, parameters and training tokens should grow together, roughly 20 tokens per parameter, and its 70B Chinchilla trained on 1.4 trillion tokens outperformed the 280B Gopher. In practice, labs now train smaller models far past that ratio because they are cheaper to serve; Meta trained Llama 3 8B on over 15 trillion tokens. More recent work adds another dimension: spending more compute at inference time.</p>
+<div class="rel tags"><a class="tag" href="glossary-fundamentals.html#parameters">Parameters</a><a class="tag" href="#pretraining">Pretraining</a><a class="tag" href="glossary-inference-deployment.html#flops">FLOPs</a><a class="tag" href="glossary-inference-deployment.html#test-time-compute">Test-time compute</a></div>
+</article>
+<article class="term" id="synthetic-data" data-cat="Training" data-text="synthetic data model-generated data"><h3>Synthetic data <span class="aka">model-generated data</span><a class="anchor" href="#synthetic-data" aria-label="Link to Synthetic data">#</a></h3>
+<p class="short">Training or test data generated by a model or program rather than collected from people.</p>
+<p class="def">Synthetic data is text or other data produced by models or scripts and used to train or evaluate other models. Teams generate it to cover gaps, such as rare edge cases, new languages or step-by-step math solutions, when human-written examples are scarce or expensive. Microsoft&#x27;s Phi models showed in 2023 that small models trained heavily on carefully generated, textbook-style material can perform well above their size. The risks are real: generated data can carry the generator&#x27;s errors and biases, lose diversity, and, if recycled carelessly over generations, contribute to model collapse. Filtering, verification and mixing with real data are what make it work.</p>
+<div class="rel tags"><a class="tag" href="#distillation">Distillation</a><a class="tag" href="#model-collapse">Model collapse</a><a class="tag" href="#fine-tuning">Fine-tuning</a><a class="tag" href="glossary-evaluation.html#eval-set">Eval set</a></div>
+</article>
+</div>
+</div>
+<p class="empty" id="gl-empty" hidden>No terms on this page match that filter. Try a shorter word, or filter <a href="glossary.html">all 169 terms</a>.</p>
+<section class="lead-band" aria-labelledby="lead-default-glossary">
+  <div>
+    <h2 id="lead-default-glossary">Building with LLMs? Get a vendor-neutral plan.</h2>
+    <p>Tell us what you&#x27;re building. Within 2 business days you get a model shortlist, an architecture outline and a cost estimate, plus optional introductions to vetted implementation partners.</p>
+    <ul><li>Free and vendor-neutral: no model provider pays for placement.</li>
+<li>Your details go only to partners you agree to.</li>
+</ul>
+  </div>
+  <form class="mini-form" action="hire-llm-experts.html" method="get">
+    <label for="need-default-glossary">What do you need help with?</label>
+    <select id="need-default-glossary" name="need"><option value="choose-model">Choose the right model</option>
+<option value="chatbot">Build a chatbot or assistant</option>
+<option value="rag">Answer questions over our documents (RAG)</option>
+<option value="agents">Automate work with AI agents</option>
+<option value="self-host">Fine-tune or self-host a model</option>
+<option value="cut-costs">Cut our LLM costs</option>
+<option value="security">Security, privacy or compliance review</option>
+<option value="not-sure">Not sure yet</option>
+</select>
+    <input type="hidden" name="from" value="glossary">
+    <button class="btn btn--yellow btn--block" type="submit">Start my free plan</button>
+    <p class="fine">Takes about 2 minutes. No sales calls unless you ask for one.</p>
+  </form>
+</section>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+      <p>The independent field guide to large language models. Model data checked against provider documentation; last full check October 10, 2026.</p>
+    </div>
+    <div><h2>Explore</h2>
+<ul><li><a href="models.html">Model directory</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare models</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="search.html">Search</a></li>
+</ul>
+</div>
+<div><h2>Tools</h2>
+<ul><li><a href="llm-cost-calculator.html">Cost calculator</a></li>
+<li><a href="token-counter.html">Token counter</a></li>
+<li><a href="vram-calculator.html">GPU and VRAM calculator</a></li>
+<li><a href="llm-picker.html">Which LLM should I use?</a></li>
+<li><a href="context-window-visualizer.html">Context window visualizer</a></li>
+<li><a href="prompt-builder.html">Prompt builder</a></li>
+<li><a href="self-host-vs-api-calculator.html">Self-host vs API calculator</a></li>
+</ul>
+</div>
+<div><h2>Learn</h2>
+<ul><li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+</ul>
+</div>
+<div><h2>Work with us</h2>
+<ul><li><a href="hire-llm-experts.html">Get expert help</a></li>
+<li><a href="list-your-product.html">List your product</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</div>
+<div><h2>About</h2>
+<ul><li><a href="about.html">About LLModel</a></li>
+<li><a href="editorial-policy.html">Editorial policy</a></li>
+<li><a href="privacy.html">Privacy policy</a></li>
+<li><a href="terms.html">Terms of use</a></li>
+<li><a href="disclaimer.html">Disclaimer</a></li>
+<li><a href="trademark-copyright.html">Trademark and copyright</a></li>
+<li><a href="sitemap.html">Site map</a></li>
+<li><button class="linklike" type="button" data-privacy-choices>Privacy and cookie choices</button></li>
+</ul>
+</div>
+  </div>
+  <div class="wrap footer-legal">
+    <p>&copy; 2026 LLModel.com. Independent: not affiliated with, endorsed by or sponsored by any model provider. Model and company names are trademarks of their respective owners and are used only to identify products. See <a href="trademark-copyright.html">trademark and copyright</a>.</p>
+    <p>Prices and specifications change often. Always confirm on the provider's own pricing page before you buy.</p>
+  </div>
+</footer>
+<div class="palette" id="palette" hidden role="dialog" aria-modal="true" aria-label="Search LLModel">
+  <div class="palette__box">
+    <label class="visually-hidden" for="palette-input">Search models, tools, guides and terms</label>
+    <input class="palette__input" id="palette-input" type="search" placeholder="Search models, tools, guides, terms" autocomplete="off" spellcheck="false" aria-controls="palette-list">
+    <ul class="palette__list" id="palette-list" role="listbox"></ul>
+    <div class="palette__foot"><span><span class="kbd">&uarr;</span> <span class="kbd">&darr;</span> to move</span><span><span class="kbd">Enter</span> to open</span><span><span class="kbd">Esc</span> to close</span></div>
+  </div>
+</div>
+<script src="assets/js/config.js?v=caa5324cbb"></script>
+
+<script src="assets/js/app.js?v=4b39d7c1bd" defer></script>
+<script src="assets/js/pages/glossary.js?v=a99c13579b" defer></script>
+</body>
+</html>
