@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /thank-you.html
+Disallow: /search.html
+
+Sitemap: https://llmodel.com/sitemap.xml
