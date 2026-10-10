@@ -1,0 +1,232 @@
+{
+  "category": "Evaluation",
+  "updated": "2026-10-10",
+  "terms": [
+    {
+      "slug": "benchmark",
+      "term": "Benchmark",
+      "aka": [
+        "LLM benchmark",
+        "benchmark suite"
+      ],
+      "category": "Evaluation",
+      "short": "A standardized test set and scoring method used to compare models on a specific skill.",
+      "definition": "A benchmark is a fixed collection of tasks with an agreed way of scoring them, so different models can be compared on equal terms. Examples include MMLU for broad knowledge, GPQA for expert science questions, HumanEval for short coding problems and SWE-bench for fixing real software issues. Benchmarks are useful for tracking progress and shortlisting models, but read results critically. Popular tests saturate as top models approach perfect scores, test questions can leak into training data, small changes in prompting or scoring can swing results by several points, and no benchmark exactly matches your workload. Check who ran an evaluation, and with what settings, before comparing numbers.",
+      "related": [
+        "evaluation",
+        "benchmark-contamination",
+        "mmlu",
+        "swe-bench"
+      ]
+    },
+    {
+      "slug": "benchmark-contamination",
+      "term": "Benchmark contamination",
+      "aka": [
+        "data contamination",
+        "test set leakage"
+      ],
+      "category": "Evaluation",
+      "short": "When benchmark questions or answers appear in a model's training data, inflating its scores.",
+      "definition": "Benchmark contamination happens when test items, or close copies of them, end up in a model's training data, so a high score partly reflects memory rather than skill. Because LLMs train on vast web scrapes, and popular benchmarks are discussed and reposted online, some leakage is hard to avoid. Warning signs include near-verbatim recall of test questions and much lower accuracy on freshly written look-alike questions. Defenses include canary strings that let model builders filter benchmark files out of training data, private held-out test sets, and benchmarks such as LiveCodeBench that keep adding problems published after models' training cutoffs. For your own evaluations, keep test data out of anything you fine-tune on.",
+      "related": [
+        "benchmark",
+        "overfitting",
+        "eval-set",
+        "knowledge-cutoff"
+      ]
+    },
+    {
+      "slug": "elo-rating",
+      "term": "Elo rating (arena leaderboards)",
+      "aka": [
+        "arena score",
+        "Elo score"
+      ],
+      "category": "Evaluation",
+      "short": "A rating system from chess, adapted by crowdsourced leaderboards that rank models from head-to-head votes.",
+      "definition": "Elo is a rating system invented for chess in which points flow from loser to winner after each match, more so after an upset. LLM leaderboards borrowed the idea: a user submits a prompt, sees answers from two anonymous models side by side and votes for the better one, and many thousands of such votes produce a ranking. The best-known example launched in 2023 as Chatbot Arena, from UC Berkeley researchers, and now fits a closely related Bradley-Terry model to all votes at once. A 100-point gap implies the higher-rated model wins about 64 percent of votes. Arena ratings capture real preferences but also reward style, formatting and length, and reflect typical public prompts rather than your use case.",
+      "related": [
+        "benchmark",
+        "llm-as-a-judge",
+        "evaluation"
+      ]
+    },
+    {
+      "slug": "eval-set",
+      "term": "Eval set",
+      "aka": [
+        "golden dataset",
+        "evaluation dataset",
+        "test set"
+      ],
+      "category": "Evaluation",
+      "short": "A curated set of test inputs, with expected outputs or grading criteria, used to measure an LLM application.",
+      "definition": "An eval set, sometimes called a golden dataset, is the collection of examples you score every model, prompt or pipeline change against. Good sets mirror real traffic: common requests, known hard cases, past failures, adversarial inputs and cases where the right answer is to decline. Each item pairs an input with a reference answer or a grading rubric. A few dozen well-chosen examples catch obvious regressions, while a few hundred give enough statistical confidence to compare close alternatives. Version the set, add every production failure you fix, and never reuse it for fine-tuning or as few-shot examples, or your scores will stop meaning anything.",
+      "related": [
+        "evaluation",
+        "llm-as-a-judge",
+        "benchmark-contamination"
+      ]
+    },
+    {
+      "slug": "evaluation",
+      "term": "Evaluation (evals)",
+      "aka": [
+        "evals",
+        "LLM evaluation",
+        "model evaluation"
+      ],
+      "category": "Evaluation",
+      "short": "Systematically measuring how well a model or LLM application performs on the tasks you care about.",
+      "definition": "Evaluation, often shortened to evals, is how you find out whether a model, prompt or pipeline change actually made things better. A practical eval has three parts: representative inputs, a way to score outputs, and a threshold or comparison that drives a decision. Scoring can use exact checks, such as whether the JSON parses or the code passes its tests, similarity to a reference answer, an LLM judge applying a rubric, or human review for subtle cases. Run offline evals before every change, and add online signals such as user ratings, task completion and escalation rates once you are in production. Public benchmarks help you shortlist models but don't replace testing on your own data.",
+      "related": [
+        "eval-set",
+        "benchmark",
+        "llm-as-a-judge",
+        "red-teaming"
+      ]
+    },
+    {
+      "slug": "gpqa",
+      "term": "GPQA",
+      "aka": [
+        "GPQA Diamond",
+        "Graduate-Level Google-Proof Q&A"
+      ],
+      "category": "Evaluation",
+      "short": "A hard multiple-choice science benchmark written by PhD-level experts and designed to resist web search.",
+      "definition": "GPQA, short for Graduate-Level Google-Proof Q&A, was published in November 2023. Its 448 multiple-choice questions in biology, physics and chemistry were written and validated by domain experts. In the original study, people with or pursuing PhDs in the relevant field scored about 65 percent, while skilled non-experts reached only 34 percent despite unrestricted web access, which is what Google-proof means. Most model reports cite GPQA Diamond, a 198-question subset where expert validators answered correctly and most non-experts did not. Leading models have since passed the expert baseline, so it separates top models less than it once did, but it remains a common test of scientific reasoning.",
+      "related": [
+        "benchmark",
+        "mmlu",
+        "reasoning-model"
+      ]
+    },
+    {
+      "slug": "humaneval",
+      "term": "HumanEval",
+      "aka": [],
+      "category": "Evaluation",
+      "short": "An OpenAI coding benchmark of 164 Python problems, each checked by running unit tests.",
+      "definition": "HumanEval was introduced in OpenAI's 2021 paper on Codex, the model behind the original GitHub Copilot. It contains 164 hand-written Python programming problems; each provides a function signature and a docstring describing the task, and the model's completion is run against unit tests it never sees. Results are reported as pass@k, a metric the paper popularized. HumanEval's lasting contribution was making code evaluation execution-based instead of relying on text similarity. Today it is largely saturated, with leading models solving nearly every problem, and its short, self-contained functions look little like real software work. Benchmarks built from actual repositories, such as SWE-bench, are now more informative.",
+      "related": [
+        "pass-at-k",
+        "swe-bench",
+        "benchmark"
+      ]
+    },
+    {
+      "slug": "llm-as-a-judge",
+      "term": "LLM-as-a-judge",
+      "aka": [
+        "LLM judge",
+        "model-graded evaluation",
+        "AI judge"
+      ],
+      "category": "Evaluation",
+      "short": "Using a language model to grade or compare other models' outputs against a rubric.",
+      "definition": "LLM-as-a-judge uses a capable model to score outputs, either rating one answer against a rubric or picking the better of two. It is far cheaper and faster than human review, which makes large-scale evaluation of open-ended work such as summaries, support replies and essays practical. A 2023 study that introduced the MT-Bench benchmark found that strong judges agreed with human preferences over 80 percent of the time, about as often as humans agree with each other. Judges have known biases: favoring the first answer shown, preferring longer answers and rating their own model family more highly. Swap answer order, write specific rubrics and check a sample of judgments against human labels before trusting the scores.",
+      "related": [
+        "evaluation",
+        "eval-set",
+        "elo-rating"
+      ]
+    },
+    {
+      "slug": "lost-in-the-middle",
+      "term": "Lost in the middle",
+      "aka": [],
+      "category": "Evaluation",
+      "short": "The tendency of models to use information at the start or end of a long input better than the middle.",
+      "definition": "Lost in the middle names a finding from a 2023 study led by Stanford researchers: when the passage needed to answer a question sat in the middle of a long input, accuracy dropped noticeably compared with placing it near the beginning or end, producing a U-shaped curve. The experiments covered multi-document question answering and key-value lookup. Long-context models have improved since, but where and how information is placed still affects results, especially in cluttered inputs. Practical responses include retrieving fewer but better passages, putting the most relevant material and key instructions near the start or end, and restating the question after long documents.",
+      "related": [
+        "long-context",
+        "needle-in-a-haystack",
+        "context-engineering",
+        "rag"
+      ]
+    },
+    {
+      "slug": "mmlu",
+      "term": "MMLU",
+      "aka": [
+        "Massive Multitask Language Understanding"
+      ],
+      "category": "Evaluation",
+      "short": "A widely cited multiple-choice benchmark covering 57 subjects, from math and law to medicine.",
+      "definition": "MMLU, released in 2020 by Dan Hendrycks and colleagues, tests a model with roughly 16,000 four-option multiple-choice questions across 57 subjects, including elementary math, US history, computer science, law and medicine, at levels from high school to professional. For several years it was the headline number in model announcements. Frontier models now score around 90 percent or more, close to the practical ceiling, since audits have found errors in a share of its questions, so it no longer separates top models well. Harder successors such as MMLU-Pro, which uses ten answer options and more reasoning-heavy questions, have taken over much of that role. Treat MMLU as a basic knowledge check, not a ranking tool.",
+      "related": [
+        "benchmark",
+        "gpqa",
+        "benchmark-contamination"
+      ]
+    },
+    {
+      "slug": "needle-in-a-haystack",
+      "term": "Needle in a haystack",
+      "aka": [
+        "NIAH",
+        "needle test"
+      ],
+      "category": "Evaluation",
+      "short": "A long-context test that hides one fact in a long document and asks the model to find it.",
+      "definition": "The needle-in-a-haystack test, popularized in late 2023, places a single out-of-place sentence, the needle, at different depths within long filler text, the haystack, and asks the model to retrieve it. Results are drawn as a grid of context length against needle position, so weak spots stand out. It quickly became a standard check on whether a model can actually use the context window it advertises. Most frontier models now pass simple versions almost perfectly, which exposes the test's limits: finding one literal match is far easier than connecting several facts or reasoning over a whole input. Harder suites such as NVIDIA's RULER add multiple needles, tracing and aggregation tasks.",
+      "related": [
+        "long-context",
+        "lost-in-the-middle",
+        "context-window",
+        "benchmark"
+      ]
+    },
+    {
+      "slug": "pass-at-k",
+      "term": "pass@k",
+      "aka": [
+        "pass at k",
+        "pass@1"
+      ],
+      "category": "Evaluation",
+      "short": "The probability that at least one of k generated attempts at a problem is correct.",
+      "definition": "pass@k measures how often at least one of k sampled solutions to a problem passes its tests, and it is the standard metric for coding benchmarks. pass@1 reflects single-attempt reliability, while pass@10 tells you what to expect if you can generate ten attempts and check them automatically. The gap can be large. If a model solves a problem 30 percent of the time per independent attempt, pass@1 is 0.30 but pass@5 is about 0.83, because 1 minus 0.7 to the fifth power is roughly 0.83. To reduce noise, evaluators usually draw more than k samples and use an unbiased estimator. When comparing models, make sure the k and sampling settings match.",
+      "related": [
+        "humaneval",
+        "swe-bench",
+        "self-consistency",
+        "benchmark"
+      ]
+    },
+    {
+      "slug": "perplexity",
+      "term": "Perplexity",
+      "aka": [
+        "PPL"
+      ],
+      "category": "Evaluation",
+      "short": "A measure of how well a model predicts text; lower means the model is less surprised.",
+      "definition": "Perplexity measures how well a language model predicts a sample of text. Formally, it is the exponential of the average cross-entropy loss per token. Intuitively, a perplexity of 10 means the model is, on average, as uncertain as if it were choosing among 10 equally likely tokens at each step, so lower is better. It is cheap to compute and useful for tracking pretraining, comparing a quantized model against its original, and spotting text that is unusual for a model. Perplexity is only comparable between models that share a tokenizer and are scored on the same text, and it says little about helpfulness or reasoning. It is unrelated to the AI search company of the same name.",
+      "related": [
+        "cross-entropy-loss",
+        "quantization",
+        "logprobs",
+        "evaluation"
+      ]
+    },
+    {
+      "slug": "swe-bench",
+      "term": "SWE-bench",
+      "aka": [
+        "SWE-bench Verified"
+      ],
+      "category": "Evaluation",
+      "short": "A benchmark that tests whether a model or agent can resolve real GitHub issues in Python projects.",
+      "definition": "SWE-bench, published by Princeton researchers in 2023, contains 2,294 tasks drawn from real GitHub issues and the pull requests that resolved them, across 12 popular Python repositories. The system under test gets the codebase and the issue text and must produce a patch, which counts only if the project's tests, including those added by the original fix, pass. In August 2024, OpenAI released SWE-bench Verified, a 500-task subset that experienced Python developers screened to remove unclear issues and unfair tests. It became a headline measure for coding agents. Scores depend heavily on the agent scaffold around the model, so compare like with like, and remember that public repositories carry contamination risk.",
+      "related": [
+        "benchmark",
+        "humaneval",
+        "ai-agent",
+        "benchmark-contamination"
+      ]
+    }
+  ]
+}
