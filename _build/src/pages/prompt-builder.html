@@ -1,0 +1,84 @@
+<!--meta
+{
+  "slug": "prompt-builder",
+  "title": "Prompt Builder: Create Structured Prompts for ChatGPT, Claude and Gemini",
+  "h1": "Prompt builder",
+  "lede": "Fill in what you know: the task, the context, the format you want back. The builder assembles a clear, structured prompt that works across models. Copy it, download it or count its tokens.",
+  "head_meta": ["Works with any chat model", "Nothing you type leaves your browser"],
+  "description": "Free prompt builder for LLMs: combine role, task, context, examples, output format, tone and constraints into a structured prompt for ChatGPT, Claude, Gemini or open models.",
+  "section": "tools",
+  "crumbs": [["Home", "index.html"], ["Tools", "tools.html"], ["Prompt builder", null]],
+  "scripts": ["tools/prompt.js"],
+  "priority": 0.8,
+  "faq": [
+    {"q": "Why use tags like <task> and <context> in a prompt?", "a": "Clear delimiters separate your instructions from the material the model should work on. That reduces confusion, makes long prompts easier to maintain, and lowers the risk that text inside a document is mistaken for an instruction. Most current models handle XML-style tags well."},
+    {"q": "Should I tell the model to think step by step?", "a": "For standard chat models, asking for step-by-step reasoning can improve answers to multi-step problems. Reasoning models already think before they answer, so providers generally advise against prescribing the steps; ask for the final answer and its format instead."},
+    {"q": "What makes a prompt good?", "a": "A specific task, the context a smart newcomer would need, an example or two of a good answer, and an explicit format. Most weak prompts fail because they leave out context the writer took for granted."}
+  ]
+}
+-->
+<div class="wrap">
+  <div class="tool">
+    <form class="tool__in" id="pb-form" onsubmit="return false">
+      <div class="field"><label for="pb-tpl">Start from</label>
+        <select class="select" id="pb-tpl">
+          <option value="blank">A blank prompt</option>
+          <option value="summary">Summarize a document</option>
+          <option value="extract">Extract data to JSON</option>
+          <option value="review">Review code</option>
+          <option value="reply">Reply to a customer</option>
+          <option value="product">Write a product description</option>
+          <option value="actions">Turn meeting notes into actions</option>
+        </select></div>
+      <div class="field"><label for="pb-role">Role <span class="muted">(optional)</span></label><input class="input" id="pb-role" placeholder="e.g. an experienced technical editor"></div>
+      <div class="field"><label for="pb-task">Task<span class="req" aria-hidden="true">*</span></label><textarea class="textarea" id="pb-task" rows="3" placeholder="What should the model do? Be specific."></textarea></div>
+      <div class="field"><label for="pb-context">Context <span class="muted">(why, for whom, what good looks like)</span></label><textarea class="textarea" id="pb-context" rows="3"></textarea></div>
+      <div class="field"><label for="pb-input">Input material <span class="muted">(document, data, code)</span></label><textarea class="textarea" id="pb-input" rows="3"></textarea></div>
+      <div class="form-row">
+        <div class="field"><label for="pb-format">Output format</label>
+          <select class="select" id="pb-format"><option>Paragraphs</option><option>Bullet points</option><option>Numbered steps</option><option>A table</option><option>JSON</option><option>An email</option><option>Code</option></select></div>
+        <div class="field"><label for="pb-length">Length</label>
+          <select class="select" id="pb-length"><option value="">No limit</option><option>Under 100 words</option><option>100 to 300 words</option><option>300 to 800 words</option></select></div>
+      </div>
+      <div class="field" id="pb-schema-wrap" hidden><label for="pb-schema">JSON fields <span class="muted">(one per line: name: description)</span></label><textarea class="textarea" id="pb-schema" rows="3"></textarea></div>
+      <div class="form-row">
+        <div class="field"><label for="pb-tone">Tone</label>
+          <select class="select" id="pb-tone"><option value="">Neutral</option><option>Friendly</option><option>Formal</option><option>Plain English</option><option>Technical</option><option>Persuasive</option></select></div>
+        <div class="field"><label for="pb-reason">Reasoning</label>
+          <select class="select" id="pb-reason"><option value="">No instruction</option><option value="steps">Work step by step first</option><option value="final">Final answer only (reasoning models)</option></select></div>
+      </div>
+      <div class="field"><label for="pb-rules">Rules <span class="muted">(one per line)</span></label><textarea class="textarea" id="pb-rules" rows="3" placeholder="Don't invent facts that aren't in the input.&#10;Use US spelling."></textarea></div>
+      <div class="field"><label for="pb-examples">Example of a good answer <span class="muted">(optional)</span></label><textarea class="textarea" id="pb-examples" rows="2"></textarea></div>
+      <label class="check"><input type="checkbox" id="pb-unsure" checked> Tell the model to say when it isn't sure</label>
+      <label class="check"><input type="checkbox" id="pb-check"> Ask it to check its answer against the rules before replying</label>
+    </form>
+    <div class="tool__out">
+      <div class="section-head" style="margin-bottom:.6rem"><h2 class="h3">Your prompt</h2><span class="small muted" id="pb-count" aria-live="polite"></span></div>
+      <output class="prompt-out" id="pb-out" for="pb-form"></output>
+      <div class="tool-actions">
+        <button type="button" class="btn btn--primary btn--sm" data-copy-target="pb-out">Copy prompt</button>
+        <button type="button" class="btn btn--ghost btn--sm" id="pb-dl">Download .txt</button>
+        <button type="button" class="btn btn--ghost btn--sm" id="pb-tc">Count tokens</button>
+        <button type="button" class="btn btn--ghost btn--sm" id="pb-reset">Reset</button>
+      </div>
+      <p class="small muted" style="margin-top:1rem">Want ready-made prompts? Browse the <a href="prompts.html">prompt library</a>.</p>
+    </div>
+  </div>
+  {{ad:tool-result}}
+</div>
+
+<section class="section" aria-labelledby="anat-h">
+  <div class="wrap wrap--read prose">
+    <h2 id="anat-h">The anatomy of a strong prompt</h2>
+    <p>Most weak prompts fail for the same reason: the writer knows things the model doesn't. The builder walks you through the parts that close that gap.</p>
+    <ul>
+      <li><strong>Task.</strong> One clear instruction with a verb: summarize, extract, rewrite, review, decide.</li>
+      <li><strong>Context.</strong> Who it's for, why it matters, what you'll do with the answer and what a great result looks like.</li>
+      <li><strong>Input.</strong> The material to work on, fenced off with tags so it can't be confused with instructions.</li>
+      <li><strong>Format.</strong> The exact shape you want back. For anything a program will read, ask for JSON with named fields.</li>
+      <li><strong>Rules and an example.</strong> Constraints the model can check itself against, and one good answer to imitate.</li>
+    </ul>
+    <p>Then test it: run the prompt on five real inputs, note where it goes wrong, and add a rule or example for each failure. Our <a href="prompt-engineering-guide.html">prompt engineering guide</a> covers techniques, reasoning models and versioning.</p>
+  </div>
+</section>
+<div class="wrap">{{lead:build}}</div>
