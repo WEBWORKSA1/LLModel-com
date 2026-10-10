@@ -2,7 +2,7 @@
 
 A verified directory of 55 LLMs from 17 providers, 12 head-to-head comparisons, 10 use-case shortlists, a tunable value index, 7 browser-based tools, 14 in-depth guides, a 169-term glossary, 26 curated videos, a 60-prompt library, 109 resources and a 65-event timeline. Monetized with Google AdSense, a scored B2B lead funnel, paid listings and sponsorships, reader support, contests and a newsletter.
 
-**Live:** https://webworksa1.github.io/LLModel-com/ (GitHub Pages, free plan, served from the `gh-pages` branch). Canonical URLs point to https://llmodel.com once the domain is connected.
+**Live:** https://webworksa1.github.io/LLModel-com/ (GitHub Pages, free plan). Canonical URLs point to https://llmodel.com once the domain is connected.
 
 ## What's inside
 
@@ -49,13 +49,13 @@ pip install playwright pillow && python3 -m playwright install chromium
 python3 _build/images/render.py --ci  # optional: redraw the social image and icons
 ```
 
-Commit sources and built files to `main`, then bring `gh-pages` up to date with `main` (GitHub > Pull requests > New, base `gh-pages`, compare `main`, merge), or switch Settings > Pages to deploy from `main` / root.
+Commit sources and built files to `main`. With GitHub Pages deploying from `main` / root, every push publishes the site.
 
 ## Go-live checklist
 
-1. **Pages:** Settings > Pages should show the `gh-pages` branch as the source. If it shows "None", select `gh-pages` / root and save.
-2. **Images (1 minute):** upload `og-image.png`, `favicon-32.png`, `apple-touch-icon.png`, `icon-192.png` and `icon-512.png` into `assets/img/` on `main` and `gh-pages` (GitHub > Add file > Upload files). They were delivered with the build, and `python3 _build/images/render.py --ci` redraws them. The SVG favicon already works without them.
-3. **Custom domain LLModel.com:** at your registrar add A records `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153` (AAAA `2606:50c0:8000::153` to `2606:50c0:8003::153`) and a `www` CNAME to `webworksa1.github.io`. Then set `"custom_domain": "llmodel.com"` in `_build/site.json`, rebuild and push (a `CNAME` file is written), and tick **Enforce HTTPS** in Settings > Pages.
+1. **Pages (1 minute):** Settings > Pages > Build and deployment: Source "Deploy from a branch", Branch `main`, folder `/ (root)`, Save. The site is live at https://webworksa1.github.io/LLModel-com/ a minute or two later. A `gh-pages` branch with the same files also exists; once `main` is the source you can delete it.
+2. **Images (1 minute):** upload `og-image.png`, `favicon-32.png`, `apple-touch-icon.png`, `icon-192.png` and `icon-512.png` into `assets/img/` on `main` (open `assets/img`, then Add file > Upload files). They were delivered with the build, and `python3 _build/images/render.py --ci` redraws them. The SVG favicon already works without them.
+3. **Custom domain LLModel.com:** at your registrar add A records `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153` (AAAA `2606:50c0:8000::153` to `2606:50c0:8003::153`) and a `www` CNAME to `webworksa1.github.io`. Then enter `llmodel.com` under Settings > Pages > Custom domain and tick **Enforce HTTPS** once the certificate is issued. GitHub commits a `CNAME` file; also set `"custom_domain": "llmodel.com"` in `_build/site.json` so local rebuilds keep it. Canonical URLs and the sitemap already use llmodel.com.
 4. **Forms (2 minutes):** submit any form on the live site once. FormSubmit emails the site inbox an activation link; click **Activate**. Optional: paste the random-string alias FormSubmit sends into `formAlias` in `assets/js/config.js`, which removes even the obfuscated routing.
 5. **AdSense:** add llmodel.com in AdSense (the account meta tag and loader are on every content page; `ads.txt` is at the root), enable Auto ads, and turn on Google's consent message for the EEA, UK and Switzerland under Privacy & messaging. For fixed units, paste slot ids into `SITE.adsense.slots` in `config.js`; until then those spots show house promos.
 6. **Search Console:** verify the domain and submit `https://llmodel.com/sitemap.xml`.
