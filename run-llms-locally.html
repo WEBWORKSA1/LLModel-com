@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to Run LLMs Locally in 2026: Hardware, Tools and Models | LLModel.com</title>
+<meta name="description" content="Run LLMs locally: how much VRAM or RAM you need, GGUF vs AWQ vs MLX quantization, Ollama vs LM Studio vs llama.cpp, and models that fit your hardware.">
+<link rel="canonical" href="https://llmodel.com/run-llms-locally.html">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="google-adsense-account" content="ca-pub-6620975821265271">
+<meta name="theme-color" content="#f4f6fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12101e" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="LLModel.com">
+<meta property="og:title" content="How to Run LLMs Locally in 2026: Hardware, Tools and Models">
+<meta property="og:description" content="Run LLMs locally: how much VRAM or RAM you need, GGUF vs AWQ vs MLX quantization, Ollama vs LM Studio vs llama.cpp, and models that fit your hardware.">
+<meta property="og:url" content="https://llmodel.com/run-llms-locally.html">
+<meta property="og:image" content="https://llmodel.com/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="LLModel: the independent field guide to large language models">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="alternate" type="text/plain" href="llms.txt" title="llms.txt">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Martian+Mono:wght@400..500&family=Newsreader:ital,opsz,wght@0,6..72,400..650;1,6..72,400&display=swap">
+<link rel="stylesheet" href="assets/css/style.css?v=dae4813595">
+<script>(function(){var d=document.documentElement,t=null;try{t=localStorage.getItem('llm-theme')}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}d.setAttribute('data-theme',t)})();</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6620975821265271" crossorigin="anonymous"></script>
+<script type="application/ld+json">{
+ "@type": "Organization",
+ "@id": "https://llmodel.com/#org",
+ "name": "LLModel.com",
+ "url": "https://llmodel.com/",
+ "logo": "https://llmodel.com/assets/img/icon-512.png",
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://llmodel.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Guides",
+   "item": "https://llmodel.com/guides.html"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "How to run LLMs locally"
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "Article",
+ "headline": "How to Run LLMs Locally in 2026: Hardware, Tools and Models",
+ "description": "Run LLMs locally: how much VRAM or RAM you need, GGUF vs AWQ vs MLX quantization, Ollama vs LM Studio vs llama.cpp, and models that fit your hardware.",
+ "datePublished": "2026-10-10",
+ "dateModified": "2026-10-10",
+ "inLanguage": "en",
+ "mainEntityOfPage": "https://llmodel.com/run-llms-locally.html",
+ "image": "https://llmodel.com/assets/img/og-image.png",
+ "author": {
+  "@type": "Organization",
+  "name": "LLModel editorial team",
+  "url": "https://llmodel.com/about.html"
+ },
+ "publisher": {
+  "@id": "https://llmodel.com/#org"
+ },
+ "keywords": "run llm locally, local llm, ollama tutorial, how much vram for llm, gguf vs awq vs gptq, best local llm 2026",
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "How much memory do I need to run an LLM locally?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Multiply the parameter count in billions by about 0.6 GB for 4-bit quantization, 1 GB for 8-bit or 2 GB for 16-bit. Add 10-20 percent for runtime buffers, plus memory for the KV cache, which grows with context length. An 8B model at 4-bit runs comfortably in 8 GB, while a 27B model at 4-bit needs roughly 20 GB once a moderate context is included."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Should I use Ollama or LM Studio?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Pick Ollama if you want a lightweight background service with a simple command line and an API that scripts and other apps can call. Pick LM Studio if you prefer browsing, downloading and comparing models in a graphical app. Both run GGUF models, both can use Apple's MLX on Macs, and both expose OpenAI-compatible endpoints, so switching later rarely requires code changes."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Can I run a local LLM without a GPU?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes. llama.cpp and the tools built on it run on ordinary CPUs, and models in the 1B to 9B range are usable on a modern laptop. Expect single-digit to low double-digit tokens per second for small 4-bit models, because desktop memory bandwidth is far lower than GPU bandwidth. Mixture-of-experts models with few active parameters are the best fit for CPU-only machines."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is the best local LLM right now?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "It depends on your memory. As of October 2026, strong picks include Gemma 4 E2B or Qwen3.5 4B for 8 GB machines, gpt-oss-20b for 16 GB, Qwen3.6-27B, Qwen3.8-27B or Gemma 4 31B for 24 GB GPUs, and gpt-oss-120b or Qwen3.5-122B-A10B for 96-128 GB Macs and workstations. Test two or three candidates on your own prompts before settling on one."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Is a local LLM completely private?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The model runs on your hardware, so prompts never need to leave the machine. Privacy still depends on the surrounding software. Some desktop apps can route requests to cloud-hosted models, send telemetry or sync chats, and a local server exposed to your network without authentication can be reached by others. Check model tags, app settings and network bindings before handling sensitive data."
+   }
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+
+</head>
+<body class="page-run-llms-locally">
+<a class="skip" href="#main">Skip to content</a>
+<div class="partner-bar"><a href="https://web.works/contact" target="_blank" rel="noopener"><span>Contact, if you are interested in this website / domain name / sponsorship / advertisement / partnership</span></a></div>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+    <nav class="nav" aria-label="Main"><a href="models.html">Models</a><a href="compare.html">Compare</a><a href="leaderboard.html">Rankings</a><a href="tools.html">Tools</a><a href="guides.html" aria-current="page">Learn</a><a href="videos.html">Videos</a></nav>
+    <div class="header-actions">
+      <button class="search-btn" type="button" data-open-search aria-label="Search the site"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="search-label">Search</span><span class="kbd" aria-hidden="true">/</span></button>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><svg class="theme-icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="theme-icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+      <a class="btn btn--primary btn--sm header-cta" href="hire-llm-experts.html">Get expert help</a>
+      <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile">
+    <ul><li><a href="models.html">Models</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="tools.html">Tools</a></li>
+<li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="contact.html">Contact</a></li>
+<li class="mobile-cta"><a class="btn btn--primary btn--block" href="hire-llm-experts.html">Get expert help</a></li>
+</ul>
+  </nav>
+</header>
+<main id="main">
+<nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li>
+<li><a href="guides.html">Guides</a></li>
+<li aria-current="page">How to run LLMs locally</li>
+</ol>
+</nav>
+<div class="read-progress" id="read-progress" aria-hidden="true"></div>
+<header class="page-head wrap"><h1>How to run LLMs locally</h1><p class="lede">A practical guide to running open-weight language models on your own computer, from memory math and quantization formats to tools and model picks. It includes an Ollama quick start, hardware tiers as of October 2026, performance tips and fixes for common errors.</p>
+<div class="page-meta"><span>Running &amp; deploying</span><span>Intermediate</span><span>11 min read</span><span>Updated October 10, 2026</span></div>
+</header>
+<div class="wrap article">
+  <nav class="article__toc toc" aria-label="On this page"><p class="toc-title">On this page</p>
+<ol><li><a href="#why-run-llms-locally">Why run an LLM locally</a></li>
+<li><a href="#hardware-basics">Hardware basics: memory decides what you can run</a></li>
+<li><a href="#quantization-formats">Quantization formats and quality trade-offs</a></li>
+<li><a href="#local-llm-tools-compared">Local LLM tools compared</a></li>
+<li><a href="#quick-start-with-ollama">Quick start with Ollama</a></li>
+<li><a href="#models-by-hardware-tier">Which open models fit your hardware</a></li>
+<li><a href="#performance-tips">Performance tips</a></li>
+<li><a href="#troubleshooting">Troubleshooting common problems</a></li>
+<li><a href="#common-mistakes">Common mistakes</a></li>
+<li><a href="#next-steps">Next steps</a></li>
+</ol>
+</nav>
+  <article class="prose" id="article">
+    <div class="takeaways"><h2>Key takeaways</h2>
+<ul><li>Memory decides what you can run: plan on about 2 GB per billion parameters at 16-bit, 1 GB at 8-bit and 0.6 GB at 4-bit, plus room for the KV cache.</li>
+<li>The KV cache grows linearly with context length and can outweigh a small model&#x27;s weights at 128K tokens.</li>
+<li>4-bit quantization (GGUF Q4_K_M or 4-bit MLX) is the practical default; move up to 5-8 bits when you have spare memory and need precision.</li>
+<li>Ollama and LM Studio are the easiest starting points, llama.cpp gives the most control, vLLM serves many users, and MLX is the native path on Apple Silicon.</li>
+<li>As of October 2026, Gemma 4, the Qwen3.5 to Qwen3.8 releases, gpt-oss and Mistral Small 4 cover hardware from 8 GB laptops to 128 GB Macs.</li>
+</ul>
+</div>
+    <p>Running a language model on your own computer takes minutes once you know three things: how much memory the model needs, which file format to download and which tool will serve it. This guide covers the memory math, the main quantization formats, eight popular tools, a working Ollama setup and the open models that fit common hardware as of October 2026.</p>
+
+<h2 id="why-run-llms-locally">Why run an LLM locally</h2>
+<p>Local inference means the weights sit on your disk and every token is computed on your own CPU or GPU. Four reasons push people to do it.</p>
+<ul>
+<li><strong>Privacy.</strong> Prompts, documents and outputs never have to leave the machine, which simplifies work with client files, unreleased code or regulated data. Treat it as one control among many, not a compliance guarantee.</li>
+<li><strong>Cost.</strong> There are no per-token fees. Once you own the hardware, the marginal cost is electricity, which favors heavy, steady workloads such as bulk tagging or an all-day coding assistant.</li>
+<li><strong>Offline use.</strong> A local model works on a plane, inside an air-gapped network and during a provider outage, with no rate limits.</li>
+<li><strong>Control.</strong> You choose the exact model version, sampling settings and system prompt, and nothing gets retired unless you retire it. You can also fine-tune and run your own variants.</li>
+</ul>
+<p>The trade-offs are real. The best <a href="glossary-fundamentals.html#open-weights">open-weight</a> models that fit on a desktop still trail the top hosted models on hard reasoning and long agentic tasks, and you become the operator responsible for updates and security.</p>
+
+<h2 id="hardware-basics">Hardware basics: memory decides what you can run</h2>
+<h3 id="vram-ram-unified-memory">VRAM, system RAM and unified memory</h3>
+<p>A model runs fastest when its weights and working memory fit entirely in GPU memory, or <a href="glossary-inference-deployment.html#vram">VRAM</a>. Generating each token requires reading every active weight once, so speed is mostly limited by memory bandwidth. A GPU with about 1 TB/s of bandwidth holding a 16 GB model tops out near 60 tokens per second in theory (1,000 / 16), and real results land somewhat lower.</p>
+<p>System RAM works too, but desktop memory delivers well under 100 GB/s, so CPU-only inference is several times slower. When a model slightly exceeds VRAM, llama.cpp-based tools split it between GPU and CPU, and speed drops as more layers move to the CPU.</p>
+<p>Apple Silicon Macs use unified memory shared by the CPU and GPU, with bandwidth from roughly 100 GB/s on base chips to several hundred GB/s on Max and Ultra chips. A 64 GB or 128 GB Mac can load models no single consumer graphics card can hold. By default macOS lets the GPU use only part of that pool, commonly around two-thirds to three-quarters, so budget accordingly.</p>
+<p>This is why <a href="glossary-architecture.html#mixture-of-experts">mixture-of-experts</a> (MoE) models are popular locally. Qwen3.6-35B-A3B stores 35 billion parameters but activates about 3 billion per token, so it needs the memory of a 35B model while generating at speeds closer to a small one.</p>
+
+<h3 id="memory-rule-of-thumb">A rule of thumb for weight memory</h3>
+<p>Weight memory is parameters times bytes per parameter. Quantized files carry a little extra for scaling factors, so 4-bit models work out to about 0.55-0.6 GB per billion parameters.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Precision</th><th>Per 1B parameters</th><th>8B model</th><th>27B model</th><th>70B model</th></tr>
+</thead>
+<tbody>
+<tr><td>16-bit (FP16, BF16)</td><td>~2 GB</td><td>~16 GB</td><td>~54 GB</td><td>~140 GB</td></tr>
+<tr><td>8-bit (Q8_0, FP8)</td><td>~1 GB</td><td>~8 GB</td><td>~27 GB</td><td>~70 GB</td></tr>
+<tr><td>4-bit (Q4_K_M, AWQ, MLX 4-bit)</td><td>~0.6 GB</td><td>~5 GB</td><td>~16 GB</td><td>~42 GB</td></tr>
+</tbody>
+</table>
+</div>
+<p>Then add 10-20 percent for runtime buffers, the KV cache for your context length and 1-2 GB of headroom if the same GPU drives your displays. Ollama's default build of Qwen3.6 27B, for example, is a 17 GB download, which makes it a natural fit for a 24 GB card.</p>
+
+<h3 id="kv-cache-grows-with-context">The KV cache grows with context</h3>
+<p>During generation the model stores attention keys and values for every token in the conversation. This <a href="glossary-inference-deployment.html#kv-cache">KV cache</a> grows linearly with context length and with the number of parallel requests.</p>
+<pre><code>KV cache bytes = 2 x layers x KV heads x head size x bytes per value x tokens</code></pre>
+<p>Llama 3.1 8B has 32 layers, 8 key-value heads and a head size of 128. At 16-bit precision that is 2 x 32 x 8 x 128 x 2 = 131,072 bytes, or 128 KiB per token. An 8K context needs 1 GiB, 32K needs 4 GiB and the full 128K needs 16 GiB, more than three times the 4-bit weights.</p>
+<p>Newer designs that mix linear-attention layers with full attention, such as the Qwen3.5 and Qwen3.6 families, need much less per token. The <a href="vram-calculator.html">VRAM calculator</a> runs this arithmetic for specific models.</p>
+
+<aside class="ad-slot" data-ad="in-article" aria-label="Sponsored message"><span class="ad-label">From LLModel</span><div class="ad-fill"><div class="house"><div><strong>Selling to LLM builders?</strong><span>List your model, API or tool where teams compare their options.</span></div>
+<a class="btn btn--ghost btn--sm" href="list-your-product.html">See listing options</a></div>
+</div>
+</aside>
+<h2 id="quantization-formats">Quantization formats and quality trade-offs</h2>
+<p><a href="glossary-inference-deployment.html#quantization">Quantization</a> stores weights in fewer bits. Going from 16-bit to 4-bit cuts weight memory by roughly 70 percent, and for most chat, writing and coding work the quality loss at 4 bits is small. Losses grow quickly below 4 bits and hit small models harder than large ones.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Format</th><th>How it works</th><th>Where it runs</th><th>Best for</th></tr>
+</thead>
+<tbody>
+<tr><td><a href="glossary-inference-deployment.html#gguf">GGUF</a></td><td>Single file from the ggml project bundling quantized weights with tokenizer and chat-template metadata; levels from about 1.5 to 8 bits (Q4_K_M, Q5_K_M, Q8_0)</td><td>CPUs plus NVIDIA, AMD, Intel and Apple GPUs; supports CPU+GPU splits</td><td>Desktop use in llama.cpp, Ollama, LM Studio, Jan and GPT4All</td></tr>
+<tr><td>GPTQ</td><td>Post-training method that quantizes one layer at a time, using a small calibration set to compensate for the error it introduces</td><td>GPUs</td><td>GPU serving with vLLM or Hugging Face Transformers</td></tr>
+<tr><td>AWQ</td><td>Activation-aware method that protects the small share of weights that matter most, usually at 4 bits</td><td>GPUs</td><td>Fast 4-bit serving in vLLM</td></tr>
+<tr><td>MLX</td><td>Apple's array framework and weight format, usually 4-bit or 8-bit, widely published by the mlx-community organization on Hugging Face</td><td>Apple Silicon only</td><td>Native-speed inference and LoRA fine-tuning on Macs</td></tr>
+<tr><td>FP8</td><td>8-bit floating-point weights, often with 8-bit activations, accelerated in hardware</td><td>Recent data-center and workstation GPUs (NVIDIA Ada, Hopper and newer; AMD MI300 class)</td><td>Near-lossless production serving at half the memory of 16-bit</td></tr>
+</tbody>
+</table>
+</div>
+<p>Practical defaults:</p>
+<ul>
+<li>Start with Q4_K_M in GGUF or 4-bit MLX. Step up to Q5_K_M, Q6_K or Q8_0 when memory allows and the task punishes small errors, such as code, math, structured extraction or less common languages.</li>
+<li>A common rule of thumb holds down to about 4 bits: a larger model quantized harder usually beats a smaller model at higher precision in the same memory. Below 4 bits, test carefully.</li>
+<li>Prefer files from the model's publisher or well-known quantizers. Some labs ship quantized weights directly; OpenAI released gpt-oss in the 4-bit MXFP4 format, which avoids an extra lossy conversion.</li>
+<li>If you create your own GPU quantizations, note that the original AutoAWQ package has not shipped a release since May 2025, while GPTQModel and the vLLM project's llm-compressor are actively maintained.</li>
+</ul>
+
+<h2 id="local-llm-tools-compared">Local LLM tools compared</h2>
+<p>Most tools are front ends or servers built on a few engines: llama.cpp for GGUF, MLX for Apple Silicon and vLLM for GPU servers. Status below reflects each project's releases as of October 2026.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Tool</th><th>Best for</th><th>Formats and hardware</th><th>API</th><th>License and status</th></tr>
+</thead>
+<tbody>
+<tr><td>Ollama</td><td>Quickest path to a local model plus an API</td><td>GGUF on Windows, macOS, Linux and Docker; MLX engine on Apple Silicon (preview since March 2026)</td><td>Native REST on port 11434; OpenAI- and Anthropic-compatible endpoints</td><td>MIT; frequent releases (v0.40.x in October 2026)</td></tr>
+<tr><td>LM Studio</td><td>Browsing and testing models in a GUI</td><td>GGUF via llama.cpp; MLX on Apple Silicon; Windows, macOS, Linux</td><td>OpenAI- and Anthropic-compatible server; lms CLI; headless llmster daemon</td><td>Free desktop app; paid plans add hosted features</td></tr>
+<tr><td>llama.cpp</td><td>Maximum control on any hardware</td><td>GGUF from 1.5 to 8 bits; CUDA, HIP, Metal, Vulkan, SYCL and CPU</td><td>OpenAI-compatible server with built-in web UI</td><td>MIT; continuous builds</td></tr>
+<tr><td>vLLM</td><td>Serving many concurrent users</td><td>Hugging Face weights, FP8, AWQ, GPTQ, GGUF; NVIDIA, AMD and Intel GPUs plus accelerator plugins</td><td>OpenAI-compatible and Anthropic Messages APIs</td><td>Apache 2.0; v0.31 (October 2026)</td></tr>
+<tr><td>MLX / mlx-lm</td><td>Mac-native inference and fine-tuning</td><td>MLX format; Apple Silicon only</td><td>Python API and the mlx_lm.server HTTP server</td><td>MIT; mlx-lm v0.32 (October 2026)</td></tr>
+<tr><td>Jan</td><td>Open-source ChatGPT-style desktop app</td><td>llama.cpp and MLX engines, plus optional cloud providers; Windows, macOS, Linux</td><td>OpenAI-compatible server on localhost:1337; MCP support</td><td>Apache 2.0; v0.8.6 (October 2026)</td></tr>
+<tr><td>GPT4All</td><td>Simple offline chat with local documents</td><td>GGUF; Windows, macOS, Ubuntu x86-64</td><td>Desktop app plus Python bindings</td><td>MIT; last desktop release v3.10.0 (February 2025), so check activity first</td></tr>
+<tr><td>Open WebUI</td><td>Shared browser chat interface for a team</td><td>No engine of its own; connects to Ollama and any OpenAI-compatible server</td><td>Built-in RAG with hybrid search; user management</td><td>Open WebUI License (branding must stay on deployments over 50 users); v0.11 (September 2026)</td></tr>
+</tbody>
+</table>
+</div>
+<p>A sensible path: start with Ollama or LM Studio, add Open WebUI when several people need a chat interface and switch to vLLM when an application needs real concurrency.</p>
+
+<figure class="video-figure"><div class="video" data-yt="90ozfdsQOKo"><button class="video__btn" type="button" aria-label="Play video: Getting Started on Ollama"><img src="https://i.ytimg.com/vi/90ozfdsQOKo/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="video__play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></button></div>
+<figcaption>Watch: Getting Started on Ollama (Matt Williams). A hands-on introduction to installing Ollama and running an open model on your own machine from the command line. It suits developers and tinkerers who want a first local setup working quickly.</figcaption></figure>
+<h2 id="quick-start-with-ollama">Quick start with Ollama</h2>
+<p><strong>1. Install.</strong> On macOS or Linux, run the script below. On Windows, use the installer from the Ollama website or run <code>irm https://ollama.com/install.ps1 | iex</code> in PowerShell. A Docker image, <code>ollama/ollama</code>, is also available.</p>
+<pre><code>curl -fsSL https://ollama.com/install.sh | sh</code></pre>
+<p><strong>2. Pull a model sized for your machine.</strong> Gemma 4 E2B is about a 7 GB download and suits 8 GB machines; on a 24 GB GPU, try Qwen3.6 27B (17 GB).</p>
+<pre><code>ollama pull gemma4:e2b
+ollama pull qwen3.6:27b</code></pre>
+<p><strong>3. Chat in the terminal.</strong> Type <code>/bye</code> to exit. The <code>--verbose</code> flag prints generation speed after each reply.</p>
+<pre><code>ollama run gemma4:e2b --verbose</code></pre>
+<p><strong>4. Confirm it runs on the GPU.</strong> Run <code>ollama ps</code>. The PROCESSOR column should read 100% GPU; a split such as 40%/60% CPU/GPU means part of the model spilled into system memory. The CONTEXT column shows the context length actually allocated.</p>
+<p><strong>5. Call the API.</strong> Ollama listens on port 11434.</p>
+<pre><code>curl http://localhost:11434/api/chat -d '{
+  "model": "gemma4:e2b",
+  "messages": [{"role": "user", "content": "Explain the KV cache in two sentences."}],
+  "stream": false
+}'</code></pre>
+<p><strong>6. Reuse OpenAI-style code.</strong> Point any OpenAI SDK at <code>http://localhost:11434/v1</code> with a placeholder API key.</p>
+<pre><code>curl http://localhost:11434/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{"model": "gemma4:e2b", "messages": [{"role": "user", "content": "Say hello"}]}'</code></pre>
+<p><strong>7. Raise the context length.</strong> Ollama's docs list a 4,096-token default on machines with under 24 GB of VRAM, which silently truncates long documents. Set a server-wide value as below, or pass <code>"options": {"num_ctx": 32768}</code> per request.</p>
+<pre><code>OLLAMA_CONTEXT_LENGTH=32768 ollama serve</code></pre>
+<div class="callout warn"><p>Ollama binds to 127.0.0.1 by default. If you set OLLAMA_HOST=0.0.0.0 to share it on your network, put it behind a firewall or an authenticating reverse proxy, because the local API has no login of its own.</p>
+</div>
+
+<h2 id="models-by-hardware-tier">Which open models fit your hardware</h2>
+<p>The table assumes roughly 4-bit quantization and 8K-32K tokens of context. Picks are open-weight releases available as of October 2026, mostly Apache 2.0; confirm the license on each <a href="glossary-safety-governance.html#model-card">model card</a> and check that your runtime supports the architecture.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Memory tier</th><th>Good fits</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td>8 GB GPU, or a laptop running on CPU</td><td>Gemma 4 E2B; Qwen3.5 4B; Qwen3.5 9B at 4-bit</td><td>Fine for chat, summaries and light code help; keep context modest</td></tr>
+<tr><td>16 GB GPU, or a 24 GB Mac</td><td>gpt-oss-20b; Gemma 4 E4B or 12B; Qwen3.5 9B at 8-bit</td><td>gpt-oss-20b has 21B parameters but only 3.6B active, and OpenAI designed it to run within 16 GB</td></tr>
+<tr><td>24 GB GPU (RTX 3090/4090 class)</td><td>Qwen3.6-27B or Qwen3.8-27B; Gemma 4 31B; Gemma 4 26B A4B</td><td>Qwen3.6-35B-A3B's 24 GB Ollama build slightly overflows, but MoE models tolerate partial CPU offload better than dense ones</td></tr>
+<tr><td>48 GB and up (two 24 GB cards or a workstation GPU)</td><td>27-35B models at 8-bit; Llama 3.3 70B at 4-bit; gpt-oss-120b on an 80 GB+ card</td><td>Use vLLM if several people share the machine</td></tr>
+<tr><td>Apple Silicon, 32-48 GB</td><td>Gemma 4 26B A4B; 27B dense models at 4-bit; Qwen3.6-35B-A3B on 48 GB</td><td>At its March 2026 launch, Ollama's MLX engine preview required more than 32 GB of unified memory</td></tr>
+<tr><td>Apple Silicon, 64 GB</td><td>27-35B models at 8-bit; Llama 3.3 70B at 4-bit</td><td>Leave room for macOS and your other apps</td></tr>
+<tr><td>Apple Silicon, 96-128 GB</td><td>gpt-oss-120b; Qwen3.5-122B-A10B; Mistral Small 4 (119B, 6.5B active)</td><td>96 GB runs gpt-oss-120b with modest contexts; 128 GB fits all three with room for longer ones</td></tr>
+</tbody>
+</table>
+</div>
+<p>Frontier-scale open models, such as the DeepSeek V4 family and Qwen3.8's 2.4-trillion-parameter flagship, need multi-GPU servers. Browse the <a href="models.html">model directory</a> for specs and licenses.</p>
+
+<aside class="ad-slot" data-ad="in-article-2" aria-label="Sponsored message"><span class="ad-label">From LLModel</span><div class="ad-fill"><div class="house"><div><strong>Keep LLModel independent</strong><span>Reader support pays for data checks, new tools and contest prizes.</span></div>
+<a class="btn btn--ghost btn--sm" href="support.html">Support the site</a></div>
+</div>
+</aside>
+<h2 id="performance-tips">Performance tips</h2>
+<ul>
+<li><strong>Keep the whole model on the GPU.</strong> Check <code>ollama ps</code> or your tool's logs. A smaller quant that fits fully usually beats a bigger one that spills.</li>
+<li><strong>Size the context to the job.</strong> Allocating 128K tokens when you need 8K wastes memory and can force CPU offload.</li>
+<li><strong>Quantize the KV cache.</strong> In Ollama, <code>OLLAMA_KV_CACHE_TYPE=q8_0</code> roughly halves KV memory with very little quality loss; it requires flash attention, which Ollama enables automatically on supported hardware.</li>
+<li><strong>Prefer MoE models for speed.</strong> Few active parameters mean fewer bytes read per token, which matters most on Macs and CPUs.</li>
+<li><strong>Try multi-token prediction drafts.</strong> Gemma 4 and Qwen3.6 support <a href="glossary-inference-deployment.html#speculative-decoding">speculative decoding</a> variants in llama.cpp, LM Studio and Ollama; gains depend on model and hardware.</li>
+<li><strong>Keep models loaded.</strong> Ollama unloads idle models after five minutes; set <code>OLLAMA_KEEP_ALIVE</code> higher to avoid reload delays.</li>
+<li><strong>Use a server built for concurrency.</strong> Ollama handles one request per model at a time unless you raise <code>OLLAMA_NUM_PARALLEL</code>, which multiplies KV memory. vLLM's continuous batching and PagedAttention deliver far higher total <a href="glossary-inference-deployment.html#throughput">throughput</a> for many users.</li>
+</ul>
+
+<h2 id="troubleshooting">Troubleshooting common problems</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>Symptom</th><th>Likely cause</th><th>Fix</th></tr>
+</thead>
+<tbody>
+<tr><td>Model fails to load or crashes with out-of-memory errors</td><td>Weights plus KV cache exceed available memory</td><td>Use a smaller quant or model, shorten the context, close other GPU apps, quantize the KV cache</td></tr>
+<tr><td>Output crawls at 1-5 tokens per second</td><td>Part or all of the model is running on the CPU</td><td>Check <code>ollama ps</code>, update GPU drivers, confirm the CUDA, ROCm or Metal backend is detected</td></tr>
+<tr><td>Replies ramble, repeat or contain odd tokens</td><td>Wrong chat template or a broken quantization</td><td>Use official model tags or reputable GGUF files, update the runtime, lower the temperature</td></tr>
+<tr><td>The model ignores the start of a long document</td><td>Input exceeded the context length and was truncated</td><td>Raise the context setting and check the CONTEXT column</td></tr>
+<tr><td>Another app or a Docker container cannot connect</td><td>Server bound to 127.0.0.1 only</td><td>Set OLLAMA_HOST deliberately; from containers use host.docker.internal</td></tr>
+<tr><td>Mac slows to a crawl or swaps</td><td>Model exceeds the GPU share of unified memory</td><td>Pick a smaller model or quant and leave headroom for macOS</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 id="common-mistakes">Common mistakes</h2>
+<ul>
+<li><strong>Buying hardware first.</strong> Test the exact model on a rented GPU or hosted endpoint before spending thousands of dollars.</li>
+<li><strong>Judging a model by a 2-bit or 3-bit file.</strong> Those squeeze huge models into small machines and lose noticeable quality.</li>
+<li><strong>Forgetting the KV cache.</strong> A model that loads at 4K tokens can fail at 64K.</li>
+<li><strong>Assuming local means private.</strong> Ollama and LM Studio also offer cloud-hosted models, so confirm a model actually runs on your machine before sending sensitive data.</li>
+<li><strong>Downloading random re-uploads.</strong> Stick to the publisher or well-known quantizers, and check the license allows your use.</li>
+</ul>
+<div class="checklist"><ul>
+<li>I know my usable memory: VRAM, or about two-thirds to three-quarters of a Mac's unified memory.</li>
+<li>Weights at my chosen quant, plus 20 percent, plus the KV cache for my context, fit in that budget.</li>
+<li>I tested the model on 20-50 of my real prompts.</li>
+<li>The server is bound to localhost or protected by authentication.</li>
+<li>The model license allows my intended use.</li>
+</ul>
+</div>
+
+<h2 id="next-steps">Next steps</h2>
+<p>Estimate memory for a specific model, quant and context length with the <a href="vram-calculator.html">VRAM calculator</a>. If cost is your main motivation, compare hardware and hosting against per-token prices in the <a href="self-host-vs-api-calculator.html">self-host vs API calculator</a>. For the bigger picture on licenses and capability gaps, read <a href="open-source-vs-closed-llms.html">open-source vs closed LLMs</a>. If you are planning a private deployment for a team and want hands-on help, you can <a href="hire-llm-experts.html">work with an LLM expert</a>.</p>
+    <section class="sources" aria-labelledby="sources"><h2 id="sources">Sources</h2>
+<ol><li><a href="https://docs.ollama.com/context-length" target="_blank" rel="noopener">Ollama documentation: context length</a></li>
+<li><a href="https://docs.ollama.com/faq" target="_blank" rel="noopener">Ollama FAQ: GPU use, KV cache quantization and network binding</a></li>
+<li><a href="https://ollama.com/blog/mlx" target="_blank" rel="noopener">Ollama blog: Ollama is now powered by MLX on Apple Silicon (preview, March 2026)</a></li>
+<li><a href="https://github.com/ggml-org/llama.cpp" target="_blank" rel="noopener">llama.cpp repository (ggml-org)</a></li>
+<li><a href="https://github.com/ggml-org/ggml/blob/master/docs/gguf.md" target="_blank" rel="noopener">GGUF file format specification (ggml)</a></li>
+<li><a href="https://arxiv.org/abs/2309.06180" target="_blank" rel="noopener">Efficient Memory Management for Large Language Model Serving with PagedAttention (Kwon et al., 2023)</a></li>
+<li><a href="https://github.com/ml-explore/mlx-lm" target="_blank" rel="noopener">MLX LM repository (Apple ml-explore)</a></li>
+<li><a href="https://lmstudio.ai/docs/app" target="_blank" rel="noopener">LM Studio documentation</a></li>
+<li><a href="https://huggingface.co/google/gemma-4-31B-it" target="_blank" rel="noopener">Gemma 4 model card (Google, Hugging Face)</a></li>
+<li><a href="https://openai.com/index/introducing-gpt-oss/" target="_blank" rel="noopener">Introducing gpt-oss (OpenAI, August 2025)</a></li>
+</ol>
+      <p class="small muted">Written by the LLModel editorial team and checked against the sources above on October 10, 2026. Found an error? <a href="contact.html?topic=correction">Send a correction</a>.</p>
+</section>
+    <div class="share" aria-label="Share this guide"><span class="muted">Share:</span><button type="button" data-copy-link>Copy link</button><a href="https://www.linkedin.com/sharing/share-offsite/?url=https://llmodel.com/run-llms-locally.html" target="_blank" rel="noopener">LinkedIn</a><a href="https://twitter.com/intent/tweet?url=https://llmodel.com/run-llms-locally.html&amp;text=How to run LLMs locally" target="_blank" rel="noopener">X</a><a href="https://news.ycombinator.com/submitlink?u=https://llmodel.com/run-llms-locally.html&amp;t=How to run LLMs locally" target="_blank" rel="noopener">Hacker News</a><a href="https://www.reddit.com/submit?url=https://llmodel.com/run-llms-locally.html&amp;title=How to run LLMs locally" target="_blank" rel="noopener">Reddit</a></div>
+  </article>
+  <aside class="article__side" aria-label="Related"><div class="panel"><h2 class="h3">Try the tools</h2>
+<ul style="margin:.5rem 0 0;padding-left:1.1rem"><li><a href="vram-calculator.html">GPU and VRAM calculator</a></li>
+<li><a href="self-host-vs-api-calculator.html">Self-host vs API calculator</a></li>
+<li><a href="llm-picker.html">Which LLM should I use?</a></li>
+</ul>
+</div>
+<div class="panel"><h2 class="h3">Need hands-on help?</h2>
+<p class="small muted" style="margin-top:.4rem">Get a vendor-neutral plan for your project within 2 business days.</p>
+<a class="btn btn--primary btn--block" style="margin-top:.8rem" href="hire-llm-experts.html?from=guide-run-llms-locally">Get expert help</a></div>
+<div class="panel newsletter-box">
+
+  <p class="muted" style="margin-top:.4rem">One short email a week: model releases, price changes and one tool worth trying. Free, and you can unsubscribe anytime.</p>
+  <form class="form" data-form="newsletter" data-subject="Newsletter signup" novalidate style="margin-top:1rem">
+    <div class="inline-form">
+      <label class="visually-hidden" for="nl-side-email">Email address</label>
+      <input class="input" type="email" id="nl-side-email" name="email" required autocomplete="email" placeholder="Your work email">
+      <button class="btn btn--primary" type="submit">Subscribe</button>
+    </div>
+    <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <div class="form-status" role="status" aria-live="polite"></div>
+  </form>
+  <p class="fine" style="margin-top:.6rem">We send one email a week and never sell your address. See the <a href="privacy.html">privacy policy</a>.</p>
+</div>
+</aside>
+</div>
+<div class="wrap wrap--read" style="margin-top:3rem"><section class="faq-wrap" aria-labelledby="faq"><h2 class="h2" id="faq" style="margin-bottom:1rem">Frequently asked questions</h2>
+<div class="faq"><details><summary>How much memory do I need to run an LLM locally?</summary><div class="faq__a"><p>Multiply the parameter count in billions by about 0.6 GB for 4-bit quantization, 1 GB for 8-bit or 2 GB for 16-bit. Add 10-20 percent for runtime buffers, plus memory for the KV cache, which grows with context length. An 8B model at 4-bit runs comfortably in 8 GB, while a 27B model at 4-bit needs roughly 20 GB once a moderate context is included.</p>
+</div>
+</details>
+<details><summary>Should I use Ollama or LM Studio?</summary><div class="faq__a"><p>Pick Ollama if you want a lightweight background service with a simple command line and an API that scripts and other apps can call. Pick LM Studio if you prefer browsing, downloading and comparing models in a graphical app. Both run GGUF models, both can use Apple&#x27;s MLX on Macs, and both expose OpenAI-compatible endpoints, so switching later rarely requires code changes.</p>
+</div>
+</details>
+<details><summary>Can I run a local LLM without a GPU?</summary><div class="faq__a"><p>Yes. llama.cpp and the tools built on it run on ordinary CPUs, and models in the 1B to 9B range are usable on a modern laptop. Expect single-digit to low double-digit tokens per second for small 4-bit models, because desktop memory bandwidth is far lower than GPU bandwidth. Mixture-of-experts models with few active parameters are the best fit for CPU-only machines.</p>
+</div>
+</details>
+<details><summary>What is the best local LLM right now?</summary><div class="faq__a"><p>It depends on your memory. As of October 2026, strong picks include Gemma 4 E2B or Qwen3.5 4B for 8 GB machines, gpt-oss-20b for 16 GB, Qwen3.6-27B, Qwen3.8-27B or Gemma 4 31B for 24 GB GPUs, and gpt-oss-120b or Qwen3.5-122B-A10B for 96-128 GB Macs and workstations. Test two or three candidates on your own prompts before settling on one.</p>
+</div>
+</details>
+<details><summary>Is a local LLM completely private?</summary><div class="faq__a"><p>The model runs on your hardware, so prompts never need to leave the machine. Privacy still depends on the surrounding software. Some desktop apps can route requests to cloud-hosted models, send telemetry or sync chats, and a local server exposed to your network without authentication can be reached by others. Check model tags, app settings and network bindings before handling sensitive data.</p>
+</div>
+</details>
+</div>
+</section>
+</div>
+<section class="wrap" aria-labelledby="more-videos" style="margin-top:3rem"><h2 class="h2" id="more-videos" style="margin-bottom:1rem">More videos on this topic</h2>
+<div class="grid grid--3"><article class="video-card" id="v-WxYC9-hBM_g"><div class="video" data-yt="WxYC9-hBM_g"><button class="video__btn" type="button" aria-label="Play video: Run your own AI (but private)"><img src="https://i.ytimg.com/vi/WxYC9-hBM_g/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="video__play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></button></div>
+<h3>Run your own AI (but private)</h3>
+<div class="vc-meta"><span>NetworkChuck</span><span>Beginner</span><a href="https://www.youtube.com/watch?v=WxYC9-hBM_g" target="_blank" rel="noopener">Watch on YouTube</a></div>
+<p class="muted small">NetworkChuck walks through running a chat model on your own computer so prompts and files stay on your machine. It is a friendly, step-by-step watch for beginners curious about the privacy side of local AI.</p>
+</article>
+<article class="video-card" id="v-GWB9ApTPTv4"><div class="video" data-yt="GWB9ApTPTv4"><button class="video__btn" type="button" aria-label="Play video: Ollama Course – Build AI Apps Locally"><img src="https://i.ytimg.com/vi/GWB9ApTPTv4/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="video__play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></button></div>
+<h3>Ollama Course – Build AI Apps Locally</h3>
+<div class="vc-meta"><span>freeCodeCamp.org</span><span>Intermediate</span><a href="https://www.youtube.com/watch?v=GWB9ApTPTv4" target="_blank" rel="noopener">Watch on YouTube</a></div>
+<p class="muted small">A long-form freeCodeCamp course on building applications around locally hosted models through Ollama, moving from setup to working app code. It fits developers who learn best by following a complete project from start to finish.</p>
+</article>
+</div>
+</section>
+<section class="wrap" aria-labelledby="related" style="margin-top:3rem"><h2 class="h2" id="related" style="margin-bottom:1rem">Keep reading</h2>
+<div class="cardlist"><a class="card" href="open-source-vs-closed-llms.html"><span class="card__kicker">Choosing &amp; buying</span><span class="card__title">Open-source vs closed LLMs: how to decide</span><span class="card__desc">Open-weight models let you run an LLM on your own infrastructure, but &#x27;open&#x27; covers licenses ranging from Apache 2.0 to custom terms with user caps and naming rules. This guide compares open and closed models on quality, cost, control and risk, works through a total cost of ownership example and shows when a hybrid setup wins.</span><span class="card__foot"><span>Intermediate</span><span>9 min read</span></span></a><a class="card" href="llm-security-and-privacy.html"><span class="card__kicker">Safety &amp; quality</span><span class="card__title">LLM security and privacy: a practical guide</span><span class="card__desc">How LLM applications get attacked
+and how they leak data, from prompt injection to over-privileged agents, with defenses that work in layers. Covers the OWASP Top 10 for LLM applications, vendor data policies, compliance basics and a pre-launch checklist.</span><span class="card__foot"><span>Intermediate</span><span>11 min read</span></span></a><a class="card" href="context-windows-explained.html"><span class="card__kicker">Fundamentals</span><span class="card__title">Context windows explained</span><span class="card__desc">A context window is the token budget a model can read and write in one request. This guide converts tokens to words and pages, compares current limits and explains the cost, quality and memory trade-offs of long prompts.</span><span class="card__foot"><span>Beginner</span><span>11 min read</span></span></a></div>
+</section>
+<div class="wrap"><section class="lead-band" aria-labelledby="lead-local-guide-run-llms-locally">
+  <div>
+    <h2 id="lead-local-guide-run-llms-locally">Planning to self-host?</h2>
+    <p>Get a second opinion on hardware, serving stack and break-even before you buy or rent GPUs.</p>
+    <ul><li>Free and vendor-neutral: no model provider pays for placement.</li>
+<li>Your details go only to partners you agree to.</li>
+</ul>
+  </div>
+  <form class="mini-form" action="hire-llm-experts.html" method="get">
+    <label for="need-local-guide-run-llms-locally">What do you need help with?</label>
+    <select id="need-local-guide-run-llms-locally" name="need"><option value="choose-model">Choose the right model</option>
+<option value="chatbot">Build a chatbot or assistant</option>
+<option value="rag">Answer questions over our documents (RAG)</option>
+<option value="agents">Automate work with AI agents</option>
+<option value="self-host">Fine-tune or self-host a model</option>
+<option value="cut-costs">Cut our LLM costs</option>
+<option value="security">Security, privacy or compliance review</option>
+<option value="not-sure">Not sure yet</option>
+</select>
+    <input type="hidden" name="from" value="guide-run-llms-locally">
+    <button class="btn btn--yellow btn--block" type="submit">Start my free plan</button>
+    <p class="fine">Takes about 2 minutes. No sales calls unless you ask for one.</p>
+  </form>
+</section>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+      <p>The independent field guide to large language models. Model data checked against provider documentation; last full check October 10, 2026.</p>
+    </div>
+    <div><h2>Explore</h2>
+<ul><li><a href="models.html">Model directory</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare models</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="search.html">Search</a></li>
+</ul>
+</div>
+<div><h2>Tools</h2>
+<ul><li><a href="llm-cost-calculator.html">Cost calculator</a></li>
+<li><a href="token-counter.html">Token counter</a></li>
+<li><a href="vram-calculator.html">GPU and VRAM calculator</a></li>
+<li><a href="llm-picker.html">Which LLM should I use?</a></li>
+<li><a href="context-window-visualizer.html">Context window visualizer</a></li>
+<li><a href="prompt-builder.html">Prompt builder</a></li>
+<li><a href="self-host-vs-api-calculator.html">Self-host vs API calculator</a></li>
+</ul>
+</div>
+<div><h2>Learn</h2>
+<ul><li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+</ul>
+</div>
+<div><h2>Work with us</h2>
+<ul><li><a href="hire-llm-experts.html">Get expert help</a></li>
+<li><a href="list-your-product.html">List your product</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</div>
+<div><h2>About</h2>
+<ul><li><a href="about.html">About LLModel</a></li>
+<li><a href="editorial-policy.html">Editorial policy</a></li>
+<li><a href="privacy.html">Privacy policy</a></li>
+<li><a href="terms.html">Terms of use</a></li>
+<li><a href="disclaimer.html">Disclaimer</a></li>
+<li><a href="trademark-copyright.html">Trademark and copyright</a></li>
+<li><a href="sitemap.html">Site map</a></li>
+<li><button class="linklike" type="button" data-privacy-choices>Privacy and cookie choices</button></li>
+</ul>
+</div>
+  </div>
+  <div class="wrap footer-legal">
+    <p>&copy; 2026 LLModel.com. Independent: not affiliated with, endorsed by or sponsored by any model provider. Model and company names are trademarks of their respective owners and are used only to identify products. See <a href="trademark-copyright.html">trademark and copyright</a>.</p>
+    <p>Prices and specifications change often. Always confirm on the provider's own pricing page before you buy.</p>
+  </div>
+</footer>
+<div class="palette" id="palette" hidden role="dialog" aria-modal="true" aria-label="Search LLModel">
+  <div class="palette__box">
+    <label class="visually-hidden" for="palette-input">Search models, tools, guides and terms</label>
+    <input class="palette__input" id="palette-input" type="search" placeholder="Search models, tools, guides, terms" autocomplete="off" spellcheck="false" aria-controls="palette-list">
+    <ul class="palette__list" id="palette-list" role="listbox"></ul>
+    <div class="palette__foot"><span><span class="kbd">&uarr;</span> <span class="kbd">&darr;</span> to move</span><span><span class="kbd">Enter</span> to open</span><span><span class="kbd">Esc</span> to close</span></div>
+  </div>
+</div>
+<script src="assets/js/config.js?v=caa5324cbb"></script>
+
+<script src="assets/js/app.js?v=4b39d7c1bd" defer></script>
+<script src="assets/js/article.js?v=0235be8880" defer></script>
+</body>
+</html>
