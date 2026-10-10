@@ -1,0 +1,180 @@
+{
+  "category": "Business & pricing",
+  "updated": "2026-10-10",
+  "terms": [
+    {
+      "slug": "api-key",
+      "term": "API key",
+      "aka": [
+        "secret key"
+      ],
+      "category": "Business & pricing",
+      "short": "A secret credential that authenticates your application to a model provider and ties usage to your account.",
+      "definition": "An API key is a secret string your application sends with each request so the provider can authenticate you and bill your account. Anyone holding the key can run up charges and reach whatever data that account can access, so treat it like a password. Store keys in environment variables or a secrets manager, never in client-side code, mobile apps or public repositories, where automated scanners can find leaked keys within minutes. Use separate keys per project and environment, set spending limits and alerts, and rotate keys regularly or immediately after a suspected leak. To call a model from a browser or app, route requests through your own backend.",
+      "related": [
+        "rate-limit",
+        "inference-provider",
+        "cost-per-token"
+      ]
+    },
+    {
+      "slug": "batch-api",
+      "term": "Batch API",
+      "aka": [
+        "batch processing",
+        "batch inference",
+        "asynchronous batch"
+      ],
+      "category": "Business & pricing",
+      "short": "An asynchronous way to submit many requests at once, typically at half price with results within 24 hours.",
+      "definition": "A batch API lets you upload a large set of requests as one job and collect results later instead of waiting on each call. As of October 2026, several major providers price batch jobs at about 50 percent of their standard rates and promise results within 24 hours, with many jobs finishing much sooner. The trade is latency for price and capacity: batches also run under separate, usually much higher, rate limits. They suit work where nobody is waiting, such as classifying a backlog of support tickets, generating product descriptions, running evaluations or embedding a document archive. Batch discounts can often be combined with prompt caching for further savings.",
+      "related": [
+        "cost-per-token",
+        "prompt-caching",
+        "rate-limit",
+        "throughput"
+      ]
+    },
+    {
+      "slug": "cost-per-token",
+      "term": "Cost per token",
+      "aka": [
+        "token pricing",
+        "price per million tokens",
+        "input and output pricing"
+      ],
+      "category": "Business & pricing",
+      "short": "How LLM APIs charge: a set price per million input tokens and a usually higher one for output.",
+      "definition": "Most LLM APIs bill by the token, quoted as a price per million tokens, with separate rates for input and output; output usually costs several times more because it is generated one token at a time. A worked example with hypothetical prices of $2 per million input tokens and $8 per million output: 100,000 requests a month, each with 1,500 input and 300 output tokens, cost $300 for input plus $240 for output, $540 in total. Reasoning tokens are typically billed as output even when hidden. Cached input, batch jobs and smaller models cut costs, while long contexts, verbose answers and agent loops raise them.",
+      "related": [
+        "token",
+        "prompt-caching",
+        "batch-api",
+        "token-budget"
+      ]
+    },
+    {
+      "slug": "dedicated-endpoint",
+      "term": "Dedicated endpoint",
+      "aka": [
+        "provisioned throughput",
+        "reserved capacity",
+        "dedicated deployment"
+      ],
+      "category": "Business & pricing",
+      "short": "Model capacity reserved for one customer, billed by time instead of per token.",
+      "definition": "A dedicated endpoint reserves GPUs, or a guaranteed slice of throughput, for your exclusive use, usually billed per hour or under a monthly commitment rather than per token. You get predictable latency, no noisy neighbors, freedom from shared rate limits and often the ability to serve custom or fine-tuned models. The economics favor high, steady utilization. In a hypothetical case where reserved capacity costs $4 an hour, or about $2,900 a month running continuously, it only beats a pay-per-token price of $1 per million tokens if you push more than about 2.9 billion tokens a month through it. Below that, you are paying for idle hardware.",
+      "related": [
+        "serverless-inference",
+        "inference-provider",
+        "self-hosting",
+        "throughput"
+      ]
+    },
+    {
+      "slug": "inference-provider",
+      "term": "Inference provider",
+      "aka": [
+        "model API provider",
+        "LLM API provider",
+        "model host"
+      ],
+      "category": "Business & pricing",
+      "short": "A company that runs models on its own hardware and sells access through an API, usually priced per token.",
+      "definition": "An inference provider hosts models and sells access by API. Some are the labs that built the models; others are cloud platforms or specialist hosts that serve many open-weights models, often competing on price and speed. The same open model can differ across providers in price, tokens per second, context length, quantization, rate limits and reliability, so published benchmark numbers may not match what a given host delivers. When choosing, compare total cost at your expected volume, check data retention and regional hosting terms, test quality on your own prompts and keep a second provider ready as a fallback.",
+      "related": [
+        "serverless-inference",
+        "dedicated-endpoint",
+        "cost-per-token",
+        "self-hosting"
+      ]
+    },
+    {
+      "slug": "license",
+      "term": "Model license",
+      "aka": [
+        "license",
+        "open-weights license",
+        "weights license"
+      ],
+      "category": "Business & pricing",
+      "short": "The legal terms that govern how you may use, modify and distribute a model's weights and outputs.",
+      "definition": "Every downloadable model comes with a license, and it matters as much as the benchmark scores. Permissive open-source licenses such as Apache 2.0 and MIT allow commercial use, modification and redistribution with few conditions. Many popular open-weights models instead use custom licenses that may cap the number of users before a separate agreement is needed, prohibit certain uses, require attribution in product names, or restrict using outputs to train other models. Hosted APIs are governed by terms of service and usage policies instead. Read the license before you build a product on a model, especially if you plan to fine-tune and redistribute it, and get legal advice where stakes are high.",
+      "related": [
+        "open-weights",
+        "open-source-ai-definition",
+        "model-card",
+        "copyright-and-training-data"
+      ]
+    },
+    {
+      "slug": "prompt-caching",
+      "term": "Prompt caching",
+      "aka": [
+        "context caching",
+        "prefix caching"
+      ],
+      "category": "Business & pricing",
+      "short": "Reusing the processed form of a repeated prompt prefix to cut cost and latency on later requests.",
+      "definition": "Prompt caching stores the model's intermediate computations, essentially the KV cache, for the opening portion of a prompt so later requests that begin with the identical prefix skip reprocessing it. Long system prompts, tool definitions, reference documents and chat histories are ideal candidates. Providers bill cached reads at a steep discount, from 50 percent to 90 percent or more below the normal input price depending on provider and model, and some charge a premium to write the cache. Caches expire after minutes to hours of inactivity depending on the provider, and some cache automatically while others need explicit markers. Put stable content first and variable content last, because a change early in the prompt invalidates everything after it.",
+      "related": [
+        "kv-cache",
+        "cost-per-token",
+        "time-to-first-token",
+        "batch-api"
+      ]
+    },
+    {
+      "slug": "rate-limit",
+      "term": "Rate limit",
+      "aka": [
+        "API rate limit",
+        "quota",
+        "throttling"
+      ],
+      "category": "Business & pricing",
+      "short": "A provider-imposed cap on how many requests or tokens you can send in a given time window.",
+      "definition": "Rate limits cap how much you can send to an API, typically as requests per minute and tokens per minute, sometimes with daily caps, and they protect shared capacity. Exceed them and you get HTTP 429 errors until the window resets. Limits usually rise with your account tier and spending history. Handle them properly: retry with exponential backoff plus random jitter, read the rate-limit headers that tell you how much room remains, queue traffic during spikes, and use a batch API for bulk work. For launches or predictable heavy load, ask the provider for higher limits in advance or consider dedicated capacity.",
+      "related": [
+        "model-routing",
+        "batch-api",
+        "dedicated-endpoint",
+        "throughput"
+      ]
+    },
+    {
+      "slug": "serverless-inference",
+      "term": "Serverless inference",
+      "aka": [
+        "pay-per-token inference",
+        "shared endpoint"
+      ],
+      "category": "Business & pricing",
+      "short": "Calling models on shared infrastructure and paying only for what you use, with no servers to manage.",
+      "definition": "Serverless inference means sending requests to a model hosted on a provider's shared infrastructure and paying per token or per request, with no GPUs to rent, scale or keep running. It is the default way most teams use LLMs: there are no idle costs, you can start in minutes and switching models is a configuration change. The trade-offs are less control and less predictability. Performance can vary when the provider is busy, rate limits apply, the model menu is set by the provider, and at sustained high volume per-token pricing can exceed the cost of reserved hardware. Some serverless platforms also host your own fine-tuned adapters.",
+      "related": [
+        "inference-provider",
+        "dedicated-endpoint",
+        "cost-per-token",
+        "rate-limit"
+      ]
+    },
+    {
+      "slug": "token-budget",
+      "term": "Token budget",
+      "aka": [
+        "context budget",
+        "token allowance"
+      ],
+      "category": "Business & pricing",
+      "short": "A planned limit on how many tokens a request, user, feature or task may consume.",
+      "definition": "A token budget caps token use to keep cost, latency and context size under control. Per request, it means dividing the context window among system prompt, retrieved documents, history and the expected answer, so nothing important gets truncated. Per feature or user, it means setting monthly allowances and alerts so a runaway loop or heavy user doesn't surprise you on the invoice. For agents, a budget on total tokens or steps stops tasks that wander. Reasoning models add a further dimension, since many APIs let you limit thinking tokens directly. Track actual usage per feature, because real prompts tend to grow well beyond the first prototype's.",
+      "related": [
+        "cost-per-token",
+        "max-tokens",
+        "context-window",
+        "context-engineering"
+      ]
+    }
+  ]
+}
