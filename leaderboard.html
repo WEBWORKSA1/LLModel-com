@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LLM Rankings 2026: A Tunable Value Index of Current Large Language Models | LLModel.com</title>
+<meta name="description" content="Rank current LLMs by what matters to you: capability tier, price per token, context window, open weights, multimodal inputs and recency. A transparent, adjustable value index.">
+<link rel="canonical" href="https://llmodel.com/leaderboard.html">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="google-adsense-account" content="ca-pub-6620975821265271">
+<meta name="theme-color" content="#f4f6fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12101e" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="LLModel.com">
+<meta property="og:title" content="LLM Rankings 2026: A Tunable Value Index of Current Large Language Models">
+<meta property="og:description" content="Rank current LLMs by what matters to you: capability tier, price per token, context window, open weights, multimodal inputs and recency. A transparent, adjustable value index.">
+<meta property="og:url" content="https://llmodel.com/leaderboard.html">
+<meta property="og:image" content="https://llmodel.com/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="LLModel: the independent field guide to large language models">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="alternate" type="text/plain" href="llms.txt" title="llms.txt">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Martian+Mono:wght@400..500&family=Newsreader:ital,opsz,wght@0,6..72,400..650;1,6..72,400&display=swap">
+<link rel="stylesheet" href="assets/css/style.css?v=dae4813595">
+<script>(function(){var d=document.documentElement,t=null;try{t=localStorage.getItem('llm-theme')}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}d.setAttribute('data-theme',t)})();</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6620975821265271" crossorigin="anonymous"></script>
+<script type="application/ld+json">{
+ "@type": "Organization",
+ "@id": "https://llmodel.com/#org",
+ "name": "LLModel.com",
+ "url": "https://llmodel.com/",
+ "logo": "https://llmodel.com/assets/img/icon-512.png",
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://llmodel.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Rankings"
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is the best LLM right now?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "It depends on what you weigh. With the default balanced weights, the top of this index is a mix of frontier models and strong mid-priced ones. If price matters most, efficient models jump ahead; if you need to self-host, open-weight models lead. Independent benchmark leaderboards linked on this page track raw capability."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Do you run your own benchmarks?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "No. The capability input is an editorial tier based on how providers position each model and where it stands on public benchmarks and arena rankings. Everything else in the index is calculated from published facts: list prices, context windows, licenses, input types and release dates."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Can a provider pay to rank higher?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "No. Rankings come only from the formula on this page and the data on each model page. Sponsorships on LLModel are labeled and never change a score, an order or a verdict."
+   }
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+
+</head>
+<body class="page-leaderboard">
+<a class="skip" href="#main">Skip to content</a>
+<div class="partner-bar"><a href="https://web.works/contact" target="_blank" rel="noopener"><span>Contact, if you are interested in this website / domain name / sponsorship / advertisement / partnership</span></a></div>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+    <nav class="nav" aria-label="Main"><a href="models.html">Models</a><a href="compare.html">Compare</a><a href="leaderboard.html" aria-current="page">Rankings</a><a href="tools.html">Tools</a><a href="guides.html">Learn</a><a href="videos.html">Videos</a></nav>
+    <div class="header-actions">
+      <button class="search-btn" type="button" data-open-search aria-label="Search the site"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="search-label">Search</span><span class="kbd" aria-hidden="true">/</span></button>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><svg class="theme-icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="theme-icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+      <a class="btn btn--primary btn--sm header-cta" href="hire-llm-experts.html">Get expert help</a>
+      <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile">
+    <ul><li><a href="models.html">Models</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="tools.html">Tools</a></li>
+<li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="contact.html">Contact</a></li>
+<li class="mobile-cta"><a class="btn btn--primary btn--block" href="hire-llm-experts.html">Get expert help</a></li>
+</ul>
+  </nav>
+</header>
+<main id="main">
+<nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li>
+<li aria-current="page">Rankings</li>
+</ol>
+</nav>
+<header class="page-head wrap"><h1>LLM rankings you can tune</h1><p class="lede">Our value index scores current models on capability tier, price, context, openness, input types and recency. The weights are yours: move the sliders or pick a preset, and the ranking updates instantly.</p>
+<div class="page-meta"><span>Priced, current models only</span><span>Data checked October 10, 2026</span><span><a href="#method">Methodology</a></span></div>
+</header>
+<div class="wrap grid grid--sidebar" style="align-items:start">
+  <div>
+    <div class="tool tool--stack" style="margin-bottom:1.5rem">
+      <div class="tool__in">
+        <h2 class="tool-h">What matters to you?</h2>
+        <div class="seg" role="group" aria-label="Presets" id="lb-presets">
+          <button type="button" data-preset="balanced" aria-pressed="true">Balanced</button>
+          <button type="button" data-preset="capability" aria-pressed="false">Most capable</button>
+          <button type="button" data-preset="value" aria-pressed="false">Best value</button>
+          <button type="button" data-preset="selfhost" aria-pressed="false">Self-hosting</button>
+          <button type="button" data-preset="longctx" aria-pressed="false">Long context</button>
+        </div>
+        <div class="grid grid--3" style="gap:.75rem 1.5rem" id="lb-weights">
+          <div class="field"><label for="w-capability">Capability tier</label><div class="range-row"><input type="range" id="w-capability" min="0" max="100" value="40"><output for="w-capability">40</output></div>
+</div>
+          <div class="field"><label for="w-price">Low price</label><div class="range-row"><input type="range" id="w-price" min="0" max="100" value="25"><output for="w-price">25</output></div>
+</div>
+          <div class="field"><label for="w-context">Context window</label><div class="range-row"><input type="range" id="w-context" min="0" max="100" value="10"><output for="w-context">10</output></div>
+</div>
+          <div class="field"><label for="w-openness">Open weights</label><div class="range-row"><input type="range" id="w-openness" min="0" max="100" value="10"><output for="w-openness">10</output></div>
+</div>
+          <div class="field"><label for="w-multimodal">Image, audio, video input</label><div class="range-row"><input type="range" id="w-multimodal" min="0" max="100" value="5"><output for="w-multimodal">5</output></div>
+</div>
+          <div class="field"><label for="w-recency">Newer release</label><div class="range-row"><input type="range" id="w-recency" min="0" max="100" value="10"><output for="w-recency">10</output></div>
+</div>
+        </div>
+        <label class="check"><input type="checkbox" id="lb-open"> Only open-weight models</label>
+      </div>
+      <div class="tool__out">
+        <div class="section-head" style="margin-bottom:.5rem"><div><h2 class="h3" id="rank-h">Ranking</h2>
+</div>
+<span class="small muted" id="lb-count"></span></div>
+        <ol class="rank" id="rank-list"><li><span class="rk-name"><a href="model-minimax-m3.html">MiniMax-M3</a><small>MiniMax, Advanced, $0.30 / $1.20</small></span><span class="b-track" style="height:12px;border-radius:3px;background:var(--surface-2);overflow:hidden;display:block"><span class="b-fill" style="display:block;height:100%;width:80%;background:var(--v4)"></span></span><span class="rk-score">80</span></li>
+<li><span class="rk-name"><a href="model-deepseek-v4-1-flash.html">DeepSeek-V4.1-Flash</a><small>DeepSeek, Advanced, $0.30 / $1.20</small></span><span class="b-track" style="height:12px;border-radius:3px;background:var(--surface-2);overflow:hidden;display:block"><span class="b-fill" style="display:block;height:100%;width:80%;background:var(--v4)"></span></span><span class="rk-score">80</span></li>
+<li><span class="rk-name"><a href="model-glm-5-3.html">GLM-5.3</a><small>Z.ai (Zhipu AI), Frontier, $1.40 / $4.40</small></span><span class="b-track" style="height:12px;border-radius:3px;background:var(--surface-2);overflow:hidden;display:block"><span class="b-fill" style="display:block;height:100%;width:79%;background:var(--v4)"></span></span><span class="rk-score">79</span></li>
+<li><span class="rk-name"><a href="model-deepseek-v4-pro.html">DeepSeek-V4-Pro</a><small>DeepSeek, Frontier, $1.32 / $3.96</small></span><span class="b-track" style="height:12px;border-radius:3px;background:var(--surface-2);overflow:hidden;display:block"><span class="b-fill" style="display:block;height:100%;width:78%;background:var(--v4)"></span></span><span class="rk-score">78</span></li>
+<li><span class="rk-name"><a href="model-kimi-k3.html">Kimi K3</a><small>Moonshot AI, Frontier, $3 / $15</small></span><span class="b-track" style="height:12px;border-radius:3px;background:var(--surface-2);overflow:hidden;display:block"><span class="b-fill" style="display:block;height:100%;width:78%;background:var(--v4)"></span></span><span class="rk-score">78</span></li>
+<li><span class="rk-name"><a href="model-glm-5-3-flash.html">GLM-5.3-Flash</a><small>Z.ai (Zhipu AI), Efficient, $0.15 / $0.50</small></span><span class="b-track" style="height:12px;border-radius:3px;background:var(--surface-2);overflow:hidden;display:block"><span class="b-fill" style="display:block;height:100%;width:75%;background:var(--v4)"></span></span><span class="rk-score">75</span></li>
+<li><span class="rk-name"><a href="model-nemotron-3-ultra.html">NVIDIA Nemotron 3 Ultra</a><small>NVIDIA, Advanced, $0.50 / $2.20</small></span><span class="b-track" style="height:12px;border-radius:3px;background:var(--surface-2);overflow:hidden;display:block"><span class="b-fill" style="display:block;height:100%;width:74%;background:var(--v4)"></span></span><span class="rk-score">74</span></li>
+<li><span class="rk-name"><a href="model-mistral-large-4.html">Mistral Large 4</a><small>Mistral AI, Frontier, $1.36 / $4.18</small></span><span class="b-track" style="height:12px;border-radius:3px;background:var(--surface-2);overflow:hidden;display:block"><span class="b-fill" style="display:block;height:100%;width:72%;background:var(--v4)"></span></span><span class="rk-score">72</span></li>
+<li><span class="rk-name"><a href="model-qwen3-8-2-4t-a95b.html">Qwen3.8-2.4T-A95B</a><small>Alibaba (Qwen), Frontier, $2 / $6</small></span><span class="b-track" style="height:12px;border-radius:3px;background:var(--surface-2);overflow:hidden;display:block"><span class="b-fill" style="display:block;height:100%;width:71%;background:var(--v4)"></span></span><span class="rk-score">71</span></li>
+<li><span class="rk-name"><a href="model-qwen3-8-max.html">Qwen3.8-Max</a><small>Alibaba (Qwen), Frontier, $2 / $6</small></span><span class="b-track" style="height:12px;border-radius:3px;background:var(--surface-2);overflow:hidden;display:block"><span class="b-fill" style="display:block;height:100%;width:69%;background:var(--v4)"></span></span><span class="rk-score">69</span></li>
+<li><span class="rk-name"><a href="model-gemini-3-8-flash.html">Gemini 3.8 Flash</a><small>Google, Advanced, $0.75 / $3.75</small></span><span class="b-track" style="height:12px;border-radius:3px;background:var(--surface-2);overflow:hidden;display:block"><span class="b-fill" style="display:block;height:100%;width:68%;background:var(--v4)"></span></span><span class="rk-score">68</span></li>
+<li><span class="rk-name"><a href="model-gemini-3-1-pro.html">Gemini 3.1 Pro</a><small>Google, Frontier, $2 / $12</small></span><span class="b-track" style="height:12px;border-radius:3px;background:var(--surface-2);overflow:hidden;display:block"><span class="b-fill" style="display:block;height:100%;width:68%;background:var(--v4)"></span></span><span class="rk-score">68</span></li>
+<li><span class="rk-name"><a href="model-nemotron-3-5-lightning-30b-a3b.html">NVIDIA Nemotron 3.5 Lightning 30B-A3B</a><small>NVIDIA, Compact, $0.05 / $0.20</small></span><span class="b-track" style="height:12px;border-radius:3px;background:var(--surface-2);overflow:hidden;display:block"><span class="b-fill" style="display:block;height:100%;width:68%;background:var(--v4)"></span></span><span class="rk-score">68</span></li>
+<li><span class="rk-name"><a href="model-gemini-3-6-flash.html">Gemini 3.6 Flash</a><small>Google, Advanced, $0.75 / $3.75</small></span><span class="b-track" style="height:12px;border-radius:3px;background:var(--surface-2);overflow:hidden;display:block"><span class="b-fill" style="display:block;height:100%;width:68%;background:var(--v4)"></span></span><span class="rk-score">68</span></li>
+<li><span class="rk-name"><a href="model-claude-opus-5-5.html">Claude Opus 5.5</a><small>Anthropic, Frontier, $4 / $20</small></span><span class="b-track" style="height:12px;border-radius:3px;background:var(--surface-2);overflow:hidden;display:block"><span class="b-fill" style="display:block;height:100%;width:67%;background:var(--v4)"></span></span><span class="rk-score">67</span></li>
+<li><span class="rk-name"><a href="model-muse-spark-1-3.html">Muse Spark 1.3</a><small>Meta, Advanced, $1.25 / $4.25</small></span><span class="b-track" style="height:12px;border-radius:3px;background:var(--surface-2);overflow:hidden;display:block"><span class="b-fill" style="display:block;height:100%;width:67%;background:var(--v4)"></span></span><span class="rk-score">67</span></li>
+<li><span class="rk-name"><a href="model-grok-4-7.html">Grok 4.7</a><small>xAI, Frontier, $2 / $6</small></span><span class="b-track" style="height:12px;border-radius:3px;background:var(--surface-2);overflow:hidden;display:block"><span class="b-fill" style="display:block;height:100%;width:67%;background:var(--v4)"></span></span><span class="rk-score">67</span></li>
+<li><span class="rk-name"><a href="model-claude-haiku-5-5.html">Claude Haiku 5.5</a><small>Anthropic, Efficient, $0.10 / $0.50</small></span><span class="b-track" style="height:12px;border-radius:3px;background:var(--surface-2);overflow:hidden;display:block"><span class="b-fill" style="display:block;height:100%;width:66%;background:var(--v4)"></span></span><span class="rk-score">66</span></li>
+<li><span class="rk-name"><a href="model-gemma-4-31b.html">Gemma 4 31B</a><small>Google, Efficient, $0.20 / $0.40</small></span><span class="b-track" style="height:12px;border-radius:3px;background:var(--surface-2);overflow:hidden;display:block"><span class="b-fill" style="display:block;height:100%;width:66%;background:var(--v4)"></span></span><span class="rk-score">66</span></li>
+<li><span class="rk-name"><a href="model-gpt-oss-120b.html">gpt-oss-120b</a><small>OpenAI, Advanced, $0.15 / $0.60</small></span><span class="b-track" style="height:12px;border-radius:3px;background:var(--surface-2);overflow:hidden;display:block"><span class="b-fill" style="display:block;height:100%;width:65%;background:var(--v4)"></span></span><span class="rk-score">65</span></li>
+<li><span class="rk-name"><a href="model-mistral-large-3.html">Mistral Large 3</a><small>Mistral AI, Advanced, $0.50 / $1.50</small></span><span class="b-track" style="height:12px;border-radius:3px;background:var(--surface-2);overflow:hidden;display:block"><span class="b-fill" style="display:block;height:100%;width:65%;background:var(--v4)"></span></span><span class="rk-score">65</span></li>
+<li><span class="rk-name"><a href="model-gpt-6-luna.html">GPT-6 Luna</a><small>OpenAI, Efficient, $0.10 / $0.50</small></span><span class="b-track" style="height:12px;border-radius:3px;background:var(--surface-2);overflow:hidden;display:block"><span class="b-fill" style="display:block;height:100%;width:65%;background:var(--v4)"></span></span><span class="rk-score">65</span></li>
+<li><span class="rk-name"><a href="model-mistral-small-4.html">Mistral Small 4</a><small>Mistral AI, Efficient, $0.15 / $0.60</small></span><span class="b-track" style="height:12px;border-radius:3px;background:var(--surface-2);overflow:hidden;display:block"><span class="b-fill" style="display:block;height:100%;width:64%;background:var(--v4)"></span></span><span class="rk-score">64</span></li>
+<li><span class="rk-name"><a href="model-mistral-medium-3-5.html">Mistral Medium 3.5</a><small>Mistral AI, Advanced, $1.50 / $7.50</small></span><span class="b-track" style="height:12px;border-radius:3px;background:var(--surface-2);overflow:hidden;display:block"><span class="b-fill" style="display:block;height:100%;width:63%;background:var(--v4)"></span></span><span class="rk-score">63</span></li>
+<li><span class="rk-name"><a href="model-claude-fable-5-1.html">Claude Fable 5.1</a><small>Anthropic, Frontier, $10 / $50</small></span><span class="b-track" style="height:12px;border-radius:3px;background:var(--surface-2);overflow:hidden;display:block"><span class="b-fill" style="display:block;height:100%;width:63%;background:var(--v4)"></span></span><span class="rk-score">63</span></li>
+</ol>
+        <p style="margin-top:1rem"><button type="button" class="btn btn--ghost btn--sm" id="lb-more">Show all models</button></p>
+      </div>
+    </div>
+    <aside class="ad-slot" data-ad="content" aria-label="Sponsored message"><span class="ad-label">From LLModel</span><div class="ad-fill"><div class="house"><div><strong>Building with LLMs?</strong><span>Tell us what you&#x27;re building and get a vendor-neutral stack plan within 2 business days.</span></div>
+<a class="btn btn--ghost btn--sm" href="hire-llm-experts.html">Get my stack plan</a></div>
+</div>
+</aside>
+    <section class="prose" aria-labelledby="method" style="margin-top:2.5rem">
+      <h2 id="method">Methodology</h2>
+      <p>The index scores each current model with a published list price from 0 to 1 on six factors, multiplies each score by your weight, and rescales the total to 100. Legacy models and models without a confirmed price are left out so that every model is scored on the same inputs.</p>
+      <ul>
+        <li><strong>Capability tier.</strong> Frontier scores 1.0, advanced 0.75, efficient 0.5 and compact 0.3, plus 0.05 for a reasoning mode. Tiers are our editorial grouping of provider positioning and public benchmark standings; they are not our own test results.</li>
+        <li><strong>Low price.</strong> Blended price (three parts input to one part output) on a log scale: the cheapest model scores 1, the most expensive 0. A log scale stops a single very expensive model from flattening everyone else.</li>
+        <li><strong>Context window.</strong> Maximum context on a log scale between the smallest and largest window in the set.</li>
+        <li><strong>Open weights.</strong> 1 if you can download the weights, 0 if not. License terms vary, so read them on the model page.</li>
+        <li><strong>Inputs.</strong> One third of a point for each non-text input type (images, audio, video or PDF), capped at 1.</li>
+        <li><strong>Newer release.</strong> Release date scaled between the oldest and newest model in the set.</li>
+      </ul>
+      <p>The index is a shortlisting aid. It can't tell you which model writes the best answer for your task; only a test on your own data can. For raw capability, check the independent leaderboards below, which run their own evaluations.</p>
+    </section>
+    <section aria-labelledby="indep" style="margin-top:2.5rem">
+      <h2 class="h2" id="indep" style="margin-bottom:1rem">Independent leaderboards and benchmarks</h2>
+      <ul class="rowlist"><li><a class="row" href="https://huggingface.co/docs/hub/index" target="_blank" rel="noopener"><span class="row__title">Hugging Face Hub</span><span class="row__desc">The main public registry for open models, datasets and demo apps, hosting millions of repositories with model cards and version history. Search it when you need open weights, a dataset or a reference implementation.</span><span class="row__meta">Freemium</span></a></li>
+<li><a class="row" href="https://arena.ai/leaderboard" target="_blank" rel="noopener"><span class="row__title">Arena (formerly LMArena)</span><span class="row__desc">A public leaderboard built from anonymous side-by-side votes, where people compare two models&#x27; answers without knowing which is which. Treat it as one signal of conversational quality, alongside task-specific benchmarks.</span><span class="row__meta">Free</span></a></li>
+<li><a class="row" href="https://artificialanalysis.ai" target="_blank" rel="noopener"><span class="row__title">Artificial Analysis</span><span class="row__desc">Independent comparisons of AI models and API providers on intelligence scores, price, output speed and latency. Handy when you are choosing both a model and a host and need quality and cost side by side.</span><span class="row__meta">Free</span></a></li>
+<li><a class="row" href="https://livebench.ai" target="_blank" rel="noopener"><span class="row__title">LiveBench</span><span class="row__desc">A benchmark built to resist test-set contamination, using questions refreshed over time and scored automatically against ground-truth answers. Check it for objective comparisons of reasoning, coding and math ability across models.</span><span class="row__meta">Free</span></a></li>
+<li><a class="row" href="https://epoch.ai/benchmarks" target="_blank" rel="noopener"><span class="row__title">Epoch AI Benchmarking Hub</span><span class="row__desc">Epoch AI&#x27;s database of benchmark results, mixing evaluations the team runs itself with figures from outside sources. Use it to see how leading models score on hard tasks and to compare them across several tests.</span><span class="row__meta">Free</span></a></li>
+<li><a class="row" href="https://www.swebench.com" target="_blank" rel="noopener"><span class="row__title">SWE-bench</span><span class="row__desc">A benchmark of real GitHub issues from Python repositories, with public leaderboards for variants such as Verified, Multilingual and Lite. Use it to judge how well a model or coding agent resolves genuine software tasks.</span><span class="row__meta">Open source</span></a></li>
+<li><a class="row" href="https://crfm.stanford.edu/helm/" target="_blank" rel="noopener"><span class="row__title">Stanford HELM</span><span class="row__desc">Stanford&#x27;s Holistic Evaluation of Language Models, an open framework and living set of leaderboards that score models across many scenarios and metrics rather than accuracy alone. Use it for transparent, reproducible comparisons.</span><span class="row__meta">Open source</span></a></li>
+</ul>
+      <p class="small muted" style="margin-top:.75rem">Read <a href="llm-benchmarks-explained.html">LLM benchmarks explained</a> before you trust any single score.</p>
+    </section>
+  </div>
+  <aside class="aside-box">
+    <h2 class="h3">Shortlists by job</h2>
+    <div class="pill-nav"><a href="best-llms-for-coding.html">Coding</a><a href="best-llms-for-agents.html">Agents</a><a href="best-llms-for-long-documents.html">Long documents</a><a href="cheapest-llm-apis.html">Cheapest APIs</a><a href="longest-context-llms.html">Longest context</a><a href="best-open-weight-llms.html">Open weights</a><a href="llms-you-can-run-locally.html">Run locally</a><a href="multimodal-llms.html">Multimodal</a><a href="reasoning-models.html">Reasoning</a><a href="best-llms-for-customer-support.html">Customer support</a></div>
+    <h2 class="h3" style="margin-top:1.25rem">Turn a ranking into a decision</h2>
+    <p class="small muted" style="margin-top:.4rem">Tell us your use case and constraints. We'll come back with a shortlist and a test plan for your data.</p>
+    <a class="btn btn--primary btn--block" style="margin-top:.8rem" href="hire-llm-experts.html?need=choose-model&amp;from=rankings">Get a vendor-neutral shortlist</a>
+  </aside>
+</div>
+<div class="wrap"><section class="lead-band" aria-labelledby="lead-choose-leaderboard">
+  <div>
+    <h2 id="lead-choose-leaderboard">Still choosing a model?</h2>
+    <p>Send us your use case and constraints. We&#x27;ll come back with a shortlist and an evaluation plan you can run on your own data.</p>
+    <ul><li>Free and vendor-neutral: no model provider pays for placement.</li>
+<li>Your details go only to partners you agree to.</li>
+</ul>
+  </div>
+  <form class="mini-form" action="hire-llm-experts.html" method="get">
+    <label for="need-choose-leaderboard">What do you need help with?</label>
+    <select id="need-choose-leaderboard" name="need"><option value="choose-model" selected>Choose the right model</option>
+<option value="chatbot">Build a chatbot or assistant</option>
+<option value="rag">Answer questions over our documents (RAG)</option>
+<option value="agents">Automate work with AI agents</option>
+<option value="self-host">Fine-tune or self-host a model</option>
+<option value="cut-costs">Cut our LLM costs</option>
+<option value="security">Security, privacy or compliance review</option>
+<option value="not-sure">Not sure yet</option>
+</select>
+    <input type="hidden" name="from" value="leaderboard">
+    <button class="btn btn--yellow btn--block" type="submit">Start my free plan</button>
+    <p class="fine">Takes about 2 minutes. No sales calls unless you ask for one.</p>
+  </form>
+</section>
+</div>
+<div class="wrap" style="margin-top:3rem"><section class="faq-wrap" aria-labelledby="faq"><h2 class="h2" id="faq" style="margin-bottom:1rem">Frequently asked questions</h2>
+<div class="faq"><details><summary>What is the best LLM right now?</summary><div class="faq__a"><p>It depends on what you weigh. With the default balanced weights, the top of this index is a mix of frontier models and strong mid-priced ones. If price matters most, efficient models jump ahead; if you need to self-host, open-weight models lead. Independent benchmark leaderboards linked on this page track raw capability.</p>
+</div>
+</details>
+<details><summary>Do you run your own benchmarks?</summary><div class="faq__a"><p>No. The capability input is an editorial tier based on how providers position each model and where it stands on public benchmarks and arena rankings. Everything else in the index is calculated from published facts: list prices, context windows, licenses, input types and release dates.</p>
+</div>
+</details>
+<details><summary>Can a provider pay to rank higher?</summary><div class="faq__a"><p>No. Rankings come only from the formula on this page and the data on each model page. Sponsorships on LLModel are labeled and never change a score, an order or a verdict.</p>
+</div>
+</details>
+</div>
+</section>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+      <p>The independent field guide to large language models. Model data checked against provider documentation; last full check October 10, 2026.</p>
+    </div>
+    <div><h2>Explore</h2>
+<ul><li><a href="models.html">Model directory</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare models</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="search.html">Search</a></li>
+</ul>
+</div>
+<div><h2>Tools</h2>
+<ul><li><a href="llm-cost-calculator.html">Cost calculator</a></li>
+<li><a href="token-counter.html">Token counter</a></li>
+<li><a href="vram-calculator.html">GPU and VRAM calculator</a></li>
+<li><a href="llm-picker.html">Which LLM should I use?</a></li>
+<li><a href="context-window-visualizer.html">Context window visualizer</a></li>
+<li><a href="prompt-builder.html">Prompt builder</a></li>
+<li><a href="self-host-vs-api-calculator.html">Self-host vs API calculator</a></li>
+</ul>
+</div>
+<div><h2>Learn</h2>
+<ul><li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+</ul>
+</div>
+<div><h2>Work with us</h2>
+<ul><li><a href="hire-llm-experts.html">Get expert help</a></li>
+<li><a href="list-your-product.html">List your product</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</div>
+<div><h2>About</h2>
+<ul><li><a href="about.html">About LLModel</a></li>
+<li><a href="editorial-policy.html">Editorial policy</a></li>
+<li><a href="privacy.html">Privacy policy</a></li>
+<li><a href="terms.html">Terms of use</a></li>
+<li><a href="disclaimer.html">Disclaimer</a></li>
+<li><a href="trademark-copyright.html">Trademark and copyright</a></li>
+<li><a href="sitemap.html">Site map</a></li>
+<li><button class="linklike" type="button" data-privacy-choices>Privacy and cookie choices</button></li>
+</ul>
+</div>
+  </div>
+  <div class="wrap footer-legal">
+    <p>&copy; 2026 LLModel.com. Independent: not affiliated with, endorsed by or sponsored by any model provider. Model and company names are trademarks of their respective owners and are used only to identify products. See <a href="trademark-copyright.html">trademark and copyright</a>.</p>
+    <p>Prices and specifications change often. Always confirm on the provider's own pricing page before you buy.</p>
+  </div>
+</footer>
+<div class="palette" id="palette" hidden role="dialog" aria-modal="true" aria-label="Search LLModel">
+  <div class="palette__box">
+    <label class="visually-hidden" for="palette-input">Search models, tools, guides and terms</label>
+    <input class="palette__input" id="palette-input" type="search" placeholder="Search models, tools, guides, terms" autocomplete="off" spellcheck="false" aria-controls="palette-list">
+    <ul class="palette__list" id="palette-list" role="listbox"></ul>
+    <div class="palette__foot"><span><span class="kbd">&uarr;</span> <span class="kbd">&darr;</span> to move</span><span><span class="kbd">Enter</span> to open</span><span><span class="kbd">Esc</span> to close</span></div>
+  </div>
+</div>
+<script src="assets/js/config.js?v=caa5324cbb"></script>
+<script src="assets/js/data/models.js?v=c659fa1d67"></script>
+<script src="assets/js/app.js?v=4b39d7c1bd" defer></script>
+<script src="assets/js/pages/leaderboard.js?v=a936b9572f" defer></script>
+</body>
+</html>

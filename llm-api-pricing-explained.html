@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LLM API Pricing Explained: Tokens, Caching and Real Costs (2026) | LLModel.com</title>
+<meta name="description" content="LLM API pricing explained: how tokens are billed, why output costs more, reasoning tokens, caching and batch discounts, and worked cost examples for 2026.">
+<link rel="canonical" href="https://llmodel.com/llm-api-pricing-explained.html">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="google-adsense-account" content="ca-pub-6620975821265271">
+<meta name="theme-color" content="#f4f6fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12101e" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="LLModel.com">
+<meta property="og:title" content="LLM API Pricing Explained: Tokens, Caching and Real Costs (2026)">
+<meta property="og:description" content="LLM API pricing explained: how tokens are billed, why output costs more, reasoning tokens, caching and batch discounts, and worked cost examples for 2026.">
+<meta property="og:url" content="https://llmodel.com/llm-api-pricing-explained.html">
+<meta property="og:image" content="https://llmodel.com/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="LLModel: the independent field guide to large language models">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="alternate" type="text/plain" href="llms.txt" title="llms.txt">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Martian+Mono:wght@400..500&family=Newsreader:ital,opsz,wght@0,6..72,400..650;1,6..72,400&display=swap">
+<link rel="stylesheet" href="assets/css/style.css?v=dae4813595">
+<script>(function(){var d=document.documentElement,t=null;try{t=localStorage.getItem('llm-theme')}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}d.setAttribute('data-theme',t)})();</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6620975821265271" crossorigin="anonymous"></script>
+<script type="application/ld+json">{
+ "@type": "Organization",
+ "@id": "https://llmodel.com/#org",
+ "name": "LLModel.com",
+ "url": "https://llmodel.com/",
+ "logo": "https://llmodel.com/assets/img/icon-512.png",
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://llmodel.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Guides",
+   "item": "https://llmodel.com/guides.html"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "LLM API pricing explained"
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "Article",
+ "headline": "LLM API Pricing Explained: Tokens, Caching and Real Costs (2026)",
+ "description": "LLM API pricing explained: how tokens are billed, why output costs more, reasoning tokens, caching and batch discounts, and worked cost examples for 2026.",
+ "datePublished": "2026-10-10",
+ "dateModified": "2026-10-10",
+ "inLanguage": "en",
+ "mainEntityOfPage": "https://llmodel.com/llm-api-pricing-explained.html",
+ "image": "https://llmodel.com/assets/img/og-image.png",
+ "author": {
+  "@type": "Organization",
+  "name": "LLModel editorial team",
+  "url": "https://llmodel.com/about.html"
+ },
+ "publisher": {
+  "@id": "https://llmodel.com/#org"
+ },
+ "keywords": "llm api pricing, how much does an llm api cost, token pricing, prompt caching discount, batch api discount, reasoning tokens cost",
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "How much does an LLM API call cost?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Multiply input tokens by the input price and output tokens by the output price, both per million tokens. A request with 2,000 input and 500 output tokens on a model charging $2 and $10 per million costs $0.004 plus $0.005, or $0.009. A million such requests cost about $9,000, while a small model at $0.10 and $0.50 handles the same volume for about $450."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Why do output tokens cost more than input tokens?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Input tokens are processed together in one parallel pass, which uses GPUs efficiently. Output tokens are generated one at a time, and each new token requires another pass through the model, so generation occupies expensive hardware far longer per token. That is why most providers price output four to six times higher than input."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Am I charged for reasoning or thinking tokens?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes. Reasoning models generate internal reasoning before the visible answer, and providers bill those tokens at the output rate even when you cannot see them. They also take up space in the context window. Check the usage data returned with each response to see the count, and lower the reasoning effort or thinking budget for simple tasks."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How much does prompt caching save?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Cached input typically costs 5 to 10 percent of the normal input price, so a long, repeated prefix such as a system prompt, tool definitions or reference documents can become up to 95 percent cheaper on later requests. Writing to the cache can cost a premium, often 1.25 times the input price, and caches expire after minutes of inactivity, so savings depend on steady traffic."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Is self-hosting an open model cheaper than using an API?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Only at high, steady volume. In our example, a $2.50-per-hour GPU server costs about $1,825 a month and breaks even against a mid-tier API at roughly 450 million tokens a month, but against a cheap small model it needs over 9 billion. Add engineering time, idle capacity and possible quality differences before deciding."
+   }
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+
+</head>
+<body class="page-llm-api-pricing-explained">
+<a class="skip" href="#main">Skip to content</a>
+<div class="partner-bar"><a href="https://web.works/contact" target="_blank" rel="noopener"><span>Contact, if you are interested in this website / domain name / sponsorship / advertisement / partnership</span></a></div>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+    <nav class="nav" aria-label="Main"><a href="models.html">Models</a><a href="compare.html">Compare</a><a href="leaderboard.html">Rankings</a><a href="tools.html">Tools</a><a href="guides.html" aria-current="page">Learn</a><a href="videos.html">Videos</a></nav>
+    <div class="header-actions">
+      <button class="search-btn" type="button" data-open-search aria-label="Search the site"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="search-label">Search</span><span class="kbd" aria-hidden="true">/</span></button>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><svg class="theme-icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="theme-icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+      <a class="btn btn--primary btn--sm header-cta" href="hire-llm-experts.html">Get expert help</a>
+      <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile">
+    <ul><li><a href="models.html">Models</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="tools.html">Tools</a></li>
+<li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="contact.html">Contact</a></li>
+<li class="mobile-cta"><a class="btn btn--primary btn--block" href="hire-llm-experts.html">Get expert help</a></li>
+</ul>
+  </nav>
+</header>
+<main id="main">
+<nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li>
+<li><a href="guides.html">Guides</a></li>
+<li aria-current="page">LLM API pricing explained</li>
+</ol>
+</nav>
+<div class="read-progress" id="read-progress" aria-hidden="true"></div>
+<header class="page-head wrap"><h1>LLM API pricing explained</h1><p class="lede">LLM APIs bill per token, but output, reasoning, caching, batching and long-context tiers can change a bill several-fold. This guide explains each pricing component, shows real prices as of October 2026 and works through three cost examples step by step.</p>
+<div class="page-meta"><span>Choosing &amp; buying</span><span>Beginner</span><span>11 min read</span><span>Updated October 10, 2026</span></div>
+</header>
+<div class="wrap article">
+  <nav class="article__toc toc" aria-label="On this page"><p class="toc-title">On this page</p>
+<ol><li><a href="#how-billing-works">How LLM API billing works</a></li>
+<li><a href="#current-prices">What prices look like in October 2026</a></li>
+<li><a href="#caching-and-batch-discounts">Discounts: prompt caching and batch processing</a></li>
+<li><a href="#long-context-and-multimodal-pricing">Long context, images, audio and tools</a></li>
+<li><a href="#rate-limits-and-tiers">Rate limits and usage tiers</a></li>
+<li><a href="#worked-cost-examples">Three worked cost examples</a></li>
+<li><a href="#how-to-cut-costs">How to cut your LLM API costs</a></li>
+<li><a href="#common-mistakes">Common mistakes</a></li>
+<li><a href="#next-steps">Next steps</a></li>
+</ol>
+</nav>
+  <article class="prose" id="article">
+    <div class="takeaways"><h2>Key takeaways</h2>
+<ul><li>You pay per million tokens, with output typically priced four to six times higher than input.</li>
+<li>Reasoning models bill their hidden thinking as output tokens, which can multiply the cost of a short answer.</li>
+<li>Prompt caching cuts repeated input to 5-10 percent of the normal price, and batch processing halves the price of work that can wait up to 24 hours.</li>
+<li>Long-context surcharges, images, audio and built-in tools add costs that a headline price does not show.</li>
+<li>Routing easy requests to small models, caching stable prompts and batching offline jobs are the biggest levers on a bill.</li>
+</ul>
+</div>
+    <p>LLM APIs charge by the token, and the final bill depends on much more than the headline price. This guide explains how billing works, which tokens cost extra and which are discounted, what prices look like as of October 2026 and how to estimate costs, with three worked examples and the tactics that save the most. It covers pay-as-you-go API pricing; chat subscriptions charge a flat monthly fee per seat instead.</p>
+
+<h2 id="how-billing-works">How LLM API billing works</h2>
+<h3 id="what-a-token-is">What a token is</h3>
+<p>A <a href="glossary-fundamentals.html#token">token</a> is a chunk of text the model reads or writes: a short word, part of a longer word, a number or a punctuation mark. A common rule of thumb for English is about four characters, or three-quarters of a word, per token, so 1,000 words come to roughly 1,300 tokens. Code, numbers and many other languages use more tokens per word, and each provider's <a href="glossary-fundamentals.html#tokenization">tokenizer</a> splits text differently. Paste your own text into the <a href="token-counter.html">token counter</a> for a real estimate.</p>
+<h3 id="the-billing-formula">The billing formula</h3>
+<p>Prices are quoted per million tokens, with separate rates for input and output:</p>
+<pre><code>cost = (input tokens / 1,000,000) x input price
+     + (output tokens / 1,000,000) x output price</code></pre>
+<p>Input is everything you send: the system prompt, tool definitions, retrieved documents, images and the conversation so far. Most chat APIs are stateless, so every turn resends the full history and you pay for it again. Message 20 of a conversation costs far more than message one.</p>
+<p>Example: 2,000 input tokens and 500 output tokens on a model charging $2 and $10 per million cost $0.004 + $0.005 = $0.009. That looks tiny, but a million such requests cost $9,000.</p>
+<h3 id="why-output-costs-more">Why output costs more</h3>
+<p>Output tokens typically cost four to six times as much as input because of how <a href="glossary-inference-deployment.html#inference">inference</a> works. The model processes all input tokens in one parallel pass, which keeps GPUs efficiently busy. Output is generated one token at a time, and each new token needs another pass through the model, so generation occupies expensive hardware far longer per token. Verbose answers therefore cost more than long prompts of the same length.</p>
+<h3 id="reasoning-tokens">Reasoning tokens: the hidden output</h3>
+<p><a href="glossary-fundamentals.html#reasoning-model">Reasoning models</a> work through a problem before answering, generating internal reasoning tokens. Providers bill these at the output rate even though you usually see only a summary or nothing at all. OpenAI's documentation notes that they also take up context window space, and the count appears in each response's usage data.</p>
+<p>Example: a 300-token answer preceded by 3,000 reasoning tokens bills 3,300 output tokens. At $10 per million, that is $0.033 instead of $0.003, eleven times more. Most providers offer a reasoning-effort setting or thinking budget; keep it low for simple tasks and raise it only where accuracy improves.</p>
+
+<h2 id="current-prices">What prices look like in October 2026</h2>
+<p>List prices in US dollars per million tokens, checked against official pricing pages on October 10, 2026. Prices change often, so confirm them before you budget.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Model (provider)</th><th>Input</th><th>Cached input</th><th>Output</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td>GPT-6 Astra (OpenAI)</td><td>$10.00</td><td>$1.00</td><td>$50.00</td><td>Flagship</td></tr>
+<tr><td>GPT-6.1 Sol (OpenAI)</td><td>$2.00</td><td>$0.10</td><td>$10.00</td><td>Prompts over 272K tokens cost 2x input and 1.5x output</td></tr>
+<tr><td>GPT-6 Luna (OpenAI)</td><td>$0.10</td><td>$0.01</td><td>$0.50</td><td>Built for high-volume work</td></tr>
+<tr><td>Claude Opus 5.5 (Anthropic)</td><td>$4.00</td><td>$0.20</td><td>$20.00</td><td>Full 1M-token context at standard rates</td></tr>
+<tr><td>Claude Haiku 5.5 (Anthropic)</td><td>$0.10</td><td>$0.01</td><td>$0.50</td><td>Prompts over 100K tokens: $0.50 input, $2.50 output</td></tr>
+<tr><td>Gemini 3.1 Pro Preview (Google)</td><td>$2.00</td><td>$0.20</td><td>$12.00</td><td>Prompts over 200K tokens: $4.00 input, $18.00 output</td></tr>
+<tr><td>Gemini 3.8 Flash (Google)</td><td>$0.75</td><td>$0.075</td><td>$3.75</td><td>Google lists higher rates from January 1, 2027</td></tr>
+</tbody>
+</table>
+</div>
+<p>Three patterns stand out: input prices span 100x, from $0.10 to $10.00 per million; output costs five to six times input; and cached input costs 5-10 percent of the normal input price. The <a href="compare.html">comparison tool</a> and <a href="providers.html">provider directory</a> track more models.</p>
+
+<aside class="ad-slot" data-ad="in-article" aria-label="Sponsored message"><span class="ad-label">From LLModel</span><div class="ad-fill"><div class="house"><div><strong>Keep LLModel independent</strong><span>Reader support pays for data checks, new tools and contest prizes.</span></div>
+<a class="btn btn--ghost btn--sm" href="support.html">Support the site</a></div>
+</div>
+</aside>
+<h2 id="caching-and-batch-discounts">Discounts: prompt caching and batch processing</h2>
+<h3 id="prompt-caching">Prompt caching</h3>
+<p><a href="glossary-business-pricing.html#prompt-caching">Prompt caching</a> stores the processed form of a prompt's opening section. When a later request starts with exactly the same prefix, the provider reads it from cache at a steep discount: $0.10 instead of $2.00 per million on GPT-6.1 Sol and Claude Sonnet 5.5.</p>
+<ul>
+<li><strong>Write premium.</strong> Writing to the cache costs 1.25x the input price on OpenAI's newer models and Anthropic's default 5-minute cache, and 2x for Anthropic's 1-hour cache. Google also charges hourly storage for explicit caches.</li>
+<li><strong>Setup.</strong> OpenAI caches eligible prompts automatically. Anthropic requires a <code>cache_control</code> setting in the request.</li>
+<li><strong>Minimums and lifetimes.</strong> Prefixes must reach a minimum length: 1,024 tokens on OpenAI's current models and 512 to 4,096 tokens on Claude models, depending on the model. Caches expire after minutes of inactivity, so savings depend on steady traffic.</li>
+<li><strong>Prompt order.</strong> Put stable content first (system prompt, tool definitions, reference documents, examples) and variable content last. A timestamp at the top breaks the cache on every request.</li>
+</ul>
+<p>Caching can also stretch rate limits: Anthropic does not count cache reads toward input-token limits on most models. Check the cached token count in each response's usage data to confirm hits.</p>
+<h3 id="batch-processing">Batch processing</h3>
+<p>A <a href="glossary-business-pricing.html#batch-api">batch API</a> accepts a file of requests and returns results asynchronously. OpenAI, Anthropic and Google all list batch prices at 50 percent off, with results within 24 hours and often much sooner. OpenAI also gives batch jobs a separate, higher rate-limit pool. Use batch for evaluations, backfills, classification, summarization and embeddings, anything a person is not waiting on.</p>
+<p>Some providers also sell speed tiers. Google's priority tier for Gemini 2.5 Flash lists $0.54 per million input tokens versus $0.30 standard, and Anthropic's fast mode for Claude Opus 5.5 doubles its rates to $8 input and $40 output.</p>
+
+<h2 id="long-context-and-multimodal-pricing">Long context, images, audio and tools</h2>
+<h3 id="long-context-tiers">Long-context price tiers</h3>
+<p>Some models charge more once a prompt crosses a size threshold, and the higher rate usually applies to the entire request, not just the overflow. A 300,000-token prompt on GPT-6.1 Sol costs $1.20 in input instead of $0.60, because it crosses the 272K-token line.</p>
+<p>Gemini 3.1 Pro Preview doubles its input price above 200K tokens, and Claude Haiku 5.5 charges five times more above 100K. Other current Claude models bill their full 1M-token <a href="glossary-fundamentals.html#context-window">context window</a> at standard rates. Regional processing can add a premium too: Anthropic charges 1.1x for US-only inference.</p>
+<h3 id="images-audio-video">Images, audio and video</h3>
+<p><a href="glossary-fundamentals.html#multimodal">Multimodal</a> inputs are converted to tokens. Anthropic's formula divides an image into 28-pixel squares, so a 1,000 x 1,000 pixel image costs 1,296 tokens, about $0.0026 at $2 per million, or $25.92 per 10,000 images. Newer Claude models accept larger images, so a full-resolution 1920 x 1080 screenshot costs 2,691 tokens; resize when fine detail does not matter. Image generation is usually priced per image: Google lists Gemini 3.1 Flash Image at about $0.067 per 1K-resolution image and $0.151 at 4K.</p>
+<p>Audio input often costs more than text. Gemini 3.1 Flash-Lite charges $0.50 per million audio tokens versus $0.25 for text, and real-time voice models carry separate, higher rates.</p>
+<h3 id="tool-pricing">Tool calls</h3>
+<p><a href="glossary-building-apps.html#tool-calling">Tool</a> definitions are input tokens on every request, and Anthropic adds a tool-use system prompt of a few hundred tokens (286 on Claude Opus 5.5). Tool results you send back are input too. Built-in server tools add per-call fees:</p>
+<ul>
+<li>Web search costs $10 per 1,000 searches on both OpenAI and Anthropic, plus the retrieved content billed as tokens.</li>
+<li>Google's search grounding for Gemini 3 models costs $14 per 1,000 requests after 5,000 free each month.</li>
+<li>Anthropic's code execution tool includes 1,550 free hours per organization each month, then $0.05 per container-hour.</li>
+</ul>
+
+<figure class="video-figure"><div class="video" data-yt="-0HRzXk8vlk"><button class="video__btn" type="button" aria-label="Play video: Why AI Tokens are so Expensive - Computerphile"><img src="https://i.ytimg.com/vi/-0HRzXk8vlk/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="video__play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></button></div>
+<figcaption>Watch: Why AI Tokens are so Expensive - Computerphile (Computerphile). Computerphile asks why AI tokens cost what they do, the question behind every per-token price on an API rate card. It is helpful background for anyone budgeting for LLM usage who wants the reasoning, not only the numbers.</figcaption></figure>
+<h2 id="rate-limits-and-tiers">Rate limits and usage tiers</h2>
+<p>Rate limits cap how much you can use per minute or per day: requests per minute (RPM), tokens per minute (TPM) and sometimes daily totals. Anthropic splits input and output tokens per minute. Whichever limit you hit first applies, and exceeding it returns an HTTP 429 error, usually with a retry-after header.</p>
+<p>Limits rise with spending history. OpenAI's paid tiers, Build, Launch and Grow, unlock after $5, $100 and $500 in total credit purchases; for GPT-6.1 Sol they allow 1 million, 4 million and 40 million TPM. Anthropic's Start, Build, Scale and Custom tiers advance automatically with usage, and the Start tier allows Claude Opus 5.5 1,000 RPM, 2 million input TPM and 400,000 output TPM. Tiers also carry monthly spending caps, such as $500 on OpenAI's Build and Anthropic's Start tiers.</p>
+<p>Check capacity before launch. A chatbot peaking at 600 requests per minute with 5,300 tokens each needs about 3.2 million TPM, well beyond a 1 million TPM tier. Retry with exponential backoff and jitter, and move offline work to batch, which has separate limits.</p>
+
+<h2 id="worked-cost-examples">Three worked cost examples</h2>
+<p>These examples use clearly labeled example prices, rounded from real October 2026 list prices: the small tier resembles GPT-6 Luna or Claude Haiku 5.5, the mid tier GPT-6.1 Sol or Claude Sonnet 5.5 and the frontier tier GPT-6 Astra.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Example tier</th><th>Input</th><th>Cache read</th><th>Cache write</th><th>Output</th></tr>
+</thead>
+<tbody>
+<tr><td>Small</td><td>$0.10</td><td>$0.01</td><td>$0.125</td><td>$0.50</td></tr>
+<tr><td>Mid</td><td>$2.00</td><td>$0.10</td><td>$2.50</td><td>$10.00</td></tr>
+<tr><td>Frontier</td><td>$10.00</td><td>$1.00</td><td>$12.50</td><td>$50.00</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="example-support-chatbot">Example 1: customer support chatbot</h3>
+<p>Assume 30,000 conversations a month with four model calls each, or 120,000 calls. Each call sends a 3,000-token fixed prefix (instructions, policies, tool definitions), about 2,000 tokens of history and retrieved text, and receives 300 output tokens.</p>
+<ul>
+<li><strong>Mid tier, no caching:</strong> input 120,000 x 5,000 = 600M tokens x $2 = $1,200. Output 120,000 x 300 = 36M x $10 = $360. Total: <strong>$1,560 a month</strong>.</li>
+<li><strong>With caching</strong>, assuming 2 percent of calls write the prefix and 98 percent read it: writes 7.2M x $2.50 = $18; reads 352.8M x $0.10 = $35.28; uncached input 240M x $2 = $480; output $360. Total: <strong>about $893</strong>, 43 percent less.</li>
+<li><strong>Plus routing</strong> 70 percent of calls (FAQ-style questions) to the small tier: small share about $32.50, mid share about $267.98. Total: <strong>about $300</strong>, 81 percent below the starting point.</li>
+</ul>
+<h3 id="example-summarization-pipeline">Example 2: document summarization pipeline</h3>
+<p>Assume 10,000 documents a month, each 12,000 tokens plus a 500-token instruction, producing a 600-token summary.</p>
+<ul>
+<li><strong>Mid tier:</strong> input 10,000 x 12,500 = 125M x $2 = $250. Output 6M x $10 = $60. Total: <strong>$310</strong>.</li>
+<li><strong>Mid tier through the batch API:</strong> <strong>$155</strong>. Caching does not help here, because the only shared text is the 500-token instruction, below the 1,024-token minimum.</li>
+<li><strong>Small tier through batch:</strong> ($12.50 + $3.00) / 2 = <strong>$7.75</strong>, if its summaries pass your quality checks.</li>
+<li><strong>Watch outliers:</strong> one 300,000-token contract on a model with a 272K threshold is billed at the higher tier for the whole request. Splitting it into two 150K sections keeps each request at standard rates.</li>
+</ul>
+<h3 id="example-coding-agent">Example 3: coding agent</h3>
+<p>An agent completes a task in 40 model calls. Its context starts at 20,000 tokens (instructions, tool definitions, repository map) and grows by 2,500 tokens per step as outputs and tool results accumulate. Each step outputs 2,000 tokens, including reasoning.</p>
+<ul>
+<li><strong>Total input:</strong> 40 x 20,000 + 2,500 x (0 + 1 + ... + 39) = 800,000 + 1,950,000 = 2.75M tokens. Output: 80,000 tokens.</li>
+<li><strong>Mid tier, no caching:</strong> 2.75M x $2 = $5.50, plus 80,000 x $10 per million = $0.80. Total: <strong>$6.30 per task</strong>.</li>
+<li><strong>Mid tier with caching:</strong> each step reads the previous context from cache and writes only new tokens, so writes total 117,500 tokens ($0.29) and reads 2,632,500 ($0.26). With output, the total is <strong>about $1.36 per task</strong>, 78 percent less.</li>
+<li><strong>Frontier tier with caching:</strong> $1.47 + $2.63 + $4.00 = <strong>about $8.10 per task</strong> ($31.50 uncached). If higher reasoning effort tripled output to 6,000 tokens per step, the output line alone would rise from $4.00 to $12.00.</li>
+</ul>
+<p>At 10 tasks a day over 21 workdays, one developer's agent costs about $285 a month on the cached mid tier and about $1,700 on the cached frontier tier. Run your own numbers in the <a href="llm-cost-calculator.html">LLM cost calculator</a>.</p>
+
+<aside class="ad-slot" data-ad="in-article-2" aria-label="Sponsored message"><span class="ad-label">From LLModel</span><div class="ad-fill"><div class="house"><div><strong>Prompt Efficiency Challenge</strong><span>Season 1 is open: solve five tasks for the fewest dollars. $500 in prizes.</span></div>
+<a class="btn btn--ghost btn--sm" href="contests.html">Read the brief</a></div>
+</div>
+</aside>
+<h2 id="how-to-cut-costs">How to cut your LLM API costs</h2>
+<ol>
+<li><strong>Route by difficulty.</strong> Send routine requests to a small model and escalate hard ones. In Example 1, routing cut a cached bill from $893 to about $300.</li>
+<li><strong>Cache stable prefixes.</strong> Keep the start of every prompt identical and verify hits in the usage data.</li>
+<li><strong>Batch anything that can wait</strong> for an immediate 50 percent saving.</li>
+<li><strong>Shorten prompts.</strong> Trim instructions, summarize old conversation turns and retrieve fewer, better passages. Every 1,000 tokens removed saves $2 per 1,000 requests at the mid-tier input rate.</li>
+<li><strong>Control output.</strong> Set a maximum output length, ask for concise answers and use <a href="glossary-building-apps.html#structured-outputs">structured outputs</a> so you get compact JSON instead of prose and fewer failed parses to retry. Lower reasoning effort for simple tasks.</li>
+<li><strong>Use smaller models.</strong> In the example sheet, the small tier costs one-twentieth of the mid tier. A <a href="glossary-fundamentals.html#small-language-model">small language model</a>, possibly fine-tuned or <a href="glossary-training.html#distillation">distilled</a>, often handles narrow tasks well.</li>
+<li><strong>Stay under long-context thresholds</strong> by splitting documents or retrieving only relevant sections.</li>
+<li><strong>Monitor spending.</strong> Log tokens per request and per feature, set budget alerts and use provider spend limits.</li>
+</ol>
+<h3 id="self-hosting-break-even">When self-hosting breaks even</h3>
+<p>Self-hosting an open-weight model replaces per-token fees with a fixed hardware cost. Take an example GPU server rented at $2.50 an hour around the clock: $2.50 x 730 hours = $1,825 a month. At a typical 3:1 ratio of input to output tokens, the example mid tier averages (3 x $2 + $10) / 4 = $4.00 per million, so break-even is $1,825 / $4.00 = about 456 million tokens a month, or 15 million a day. Against the small tier ($0.20 per million blended), break-even jumps to about 9.1 billion tokens a month.</p>
+<p>Those figures assume the self-hosted model matches the API model's quality, which you must test, and they exclude engineering time, idle capacity and redundancy. The <a href="self-host-vs-api-calculator.html">self-host vs API calculator</a> handles the full comparison, and <a href="run-llms-locally.html">running LLMs locally</a> covers hardware sizing.</p>
+
+<h2 id="common-mistakes">Common mistakes</h2>
+<ul>
+<li><strong>Budgeting on input price alone.</strong> Output and reasoning tokens often dominate the bill.</li>
+<li><strong>Forgetting that history is resent.</strong> Long chats and agent loops grow input with every turn.</li>
+<li><strong>Breaking the cache.</strong> Dates, user names or shuffled tool lists at the top of a prompt prevent cache hits.</li>
+<li><strong>Running offline jobs synchronously</strong> instead of through a batch API.</li>
+<li><strong>Ignoring thresholds and extras.</strong> Long-context tiers, image sizes and per-search fees add up quietly.</li>
+<li><strong>Choosing on price without testing quality.</strong> A cheaper model that needs retries or human fixes can cost more overall.</li>
+</ul>
+<div class="checklist"><ul>
+<li>I estimated tokens per request, including history, tool definitions and reasoning.</li>
+<li>Stable content sits at the start of the prompt, and cache hits are verified.</li>
+<li>Offline workloads use batch processing.</li>
+<li>Each request type uses the cheapest model that passes my quality tests.</li>
+<li>Output length and reasoning effort are capped.</li>
+<li>Budget alerts and rate-limit retries are in place.</li>
+</ul>
+</div>
+
+<h2 id="next-steps">Next steps</h2>
+<p>Estimate your monthly bill with the <a href="llm-cost-calculator.html">LLM cost calculator</a>. If your volume is large and steady, test the economics in the <a href="self-host-vs-api-calculator.html">self-host vs API calculator</a>. To weigh price against quality and speed, read <a href="how-to-choose-an-llm.html">how to choose an LLM</a>. For a cost review of an existing application, you can <a href="hire-llm-experts.html">hire an LLM expert</a>.</p>
+    <section class="sources" aria-labelledby="sources"><h2 id="sources">Sources</h2>
+<ol><li><a href="https://developers.openai.com/api/docs/pricing" target="_blank" rel="noopener">OpenAI API pricing</a></li>
+<li><a href="https://developers.openai.com/api/docs/models/gpt-6.1-sol" target="_blank" rel="noopener">OpenAI GPT-6.1 Sol model page (pricing, long context, rate limits)</a></li>
+<li><a href="https://developers.openai.com/api/docs/guides/reasoning" target="_blank" rel="noopener">OpenAI reasoning models guide</a></li>
+<li><a href="https://developers.openai.com/api/docs/guides/prompt-caching" target="_blank" rel="noopener">OpenAI prompt caching guide</a></li>
+<li><a href="https://developers.openai.com/api/docs/guides/batch" target="_blank" rel="noopener">OpenAI Batch API guide</a></li>
+<li><a href="https://developers.openai.com/api/docs/guides/rate-limits" target="_blank" rel="noopener">OpenAI rate limits guide</a></li>
+<li><a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="noopener">Claude API pricing (Anthropic)</a></li>
+<li><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-caching" target="_blank" rel="noopener">Prompt caching (Anthropic documentation)</a></li>
+<li><a href="https://platform.claude.com/docs/en/build-with-claude/vision" target="_blank" rel="noopener">Vision: image token costs (Anthropic documentation)</a></li>
+<li><a href="https://ai.google.dev/gemini-api/docs/pricing" target="_blank" rel="noopener">Gemini Developer API pricing (Google)</a></li>
+</ol>
+      <p class="small muted">Written by the LLModel editorial team and checked against the sources above on October 10, 2026. Found an error? <a href="contact.html?topic=correction">Send a correction</a>.</p>
+</section>
+    <div class="share" aria-label="Share this guide"><span class="muted">Share:</span><button type="button" data-copy-link>Copy link</button><a href="https://www.linkedin.com/sharing/share-offsite/?url=https://llmodel.com/llm-api-pricing-explained.html" target="_blank" rel="noopener">LinkedIn</a><a href="https://twitter.com/intent/tweet?url=https://llmodel.com/llm-api-pricing-explained.html&amp;text=LLM API pricing explained" target="_blank" rel="noopener">X</a><a href="https://news.ycombinator.com/submitlink?u=https://llmodel.com/llm-api-pricing-explained.html&amp;t=LLM API pricing explained" target="_blank" rel="noopener">Hacker News</a><a href="https://www.reddit.com/submit?url=https://llmodel.com/llm-api-pricing-explained.html&amp;title=LLM API pricing explained" target="_blank" rel="noopener">Reddit</a></div>
+  </article>
+  <aside class="article__side" aria-label="Related"><div class="panel"><h2 class="h3">Try the tools</h2>
+<ul style="margin:.5rem 0 0;padding-left:1.1rem"><li><a href="llm-cost-calculator.html">LLM API cost calculator</a></li>
+<li><a href="self-host-vs-api-calculator.html">Self-host vs API calculator</a></li>
+<li><a href="token-counter.html">Token counter</a></li>
+</ul>
+</div>
+<div class="panel"><h2 class="h3">Need hands-on help?</h2>
+<p class="small muted" style="margin-top:.4rem">Get a vendor-neutral plan for your project within 2 business days.</p>
+<a class="btn btn--primary btn--block" style="margin-top:.8rem" href="hire-llm-experts.html?from=guide-llm-api-pricing-explained">Get expert help</a></div>
+<div class="panel newsletter-box">
+
+  <p class="muted" style="margin-top:.4rem">One short email a week: model releases, price changes and one tool worth trying. Free, and you can unsubscribe anytime.</p>
+  <form class="form" data-form="newsletter" data-subject="Newsletter signup" novalidate style="margin-top:1rem">
+    <div class="inline-form">
+      <label class="visually-hidden" for="nl-side-email">Email address</label>
+      <input class="input" type="email" id="nl-side-email" name="email" required autocomplete="email" placeholder="Your work email">
+      <button class="btn btn--primary" type="submit">Subscribe</button>
+    </div>
+    <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <div class="form-status" role="status" aria-live="polite"></div>
+  </form>
+  <p class="fine" style="margin-top:.6rem">We send one email a week and never sell your address. See the <a href="privacy.html">privacy policy</a>.</p>
+</div>
+</aside>
+</div>
+<div class="wrap wrap--read" style="margin-top:3rem"><section class="faq-wrap" aria-labelledby="faq"><h2 class="h2" id="faq" style="margin-bottom:1rem">Frequently asked questions</h2>
+<div class="faq"><details><summary>How much does an LLM API call cost?</summary><div class="faq__a"><p>Multiply input tokens by the input price and output tokens by the output price, both per million tokens. A request with 2,000 input and 500 output tokens on a model charging $2 and $10 per million costs $0.004 plus $0.005, or $0.009. A million such requests cost about $9,000, while a small model at $0.10 and $0.50 handles the same volume for about $450.</p>
+</div>
+</details>
+<details><summary>Why do output tokens cost more than input tokens?</summary><div class="faq__a"><p>Input tokens are processed together in one parallel pass, which uses GPUs efficiently. Output tokens are generated one at a time, and each new token requires another pass through the model, so generation occupies expensive hardware far longer per token. That is why most providers price output four to six times higher than input.</p>
+</div>
+</details>
+<details><summary>Am I charged for reasoning or thinking tokens?</summary><div class="faq__a"><p>Yes. Reasoning models generate internal reasoning before the visible answer, and providers bill those tokens at the output rate even when you cannot see them. They also take up space in the context window. Check the usage data returned with each response to see the count, and lower the reasoning effort or thinking budget for simple tasks.</p>
+</div>
+</details>
+<details><summary>How much does prompt caching save?</summary><div class="faq__a"><p>Cached input typically costs 5 to 10 percent of the normal input price, so a long, repeated prefix such as a system prompt, tool definitions or reference documents can become up to 95 percent cheaper on later requests. Writing to the cache can cost a premium, often 1.25 times the input price, and caches expire after minutes of inactivity, so savings depend on steady traffic.</p>
+</div>
+</details>
+<details><summary>Is self-hosting an open model cheaper than using an API?</summary><div class="faq__a"><p>Only at high, steady volume. In our example, a $2.50-per-hour GPU server costs about $1,825 a month and breaks even against a mid-tier API at roughly 450 million tokens a month, but against a cheap small model it needs over 9 billion. Add engineering time, idle capacity and possible quality differences before deciding.</p>
+</div>
+</details>
+</div>
+</section>
+</div>
+
+<section class="wrap" aria-labelledby="related" style="margin-top:3rem"><h2 class="h2" id="related" style="margin-bottom:1rem">Keep reading</h2>
+<div class="cardlist"><a class="card" href="how-to-choose-an-llm.html"><span class="card__kicker">Choosing &amp; buying</span><span class="card__title">How to choose an LLM for your project</span><span class="card__desc">A practical framework for choosing a large language model: define the job, weigh ten criteria in a scoring matrix, and run a quick evaluation on your own data. Includes starting points for five common use cases as of October 2026 and a procurement checklist.</span><span class="card__foot"><span>Intermediate</span><span>10 min read</span></span></a><a class="card" href="context-windows-explained.html"><span class="card__kicker">Fundamentals</span><span class="card__title">Context windows explained</span><span class="card__desc">A context window is the token budget a model can read and write in one request. This guide converts tokens to words and pages, compares current limits
+and explains the cost, quality and memory trade-offs of long prompts.</span><span class="card__foot"><span>Beginner</span><span>11 min read</span></span></a><a class="card" href="open-source-vs-closed-llms.html"><span class="card__kicker">Choosing &amp; buying</span><span class="card__title">Open-source vs closed LLMs: how to decide</span><span class="card__desc">Open-weight models let you run an LLM on your own infrastructure, but &#x27;open&#x27; covers licenses ranging from Apache 2.0 to custom terms with user caps and naming rules. This guide compares open and closed models on quality, cost, control and risk, works through a total cost of ownership example and shows when a hybrid setup wins.</span><span class="card__foot"><span>Intermediate</span><span>9 min read</span></span></a></div>
+</section>
+<div class="wrap"><section class="lead-band" aria-labelledby="lead-choose-guide-llm-api-pricing-explained">
+  <div>
+    <h2 id="lead-choose-guide-llm-api-pricing-explained">Still choosing a model?</h2>
+    <p>Send us your use case and constraints. We&#x27;ll come back with a shortlist and an evaluation plan you can run on your own data.</p>
+    <ul><li>Free and vendor-neutral: no model provider pays for placement.</li>
+<li>Your details go only to partners you agree to.</li>
+</ul>
+  </div>
+  <form class="mini-form" action="hire-llm-experts.html" method="get">
+    <label for="need-choose-guide-llm-api-pricing-explained">What do you need help with?</label>
+    <select id="need-choose-guide-llm-api-pricing-explained" name="need"><option value="choose-model">Choose the right model</option>
+<option value="chatbot">Build a chatbot or assistant</option>
+<option value="rag">Answer questions over our documents (RAG)</option>
+<option value="agents">Automate work with AI agents</option>
+<option value="self-host">Fine-tune or self-host a model</option>
+<option value="cut-costs">Cut our LLM costs</option>
+<option value="security">Security, privacy or compliance review</option>
+<option value="not-sure">Not sure yet</option>
+</select>
+    <input type="hidden" name="from" value="guide-llm-api-pricing-explained">
+    <button class="btn btn--yellow btn--block" type="submit">Start my free plan</button>
+    <p class="fine">Takes about 2 minutes. No sales calls unless you ask for one.</p>
+  </form>
+</section>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+      <p>The independent field guide to large language models. Model data checked against provider documentation; last full check October 10, 2026.</p>
+    </div>
+    <div><h2>Explore</h2>
+<ul><li><a href="models.html">Model directory</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare models</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="search.html">Search</a></li>
+</ul>
+</div>
+<div><h2>Tools</h2>
+<ul><li><a href="llm-cost-calculator.html">Cost calculator</a></li>
+<li><a href="token-counter.html">Token counter</a></li>
+<li><a href="vram-calculator.html">GPU and VRAM calculator</a></li>
+<li><a href="llm-picker.html">Which LLM should I use?</a></li>
+<li><a href="context-window-visualizer.html">Context window visualizer</a></li>
+<li><a href="prompt-builder.html">Prompt builder</a></li>
+<li><a href="self-host-vs-api-calculator.html">Self-host vs API calculator</a></li>
+</ul>
+</div>
+<div><h2>Learn</h2>
+<ul><li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+</ul>
+</div>
+<div><h2>Work with us</h2>
+<ul><li><a href="hire-llm-experts.html">Get expert help</a></li>
+<li><a href="list-your-product.html">List your product</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</div>
+<div><h2>About</h2>
+<ul><li><a href="about.html">About LLModel</a></li>
+<li><a href="editorial-policy.html">Editorial policy</a></li>
+<li><a href="privacy.html">Privacy policy</a></li>
+<li><a href="terms.html">Terms of use</a></li>
+<li><a href="disclaimer.html">Disclaimer</a></li>
+<li><a href="trademark-copyright.html">Trademark and copyright</a></li>
+<li><a href="sitemap.html">Site map</a></li>
+<li><button class="linklike" type="button" data-privacy-choices>Privacy and cookie choices</button></li>
+</ul>
+</div>
+  </div>
+  <div class="wrap footer-legal">
+    <p>&copy; 2026 LLModel.com. Independent: not affiliated with, endorsed by or sponsored by any model provider. Model and company names are trademarks of their respective owners and are used only to identify products. See <a href="trademark-copyright.html">trademark and copyright</a>.</p>
+    <p>Prices and specifications change often. Always confirm on the provider's own pricing page before you buy.</p>
+  </div>
+</footer>
+<div class="palette" id="palette" hidden role="dialog" aria-modal="true" aria-label="Search LLModel">
+  <div class="palette__box">
+    <label class="visually-hidden" for="palette-input">Search models, tools, guides and terms</label>
+    <input class="palette__input" id="palette-input" type="search" placeholder="Search models, tools, guides, terms" autocomplete="off" spellcheck="false" aria-controls="palette-list">
+    <ul class="palette__list" id="palette-list" role="listbox"></ul>
+    <div class="palette__foot"><span><span class="kbd">&uarr;</span> <span class="kbd">&darr;</span> to move</span><span><span class="kbd">Enter</span> to open</span><span><span class="kbd">Esc</span> to close</span></div>
+  </div>
+</div>
+<script src="assets/js/config.js?v=caa5324cbb"></script>
+
+<script src="assets/js/app.js?v=4b39d7c1bd" defer></script>
+<script src="assets/js/article.js?v=0235be8880" defer></script>
+</body>
+</html>
