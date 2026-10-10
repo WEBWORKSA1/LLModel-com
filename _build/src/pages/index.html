@@ -1,0 +1,138 @@
+<!--meta
+{
+  "slug": "index",
+  "title": "LLModel.com: Compare Large Language Models, Prices and Context Windows",
+  "description": "The independent field guide to large language models: compare 55 LLMs on price, context and licensing, run free cost and GPU calculators, and learn how LLMs work.",
+  "custom_head": true,
+  "section": "",
+  "scripts": ["pages/home.js"],
+  "priority": 1.0,
+  "faq": [
+    {"q": "What is LLModel.com?", "a": "LLModel.com is an independent reference for large language models. It tracks the models from major providers and open-weight labs with prices, context windows and licenses checked against provider documentation, and adds free calculators, comparisons, plain-English guides, a glossary and curated videos."},
+    {"q": "How do you keep model prices up to date?", "a": "Every model entry lists the official pages we checked and the date we checked them. We re-verify prices and specs against provider documentation on a regular schedule and when providers announce changes. Prices still change often, so confirm on the provider's pricing page before you buy."},
+    {"q": "Which LLM should I use?", "a": "It depends on the task, your budget, how much text you send, and whether data can leave your network. Start with the five-question model picker or a shortlist by job, then test the top two or three models on a sample of your own work and compare cost per correct answer."},
+    {"q": "Are the tools free?", "a": "Yes. The calculators, comparison tool, token counter and prompt builder are free and need no account. They run in your browser, so the text and numbers you enter aren't sent to us."},
+    {"q": "How does LLModel make money?", "a": "Through display advertising, clearly labeled sponsorships, optional introductions to implementation partners when you ask for help, and reader support. No provider pays to change a ranking, a score or an editorial verdict. Our editorial policy explains the rules."}
+  ]
+}
+-->
+<section class="hero" aria-labelledby="hero-title">
+  <div class="wrap">
+    <div class="hero__copy">
+      <h1 id="hero-title">The field guide to large language models</h1>
+      <p class="lede">Compare {{models_count}} models from {{providers_count}} providers on price, context and licensing. Run the numbers with free calculators. Learn how it all works in plain English.</p>
+      <div class="btn-row">
+        <a class="btn btn--primary" href="models.html">Browse the model directory</a>
+        <a class="btn btn--ghost" href="llm-picker.html">Help me choose a model</a>
+      </div>
+      <p class="hero-note">Prices and specs checked against provider documentation on {{updated_human}}. No provider pays for placement.</p>
+    </div>
+    <div class="ntp" id="ntp" role="group" aria-labelledby="ntp-title">
+      <p class="visually-hidden" id="ntp-title">Interactive demo: how a language model picks its next word</p>
+      <p class="ntp__prompt" aria-live="polite"><span class="ntp__given">I need a language model for </span><span class="ntp__next" id="ntp-next" hidden></span><span class="ntp__caret" aria-hidden="true"></span></p>
+      <div class="ntp__label"><span>Next-token candidates</span><span>Probability</span></div>
+      <ul class="ntp__cands" id="ntp-cands">
+        <li><button type="button" class="ntp__cand" data-token="coding" data-p="0.31" data-say="Coding it is. Start with the models their providers build for software work, ranked by tier and price." data-href="best-llms-for-coding.html" data-cta="See the coding shortlist" data-href2="llm-cost-calculator.html?preset=coding" data-cta2="price a coding agent"><span class="ntp__tok">coding</span><span class="ntp__track"><span class="ntp__bar" style="--c:#440154;width:31%"></span></span><span class="ntp__p">0.31</span></button></li>
+        <li><button type="button" class="ntp__cand" data-token="customer support" data-p="0.19" data-say="Support bots live on volume, so cost per conversation and speed matter most." data-href="best-llms-for-customer-support.html" data-cta="See the support shortlist" data-href2="llm-cost-calculator.html?preset=chatbot" data-cta2="price 30,000 conversations"><span class="ntp__tok">customer support</span><span class="ntp__track"><span class="ntp__bar" style="--c:#443983;width:19%"></span></span><span class="ntp__p">0.19</span></button></li>
+        <li><button type="button" class="ntp__cand" data-token="long documents" data-p="0.15" data-say="Many current models read a million tokens at once. Check the long-prompt surcharges first." data-href="best-llms-for-long-documents.html" data-cta="See long-context models" data-href2="context-window-visualizer.html" data-cta2="see what fits in a context window"><span class="ntp__tok">long documents</span><span class="ntp__track"><span class="ntp__bar" style="--c:#31688e;width:15%"></span></span><span class="ntp__p">0.15</span></button></li>
+        <li><button type="button" class="ntp__cand" data-token="running offline" data-p="0.12" data-say="Open-weight models run on your own GPU or Mac. Memory is the limit." data-href="llms-you-can-run-locally.html" data-cta="See models you can run locally" data-href2="vram-calculator.html" data-cta2="check your GPU memory"><span class="ntp__tok">running offline</span><span class="ntp__track"><span class="ntp__bar" style="--c:#21918c;width:12%"></span></span><span class="ntp__p">0.12</span></button></li>
+        <li><button type="button" class="ntp__cand" data-token="the lowest cost" data-p="0.11" data-say="Ranked by blended price per million tokens. The cheapest model that passes your quality bar wins." data-href="cheapest-llm-apis.html" data-cta="See the cheapest APIs" data-href2="llm-cost-calculator.html" data-cta2="price your workload"><span class="ntp__tok">the lowest cost</span><span class="ntp__track"><span class="ntp__bar" style="--c:#35b779;width:11%"></span></span><span class="ntp__p">0.11</span></button></li>
+        <li><button type="button" class="ntp__cand" data-token="AI agents" data-p="0.08" data-say="Agents need dependable tool calling over many steps. Reliability beats peak scores." data-href="best-llms-for-agents.html" data-cta="See models for agents" data-href2="ai-agents-explained.html" data-cta2="read how agents work"><span class="ntp__tok">AI agents</span><span class="ntp__track"><span class="ntp__bar" style="--c:#90d743;width:8%"></span></span><span class="ntp__p">0.08</span></button></li>
+        <li><button type="button" class="ntp__cand" data-token="something else" data-p="0.04" data-say="Low probability, still possible. Five questions narrow {{models_count}} models to three." data-href="llm-picker.html" data-cta="Take the model picker" data-href2="models.html" data-cta2="filter the full directory"><span class="ntp__tok">something else</span><span class="ntp__track"><span class="ntp__bar" style="--c:#fde725;width:4%"></span></span><span class="ntp__p">0.04</span></button></li>
+      </ul>
+      <div class="ntp__controls">
+        <label for="ntp-temp">Temperature <input type="range" id="ntp-temp" min="0" max="2" step="0.1" value="1"></label>
+        <output class="ntp__temp" id="ntp-temp-out" for="ntp-temp">1.0</output>
+        <button type="button" class="btn btn--ghost btn--sm" id="ntp-sample">Sample a token</button>
+      </div>
+      <div class="ntp__answer" id="ntp-answer" hidden></div>
+      <p class="small muted" style="margin-top:.8rem">This is how an LLM writes: it scores every possible next token, then samples one. Raise the temperature and the odds flatten; drop it to zero and the top token always wins. Pick a token to jump to the right page.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="latest">
+  <div class="wrap">
+    <div class="section-head"><div><h2 id="latest">Latest releases</h2><p>The newest models in the directory, each with specs and prices checked against the provider's own pages.</p></div><a class="more" href="models.html">All {{models_count}} models</a></div>
+    {{releases}}
+  </div>
+</section>
+
+<section class="section" aria-labelledby="snapshot">
+  <div class="wrap">
+    <div class="section-head"><div><h2 id="snapshot">What the leading models cost</h2><p>List prices per million tokens, and what a 30,000-conversation support bot would cost each month on each model.</p></div><a class="more" href="llm-cost-calculator.html">Price your own workload</a></div>
+    {{snapshot}}
+    {{ad:home}}
+  </div>
+</section>
+
+<section class="section section--tint" aria-labelledby="tools-h">
+  <div class="wrap">
+    <div class="section-head"><div><h2 id="tools-h">Free tools for people building with LLMs</h2><p>Seven calculators and builders. No sign-up and nothing to install; what you type stays in your browser.</p></div><a class="more" href="tools.html">All tools</a></div>
+    {{tools_index}}
+  </div>
+</section>
+
+<section class="section" aria-labelledby="short-h">
+  <div class="wrap grid grid--2" style="gap:3rem">
+    <div>
+      <h2 class="h2" id="short-h">Shortlists by job</h2>
+      <p class="muted" style="margin:.5rem 0 1.25rem">Start from what you're building and get the models that fit, with prices and licenses side by side.</p>
+      {{hub_pills}}
+      <h3 style="margin-top:2rem">Rankings you can tune</h3>
+      <p class="muted" style="margin-top:.4rem">Our value index weighs capability, price, context, openness and recency. Move the sliders to match your priorities.</p>
+      <p style="margin-top:.75rem"><a href="leaderboard.html">Open the LLM rankings</a></p>
+    </div>
+    <div>
+      <h2 class="h2">Popular comparisons</h2>
+      <p class="muted" style="margin:.5rem 0 1rem">Head-to-head specs and the monthly bill for three real workloads.</p>
+      {{compare_popular:6}}
+      <p style="margin-top:1rem"><a href="compare.html">Compare any models side by side</a></p>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">{{lead:default}}</div>
+
+<section class="section" aria-labelledby="learn-h">
+  <div class="wrap">
+    <div class="section-head"><div><h2 id="learn-h">Understand what you're buying</h2><p>{{guides_count}} plain-English guides on how LLMs work, what they cost and where they fail, each checked against primary sources.</p></div><a class="more" href="guides.html">All guides</a></div>
+    <div class="grid grid--sidebar">
+      <div>{{guides_featured}}</div>
+      <div class="stack">{{glossary_spotlight}}{{newsletter:home}}</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="watch-h">
+  <div class="wrap">
+    <div class="section-head"><div><h2 id="watch-h">Watch and learn</h2><p>Hand-picked explainers from people who build these systems, each with a short summary so you know what you're getting.</p></div><a class="more" href="videos.html">All {{videos_count}} videos</a></div>
+    {{videos:3}}
+  </div>
+</section>
+
+<section class="section" aria-labelledby="tl-h">
+  <div class="wrap grid grid--2" style="gap:3rem;align-items:start">
+    <div>
+      <h2 class="h2" id="tl-h">What happened lately</h2>
+      <p class="muted" style="margin-top:.5rem">The most recent milestones from our timeline of {{timeline_count}} events, from the 2017 Transformer paper to this month. Every entry links to a primary source.</p>
+      <p style="margin-top:1rem"><a class="btn btn--ghost" href="llm-timeline.html">See the full timeline</a></p>
+      {{ad:home-2}}
+    </div>
+    <div>{{timeline_teaser}}</div>
+  </div>
+</section>
+
+<section class="section section--tint" aria-labelledby="work-h">
+  <div class="wrap">
+    <div class="section-head"><div><h2 id="work-h">Get involved</h2><p>LLModel is independent and reader-supported. Here's how to take part.</p></div></div>
+    <div class="grid grid--4">
+      <a class="card" href="newsletter.html"><span class="card__kicker">Weekly email</span><span class="card__title">The LLM Brief</span><span class="card__desc">New models, price changes and one tool worth trying, in a five-minute read.</span></a>
+      <a class="card" href="contests.html"><span class="card__kicker">Contest</span><span class="card__title">Prompt Efficiency Challenge</span><span class="card__desc">Solve five tasks for the fewest dollars. Season 1 has $500 in prizes.</span></a>
+      <a class="card" href="list-your-product.html"><span class="card__kicker">For vendors</span><span class="card__title">List your model or tool</span><span class="card__desc">Reach the people comparing models and stacks right now. Free editorial review.</span></a>
+      <a class="card" href="support.html"><span class="card__kicker">Reader support</span><span class="card__title">Keep LLModel independent</span><span class="card__desc">Fund data checks, new tools, contest prizes and new writers.</span></a>
+    </div>
+  </div>
+</section>
+
+<div class="wrap wrap--read" style="margin-top:3.5rem">{{faq}}</div>

@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Context Window Visualizer: What Fits in 8K, 128K or 1M Tokens? | LLModel.com</title>
+<meta name="description" content="See what fits in an LLM context window: convert 8K, 32K, 128K, 1M or any token count into words, pages, books, code and transcript hours, and compare model context limits.">
+<link rel="canonical" href="https://llmodel.com/context-window-visualizer.html">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="google-adsense-account" content="ca-pub-6620975821265271">
+<meta name="theme-color" content="#f4f6fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12101e" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="LLModel.com">
+<meta property="og:title" content="Context Window Visualizer: What Fits in 8K, 128K or 1M Tokens?">
+<meta property="og:description" content="See what fits in an LLM context window: convert 8K, 32K, 128K, 1M or any token count into words, pages, books, code and transcript hours, and compare model context limits.">
+<meta property="og:url" content="https://llmodel.com/context-window-visualizer.html">
+<meta property="og:image" content="https://llmodel.com/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="LLModel: the independent field guide to large language models">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="alternate" type="text/plain" href="llms.txt" title="llms.txt">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Martian+Mono:wght@400..500&family=Newsreader:ital,opsz,wght@0,6..72,400..650;1,6..72,400&display=swap">
+<link rel="stylesheet" href="assets/css/style.css?v=dae4813595">
+<script>(function(){var d=document.documentElement,t=null;try{t=localStorage.getItem('llm-theme')}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}d.setAttribute('data-theme',t)})();</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6620975821265271" crossorigin="anonymous"></script>
+<script type="application/ld+json">{
+ "@type": "Organization",
+ "@id": "https://llmodel.com/#org",
+ "name": "LLModel.com",
+ "url": "https://llmodel.com/",
+ "logo": "https://llmodel.com/assets/img/icon-512.png",
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://llmodel.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Tools",
+   "item": "https://llmodel.com/tools.html"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "Context window visualizer"
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "How many words is 128K tokens?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "About 96,000 words of English, using the rule of thumb of 0.75 words per token. That's roughly 190 pages at 500 words per page, or slightly more than an average novel. Code and non-English text fit less."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does the context window include the model's answer?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Usually yes: the prompt and the response share the window, and many models also cap the response separately with a maximum output limit. Leave room for the answer, and for reasoning tokens if the model thinks before replying."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Is a bigger context window always better?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "No. Long prompts cost more on every call, take longer to process, and models don't always use information buried in the middle of a long prompt reliably. Sending only the relevant parts is often cheaper and more accurate."
+   }
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "WebApplication",
+ "name": "Context window visualizer",
+ "url": "https://llmodel.com/context-window-visualizer.html",
+ "applicationCategory": "DeveloperApplication",
+ "operatingSystem": "Any",
+ "browserRequirements": "Requires JavaScript",
+ "description": "See what 8K, 128K or 1M tokens hold in pages, books, code and meeting hours, and compare model limits.",
+ "offers": {
+  "@type": "Offer",
+  "price": "0",
+  "priceCurrency": "USD"
+ },
+ "@context": "https://schema.org"
+}</script>
+
+</head>
+<body class="page-context-window-visualizer">
+<a class="skip" href="#main">Skip to content</a>
+<div class="partner-bar"><a href="https://web.works/contact" target="_blank" rel="noopener"><span>Contact, if you are interested in this website / domain name / sponsorship / advertisement / partnership</span></a></div>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+    <nav class="nav" aria-label="Main"><a href="models.html">Models</a><a href="compare.html">Compare</a><a href="leaderboard.html">Rankings</a><a href="tools.html" aria-current="page">Tools</a><a href="guides.html">Learn</a><a href="videos.html">Videos</a></nav>
+    <div class="header-actions">
+      <button class="search-btn" type="button" data-open-search aria-label="Search the site"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="search-label">Search</span><span class="kbd" aria-hidden="true">/</span></button>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><svg class="theme-icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="theme-icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+      <a class="btn btn--primary btn--sm header-cta" href="hire-llm-experts.html">Get expert help</a>
+      <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile">
+    <ul><li><a href="models.html">Models</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="tools.html">Tools</a></li>
+<li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="contact.html">Contact</a></li>
+<li class="mobile-cta"><a class="btn btn--primary btn--block" href="hire-llm-experts.html">Get expert help</a></li>
+</ul>
+  </nav>
+</header>
+<main id="main">
+<nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li>
+<li><a href="tools.html">Tools</a></li>
+<li aria-current="page">Context window visualizer</li>
+</ol>
+</nav>
+<header class="page-head wrap"><h1>Context window visualizer</h1><p class="lede">Turn a token limit into things you can picture: pages, novels, hours of meeting transcript and lines of code. Then compare the context windows of current models on one scale.</p>
+<div class="page-meta"><span>Conversions assume English text</span><span>Model limits checked October 10, 2026</span></div>
+</header>
+<div class="wrap">
+  <div class="tool">
+    <div class="tool__in">
+      <h2 class="tool-h">Pick a size</h2>
+      <div class="seg" id="cw-sizes" role="group" aria-label="Common sizes">
+        <button type="button" data-t="8192" aria-pressed="false">8K</button>
+        <button type="button" data-t="32768" aria-pressed="false">32K</button>
+        <button type="button" data-t="131072" aria-pressed="true">128K</button>
+        <button type="button" data-t="262144" aria-pressed="false">256K</button>
+        <button type="button" data-t="1048576" aria-pressed="false">1M</button>
+        <button type="button" data-t="10485760" aria-pressed="false">10M</button>
+      </div>
+      <div class="field"><label for="cw-tokens">Or enter tokens</label><input class="input" type="number" id="cw-tokens" min="1" step="1000" value="131072" inputmode="numeric"></div>
+      <div class="field"><label for="cw-model">Or use a model's limit</label><select class="select" id="cw-model"><option value="">Choose a model</option>
+</select></div>
+      <div class="field"><label for="cw-ratio">Words per token</label><div class="range-row"><input type="range" id="cw-ratio" min="0.3" max="0.9" step="0.05" value="0.75"><output for="cw-ratio" id="cw-ratio-out">0.75</output></div>
+        <p class="hint">0.75 suits English prose. Use about 0.5 for code-heavy or non-English text.</p>
+</div>
+    </div>
+    <div class="tool__out">
+      <p class="out-label">This much context holds about</p>
+      <p class="out-big" id="cw-words">96,000 words</p>
+      <div class="out-grid" id="cw-grid" style="margin-top:1rem" aria-live="polite"></div>
+      <h2 class="h3" style="margin:1.5rem 0 .6rem">Compared with familiar texts</h2>
+      <ul class="bars" id="cw-refs"></ul>
+      <h2 class="h3" style="margin:1.5rem 0 .6rem">Context windows of current models</h2>
+      <p class="small muted" style="margin-bottom:.6rem">Log scale: each step to the right is about ten times more text. The marker shows your size.</p>
+      <ul class="bars" id="cw-models"></ul>
+    </div>
+  </div>
+  <aside class="ad-slot" data-ad="tool-result" aria-label="Sponsored message"><span class="ad-label">From LLModel</span><div class="ad-fill"><div class="house"><div><strong>Price your workload</strong><span>Compare the monthly bill for your token volume across every priced model.</span></div>
+<a class="btn btn--ghost btn--sm" href="llm-cost-calculator.html">Open the calculator</a></div>
+</div>
+</aside>
+</div>
+
+<section class="section" aria-labelledby="about-h">
+  <div class="wrap wrap--read prose">
+    <h2 id="about-h">How the conversions work</h2>
+    <p>The visualizer converts tokens to words with your words-per-token ratio, then uses fixed rules of thumb: 500 words to a printed page, 90,000 words to an average novel, about 9,000 spoken words to an hour of meeting transcript (150 words a minute), and about 10 tokens to a line of code. All of these vary, so read the numbers as orders of magnitude.</p>
+    <p>The familiar-text comparisons use commonly cited word counts: about 77,000 words for the first Harry Potter book, about 587,000 for an English translation of War and Peace and about 884,000 for the complete works of Shakespeare.</p>
+    <h3 id="practice">What it means in practice</h3>
+    <ul>
+      <li><strong>Room for the answer.</strong> The response usually shares the window, so a prompt that fills it leaves nothing for output.</li>
+      <li><strong>Price per call.</strong> Every token you send is billed every time. A 500,000-token prompt on a model at $2 per million input tokens costs $1 per call before any output.</li>
+      <li><strong>Long-prompt surcharges.</strong> Several providers charge higher rates above a threshold such as 200K or 272K tokens; check the model page.</li>
+      <li><strong>Recall.</strong> Test whether the model finds facts deep in your documents before you rely on it.</li>
+    </ul>
+    <p>More in <a href="context-windows-explained.html">context windows explained</a>. To measure a real document, use the <a href="token-counter.html">token counter</a>.</p>
+  </div>
+</section>
+<div class="wrap"><section class="lead-band" aria-labelledby="lead-build-context-window-visualizer">
+  <div>
+    <h2 id="lead-build-context-window-visualizer">Need hands-on help building it?</h2>
+    <p>RAG, agents, fine-tuning or a production chatbot: describe the project and we&#x27;ll suggest an approach and, if you want, partners who build it.</p>
+    <ul><li>Free and vendor-neutral: no model provider pays for placement.</li>
+<li>Your details go only to partners you agree to.</li>
+</ul>
+  </div>
+  <form class="mini-form" action="hire-llm-experts.html" method="get">
+    <label for="need-build-context-window-visualizer">What do you need help with?</label>
+    <select id="need-build-context-window-visualizer" name="need"><option value="choose-model">Choose the right model</option>
+<option value="chatbot">Build a chatbot or assistant</option>
+<option value="rag" selected>Answer questions over our documents (RAG)</option>
+<option value="agents">Automate work with AI agents</option>
+<option value="self-host">Fine-tune or self-host a model</option>
+<option value="cut-costs">Cut our LLM costs</option>
+<option value="security">Security, privacy or compliance review</option>
+<option value="not-sure">Not sure yet</option>
+</select>
+    <input type="hidden" name="from" value="context-window-visualizer">
+    <button class="btn btn--yellow btn--block" type="submit">Start my free plan</button>
+    <p class="fine">Takes about 2 minutes. No sales calls unless you ask for one.</p>
+  </form>
+</section>
+</div>
+<div class="wrap" style="margin-top:3rem"><section class="faq-wrap" aria-labelledby="faq"><h2 class="h2" id="faq" style="margin-bottom:1rem">Frequently asked questions</h2>
+<div class="faq"><details><summary>How many words is 128K tokens?</summary><div class="faq__a"><p>About 96,000 words of English, using the rule of thumb of 0.75 words per token. That&#x27;s roughly 190 pages at 500 words per page, or slightly more than an average novel. Code and non-English text fit less.</p>
+</div>
+</details>
+<details><summary>Does the context window include the model&#x27;s answer?</summary><div class="faq__a"><p>Usually yes: the prompt and the response share the window, and many models also cap the response separately with a maximum output limit. Leave room for the answer, and for reasoning tokens if the model thinks before replying.</p>
+</div>
+</details>
+<details><summary>Is a bigger context window always better?</summary><div class="faq__a"><p>No. Long prompts cost more on every call, take longer to process, and models don&#x27;t always use information buried in the middle of a long prompt reliably. Sending only the relevant parts is often cheaper and more accurate.</p>
+</div>
+</details>
+</div>
+</section>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+      <p>The independent field guide to large language models. Model data checked against provider documentation; last full check October 10, 2026.</p>
+    </div>
+    <div><h2>Explore</h2>
+<ul><li><a href="models.html">Model directory</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare models</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="search.html">Search</a></li>
+</ul>
+</div>
+<div><h2>Tools</h2>
+<ul><li><a href="llm-cost-calculator.html">Cost calculator</a></li>
+<li><a href="token-counter.html">Token counter</a></li>
+<li><a href="vram-calculator.html">GPU and VRAM calculator</a></li>
+<li><a href="llm-picker.html">Which LLM should I use?</a></li>
+<li><a href="context-window-visualizer.html">Context window visualizer</a></li>
+<li><a href="prompt-builder.html">Prompt builder</a></li>
+<li><a href="self-host-vs-api-calculator.html">Self-host vs API calculator</a></li>
+</ul>
+</div>
+<div><h2>Learn</h2>
+<ul><li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+</ul>
+</div>
+<div><h2>Work with us</h2>
+<ul><li><a href="hire-llm-experts.html">Get expert help</a></li>
+<li><a href="list-your-product.html">List your product</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</div>
+<div><h2>About</h2>
+<ul><li><a href="about.html">About LLModel</a></li>
+<li><a href="editorial-policy.html">Editorial policy</a></li>
+<li><a href="privacy.html">Privacy policy</a></li>
+<li><a href="terms.html">Terms of use</a></li>
+<li><a href="disclaimer.html">Disclaimer</a></li>
+<li><a href="trademark-copyright.html">Trademark and copyright</a></li>
+<li><a href="sitemap.html">Site map</a></li>
+<li><button class="linklike" type="button" data-privacy-choices>Privacy and cookie choices</button></li>
+</ul>
+</div>
+  </div>
+  <div class="wrap footer-legal">
+    <p>&copy; 2026 LLModel.com. Independent: not affiliated with, endorsed by or sponsored by any model provider. Model and company names are trademarks of their respective owners and are used only to identify products. See <a href="trademark-copyright.html">trademark and copyright</a>.</p>
+    <p>Prices and specifications change often. Always confirm on the provider's own pricing page before you buy.</p>
+  </div>
+</footer>
+<div class="palette" id="palette" hidden role="dialog" aria-modal="true" aria-label="Search LLModel">
+  <div class="palette__box">
+    <label class="visually-hidden" for="palette-input">Search models, tools, guides and terms</label>
+    <input class="palette__input" id="palette-input" type="search" placeholder="Search models, tools, guides, terms" autocomplete="off" spellcheck="false" aria-controls="palette-list">
+    <ul class="palette__list" id="palette-list" role="listbox"></ul>
+    <div class="palette__foot"><span><span class="kbd">&uarr;</span> <span class="kbd">&darr;</span> to move</span><span><span class="kbd">Enter</span> to open</span><span><span class="kbd">Esc</span> to close</span></div>
+  </div>
+</div>
+<script src="assets/js/config.js?v=caa5324cbb"></script>
+<script src="assets/js/data/models.js?v=c659fa1d67"></script>
+<script src="assets/js/app.js?v=4b39d7c1bd" defer></script>
+<script src="assets/js/tools/context.js?v=cc5757fbd2" defer></script>
+</body>
+</html>
