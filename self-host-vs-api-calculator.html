@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Self-Host vs API Calculator: When Do Your Own GPUs Beat Per-Token Pricing? | LLModel.com</title>
+<meta name="description" content="Find the break-even point between LLM API pricing and self-hosting on rented GPUs: monthly token volume, GPU hourly cost, throughput, utilization and ops cost, with a chart.">
+<link rel="canonical" href="https://llmodel.com/self-host-vs-api-calculator.html">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="google-adsense-account" content="ca-pub-6620975821265271">
+<meta name="theme-color" content="#f4f6fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12101e" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="LLModel.com">
+<meta property="og:title" content="Self-Host vs API Calculator: When Do Your Own GPUs Beat Per-Token Pricing?">
+<meta property="og:description" content="Find the break-even point between LLM API pricing and self-hosting on rented GPUs: monthly token volume, GPU hourly cost, throughput, utilization and ops cost, with a chart.">
+<meta property="og:url" content="https://llmodel.com/self-host-vs-api-calculator.html">
+<meta property="og:image" content="https://llmodel.com/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="LLModel: the independent field guide to large language models">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="alternate" type="text/plain" href="llms.txt" title="llms.txt">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Martian+Mono:wght@400..500&family=Newsreader:ital,opsz,wght@0,6..72,400..650;1,6..72,400&display=swap">
+<link rel="stylesheet" href="assets/css/style.css?v=dae4813595">
+<script>(function(){var d=document.documentElement,t=null;try{t=localStorage.getItem('llm-theme')}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}d.setAttribute('data-theme',t)})();</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6620975821265271" crossorigin="anonymous"></script>
+<script type="application/ld+json">{
+ "@type": "Organization",
+ "@id": "https://llmodel.com/#org",
+ "name": "LLModel.com",
+ "url": "https://llmodel.com/",
+ "logo": "https://llmodel.com/assets/img/icon-512.png",
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://llmodel.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Tools",
+   "item": "https://llmodel.com/tools.html"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "Self-host vs API"
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "When does self-hosting an LLM make sense?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "When volume is high and steady enough to keep GPUs busy, when data must stay in your own environment, or when you need a fine-tuned or customized open model. At low or spiky volume, per-token APIs are usually cheaper because you pay nothing when idle."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Where do I get the throughput number?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Measure it: serve the model with your runtime (for example vLLM or SGLang) on the GPU you plan to use, replay realistic traffic with the concurrency you expect, and record total output tokens per second. Published benchmarks vary widely with model, quantization, prompt length and batch size."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What costs does the calculator leave out?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Engineering time beyond the monthly ops figure you enter, storage and networking, redundancy for failover, and price changes on either side. API prices have fallen repeatedly, which moves the break-even point higher over time."
+   }
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "WebApplication",
+ "name": "Self-host vs API calculator",
+ "url": "https://llmodel.com/self-host-vs-api-calculator.html",
+ "applicationCategory": "DeveloperApplication",
+ "operatingSystem": "Any",
+ "browserRequirements": "Requires JavaScript",
+ "description": "Find the monthly volume where renting GPUs beats paying per token, with your own prices and throughput.",
+ "offers": {
+  "@type": "Offer",
+  "price": "0",
+  "priceCurrency": "USD"
+ },
+ "@context": "https://schema.org"
+}</script>
+
+</head>
+<body class="page-self-host-vs-api-calculator">
+<a class="skip" href="#main">Skip to content</a>
+<div class="partner-bar"><a href="https://web.works/contact" target="_blank" rel="noopener"><span>Contact, if you are interested in this website / domain name / sponsorship / advertisement / partnership</span></a></div>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+    <nav class="nav" aria-label="Main"><a href="models.html">Models</a><a href="compare.html">Compare</a><a href="leaderboard.html">Rankings</a><a href="tools.html" aria-current="page">Tools</a><a href="guides.html">Learn</a><a href="videos.html">Videos</a></nav>
+    <div class="header-actions">
+      <button class="search-btn" type="button" data-open-search aria-label="Search the site"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="search-label">Search</span><span class="kbd" aria-hidden="true">/</span></button>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><svg class="theme-icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="theme-icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+      <a class="btn btn--primary btn--sm header-cta" href="hire-llm-experts.html">Get expert help</a>
+      <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile">
+    <ul><li><a href="models.html">Models</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="tools.html">Tools</a></li>
+<li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="contact.html">Contact</a></li>
+<li class="mobile-cta"><a class="btn btn--primary btn--block" href="hire-llm-experts.html">Get expert help</a></li>
+</ul>
+  </nav>
+</header>
+<main id="main">
+<nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li>
+<li><a href="tools.html">Tools</a></li>
+<li aria-current="page">Self-host vs API</li>
+</ol>
+</nav>
+<header class="page-head wrap"><h1>Self-host vs API calculator</h1><p class="lede">Compare paying per token with renting GPUs to serve an open-weight model yourself. Enter your monthly volume, a GPU price and a throughput you've measured; the calculator finds the break-even point.</p>
+<div class="page-meta"><span>Defaults are examples, not quotes</span><span>Replace them with your own numbers</span></div>
+</header>
+<div class="wrap">
+  <div class="tool">
+    <form class="tool__in" id="be-form" onsubmit="return false">
+      <h2 class="tool-h">Your volume</h2>
+      <div class="form-row">
+        <div class="field"><label for="be-in">Input tokens per month (millions)</label><input class="input" type="number" id="be-in" min="0" step="10" value="600" inputmode="decimal"></div>
+        <div class="field"><label for="be-out">Output tokens per month (millions)</label><input class="input" type="number" id="be-out" min="0" step="10" value="150" inputmode="decimal"></div>
+      </div>
+      <h2 class="tool-h">API option</h2>
+      <div class="field"><label for="be-model">Model</label><select class="select" id="be-model"></select></div>
+      <div class="form-row">
+        <div class="field"><label for="be-pin">Input $ per 1M</label><input class="input" type="number" id="be-pin" min="0" step="0.01" inputmode="decimal"></div>
+        <div class="field"><label for="be-pout">Output $ per 1M</label><input class="input" type="number" id="be-pout" min="0" step="0.01" inputmode="decimal"></div>
+      </div>
+      <h2 class="tool-h">Self-host option</h2>
+      <div class="form-row">
+        <div class="field"><label for="be-gpu">GPU price ($ per GPU-hour)</label><input class="input" type="number" id="be-gpu" min="0" step="0.05" value="2.50" inputmode="decimal"><p class="hint">Example rate for a rented data-center GPU; use your quote.</p>
+</div>
+        <div class="field"><label for="be-gpus">GPUs per replica</label><input class="input" type="number" id="be-gpus" min="1" step="1" value="1" inputmode="numeric"></div>
+      </div>
+      <div class="field"><label for="be-tps">Throughput per replica (output tokens per second)</label><input class="input" type="number" id="be-tps" min="1" step="50" value="1500" inputmode="numeric"><p class="hint">Measured at your expected concurrency. This example value is not a benchmark.</p>
+</div>
+      <div class="field"><label for="be-util">Average utilization</label><div class="range-row"><input type="range" id="be-util" min="10" max="100" step="5" value="50"><output for="be-util" id="be-util-out">50%</output></div>
+<p class="hint">Real traffic has peaks and quiet hours; 30-60% is common.</p>
+</div>
+      <div class="field"><label for="be-ops">Ops and engineering ($ per month)</label><input class="input" type="number" id="be-ops" min="0" step="100" value="1500" inputmode="numeric"></div>
+    </form>
+    <div class="tool__out">
+      <p class="out-label" id="be-verdict-label">At your volume</p>
+      <p class="out-big" id="be-verdict" aria-live="polite"></p>
+      <div class="out-grid" id="be-grid" style="margin-top:1rem"></div>
+      <div class="chart" id="be-chart" style="margin-top:1.5rem" role="img" aria-label="Monthly cost of API and self-hosting across volumes"></div>
+      <div class="legend"><span><i style="background:var(--v3)"></i>API, per token</span><span><i style="background:var(--v6)"></i>Self-host, per replica</span><span><i style="background:var(--ink)"></i>Your volume</span></div>
+      <p class="small muted" style="margin-top:.75rem">Capacity counts input tokens at a tenth of an output token, because processing a prompt is much cheaper than generating text. That ratio is an assumption; adjust throughput if your prompts are very long.</p>
+      <div class="notice" style="margin-top:1rem">Close to the line either way? <a href="hire-llm-experts.html?need=self-host&amp;from=break-even">Get an independent review</a> of the numbers, serving stack and risks before you commit.</div>
+    </div>
+  </div>
+  <aside class="ad-slot" data-ad="tool-result" aria-label="Sponsored message"><span class="ad-label">From LLModel</span><div class="ad-fill"><div class="house"><div><strong>Keep LLModel independent</strong><span>Reader support pays for data checks, new tools and contest prizes.</span></div>
+<a class="btn btn--ghost btn--sm" href="support.html">Support the site</a></div>
+</div>
+</aside>
+</div>
+
+<section class="section" aria-labelledby="how-h">
+  <div class="wrap wrap--read prose">
+    <h2 id="how-h">How the break-even works</h2>
+    <p>The API bill grows in a straight line with volume: input tokens times the input price plus output tokens times the output price. Self-hosting is a staircase: each replica costs the same per month whether it's busy or idle, and when traffic outgrows one replica you add another.</p>
+    <pre><code>API cost       = input &times; input price + output &times; output price
+capacity       = throughput &times; 3,600 s &times; 730 h &times; utilization   (per replica)
+replicas       = ceiling((output + 0.1 &times; input) &divide; capacity)
+self-host cost = replicas &times; GPUs per replica &times; GPU price &times; 730 + ops</code></pre>
+    <p>Break-even is the volume where the two lines cross. Below it, the API wins because you never pay for idle hardware. Above it, a well-utilized replica spreads its fixed cost over enough tokens to undercut per-token prices.</p>
+    <h3 id="decide">What else should decide it</h3>
+    <ul>
+      <li><strong>Quality.</strong> Compare the open model you'd host against the API model on your tasks. Saving money on a weaker model can cost more in errors.</li>
+      <li><strong>Data control.</strong> Regulated data or contractual limits can make self-hosting worth a premium.</li>
+      <li><strong>Team.</strong> Someone has to run upgrades, monitoring and on-call. The ops figure is real money.</li>
+      <li><strong>Price trends.</strong> API prices have fallen with each model generation, so rerun this when you renew hardware commitments.</li>
+    </ul>
+    <p>Size the hardware with the <a href="vram-calculator.html">VRAM calculator</a> and read <a href="open-source-vs-closed-llms.html">open-source vs closed LLMs</a> for the wider trade-off.</p>
+  </div>
+</section>
+<div class="wrap"><section class="lead-band" aria-labelledby="lead-local-self-host-vs-api-calculator">
+  <div>
+    <h2 id="lead-local-self-host-vs-api-calculator">Planning to self-host?</h2>
+    <p>Get a second opinion on hardware, serving stack and break-even before you buy or rent GPUs.</p>
+    <ul><li>Free and vendor-neutral: no model provider pays for placement.</li>
+<li>Your details go only to partners you agree to.</li>
+</ul>
+  </div>
+  <form class="mini-form" action="hire-llm-experts.html" method="get">
+    <label for="need-local-self-host-vs-api-calculator">What do you need help with?</label>
+    <select id="need-local-self-host-vs-api-calculator" name="need"><option value="choose-model">Choose the right model</option>
+<option value="chatbot">Build a chatbot or assistant</option>
+<option value="rag">Answer questions over our documents (RAG)</option>
+<option value="agents">Automate work with AI agents</option>
+<option value="self-host" selected>Fine-tune or self-host a model</option>
+<option value="cut-costs">Cut our LLM costs</option>
+<option value="security">Security, privacy or compliance review</option>
+<option value="not-sure">Not sure yet</option>
+</select>
+    <input type="hidden" name="from" value="self-host-vs-api-calculator">
+    <button class="btn btn--yellow btn--block" type="submit">Start my free plan</button>
+    <p class="fine">Takes about 2 minutes. No sales calls unless you ask for one.</p>
+  </form>
+</section>
+</div>
+<div class="wrap" style="margin-top:3rem"><section class="faq-wrap" aria-labelledby="faq"><h2 class="h2" id="faq" style="margin-bottom:1rem">Frequently asked questions</h2>
+<div class="faq"><details><summary>When does self-hosting an LLM make sense?</summary><div class="faq__a"><p>When volume is high and steady enough to keep GPUs busy, when data must stay in your own environment, or when you need a fine-tuned or customized open model. At low or spiky volume, per-token APIs are usually cheaper because you pay nothing when idle.</p>
+</div>
+</details>
+<details><summary>Where do I get the throughput number?</summary><div class="faq__a"><p>Measure it: serve the model with your runtime (for example vLLM or SGLang) on the GPU you plan to use, replay realistic traffic with the concurrency you expect, and record total output tokens per second. Published benchmarks vary widely with model, quantization, prompt length and batch size.</p>
+</div>
+</details>
+<details><summary>What costs does the calculator leave out?</summary><div class="faq__a"><p>Engineering time beyond the monthly ops figure you enter, storage and networking, redundancy for failover, and price changes on either side. API prices have fallen repeatedly, which moves the break-even point higher over time.</p>
+</div>
+</details>
+</div>
+</section>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+      <p>The independent field guide to large language models. Model data checked against provider documentation; last full check October 10, 2026.</p>
+    </div>
+    <div><h2>Explore</h2>
+<ul><li><a href="models.html">Model directory</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare models</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="search.html">Search</a></li>
+</ul>
+</div>
+<div><h2>Tools</h2>
+<ul><li><a href="llm-cost-calculator.html">Cost calculator</a></li>
+<li><a href="token-counter.html">Token counter</a></li>
+<li><a href="vram-calculator.html">GPU and VRAM calculator</a></li>
+<li><a href="llm-picker.html">Which LLM should I use?</a></li>
+<li><a href="context-window-visualizer.html">Context window visualizer</a></li>
+<li><a href="prompt-builder.html">Prompt builder</a></li>
+<li><a href="self-host-vs-api-calculator.html">Self-host vs API calculator</a></li>
+</ul>
+</div>
+<div><h2>Learn</h2>
+<ul><li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+</ul>
+</div>
+<div><h2>Work with us</h2>
+<ul><li><a href="hire-llm-experts.html">Get expert help</a></li>
+<li><a href="list-your-product.html">List your product</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</div>
+<div><h2>About</h2>
+<ul><li><a href="about.html">About LLModel</a></li>
+<li><a href="editorial-policy.html">Editorial policy</a></li>
+<li><a href="privacy.html">Privacy policy</a></li>
+<li><a href="terms.html">Terms of use</a></li>
+<li><a href="disclaimer.html">Disclaimer</a></li>
+<li><a href="trademark-copyright.html">Trademark and copyright</a></li>
+<li><a href="sitemap.html">Site map</a></li>
+<li><button class="linklike" type="button" data-privacy-choices>Privacy and cookie choices</button></li>
+</ul>
+</div>
+  </div>
+  <div class="wrap footer-legal">
+    <p>&copy; 2026 LLModel.com. Independent: not affiliated with, endorsed by or sponsored by any model provider. Model and company names are trademarks of their respective owners and are used only to identify products. See <a href="trademark-copyright.html">trademark and copyright</a>.</p>
+    <p>Prices and specifications change often. Always confirm on the provider's own pricing page before you buy.</p>
+  </div>
+</footer>
+<div class="palette" id="palette" hidden role="dialog" aria-modal="true" aria-label="Search LLModel">
+  <div class="palette__box">
+    <label class="visually-hidden" for="palette-input">Search models, tools, guides and terms</label>
+    <input class="palette__input" id="palette-input" type="search" placeholder="Search models, tools, guides, terms" autocomplete="off" spellcheck="false" aria-controls="palette-list">
+    <ul class="palette__list" id="palette-list" role="listbox"></ul>
+    <div class="palette__foot"><span><span class="kbd">&uarr;</span> <span class="kbd">&darr;</span> to move</span><span><span class="kbd">Enter</span> to open</span><span><span class="kbd">Esc</span> to close</span></div>
+  </div>
+</div>
+<script src="assets/js/config.js?v=caa5324cbb"></script>
+<script src="assets/js/data/models.js?v=c659fa1d67"></script>
+<script src="assets/js/app.js?v=4b39d7c1bd" defer></script>
+<script src="assets/js/tools/breakeven.js?v=f40a1a3eb5" defer></script>
+</body>
+</html>
