@@ -1,0 +1,49 @@
+# LLModel.com
+
+> The independent field guide to large language models. Independent, vendor-neutral data and guides on large language models: 55 models from 17 providers with list prices and context windows checked October 10, 2026, free calculators, and plain-English guides.
+
+## Directory
+- [Model directory](https://llmodel.com/models.html): every model with price, context, weights and status
+- [Providers](https://llmodel.com/providers.html)
+- [Rankings and value index](https://llmodel.com/leaderboard.html)
+- [LLM timeline](https://llmodel.com/llm-timeline.html)
+
+## Tools
+- [LLM API cost calculator](https://llmodel.com/llm-cost-calculator.html): Price a workload across every model with a published rate. Set tokens, requests and caching; get a ranked monthly bill.
+- [Token counter](https://llmodel.com/token-counter.html): Paste text to estimate tokens, see how it splits, get an exact count with OpenAI's tokenizer and price it per model.
+- [GPU and VRAM calculator](https://llmodel.com/vram-calculator.html): Work out the memory an open-weight model needs at each precision, including the KV cache, and which GPUs or Macs fit it.
+- [Which LLM should I use?](https://llmodel.com/llm-picker.html): Answer five questions about your task, budget and deployment. Get a shortlist of three models with the reasons.
+- [Context window visualizer](https://llmodel.com/context-window-visualizer.html): See what 8K, 128K or 1M tokens hold in pages, books, code and meeting hours, and compare model limits.
+- [Prompt builder](https://llmodel.com/prompt-builder.html): Assemble a structured prompt from role, task, context, format and constraints. Copy it or download it.
+- [Self-host vs API calculator](https://llmodel.com/self-host-vs-api-calculator.html): Find the monthly volume where renting GPUs beats paying per token, with your own prices and throughput.
+
+## Guides
+- [AI agents explained](https://llmodel.com/ai-agents-explained.html): How AI agents work under the hood: a language model calling tools in a loop with memory, the planning patterns they use, and where the Model Context Protocol fits as of October 2026. Covers frameworks, evaluation, cost, security and the tasks agents handle well today.
+- [Context windows explained](https://llmodel.com/context-windows-explained.html): A context window is the token budget a model can read and write in one request. This guide converts tokens to words and pages, compares current limits and explains the cost, quality and memory trade-offs of long prompts.
+- [Fine-tuning vs RAG vs prompting: which should you use?](https://llmodel.com/fine-tuning-vs-rag-vs-prompting.html): Prompting changes the instructions, RAG changes the knowledge a model can see and fine-tuning changes its behavior. This guide gives a decision tree, a cost and risk comparison, fine-tuning methods, managed options as of October 2026 and worked examples.
+- [How large language models work, step by step](https://llmodel.com/how-llms-work.html): Follow one sentence through a large language model, from tokens and embeddings through self-attention, logits and sampling, with small worked examples at each step. Then see how training, scaling and mixture-of-experts shape what models can do, and why they hallucinate.
+- [How to choose an LLM for your project](https://llmodel.com/how-to-choose-an-llm.html): A practical framework for choosing a large language model: define the job, weigh ten criteria in a scoring matrix, and run a quick evaluation on your own data. Includes starting points for five common use cases as of October 2026 and a procurement checklist.
+- [LLM API pricing explained](https://llmodel.com/llm-api-pricing-explained.html): LLM APIs bill per token, but output, reasoning, caching, batching and long-context tiers can change a bill several-fold. This guide explains each pricing component, shows real prices as of October 2026 and works through three cost examples step by step.
+- [LLM benchmarks explained](https://llmodel.com/llm-benchmarks-explained.html): What the major LLM benchmarks test, which ones still separate frontier models as of October 2026, and why arena rankings and launch charts need a skeptical read. Includes a method for building your own evaluation with golden sets, rubrics and cost metrics.
+- [LLM hallucinations: why they happen and how to reduce them](https://llmodel.com/llm-hallucinations.html): Hallucinations are fluent, confident outputs that are false or unsupported by the sources a model was given. This guide explains why they happen, what published measurements show, and how to reduce, catch and measure them in real applications.
+- [LLM security and privacy: a practical guide](https://llmodel.com/llm-security-and-privacy.html): How LLM applications get attacked and how they leak data, from prompt injection to over-privileged agents, with defenses that work in layers. Covers the OWASP Top 10 for LLM applications, vendor data policies, compliance basics and a pre-launch checklist.
+- [Open-source vs closed LLMs: how to decide](https://llmodel.com/open-source-vs-closed-llms.html): Open-weight models let you run an LLM on your own infrastructure, but 'open' covers licenses ranging from Apache 2.0 to custom terms with user caps and naming rules. This guide compares open and closed models on quality, cost, control and risk, works through a total cost of ownership example and shows when a hybrid setup wins.
+- [Prompt engineering: a practical guide with examples](https://llmodel.com/prompt-engineering-guide.html): A practical guide to writing prompts that work: the five parts of a prompt, core principles, eight techniques with before-and-after examples, and how reasoning models change the rules. Includes a testing workflow and a reusable template.
+- [Retrieval-augmented generation (RAG) explained](https://llmodel.com/rag-explained.html): A practical guide to retrieval-augmented generation, covering each stage of the pipeline from parsing and chunking to hybrid search, reranking and cited answers. It also explains how to evaluate RAG quality, when long context or fine-tuning fits better and how to secure the system.
+- [How to run LLMs locally](https://llmodel.com/run-llms-locally.html): A practical guide to running open-weight language models on your own computer, from memory math and quantization formats to tools and model picks. It includes an Ollama quick start, hardware tiers as of October 2026, performance tips and fixes for common errors.
+- [What is a large language model?](https://llmodel.com/what-is-a-large-language-model.html): A large language model is a neural network trained on enormous amounts of text to predict what comes next, which turns out to be enough to draft, summarize, translate and write code. This guide explains what LLMs are, how they're trained, the kinds you'll meet, the major families as of October 2026 and the limits to plan around.
+
+## Reference
+- [Glossary](https://llmodel.com/glossary.html): 169 terms, A to Z
+- [Glossary: fundamentals](https://llmodel.com/glossary-fundamentals.html)
+- [Glossary: model architecture](https://llmodel.com/glossary-architecture.html)
+- [Glossary: training](https://llmodel.com/glossary-training.html)
+- [Glossary: inference and deployment](https://llmodel.com/glossary-inference-deployment.html)
+- [Glossary: prompting](https://llmodel.com/glossary-prompting.html)
+- [Glossary: building LLM apps](https://llmodel.com/glossary-building-apps.html)
+- [Glossary: evaluation and benchmarks](https://llmodel.com/glossary-evaluation.html)
+- [Glossary: safety and governance](https://llmodel.com/glossary-safety-governance.html)
+- [Glossary: business and pricing](https://llmodel.com/glossary-business-pricing.html)
+- [Prompt library](https://llmodel.com/prompts.html)
+- [Resources](https://llmodel.com/resources.html)
+- [Editorial policy](https://llmodel.com/editorial-policy.html)
