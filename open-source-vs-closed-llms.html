@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Open-Source vs Closed LLMs: Licenses, Costs and Trade-offs | LLModel.com</title>
+<meta name="description" content="Open-source vs closed LLMs: what open weights really mean, license gotchas, a worked total cost of ownership example, and when to self-host or use an API.">
+<link rel="canonical" href="https://llmodel.com/open-source-vs-closed-llms.html">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="google-adsense-account" content="ca-pub-6620975821265271">
+<meta name="theme-color" content="#f4f6fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12101e" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="LLModel.com">
+<meta property="og:title" content="Open-Source vs Closed LLMs: Licenses, Costs and Trade-offs">
+<meta property="og:description" content="Open-source vs closed LLMs: what open weights really mean, license gotchas, a worked total cost of ownership example, and when to self-host or use an API.">
+<meta property="og:url" content="https://llmodel.com/open-source-vs-closed-llms.html">
+<meta property="og:image" content="https://llmodel.com/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="LLModel: the independent field guide to large language models">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="alternate" type="text/plain" href="llms.txt" title="llms.txt">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Martian+Mono:wght@400..500&family=Newsreader:ital,opsz,wght@0,6..72,400..650;1,6..72,400&display=swap">
+<link rel="stylesheet" href="assets/css/style.css?v=dae4813595">
+<script>(function(){var d=document.documentElement,t=null;try{t=localStorage.getItem('llm-theme')}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}d.setAttribute('data-theme',t)})();</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6620975821265271" crossorigin="anonymous"></script>
+<script type="application/ld+json">{
+ "@type": "Organization",
+ "@id": "https://llmodel.com/#org",
+ "name": "LLModel.com",
+ "url": "https://llmodel.com/",
+ "logo": "https://llmodel.com/assets/img/icon-512.png",
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://llmodel.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Guides",
+   "item": "https://llmodel.com/guides.html"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "Open-source vs closed LLMs: how to decide"
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "Article",
+ "headline": "Open-Source vs Closed LLMs: Licenses, Costs and Trade-offs",
+ "description": "Open-source vs closed LLMs: what open weights really mean, license gotchas, a worked total cost of ownership example, and when to self-host or use an API.",
+ "datePublished": "2026-10-10",
+ "dateModified": "2026-10-10",
+ "inLanguage": "en",
+ "mainEntityOfPage": "https://llmodel.com/open-source-vs-closed-llms.html",
+ "image": "https://llmodel.com/assets/img/og-image.png",
+ "author": {
+  "@type": "Organization",
+  "name": "LLModel editorial team",
+  "url": "https://llmodel.com/about.html"
+ },
+ "publisher": {
+  "@id": "https://llmodel.com/#org"
+ },
+ "keywords": "open source vs closed llm, open weights vs open source, open source llm license, self-host llm cost, llama license, llm total cost of ownership",
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "Is Llama open source?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Not by the Open Source Initiative's definition. Meta releases Llama weights under its own community license, which requires a separate license for services with more than 700 million monthly active users, requires 'Built with Llama' attribution, and binds users to an acceptable use policy. The Llama 4 policy also withholds rights to its multimodal models from people and companies based in the EU. OSI has said Llama's license is not open source."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is the difference between open weights and open source?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Open weights means the trained parameters are published so you can download and run the model, usually under a license with conditions. Open source, under OSI's Open Source AI Definition, also requires the full training and inference code under approved licenses and enough detail about the training data for a skilled person to build a substantially equivalent system. Most popular open models publish weights but not the full training pipeline."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Are open-source LLMs as good as GPT or Claude?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The best open-weight models come close but have generally trailed the top closed models. Epoch AI estimated in late 2025 that open models lagged the frontier by about three months on its capabilities index. For many production tasks, such as extraction, classification, retrieval-based Q&A and routine coding, a strong open model is good enough, while the hardest reasoning and agentic tasks still tend to favor frontier closed models."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Is it cheaper to self-host an LLM than to use an API?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Only at steady, high volume. A self-hosted model costs GPU time, engineering and monitoring whether or not anyone uses it, while an API charges per token. In our worked example, self-hosting costs about $13,400 a month, which beats a mid-tier API at three million requests a month but costs far more than a budget API model or an open model on a hosted API. Model your own traffic first."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Can I use open-weight models commercially?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Usually yes, but read the license. Apache 2.0 and MIT models, such as gpt-oss, Gemma 4, Qwen3.8-27B and DeepSeek V4.1-Flash, allow commercial use with minimal conditions. Custom licenses can add user or revenue thresholds, naming and attribution rules, or use policies that pass down to your users, and some models are released for research or non-commercial use only. Check the license on each model card, and involve counsel for significant deployments."
+   }
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+
+</head>
+<body class="page-open-source-vs-closed-llms">
+<a class="skip" href="#main">Skip to content</a>
+<div class="partner-bar"><a href="https://web.works/contact" target="_blank" rel="noopener"><span>Contact, if you are interested in this website / domain name / sponsorship / advertisement / partnership</span></a></div>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+    <nav class="nav" aria-label="Main"><a href="models.html">Models</a><a href="compare.html">Compare</a><a href="leaderboard.html">Rankings</a><a href="tools.html">Tools</a><a href="guides.html" aria-current="page">Learn</a><a href="videos.html">Videos</a></nav>
+    <div class="header-actions">
+      <button class="search-btn" type="button" data-open-search aria-label="Search the site"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="search-label">Search</span><span class="kbd" aria-hidden="true">/</span></button>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><svg class="theme-icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="theme-icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+      <a class="btn btn--primary btn--sm header-cta" href="hire-llm-experts.html">Get expert help</a>
+      <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile">
+    <ul><li><a href="models.html">Models</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="tools.html">Tools</a></li>
+<li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="contact.html">Contact</a></li>
+<li class="mobile-cta"><a class="btn btn--primary btn--block" href="hire-llm-experts.html">Get expert help</a></li>
+</ul>
+  </nav>
+</header>
+<main id="main">
+<nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li>
+<li><a href="guides.html">Guides</a></li>
+<li aria-current="page">Open-source vs closed LLMs: how to decide</li>
+</ol>
+</nav>
+<div class="read-progress" id="read-progress" aria-hidden="true"></div>
+<header class="page-head wrap"><h1>Open-source vs closed LLMs: how to decide</h1><p class="lede">Open-weight models let you run an LLM on your own infrastructure, but &#x27;open&#x27; covers licenses ranging from Apache 2.0 to custom terms with user caps and naming rules. This guide compares open and closed models on quality, cost, control and risk, works through a total cost of ownership example and shows when a hybrid setup wins.</p>
+<div class="page-meta"><span>Choosing &amp; buying</span><span>Intermediate</span><span>9 min read</span><span>Updated October 10, 2026</span></div>
+</header>
+<div class="wrap article">
+  <nav class="article__toc toc" aria-label="On this page"><p class="toc-title">On this page</p>
+<ol><li><a href="#open-weights-vs-open-source">Open weights vs open source</a></li>
+<li><a href="#licenses-and-gotchas">Common licenses and their gotchas</a></li>
+<li><a href="#trade-offs">The trade-offs, criterion by criterion</a></li>
+<li><a href="#total-cost-of-ownership">Total cost of ownership: a worked example</a></li>
+<li><a href="#when-to-choose-which">When to choose which</a></li>
+<li><a href="#hybrid-routing">Hybrid routing strategies</a></li>
+<li><a href="#decision-table">Decision table</a></li>
+<li><a href="#common-mistakes">Common mistakes</a></li>
+<li><a href="#next-steps">Next steps</a></li>
+</ol>
+</nav>
+  <article class="prose" id="article">
+    <div class="takeaways"><h2>Key takeaways</h2>
+<ul><li>Most &#x27;open&#x27; LLMs are open-weight, not open source: the OSI definition also requires the training code and detailed information about the training data.</li>
+<li>Licenses vary widely: Apache 2.0 and MIT are permissive, while custom licenses such as Llama&#x27;s, Gemma&#x27;s and Kimi K3&#x27;s add use policies, user or revenue thresholds, or naming and attribution rules.</li>
+<li>Open-weight models have trailed the closed frontier by months, not years; Epoch AI estimated about three months on average in late 2025.</li>
+<li>Self-hosting pays off at steady, high volume or when data can&#x27;t leave your control; in our example, it saves money against a mid-tier API but costs about 11 times more than a budget API tier.</li>
+<li>Many teams do best with a hybrid: route routine or sensitive traffic to an open model they control and send hard cases to a closed frontier model.</li>
+</ul>
+</div>
+    <p>Should you run an open model on your own infrastructure or pay for a closed model through an API? The answer depends on licenses, volume, data sensitivity and how much engineering you can take on. This guide untangles what "open" actually means, flags the license terms that catch teams out, works through a real cost comparison and ends with a decision table.</p>
+
+<h2 id="open-weights-vs-open-source">Open weights vs open source</h2>
+<p>Most models described as open source are more precisely <a href="glossary-fundamentals.html#open-weights">open-weight</a>: the trained parameters are published for download, usually under a license with conditions. The training data, the full training code and the recipe usually stay private.</p>
+<p>The Open Source Initiative (OSI) published its Open Source AI Definition 1.0 in October 2024. It requires the freedom to use, study, modify and share a system for any purpose, and three components that make those freedoms real.</p>
+<ul>
+<li><strong>Data information:</strong> enough detail about the training data, including its sources and how it was filtered, for a skilled person to build a substantially equivalent system. The definition doesn't require releasing the data itself when it can't legally be shared.</li>
+<li><strong>Code:</strong> the complete code for data processing, training and inference, under OSI-approved licenses.</li>
+<li><strong>Parameters:</strong> the model weights, under OSI-approved terms.</li>
+</ul>
+<p>By that standard, very few popular models qualify. A small number of research releases, such as the Allen Institute for AI's OLMo models, publish training data, code and intermediate checkpoints, while most commercial labs publish only weights and a technical report. For buyers, the label matters less than the license: it decides what you may legally do with the model.</p>
+<p>Closed models sit at the other end. You can't download GPT-6 Astra, Claude Opus 5.5 or Gemini 3.8 Flash; you send requests to the provider's servers and pay per token, under the provider's terms.</p>
+
+<h2 id="licenses-and-gotchas">Common licenses and their gotchas</h2>
+<p>License terms differ more than the word "open" suggests. The table summarizes the licenses you'll meet most often, as of October 2026; it's general guidance, not legal advice, so read the actual license for any model you deploy.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>License</th><th>Example models</th><th>Commercial use</th><th>Gotchas</th></tr>
+</thead>
+<tbody>
+<tr><td>Apache 2.0</td><td>OpenAI gpt-oss, Google Gemma 4, Qwen3.8-27B, several Mistral models</td><td>Yes</td><td>Keep license and notice files; includes an express patent license that ends if you sue over patents in the work</td></tr>
+<tr><td>MIT</td><td>DeepSeek V4.1-Flash and V4-Pro</td><td>Yes</td><td>Very short and permissive, with no express patent grant; keep the copyright notice</td></tr>
+<tr><td>Kimi K3 License (MIT-based, with conditions)</td><td>Moonshot Kimi K3</td><td>Yes, with conditions</td><td>UI attribution above 100 million monthly users or $20 million monthly revenue; a separate agreement for model-as-a-service businesses with over $20 million in revenue over 12 months</td></tr>
+<tr><td>Llama 4 Community License</td><td>Llama 4 Scout and Maverick</td><td>Yes, with conditions</td><td>Separate license above 700 million monthly active users; "Built with Llama" display; derivative model names must begin with "Llama"; acceptable use policy; multimodal rights withheld from EU-based individuals and companies, though end users of products built on them are exempt</td></tr>
+<tr><td>Gemma Terms of Use</td><td>Earlier Gemma generations, such as Gemma 3</td><td>Yes, with conditions</td><td>Prohibited use policy must be passed to your users; Google may restrict use it believes violates the terms; models distilled from Gemma outputs count as derivatives</td></tr>
+<tr><td>Non-commercial licenses</td><td>Some research releases and specialist models, for example under CC BY-NC 4.0</td><td>No</td><td>Fine for experiments, but production use requires a separate commercial agreement</td></tr>
+</tbody>
+</table>
+</div>
+<p>Three gotchas deserve emphasis. First, licenses change between versions of the same family: Gemma 4 moved to Apache 2.0, while earlier Gemma models remain under Google's custom terms, so check the license for the exact version you download.</p>
+<p>Second, custom licenses can reach your downstream work. The Llama 4 naming rule applies when you use Llama or its outputs to create or improve a model you distribute, and Gemma's terms treat models distilled from Gemma outputs as derivatives.</p>
+<p>Third, use policies flow downstream. Under licenses that incorporate an acceptable use policy, you're responsible for making sure your own users follow it, which belongs in your terms of service.</p>
+<div class="callout warn">
+<p>A non-commercial license on one component, such as a speech or embedding model, can make an entire product non-compliant. Track licenses for every model in your pipeline, not just the main LLM.</p>
+</div>
+
+<aside class="ad-slot" data-ad="in-article" aria-label="Sponsored message"><span class="ad-label">From LLModel</span><div class="ad-fill"><div class="house"><div><strong>Keep LLModel independent</strong><span>Reader support pays for data checks, new tools and contest prizes.</span></div>
+<a class="btn btn--ghost btn--sm" href="support.html">Support the site</a></div>
+</div>
+</aside>
+<h2 id="trade-offs">The trade-offs, criterion by criterion</h2>
+<p>Neither option wins everywhere. This table compares a typical self-hosted open-weight deployment with a typical closed API.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Criterion</th><th>Open weights, self-hosted</th><th>Closed API</th></tr>
+</thead>
+<tbody>
+<tr><td>Peak quality</td><td>Close to the frontier, usually a step behind</td><td>Usually the frontier on the hardest tasks</td></tr>
+<tr><td>Cost structure</td><td>Fixed: GPUs, engineers and operations, whether or not traffic arrives</td><td>Variable: pay per token, with nothing to run when idle</td></tr>
+<tr><td>Control</td><td>You choose the version, settings and upgrade timing</td><td>The provider can update, reroute or retire models</td></tr>
+<tr><td>Privacy</td><td>Data can stay entirely inside your network</td><td>Data goes to the provider under contract terms</td></tr>
+<tr><td>Customization</td><td>Full fine-tuning, <a href="glossary-training.html#lora">LoRA</a>, <a href="glossary-inference-deployment.html#quantization">quantization</a> and <a href="glossary-training.html#distillation">distillation</a></td><td>Limited to whatever tuning features the provider offers</td></tr>
+<tr><td>Latency</td><td>Predictable and close to users if you co-locate; depends on your tuning</td><td>Good on average, with shared-capacity spikes and rate limits</td></tr>
+<tr><td>Support</td><td>Community, consultants or a paid hosting vendor</td><td>Vendor support and service-level agreements</td></tr>
+<tr><td>Security patching</td><td>You patch the inference stack and track vulnerabilities</td><td>The provider handles infrastructure and model safety updates</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="quality-gap-trend">The quality gap is measured in months</h3>
+<p>The capability gap between open and closed models has narrowed to a matter of months. Epoch AI's analysis in October 2025 found open-weight models trailing the best closed models by about three months on average on its capabilities index, a figure that will drift as each new frontier model lands.</p>
+<p>By October 2026, the largest open releases have reached a scale that once belonged only to closed labs. Moonshot's Kimi K3 lists 2.8 trillion total parameters, Alibaba's Qwen3.8 family includes a 2.4-trillion-parameter model, and DeepSeek's V4.1-Flash supports a one-million-token context under an MIT license.</p>
+<p>Closed models still tend to lead on the hardest agentic and reasoning tasks, and a lag of a few months matters if those tasks are your product. For most routine workloads, the gap is smaller than the variation between prompts.</p>
+<h3 id="hardware-reality">The hardware reality</h3>
+<p>"Open" doesn't mean "runs on a laptop". OpenAI's gpt-oss-20b runs in about 16 GB of memory, and gpt-oss-120b fits on a single 80 GB GPU. DeepSeek's own deployment example for V4-Pro uses a node with four GB300 GPUs. Use the <a href="vram-calculator.html">VRAM calculator</a> to size hardware before you commit, and remember that a <a href="glossary-architecture.html#mixture-of-experts">mixture-of-experts</a> model needs memory for all of its parameters, not just the active ones.</p>
+
+<h2 id="total-cost-of-ownership">Total cost of ownership: a worked example</h2>
+<p>Consider a document-processing service handling 100,000 requests a day, or about 3 million a month. Each request uses 2,000 input tokens and 400 output tokens, so the month totals 6 billion input and 1.2 billion output tokens.</p>
+<p>For the self-hosted option, assume a mid-sized open model on three H100 GPUs running around the clock. At Lambda's on-demand list price of $3.99 per GPU-hour as of October 2026, that's 3 × $3.99 × 730 hours, or $8,738 a month. Add a quarter of an engineer's time at a $200,000 fully loaded annual cost, about $4,167 a month, and $500 for monitoring, storage and networking, and the total is about $13,400 a month.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Option</th><th>Assumptions</th><th>Monthly cost</th></tr>
+</thead>
+<tbody>
+<tr><td>Mid-tier closed API</td><td>$2 input and $10 output per million tokens</td><td>$24,000</td></tr>
+<tr><td>Same API with prompt caching</td><td>1,500 of 2,000 input tokens read from cache at $0.10 per million; cache-write fees ignored</td><td>$15,450</td></tr>
+<tr><td>Self-hosted open-weight model</td><td>3 H100s on demand, 0.25 engineer, $500 overhead</td><td>About $13,400</td></tr>
+<tr><td>Open model on its maker's API</td><td>DeepSeek V4.1-Flash at peak-hour list prices, $0.30 input and $1.20 output</td><td>$3,240</td></tr>
+<tr><td>Budget closed API</td><td>$0.10 input and $0.50 output per million tokens</td><td>$1,200</td></tr>
+</tbody>
+</table>
+</div>
+<p>Self-hosting beats the mid-tier API by about $10,600 a month, but only $2,000 once prompt caching is in play. Against a budget closed model or an open model on a hosted API, it costs several times more, and about 11 times the budget API.</p>
+<p>The break-even point against the uncached mid-tier API, at $0.008 per request, is about 1.7 million requests a month, or 56,000 a day. Below that volume, the fixed costs dominate.</p>
+<p>The example also assumes three GPUs can carry your peak load and that a quarter of an engineer is enough; both deserve testing, because underestimating either erases the savings. GPU prices vary widely across providers and commitment terms, and the <a href="self-host-vs-api-calculator.html">self-host vs API calculator</a> lets you plug in your own numbers. The real lesson is that model tier and caching move the bill more than the open-or-closed choice does, so the strongest financial case for self-hosting is steady, high volume.</p>
+
+<figure class="video-figure"><div class="video" data-yt="KL_hBC3XcrY"><button class="video__btn" type="button" aria-label="Play video: Open Source vs Open Weight AI Models Explained"><img src="https://i.ytimg.com/vi/KL_hBC3XcrY/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="video__play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></button></div>
+<figcaption>Watch: Open Source vs Open Weight AI Models Explained (KodeKloud). Draws the line between fully open-source AI and models that only publish their weights, and why that difference matters in practice. It helps developers and decision-makers read vendor claims about &quot;open&quot; models with more care.</figcaption></figure>
+<h2 id="when-to-choose-which">When to choose which</h2>
+<h3 id="choose-open-weights">Choose open weights when</h3>
+<ul>
+<li>Data must stay inside your network or a specific jurisdiction, for contractual or regulatory reasons.</li>
+<li>Volume is high and steady enough to keep GPUs busy.</li>
+<li>You need deep customization, such as full fine-tuning or a distilled small model for one task.</li>
+<li>You need offline or edge deployment, or exact version control for audits.</li>
+<li>You have, or can hire, people to run inference infrastructure.</li>
+</ul>
+<h3 id="choose-closed">Choose a closed API when</h3>
+<ul>
+<li>You need the strongest available model for hard reasoning, coding or agentic work.</li>
+<li>Traffic is low, spiky or unpredictable.</li>
+<li>Time to market matters more than unit cost.</li>
+<li>You want built-in features such as web search, computer use, file handling and managed caching.</li>
+<li>Your team is small and has no one to run GPUs.</li>
+</ul>
+<p>Both options often satisfy privacy requirements. Business tiers of closed APIs offer contractual data protections, and some offer zero data retention, so self-hosting is a requirement only when data can't reach a third party at all.</p>
+
+<h2 id="hybrid-routing">Hybrid routing strategies</h2>
+<p>You don't have to pick one side. Many production systems use several models behind a single internal interface and send each request to the cheapest model that can handle it.</p>
+<ul>
+<li><strong>Tiered routing:</strong> a small classifier or rules engine sends routine requests to an open model or budget API and escalates complex ones to a frontier model.</li>
+<li><strong>Cascade with fallback:</strong> try the cheap model first and escalate when a validation check fails or the model reports low confidence.</li>
+<li><strong>Sensitivity routing:</strong> requests containing personal or regulated data go to a self-hosted model, and everything else may use a closed API.</li>
+<li><strong>Distillation:</strong> a frontier model labels examples, and a small open model is fine-tuned on them to handle the bulk of traffic, after you confirm the frontier provider's terms allow it.</li>
+<li><strong>Provider failover:</strong> a second model takes over automatically during an outage or rate limiting.</li>
+</ul>
+<p>Routing adds work: each route needs its own prompts, <a href="glossary-evaluation.html#evaluation">evaluations</a> and monitoring. Start with two tiers and add more only when your data shows clear savings.</p>
+
+<aside class="ad-slot" data-ad="in-article-2" aria-label="Sponsored message"><span class="ad-label">From LLModel</span><div class="ad-fill"><div class="house"><div><strong>Prompt Efficiency Challenge</strong><span>Season 1 is open: solve five tasks for the fewest dollars. $500 in prizes.</span></div>
+<a class="btn btn--ghost btn--sm" href="contests.html">Read the brief</a></div>
+</div>
+</aside>
+<h2 id="decision-table">Decision table</h2>
+<p>Find the row that best describes your situation. If two rows apply, the one with the hardest constraint usually wins.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>If your situation is</th><th>Lean toward</th><th>Why</th></tr>
+</thead>
+<tbody>
+<tr><td>Prototype or early product with uncertain demand</td><td>Closed API</td><td>No fixed costs and the fastest path to a working product</td></tr>
+<tr><td>Data that can't leave your environment</td><td>Self-hosted open weights</td><td>Only option that keeps data fully in your control</td></tr>
+<tr><td>Steady, high volume on a well-defined task</td><td>Open weights, self-hosted or on a hosted API</td><td>Fixed costs amortize, and fine-tuning can narrow the quality gap</td></tr>
+<tr><td>Hardest reasoning, coding or agentic tasks</td><td>Closed frontier API</td><td>Frontier models still tend to lead here</td></tr>
+<tr><td>Mixed workload with cost pressure</td><td>Hybrid routing</td><td>Cheap models take most traffic; frontier models take the hard cases</td></tr>
+<tr><td>Regulated industry with audit needs</td><td>Open weights, or a closed API with strong contractual terms</td><td>Version pinning and data control simplify audits</td></tr>
+<tr><td>Small team without infrastructure staff</td><td>Closed API, or open models through a hosted API</td><td>Avoids running GPUs while keeping some portability</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 id="common-mistakes">Common mistakes</h2>
+<p>These are the errors that most often turn an open-versus-closed decision into an expensive one. Each is avoidable with a little homework.</p>
+<ul>
+<li><strong>Calling a model open source without reading its license.</strong> The license, not the label, decides what you may do.</li>
+<li><strong>Counting only GPU costs.</strong> Engineering time, monitoring, idle capacity and upgrades often equal or exceed the hardware bill.</li>
+<li><strong>Benchmarking a full-precision model and deploying a heavily quantized one.</strong> Evaluate the exact configuration you'll run.</li>
+<li><strong>Assuming self-hosting is automatically secure.</strong> You now own patching, access control, logging and defenses against <a href="glossary-safety-governance.html#prompt-injection">prompt injection</a>.</li>
+<li><strong>Treating the decision as permanent.</strong> Prices and quality shift monthly, so revisit the choice every quarter with fresh evaluation runs.</li>
+</ul>
+
+<h2 id="next-steps">Next steps</h2>
+<p>Run your own numbers in the <a href="self-host-vs-api-calculator.html">self-host vs API calculator</a>, then read <a href="run-llms-locally.html">how to run LLMs locally</a> to try an open model on your own machine. For the broader selection process, including scoring matrices and evaluation, see <a href="how-to-choose-an-llm.html">how to choose an LLM</a>. If you'd like help planning a self-hosted or hybrid deployment, you can <a href="hire-llm-experts.html">get expert help</a>.</p>
+    <section class="sources" aria-labelledby="sources"><h2 id="sources">Sources</h2>
+<ol><li><a href="https://opensource.org/ai/open-source-ai-definition" target="_blank" rel="noopener">The Open Source AI Definition 1.0 (Open Source Initiative)</a></li>
+<li><a href="https://opensource.org/blog/metas-llama-license-is-still-not-open-source" target="_blank" rel="noopener">Meta&#x27;s Llama license is still not open source (Open Source Initiative)</a></li>
+<li><a href="https://dev.meta.ai/llama/llama4/license" target="_blank" rel="noopener">Llama 4 Community License Agreement (Meta)</a></li>
+<li><a href="https://ai.google.dev/gemma/terms" target="_blank" rel="noopener">Gemma Terms of Use (Google AI for Developers)</a></li>
+<li><a href="https://openai.com/index/introducing-gpt-oss/" target="_blank" rel="noopener">Introducing gpt-oss (OpenAI)</a></li>
+<li><a href="https://huggingface.co/moonshotai/Kimi-K3/blob/main/LICENSE" target="_blank" rel="noopener">Kimi K3 License (Moonshot AI on Hugging Face)</a></li>
+<li><a href="https://epoch.ai/data-insights/open-weights-vs-closed-weights-models" target="_blank" rel="noopener">Open-weight vs closed-weight models (Epoch AI)</a></li>
+<li><a href="https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash" target="_blank" rel="noopener">DeepSeek-V4.1-Flash model card (Hugging Face)</a></li>
+<li><a href="https://lambda.ai/pricing" target="_blank" rel="noopener">GPU cloud pricing (Lambda)</a></li>
+</ol>
+      <p class="small muted">Written by the LLModel editorial team and checked against the sources above on October 10, 2026. Found an error? <a href="contact.html?topic=correction">Send a correction</a>.</p>
+</section>
+    <div class="share" aria-label="Share this guide"><span class="muted">Share:</span><button type="button" data-copy-link>Copy link</button><a href="https://www.linkedin.com/sharing/share-offsite/?url=https://llmodel.com/open-source-vs-closed-llms.html" target="_blank" rel="noopener">LinkedIn</a><a href="https://twitter.com/intent/tweet?url=https://llmodel.com/open-source-vs-closed-llms.html&amp;text=Open-source vs closed LLMs: how to decide" target="_blank" rel="noopener">X</a><a href="https://news.ycombinator.com/submitlink?u=https://llmodel.com/open-source-vs-closed-llms.html&amp;t=Open-source vs closed LLMs: how to decide" target="_blank" rel="noopener">Hacker News</a><a href="https://www.reddit.com/submit?url=https://llmodel.com/open-source-vs-closed-llms.html&amp;title=Open-source vs closed LLMs: how to decide" target="_blank" rel="noopener">Reddit</a></div>
+  </article>
+  <aside class="article__side" aria-label="Related"><div class="panel"><h2 class="h3">Try the tools</h2>
+<ul style="margin:.5rem 0 0;padding-left:1.1rem"><li><a href="self-host-vs-api-calculator.html">Self-host vs API calculator</a></li>
+<li><a href="vram-calculator.html">GPU and VRAM calculator</a></li>
+<li><a href="llm-cost-calculator.html">LLM API cost calculator</a></li>
+</ul>
+</div>
+<div class="panel"><h2 class="h3">Need hands-on help?</h2>
+<p class="small muted" style="margin-top:.4rem">Get a vendor-neutral plan for your project within 2 business days.</p>
+<a class="btn btn--primary btn--block" style="margin-top:.8rem" href="hire-llm-experts.html?from=guide-open-source-vs-closed-llms">Get expert help</a></div>
+<div class="panel newsletter-box">
+
+  <p class="muted" style="margin-top:.4rem">One short email a week: model releases, price changes and one tool worth trying. Free, and you can unsubscribe anytime.</p>
+  <form class="form" data-form="newsletter" data-subject="Newsletter signup" novalidate style="margin-top:1rem">
+    <div class="inline-form">
+      <label class="visually-hidden" for="nl-side-email">Email address</label>
+      <input class="input" type="email" id="nl-side-email" name="email" required autocomplete="email" placeholder="Your work email">
+      <button class="btn btn--primary" type="submit">Subscribe</button>
+    </div>
+    <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <div class="form-status" role="status" aria-live="polite"></div>
+  </form>
+  <p class="fine" style="margin-top:.6rem">We send one email a week and never sell your address. See the <a href="privacy.html">privacy policy</a>.</p>
+</div>
+</aside>
+</div>
+<div class="wrap wrap--read" style="margin-top:3rem"><section class="faq-wrap" aria-labelledby="faq"><h2 class="h2" id="faq" style="margin-bottom:1rem">Frequently asked questions</h2>
+<div class="faq"><details><summary>Is Llama open source?</summary><div class="faq__a"><p>Not by the Open Source Initiative&#x27;s definition. Meta releases Llama weights under its own community license, which requires a separate license for services with more than 700 million monthly active users, requires &#x27;Built with Llama&#x27; attribution, and binds users to an acceptable use policy. The Llama 4 policy also withholds rights to its multimodal models from people and companies based in the EU. OSI has said Llama&#x27;s license is not open source.</p>
+</div>
+</details>
+<details><summary>What is the difference between open weights and open source?</summary><div class="faq__a"><p>Open weights means the trained parameters are published so you can download and run the model, usually under a license with conditions. Open source, under OSI&#x27;s Open Source AI Definition, also requires the full training and inference code under approved licenses and enough detail about the training data for a skilled person to build a substantially equivalent system. Most popular open models publish weights but not the full training pipeline.</p>
+</div>
+</details>
+<details><summary>Are open-source LLMs as good as GPT or Claude?</summary><div class="faq__a"><p>The best open-weight models come close but have generally trailed the top closed models. Epoch AI estimated in late 2025 that open models lagged the frontier by about three months on its capabilities index. For many production tasks, such as extraction, classification, retrieval-based Q&amp;A and routine coding, a strong open model is good enough, while the hardest reasoning and agentic tasks still tend to favor frontier closed models.</p>
+</div>
+</details>
+<details><summary>Is it cheaper to self-host an LLM than to use an API?</summary><div class="faq__a"><p>Only at steady, high volume. A self-hosted model costs GPU time, engineering and monitoring whether or not anyone uses it, while an API charges per token. In our worked example, self-hosting costs about $13,400 a month, which beats a mid-tier API at three million requests a month but costs far more than a budget API model or an open model on a hosted API. Model your own traffic first.</p>
+</div>
+</details>
+<details><summary>Can I use open-weight models commercially?</summary><div class="faq__a"><p>Usually yes, but read the license. Apache 2.0 and MIT models, such as gpt-oss, Gemma 4, Qwen3.8-27B and DeepSeek V4.1-Flash, allow commercial use with minimal conditions. Custom licenses can add user or revenue thresholds, naming and attribution rules, or use policies that pass down to your users, and some models are released for research or non-commercial use only. Check the license on each model card, and involve counsel for significant deployments.</p>
+</div>
+</details>
+</div>
+</section>
+</div>
+
+<section class="wrap" aria-labelledby="related" style="margin-top:3rem"><h2 class="h2" id="related" style="margin-bottom:1rem">Keep reading</h2>
+<div class="cardlist"><a class="card" href="how-to-choose-an-llm.html"><span class="card__kicker">Choosing &amp; buying</span><span class="card__title">How to choose an LLM for your project</span><span class="card__desc">A practical framework for choosing a large language model: define the job, weigh ten criteria in a scoring matrix, and run a quick evaluation on your own data. Includes starting points for five common use cases as of October 2026 and a procurement checklist.</span><span class="card__foot"><span>Intermediate</span><span>10 min read</span></span></a><a class="card" href="run-llms-locally.html"><span class="card__kicker">Running &amp; deploying</span><span class="card__title">How to run LLMs locally</span><span class="card__desc">A practical guide to running open-weight language models on your own computer, from memory math and quantization formats to tools and model picks. It
+includes an Ollama quick start, hardware tiers as of October 2026, performance tips and fixes for common errors.</span><span class="card__foot"><span>Intermediate</span><span>11 min read</span></span></a><a class="card" href="fine-tuning-vs-rag-vs-prompting.html"><span class="card__kicker">Building</span><span class="card__title">Fine-tuning vs RAG vs prompting: which should you use?</span><span class="card__desc">Prompting changes the instructions, RAG changes the knowledge a model can see and fine-tuning changes its behavior. This guide gives a decision tree, a cost and risk comparison, fine-tuning methods, managed options as of October 2026 and worked examples.</span><span class="card__foot"><span>Intermediate</span><span>9 min read</span></span></a></div>
+</section>
+<div class="wrap"><section class="lead-band" aria-labelledby="lead-choose-guide-open-source-vs-closed-llms">
+  <div>
+    <h2 id="lead-choose-guide-open-source-vs-closed-llms">Still choosing a model?</h2>
+    <p>Send us your use case and constraints. We&#x27;ll come back with a shortlist and an evaluation plan you can run on your own data.</p>
+    <ul><li>Free and vendor-neutral: no model provider pays for placement.</li>
+<li>Your details go only to partners you agree to.</li>
+</ul>
+  </div>
+  <form class="mini-form" action="hire-llm-experts.html" method="get">
+    <label for="need-choose-guide-open-source-vs-closed-llms">What do you need help with?</label>
+    <select id="need-choose-guide-open-source-vs-closed-llms" name="need"><option value="choose-model">Choose the right model</option>
+<option value="chatbot">Build a chatbot or assistant</option>
+<option value="rag">Answer questions over our documents (RAG)</option>
+<option value="agents">Automate work with AI agents</option>
+<option value="self-host">Fine-tune or self-host a model</option>
+<option value="cut-costs">Cut our LLM costs</option>
+<option value="security">Security, privacy or compliance review</option>
+<option value="not-sure">Not sure yet</option>
+</select>
+    <input type="hidden" name="from" value="guide-open-source-vs-closed-llms">
+    <button class="btn btn--yellow btn--block" type="submit">Start my free plan</button>
+    <p class="fine">Takes about 2 minutes. No sales calls unless you ask for one.</p>
+  </form>
+</section>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+      <p>The independent field guide to large language models. Model data checked against provider documentation; last full check October 10, 2026.</p>
+    </div>
+    <div><h2>Explore</h2>
+<ul><li><a href="models.html">Model directory</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare models</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="search.html">Search</a></li>
+</ul>
+</div>
+<div><h2>Tools</h2>
+<ul><li><a href="llm-cost-calculator.html">Cost calculator</a></li>
+<li><a href="token-counter.html">Token counter</a></li>
+<li><a href="vram-calculator.html">GPU and VRAM calculator</a></li>
+<li><a href="llm-picker.html">Which LLM should I use?</a></li>
+<li><a href="context-window-visualizer.html">Context window visualizer</a></li>
+<li><a href="prompt-builder.html">Prompt builder</a></li>
+<li><a href="self-host-vs-api-calculator.html">Self-host vs API calculator</a></li>
+</ul>
+</div>
+<div><h2>Learn</h2>
+<ul><li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+</ul>
+</div>
+<div><h2>Work with us</h2>
+<ul><li><a href="hire-llm-experts.html">Get expert help</a></li>
+<li><a href="list-your-product.html">List your product</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</div>
+<div><h2>About</h2>
+<ul><li><a href="about.html">About LLModel</a></li>
+<li><a href="editorial-policy.html">Editorial policy</a></li>
+<li><a href="privacy.html">Privacy policy</a></li>
+<li><a href="terms.html">Terms of use</a></li>
+<li><a href="disclaimer.html">Disclaimer</a></li>
+<li><a href="trademark-copyright.html">Trademark and copyright</a></li>
+<li><a href="sitemap.html">Site map</a></li>
+<li><button class="linklike" type="button" data-privacy-choices>Privacy and cookie choices</button></li>
+</ul>
+</div>
+  </div>
+  <div class="wrap footer-legal">
+    <p>&copy; 2026 LLModel.com. Independent: not affiliated with, endorsed by or sponsored by any model provider. Model and company names are trademarks of their respective owners and are used only to identify products. See <a href="trademark-copyright.html">trademark and copyright</a>.</p>
+    <p>Prices and specifications change often. Always confirm on the provider's own pricing page before you buy.</p>
+  </div>
+</footer>
+<div class="palette" id="palette" hidden role="dialog" aria-modal="true" aria-label="Search LLModel">
+  <div class="palette__box">
+    <label class="visually-hidden" for="palette-input">Search models, tools, guides and terms</label>
+    <input class="palette__input" id="palette-input" type="search" placeholder="Search models, tools, guides, terms" autocomplete="off" spellcheck="false" aria-controls="palette-list">
+    <ul class="palette__list" id="palette-list" role="listbox"></ul>
+    <div class="palette__foot"><span><span class="kbd">&uarr;</span> <span class="kbd">&darr;</span> to move</span><span><span class="kbd">Enter</span> to open</span><span><span class="kbd">Esc</span> to close</span></div>
+  </div>
+</div>
+<script src="assets/js/config.js?v=caa5324cbb"></script>
+
+<script src="assets/js/app.js?v=4b39d7c1bd" defer></script>
+<script src="assets/js/article.js?v=0235be8880" defer></script>
+</body>
+</html>
