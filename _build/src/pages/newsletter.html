@@ -1,0 +1,51 @@
+<!--meta
+{
+  "slug": "newsletter",
+  "title": "The LLM Brief: A Weekly Email on New Models, Prices and Tools",
+  "h1": "The LLM Brief",
+  "lede": "One short email a week for people who build with language models: what launched, what changed in price, one tool worth trying and one idea worth stealing. Five minutes to read, free, and easy to leave.",
+  "head_meta": ["Weekly", "Free", "No spam, no selling your address"],
+  "description": "Subscribe to The LLM Brief, a free weekly newsletter on new large language models, API price changes, useful tools and practical techniques for building with LLMs.",
+  "section": "learn",
+  "crumbs": [["Home", "index.html"], ["Newsletter", null]],
+  "priority": 0.6,
+  "faq": [
+    {"q": "How often will I hear from you?", "a": "Once a week, plus an occasional note when something big happens, like a major price change. You can unsubscribe from any email in one click."},
+    {"q": "Do you sell or share my email address?", "a": "No. We use it to send the newsletter and nothing else. Sponsored placements in the newsletter are labeled, and sponsors never receive subscriber data."},
+    {"q": "Can I sponsor the newsletter?", "a": "Yes. See the advertise page for newsletter placements and current rates."}
+  ]
+}
+-->
+<div class="wrap grid grid--2" style="gap:2.5rem;align-items:start">
+  <div class="panel">
+    <h2 class="h2">Subscribe</h2>
+    <form class="form" data-form="newsletter" data-subject="New subscriber: The LLM Brief" data-replace data-success-title="You're on the list" data-success="Your first issue arrives next week. Add us to your contacts so it doesn't land in spam." novalidate style="margin-top:1rem">
+      <div class="field"><label for="nl-main-email">Email<span class="req" aria-hidden="true">*</span></label><input class="input" id="nl-main-email" name="email" type="email" required autocomplete="email"></div>
+      <div class="field"><label for="nl-main-name">First name <span class="muted">(optional)</span></label><input class="input" id="nl-main-name" name="first_name" autocomplete="given-name"></div>
+      <div class="field"><label for="nl-main-role">What best describes you?</label>
+        <select class="select" id="nl-main-role" name="role"><option>Developer or engineer</option><option>Founder or executive</option><option>Product or design</option><option>Data or ML</option><option>IT, security or compliance</option><option>Student or researcher</option><option>Just curious</option></select></div>
+      <fieldset class="field"><legend>Most interested in</legend><div class="pills">
+        <label class="pill"><input type="checkbox" name="interests" value="New models"><span>New models</span></label>
+        <label class="pill"><input type="checkbox" name="interests" value="Prices and costs"><span>Prices and costs</span></label>
+        <label class="pill"><input type="checkbox" name="interests" value="Open-weight and local"><span>Open-weight and local</span></label>
+        <label class="pill"><input type="checkbox" name="interests" value="Building apps"><span>Building apps</span></label>
+        <label class="pill"><input type="checkbox" name="interests" value="Safety and policy"><span>Safety and policy</span></label></div></fieldset>
+      {{honeypot}}
+      <button class="btn btn--primary" type="submit">Subscribe free</button>
+      <div class="form-status" role="status" aria-live="polite"></div>
+      <p class="fine">By subscribing you agree to receive the newsletter. See the <a href="privacy.html">privacy policy</a>.</p>
+    </form>
+  </div>
+  <div class="prose" style="max-width:none">
+    <h2 id="inside">What's in each issue</h2>
+    <ul>
+      <li><strong>Releases that matter.</strong> New models and versions, with what changed in plain English and a link to the full spec page.</li>
+      <li><strong>Price watch.</strong> Price cuts, new tiers and long-prompt surcharges, with what they mean for a real workload.</li>
+      <li><strong>One tool.</strong> A library, service or technique worth ten minutes of your time.</li>
+      <li><strong>One idea.</strong> A practical pattern from someone shipping with LLMs.</li>
+      <li><strong>Contest news.</strong> New briefs, deadlines and winners.</li>
+    </ul>
+    <h2 id="why">Why it exists</h2>
+    <p>The LLM field changes every week, and most coverage is either hype or a firehose. The Brief does the filtering: it tells you what changed, whether it matters for what you're building, and where to read more. It's written by the team that keeps the <a href="models.html">model directory</a> current.</p>
+  </div>
+</div>
