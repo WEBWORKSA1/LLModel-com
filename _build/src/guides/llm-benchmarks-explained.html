@@ -1,0 +1,133 @@
+<!--meta
+{
+  "slug": "llm-benchmarks-explained",
+  "title": "LLM Benchmarks Explained: What the Scores Really Measure in 2026",
+  "h1": "LLM benchmarks explained",
+  "description": "LLM benchmarks explained: what MMLU-Pro, GPQA, SWE-bench, HLE and ARC-AGI measure, which are saturated in 2026, and how to read leaderboards critically.",
+  "category": "Safety & quality",
+  "level": "Intermediate",
+  "updated": "2026-10-10",
+  "keywords": ["llm benchmarks", "ai benchmarks explained", "llm leaderboard", "swe-bench", "humanity's last exam", "lmarena", "llm evaluation"],
+  "summary": "What the major LLM benchmarks test, which ones still separate frontier models as of October 2026, and why arena rankings and launch charts need a skeptical read. Includes a method for building your own evaluation with golden sets, rubrics and cost metrics.",
+  "key_takeaways": [
+    "Public benchmarks are screening tools; a private evaluation built from your own tasks should make the final call.",
+    "MMLU and HumanEval are saturated, MATH is close behind, and OpenAI stopped reporting SWE-bench Verified in 2026 over flawed tests and contamination.",
+    "Harder tests such as Humanity's Last Exam, ARC-AGI-3 and agentic benchmarks still separate frontier models as of October 2026.",
+    "Arena ratings capture human preference but reward style and reflect who votes, so small rating gaps are fragile.",
+    "On small test sets a 1-3 point lead is often noise; check sample size, settings and confidence intervals.",
+    "Track cost per task and latency next to accuracy, because the cheapest model per correct answer often wins."
+  ],
+  "faq": [
+    {"q": "What is the most reliable LLM benchmark?", "a": "No single benchmark is reliable on its own. As of October 2026, tests that still separate frontier models include Humanity's Last Exam, ARC-AGI-3, SWE-bench Pro and agentic suites such as Terminal-Bench, while MMLU and HumanEval are saturated. The most reliable signal for your decision is a private evaluation built from your own tasks, scored consistently, with cost and latency recorded next to accuracy."},
+    {"q": "Why did OpenAI stop using SWE-bench Verified?", "a": "In February 2026 OpenAI said SWE-bench Verified no longer measured frontier coding ability. Its audit of hard problems found that most had flawed tests or problem descriptions, including tests that reject correct fixes, and that every frontier model it tested could reproduce some original solutions or task text, a sign of training contamination. It recommended reporting SWE-bench Pro instead until cleaner benchmarks arrive."},
+    {"q": "What does an LMArena rating mean?", "a": "It is a rating estimated from anonymous head-to-head votes, fitted with a Bradley-Terry model and shown on an Elo-like scale. Only differences matter: a 100-point gap means the higher-rated model wins about 64 percent of votes. Ratings reflect what arena visitors ask and prefer, including a taste for longer, well-formatted answers, so check style-controlled rankings and confidence intervals before reading much into small gaps."},
+    {"q": "What is benchmark contamination?", "a": "Contamination happens when a benchmark's questions or answers end up in a model's training data, usually because the test was published online. The model can then recall answers instead of solving problems, which inflates its score. Warning signs include a model reproducing exact answer text or scoring far better on old public questions than on fresh ones. Private held-out sets and newly written questions reduce the risk."},
+    {"q": "How many examples do I need to evaluate an LLM for my use case?", "a": "Fifty to two hundred well-chosen examples is a practical start. With 200 cases and an 85 percent pass rate, the margin of error is roughly five points either way, so smaller differences need more cases or repeated runs. Cover your main task types in proportion to real traffic, include hard cases and past failures, and keep the set private so it never leaks into training data."}
+  ],
+  "sources": [
+    {"title": "OpenAI: Why we no longer evaluate SWE-bench Verified (February 2026)", "url": "https://openai.com/index/why-we-no-longer-evaluate-swe-bench-verified/"},
+    {"title": "Humanity's Last Exam (Phan et al., 2025)", "url": "https://arxiv.org/abs/2501.14249"},
+    {"title": "GPQA: A Graduate-Level Google-Proof Q&A Benchmark (Rein et al., 2023)", "url": "https://arxiv.org/abs/2311.12022"},
+    {"title": "MMLU-Pro: A More Robust and Challenging Multi-Task Language Understanding Benchmark (Wang et al., 2024)", "url": "https://arxiv.org/abs/2406.01574"},
+    {"title": "ARC Prize: ARC-AGI-3 launch announcement (March 2026)", "url": "https://arcprize.org/blog/arc-agi-3-launch"},
+    {"title": "Chatbot Arena: An Open Platform for Evaluating LLMs by Human Preference (Chiang et al., 2024)", "url": "https://arxiv.org/abs/2403.04132"},
+    {"title": "The Leaderboard Illusion (2025)", "url": "https://arxiv.org/abs/2504.20879"},
+    {"title": "Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena (Zheng et al., 2023)", "url": "https://arxiv.org/abs/2306.05685"},
+    {"title": "RULER: What's the Real Context Size of Your Long-Context Language Models? (Hsieh et al., 2024)", "url": "https://arxiv.org/abs/2404.06654"},
+    {"title": "Tau-squared-bench: Evaluating Conversational Agents in a Dual-Control Environment (2025)", "url": "https://arxiv.org/abs/2506.07982"}
+  ],
+  "related_tools": ["llm-picker", "llm-cost-calculator"],
+  "related_guides": ["how-to-choose-an-llm", "llm-hallucinations", "prompt-engineering-guide", "ai-agents-explained"]
+}
+-->
+<p>Every model launch arrives with a chart of benchmark scores, and every leaderboard claims to know which model is best. This guide explains what the major benchmarks actually test, which ones still separate frontier models as of October 2026, how human-preference arenas rank models, and how to build an evaluation that predicts performance on your own work.</p>
+
+<h2 id="why-benchmarks-exist">Why benchmarks exist</h2>
+<p>A <a href="glossary.html#benchmark">benchmark</a> is a fixed set of tasks with an agreed scoring method, so different models can be compared under the same conditions. Researchers use benchmarks to track progress, labs use them to catch regressions, and buyers use them as a first filter when building a shortlist.</p>
+<p>The catch is that a benchmark is a proxy. It measures performance on one sample of questions, in one format, under one set of settings. A model that aces graduate-level physics questions can still fumble your invoice format. Treat public scores as a screening tool and your own <a href="glossary.html#evaluation">evaluation</a> as the deciding vote.</p>
+<p>Benchmarks also have a life cycle. A new test starts out hard, labs optimize for it, scores climb toward the ceiling, and the field moves on. Knowing where a benchmark sits in that cycle tells you how much its scores can still reveal.</p>
+
+<h2 id="what-the-major-benchmarks-measure">What the major benchmarks measure</h2>
+<p>The table covers the benchmarks you'll meet most often in model cards and launch posts. Status reflects published results and maintainer statements as of October 2026, so check the source before relying on any single score.</p>
+<table>
+<thead><tr><th>Benchmark</th><th>What it tests</th><th>Status in 2026</th></tr></thead>
+<tbody>
+<tr><td><a href="glossary.html#mmlu">MMLU</a></td><td>Four-option multiple-choice questions across 57 academic and professional subjects</td><td>Saturated: frontier models score above 90 percent, and audits have found flawed answer keys</td></tr>
+<tr><td>MMLU-Pro</td><td>A harder, reasoning-heavy rebuild with ten answer options per question</td><td>Still widely reported; harder and less sensitive to prompt wording than MMLU</td></tr>
+<tr><td>GPQA Diamond</td><td>198 graduate-level biology, chemistry and physics questions written to resist web search</td><td>Near saturation: top models report scores above 90 percent, past the PhD-expert baseline</td></tr>
+<tr><td>HumanEval</td><td>164 short Python functions checked by unit tests, scored as pass@k</td><td>Saturated; still useful for comparing small models</td></tr>
+<tr><td>SWE-bench Verified</td><td>500 human-screened GitHub issues; the model must write a patch that passes the project's tests</td><td>OpenAI stopped reporting it in February 2026, citing flawed tests and contamination, and recommends SWE-bench Pro</td></tr>
+<tr><td>AIME and MATH</td><td>Competition math with exact answers; each AIME exam has 15 problems</td><td>MATH is near saturation; top reasoning models score close to the ceiling on recent AIME papers</td></tr>
+<tr><td>Humanity's Last Exam</td><td>2,500 expert-written questions across dozens of subjects, some with images, designed so answers can't be quickly looked up</td><td>Unsaturated: early-2025 models scored in single digits, and leading models reached roughly half by mid-2026</td></tr>
+<tr><td>ARC-AGI-2 and ARC-AGI-3</td><td>Puzzles that are easy for people: inferring a new rule from a few examples (v2) or exploring unfamiliar game worlds with no instructions (v3)</td><td>Top ARC-AGI-2 scores were reported above the 85 percent target by mid-2026; ARC-AGI-3 launched in March 2026 with humans solving every task and frontier AI scoring about 0.5 percent at launch</td></tr>
+<tr><td>Long-context tests</td><td>Finding and combining facts buried in very long inputs: needle-in-a-haystack, RULER and multi-hop variants</td><td>Simple needle retrieval is saturated; harder variants show usable context is often shorter than advertised</td></tr>
+<tr><td>Tool-use and agent benchmarks</td><td>Calling functions correctly (BFCL), customer-service tasks with a simulated user (τ²-bench), terminal work (Terminal-Bench), operating a desktop (OSWorld)</td><td>The most active area, with frequent new versions; results depend heavily on the agent harness</td></tr>
+</tbody>
+</table>
+<p>Two patterns stand out. Multiple-choice knowledge tests have mostly topped out, so the signal has moved to benchmarks that require doing something: shipping working code, using tools correctly, or adapting to an environment the model has never seen. And the newest tests deliberately target what models still do badly, which is why their scores look low.</p>
+<p>Long-context results deserve special care. The RULER study found that only half of the models it tested, all claiming windows of 32,000 tokens or more, performed satisfactorily at 32,000 tokens. The <a href="context-windows-explained.html">context windows guide</a> explains why advertised and usable <a href="glossary.html#context-window">context</a> differ.</p>
+
+<h2 id="contamination-and-saturation">Contamination and saturation</h2>
+<p>A benchmark is saturated when top models score so close to the ceiling that differences are mostly noise. Small test sets make this worse. GPQA Diamond has 198 questions, so each one is worth about half a percentage point, and a 2-point lead is just four questions. AIME results usually cover a year's two 15-problem exams, so a single problem moves the score by more than 3 points.</p>
+<p>Errors in the answer key cap scores too. If 3 percent of a test's answers are wrong, a flawless model tops out at 97 percent, and a model that scores higher may have memorized the mistakes.</p>
+<p>Contamination happens when test questions or answers leak into training data, usually because benchmarks are published on the web that models learn from. The model then recalls instead of reasoning. OpenAI's February 2026 audit of SWE-bench Verified is the clearest recent case. Every frontier model it tested could reproduce some original fixes or task details verbatim, and 59.4 percent of the 138 hard problems it reviewed had flawed tests or descriptions.</p>
+<p>OpenAI concluded that recent gains, from 74.9 to 80.9 percent over six months, increasingly reflected exposure rather than skill. Benchmark makers respond with private held-out test sets, fresh questions written after training cutoffs, contests that refresh every year, and interactive tasks like ARC-AGI-3 that can't be answered from memory.</p>
+
+<h2 id="human-preference-arenas">Human-preference arenas</h2>
+<p>Arenas take a different approach. A user submits a prompt, two anonymous models answer side by side, and the user votes for the better response. The best known is LMArena, which began as the academic Chatbot Arena project and now operates under the Arena brand. Its 2024 paper described more than 240,000 votes, and the platform has gathered far more since.</p>
+<p>Votes become ratings through a Bradley-Terry model, which estimates each model's strength from all pairwise results at once. The project originally used chess-style Elo updates, which depend on the order of games; the Bradley-Terry fit removes that effect and yields confidence intervals. Ratings sit on an Elo-like scale where a 50-point gap means the higher-rated model wins about 57 percent of votes, and a 100-point gap about 64 percent.</p>
+<p>Arenas capture something static tests miss: what real people prefer on real prompts. They also carry known biases:</p>
+<ul>
+<li><strong>Style over substance.</strong> Voters tend to reward longer, well-formatted, confident answers. Arena publishes style-controlled rankings that adjust for length and Markdown, so compare both views.</li>
+<li><strong>A particular prompt mix.</strong> Votes reflect what visitors ask, which leans toward coding, quick questions and puzzles rather than long documents in your domain.</li>
+<li><strong>Unchecked answers.</strong> Voters rarely verify facts or run code, so a fluent wrong answer can win.</li>
+<li><strong>Uneven access.</strong> The 2025 paper "The Leaderboard Illusion" reported that some providers privately tested many variants before release, 27 for Meta ahead of Llama 4, and that Google and OpenAI each received about a fifth of all arena data. Arena has since open-sourced its ranking code, which reweights models with fewer battles.</li>
+</ul>
+<p>The practical lesson: an arena rating is a useful read on general chat quality, but a lead of a few points says little about your workload.</p>
+
+<h2 id="how-to-read-a-leaderboard-skeptically">How to read a leaderboard skeptically</h2>
+<p>Whether you're looking at a lab's launch chart, a third-party tracker or our <a href="leaderboard.html">LLM leaderboard</a>, run through these questions before drawing conclusions.</p>
+<div class="checklist"><ul>
+<li><strong>Same settings?</strong> Scores with tools, majority voting or maximum reasoning effort aren't comparable to single-attempt scores. Look for labels like "pass@1," "with tools" or "high effort."</li>
+<li><strong>Who ran it?</strong> Self-reported numbers use the lab's own prompts and harness. Independent reruns with a shared harness are easier to compare.</li>
+<li><strong>How big is the test?</strong> On a few hundred questions, gaps of 1 to 3 points usually sit within noise. Look for confidence intervals.</li>
+<li><strong>Saturated or contaminated?</strong> A near-perfect score on an old public test says little about the frontier.</li>
+<li><strong>What did it cost?</strong> A score reached at high effort can cost many times more per task. ARC Prize plots score against cost per task and lists only systems that cost under $10,000 to run.</li>
+<li><strong>Does it match your work?</strong> A math leaderboard says little about summarizing contracts. Weight the benchmarks that resemble your use case.</li>
+<li><strong>How fresh is it?</strong> Rankings shift every few weeks, so check the date and exact model version.</li>
+</ul></div>
+<p>Composite indexes that blend many benchmarks, such as Epoch AI's Capabilities Index, smooth out single-test noise but inherit their ingredients' blind spots. Use them to shortlist, then line up finalists with <a href="compare.html">side-by-side comparison</a> and your own tests.</p>
+
+<h2 id="building-your-own-evaluation">Building your own evaluation</h2>
+<h3 id="start-with-a-golden-set">Start with a golden set</h3>
+<p>A golden set is a collection of real inputs with known-good outputs or clear pass criteria. Fifty to two hundred examples is enough to start. Pull them from production logs or realistic drafts, cover your task types in proportion to real traffic, and deliberately add hard cases and past failures. Keep the set private, and add each new failure you find.</p>
+<p>Know your margin of error. With 200 cases and a pass rate near 85 percent, the 95 percent confidence interval is roughly 5 points either way; with 100 cases at 90 percent, it's about 6. A model that scores 87 against another's 84 on 200 cases hasn't clearly won, so rerun before deciding.</p>
+<h3 id="write-rubrics-not-vibes">Write rubrics, not vibes</h3>
+<p>For open-ended outputs, break quality into yes-or-no checks: "cites the policy section," "under 150 words," "no invented order numbers." Binary criteria are applied more consistently than a 1-to-10 scale, and they tell you what to fix. Score exact matches and formats with code wherever possible, since it's cheaper and deterministic.</p>
+<h3 id="llm-as-a-judge-pitfalls">LLM-as-a-judge pitfalls</h3>
+<p>Using a strong model to grade outputs, called <a href="glossary.html#llm-as-a-judge">LLM-as-a-judge</a>, makes evaluation cheap to scale. The 2023 study that popularized it found GPT-4's verdicts matched human preferences over 80 percent of the time, about as often as humans agree with each other. It also documented systematic biases:</p>
+<ul>
+<li><strong>Position bias:</strong> judges favor an answer because of where it appears. Run pairwise comparisons in both orders and count only consistent wins.</li>
+<li><strong>Verbosity bias:</strong> longer answers look better. Put length expectations in the rubric.</li>
+<li><strong>Self-preference:</strong> models tend to favor outputs like their own. Use a judge from a different model family when you can.</li>
+<li><strong>Limited checking:</strong> judges miss math or code errors they can't verify. Supply a reference answer or execute the code.</li>
+</ul>
+<p>Before trusting a judge, have a person label 50 to 100 examples and measure how often the judge agrees. If agreement is low, fix the rubric before scaling up.</p>
+<h3 id="cost-and-latency-are-metrics-too">Cost and latency are metrics too</h3>
+<p>Suppose Model A passes 92 percent of your tests at $0.012 per task with a 9-second p95 latency, and Model B passes 89 percent at $0.002 with 2 seconds. At 100,000 tasks a month, A costs $1,200 and B costs $200. But if a person reviews every failure, B's extra 3 percent means 3,000 more reviews; at 50 cents each that's $1,500, which makes the "expensive" model $500 a month cheaper overall.</p>
+<p>Record cost per task, cost per correct answer, and p50 and p95 <a href="glossary.html#latency">latency</a> next to accuracy. The <a href="llm-cost-calculator.html">LLM cost calculator</a> handles the token arithmetic, and the <a href="prompt-engineering-guide.html">prompt engineering guide</a> shows how to rerun the same set after every prompt change.</p>
+
+<h2 id="common-mistakes">Common mistakes</h2>
+<ul>
+<li><strong>Choosing a model from one number.</strong> A single headline score hides the settings, cost and task fit behind it.</li>
+<li><strong>Mixing settings.</strong> Comparing one model's tool-assisted, high-effort score with another's plain score is meaningless.</li>
+<li><strong>Trusting saturated tests.</strong> MMLU and HumanEval no longer separate frontier models.</li>
+<li><strong>Evaluating on a dozen examples.</strong> At that size, noise looks like signal.</li>
+<li><strong>Leaking the test set.</strong> Examples you use in few-shot prompts or publish online shouldn't also be in your golden set.</li>
+<li><strong>Running each case once.</strong> Outputs vary, so repeat runs at your production settings.</li>
+<li><strong>Evaluating only at launch.</strong> Rerun after every prompt edit and model update, and pin model versions in between.</li>
+</ul>
+
+<h2 id="next-steps">Next steps</h2>
+<p>Check the <a href="leaderboard.html">LLM leaderboard</a> to see how current models rank on quality and value, then line up two or three finalists in <a href="compare.html">side-by-side comparison</a>. The <a href="how-to-choose-an-llm.html">guide to choosing an LLM</a> shows how to combine benchmark results with cost, privacy and latency constraints.</p>
+<p>If you'd like help designing a golden set or an automated evaluation pipeline, you can <a href="hire-llm-experts.html">work with an LLM evaluation specialist</a>.</p>

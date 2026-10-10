@@ -1,0 +1,386 @@
+{
+  "category": "Building apps",
+  "updated": "2026-10-10",
+  "terms": [
+    {
+      "slug": "agent-memory",
+      "term": "Agent memory",
+      "aka": [
+        "memory",
+        "LLM memory"
+      ],
+      "category": "Building apps",
+      "short": "Mechanisms that let an AI system keep and recall information beyond a single context window.",
+      "definition": "Language models have no memory between calls; anything remembered must be stored by the application and put back into context. Short-term memory is the running conversation or task state, often summarized as it grows so it fits the context window. Long-term memory persists across sessions: user preferences, facts learned earlier, or past task outcomes, stored in a database or vector store and retrieved when relevant. Agents may also keep scratchpad files or notes to track progress on long jobs. Designing memory is mostly about choosing what to save, when to recall it and when to forget it, and about letting users see and delete what is stored.",
+      "related": [
+        "ai-agent",
+        "context-engineering",
+        "vector-database",
+        "context-window"
+      ]
+    },
+    {
+      "slug": "agentic-workflow",
+      "term": "Agentic workflow",
+      "aka": [
+        "agentic AI",
+        "agentic system"
+      ],
+      "category": "Building apps",
+      "short": "A multi-step process in which LLMs plan, call tools and act, with control flow set by code or the model.",
+      "definition": "Agentic workflow is a broad label for systems where models do more than answer once: they plan, use tools, check their work and take actions across several steps. Designs sit on a spectrum. At one end, code fixes the path, as in prompt chains, routing and parallel calls with a vote. At the other, a fully autonomous agent chooses each next step itself. Plan-and-execute is a middle pattern in which one model call writes a plan and later calls carry out each step. Orchestration refers to the code or framework that manages these calls, state and retries. Start with the simplest structure that works and add autonomy only when the task genuinely needs it.",
+      "related": [
+        "ai-agent",
+        "prompt-chaining",
+        "multi-agent-system",
+        "react-pattern"
+      ]
+    },
+    {
+      "slug": "ai-agent",
+      "term": "AI agent",
+      "aka": [
+        "agent",
+        "LLM agent",
+        "autonomous agent"
+      ],
+      "category": "Building apps",
+      "short": "A system where an LLM decides which actions to take, uses tools, observes results and repeats until done.",
+      "definition": "An AI agent is a program in which a language model directs its own process to reach a goal. Instead of answering once, it works in a loop: decide on the next step, call a tool such as search, a database query or a code runner, read the result, and continue until the task is done or a limit is hit. A coding agent might read files, edit code, run the tests and fix failures over dozens of steps. Agents handle open-ended work that fixed pipelines can't, but errors compound across steps, costs are less predictable and actions carry real risk, so give them narrow permissions, step limits and human approval for consequential actions.",
+      "related": [
+        "tool-calling",
+        "agentic-workflow",
+        "react-pattern",
+        "agent-memory"
+      ]
+    },
+    {
+      "slug": "bm25",
+      "term": "BM25",
+      "aka": [
+        "Okapi BM25",
+        "Best Matching 25"
+      ],
+      "category": "Building apps",
+      "short": "A classic keyword-ranking formula that scores documents by term frequency, rarity and length.",
+      "definition": "BM25, short for Best Matching 25, is a ranking function from the 1990s and still the default in search engines such as Elasticsearch, OpenSearch and Lucene-based systems. It scores a document higher when it contains the query's words more often, with diminishing returns for repetition, when those words are rare across the collection, and when the document is not padded with unrelated text. It needs no training or GPU, is fast and transparent, and is excellent at exact matches like names, codes and jargon. Its weakness is vocabulary mismatch: it can't tell that 'car' and 'automobile' are related. That's why it is commonly paired with semantic search.",
+      "related": [
+        "hybrid-search",
+        "semantic-search",
+        "retrieval"
+      ]
+    },
+    {
+      "slug": "chunking",
+      "term": "Chunking",
+      "aka": [
+        "text splitting",
+        "document chunking"
+      ],
+      "category": "Building apps",
+      "short": "Splitting documents into smaller passages before embedding them, so retrieval returns focused, relevant text.",
+      "definition": "Chunking breaks long documents into passages that are embedded and retrieved individually. Size is a real trade-off: small chunks of around 200 tokens match queries precisely but can lose surrounding context, while chunks of 1,000 tokens or more carry context but dilute relevance and use more of the prompt. Common starting points are 300 to 800 tokens with 10 to 20 percent overlap so ideas aren't cut in half. Splitting on natural boundaries such as headings, paragraphs or functions in code beats fixed character counts, and prefixing each chunk with its document title or section heading improves retrieval. Test chunking choices against real questions rather than guessing.",
+      "related": [
+        "rag",
+        "embedding",
+        "vector-database",
+        "context-window"
+      ]
+    },
+    {
+      "slug": "citations",
+      "term": "Citations",
+      "aka": [
+        "source attribution",
+        "source citations"
+      ],
+      "category": "Building apps",
+      "short": "References in a model's answer that point to the specific sources supporting each claim.",
+      "definition": "Citations link statements in a generated answer to the passages, documents or web pages they came from, so readers can check them. In a RAG system you typically number each retrieved chunk in the prompt and instruct the model to cite those numbers, or use an API feature that returns citations as structured data with exact quoted spans. Citations make hallucinations easier to catch and build user trust, but they can be wrong too: a model may cite a real source that doesn't actually support the claim. For high-stakes uses, verify automatically that each cited passage contains the supporting text before showing the answer.",
+      "related": [
+        "grounding",
+        "rag",
+        "hallucination"
+      ]
+    },
+    {
+      "slug": "computer-use",
+      "term": "Computer use",
+      "aka": [
+        "computer-using agent",
+        "GUI agent"
+      ],
+      "category": "Building apps",
+      "short": "Agents that operate a computer or browser through screenshots, mouse clicks and keystrokes, like a person.",
+      "definition": "Computer use lets a multimodal model control a graphical interface. The model receives a screenshot, decides where to click or what to type, the harness executes that action and returns a new screenshot, and the loop continues. This lets agents work with software that has no API, such as legacy internal tools, web forms or desktop apps. Anthropic introduced computer use in public beta in October 2024, and other major labs have since released browser and computer agents. It remains slower and less reliable than calling an API, and it is exposed to prompt injection from anything on screen, so run it in a sandbox and require confirmation for purchases or deletions.",
+      "related": [
+        "ai-agent",
+        "multimodal",
+        "prompt-injection",
+        "tool-calling"
+      ]
+    },
+    {
+      "slug": "cosine-similarity",
+      "term": "Cosine similarity",
+      "aka": [],
+      "category": "Building apps",
+      "short": "A measure of how closely two vectors point in the same direction, widely used to compare embeddings.",
+      "definition": "Cosine similarity compares two vectors by the angle between them, ignoring their length. It equals the dot product of the vectors divided by the product of their magnitudes, giving a value from -1 for opposite directions, through 0 for unrelated, to 1 for the same direction. With text embeddings, a query and a relevant passage might score 0.8 while an unrelated passage scores 0.2, but typical ranges vary by model, so similarity thresholds don't transfer between embedding models. Many embedding models output vectors already normalized to length 1, in which case cosine similarity equals the plain dot product, which is cheaper to compute. Cosine distance is one minus the similarity.",
+      "related": [
+        "embedding",
+        "semantic-search",
+        "vector-database"
+      ]
+    },
+    {
+      "slug": "embedding-model",
+      "term": "Embedding model",
+      "aka": [
+        "text embedding model",
+        "embedder"
+      ],
+      "category": "Building apps",
+      "short": "A model that converts text into vectors so that similar meanings produce nearby vectors.",
+      "definition": "An embedding model turns a piece of text into one fixed-length vector, typically a few hundred to a few thousand dimensions, for search, clustering, deduplication and classification. Many are encoder-style transformers and some are adapted from decoder LLMs, but nearly all are trained with contrastive learning on pairs of related texts, so a question and its answer land close together. Most are much smaller than frontier chat models, cost a small fraction of chat-model rates, and many run comfortably on a CPU. Public leaderboards such as MTEB are a reasonable starting point, but test candidates on your own queries and documents. Switching embedding models later means re-embedding your whole collection, because vectors from different models aren't comparable.",
+      "related": [
+        "embedding",
+        "vector-database",
+        "semantic-search",
+        "encoder"
+      ]
+    },
+    {
+      "slug": "grounding",
+      "term": "Grounding",
+      "aka": [
+        "groundedness"
+      ],
+      "category": "Building apps",
+      "short": "Tying a model's answers to specific, verifiable sources such as retrieved documents, data or search results.",
+      "definition": "Grounding means anchoring what a model says in source material you supply or it retrieves, rather than in whatever its weights happen to recall. A grounded support bot answers from the current policy document and can point to the passage it used; an ungrounded one improvises from training data that may be outdated. You achieve grounding with retrieval, web search, or database and tool results placed in context, plus instructions to rely only on that material and to say so when it lacks the answer. Groundedness can be measured by checking whether each claim in an answer is supported by the provided sources, a common metric in RAG evaluation.",
+      "related": [
+        "rag",
+        "hallucination",
+        "citations",
+        "evaluation"
+      ]
+    },
+    {
+      "slug": "hybrid-search",
+      "term": "Hybrid search",
+      "aka": [
+        "hybrid retrieval"
+      ],
+      "category": "Building apps",
+      "short": "Combining keyword search and semantic vector search so each covers the other's blind spots.",
+      "definition": "Hybrid search runs a keyword method such as BM25 and a semantic embedding search side by side, then merges their result lists. Keyword search reliably finds exact terms like 'ERR_429', SKU numbers or a person's surname; semantic search finds passages that express the same idea in different words. A common merging method is reciprocal rank fusion, which gives each document 1/(k + rank) points from every list it appears in, with k a constant often set to 60, so documents near the top of both lists rise. Many vector databases and search engines support hybrid queries natively. Adding a reranker after the merge typically improves results further.",
+      "related": [
+        "bm25",
+        "semantic-search",
+        "reranker",
+        "rag"
+      ]
+    },
+    {
+      "slug": "model-context-protocol",
+      "term": "Model Context Protocol (MCP)",
+      "aka": [
+        "MCP"
+      ],
+      "category": "Building apps",
+      "short": "An open standard for connecting AI applications to tools and data sources through a common interface.",
+      "definition": "The Model Context Protocol is an open standard, introduced by Anthropic in November 2024, that defines how AI applications connect to external tools and data. An MCP server wraps a system such as a file store, database, ticketing tool or code repository and exposes tools the model can call, resources it can read and reusable prompts. Any compatible client can then use that server, so one integration works across many assistants and coding tools, much as the Language Server Protocol lets one language plugin serve many code editors. In December 2025, Anthropic donated MCP to the Agentic AI Foundation, a fund under the Linux Foundation co-founded with Block and OpenAI. Treat third-party servers as untrusted code.",
+      "related": [
+        "tool-calling",
+        "ai-agent",
+        "prompt-injection"
+      ]
+    },
+    {
+      "slug": "model-routing",
+      "term": "Model routing and fallback",
+      "aka": [
+        "LLM router",
+        "model cascade"
+      ],
+      "category": "Building apps",
+      "short": "Sending each request to the most suitable model, often a cheap one first, with fallbacks for failures.",
+      "definition": "Model routing directs each request to the model best suited to it instead of sending everything to one model. A router might be a few rules, such as sending short classification tasks to a small model, or a trained classifier that predicts which requests need a frontier model. If most of your traffic is simple, routing it to a model that costs a tenth as much can cut the bill dramatically. Routing also covers resilience: a fallback sends the request to a second model or provider when the first errors out, times out or hits a rate limit. Track quality per route, since savings mean little if harder requests get misrouted.",
+      "related": [
+        "small-language-model",
+        "cost-per-token",
+        "rate-limit",
+        "inference-provider"
+      ]
+    },
+    {
+      "slug": "multi-agent-system",
+      "term": "Multi-agent system",
+      "aka": [
+        "multi-agent",
+        "multi-agent architecture"
+      ],
+      "category": "Building apps",
+      "short": "An application in which several LLM agents with different roles or tools collaborate on a task.",
+      "definition": "A multi-agent system splits work among several agents, each with its own instructions, tools and context. A common shape is orchestrator and workers: a lead agent breaks a research question into parts, spawns subagents to investigate each one in parallel, and then combines their findings. Separation keeps each agent's context focused and allows parallel work, which helps on broad tasks. The costs are significant: more tokens, harder debugging, and information lost or garbled in handoffs between agents. Use multiple agents when a task splits naturally into independent parts; for tightly coupled work, a single agent with good tools often performs better.",
+      "related": [
+        "ai-agent",
+        "agentic-workflow",
+        "agent-memory"
+      ]
+    },
+    {
+      "slug": "query-rewriting",
+      "term": "Query rewriting",
+      "aka": [
+        "query reformulation",
+        "query transformation",
+        "query expansion"
+      ],
+      "category": "Building apps",
+      "short": "Using a model to reformulate a user's question into better search queries before retrieval.",
+      "definition": "Query rewriting transforms what the user typed into queries that retrieve better. In a chat, 'what about the second one?' means nothing to a search index, so a model first rewrites it as a standalone question using the conversation history. Other variants split a compound question into several sub-queries, add synonyms and domain terms, or generate a hypothetical answer and search with that, a technique called HyDE, because an answer-shaped text often sits closer to the right documents in embedding space. Rewriting adds a model call and some latency, so use a small, fast model and measure whether retrieval recall actually improves.",
+      "related": [
+        "retrieval",
+        "rag",
+        "semantic-search"
+      ]
+    },
+    {
+      "slug": "react-pattern",
+      "term": "ReAct (reason + act)",
+      "aka": [
+        "ReAct",
+        "reason and act"
+      ],
+      "category": "Building apps",
+      "short": "An agent pattern in which a model alternates between reasoning about a task and taking tool actions.",
+      "definition": "ReAct, from a 2022 paper by researchers at Princeton and Google, combines reasoning traces with actions in one loop. The model writes a thought about what it knows and what to do next, takes an action such as a search query, reads the observation that comes back, and repeats until it can answer. For example: think 'I need the company's founding year', search, read the result, think 'now I need its current CEO', search again. Interleaving reasoning with real observations reduces the made-up facts that pure chain-of-thought can produce. Most modern agent loops built on tool calling follow this structure, even when they don't use the name.",
+      "related": [
+        "ai-agent",
+        "chain-of-thought",
+        "tool-calling",
+        "agentic-workflow"
+      ]
+    },
+    {
+      "slug": "reranker",
+      "term": "Reranker",
+      "aka": [
+        "reranking model",
+        "re-ranker"
+      ],
+      "category": "Building apps",
+      "short": "A model that re-scores an initial list of search results to put the most relevant ones first.",
+      "definition": "A reranker takes a query and a shortlist of candidate passages, say the top 50 from a vector or keyword search, scores each pair for relevance and reorders them. Most rerankers are cross-encoders: unlike embedding models, which encode the query and each document separately, they read both together, so they catch subtler matches at a higher compute cost per pair. The standard pattern is to retrieve broadly with a fast method, then rerank and keep only the best five to ten passages for the prompt. Adding a reranker is often one of the largest quality gains available in a RAG pipeline, at the cost of some extra latency.",
+      "related": [
+        "rag",
+        "semantic-search",
+        "hybrid-search",
+        "encoder"
+      ]
+    },
+    {
+      "slug": "retrieval",
+      "term": "Retrieval",
+      "aka": [
+        "information retrieval",
+        "IR"
+      ],
+      "category": "Building apps",
+      "short": "Finding and returning the most relevant pieces of information from a collection for a given query.",
+      "definition": "Retrieval is the step that finds the right material before a model writes anything. In an LLM application it might mean searching a document index, querying a database, calling a search engine or looking up a user's history. Quality is measured with metrics such as recall at k, which checks whether the needed passage appears in the top k results, and precision, which tracks how much of what was returned is actually useful. Retrieval sets a ceiling on answer quality: a strong model given the wrong passages will still answer wrongly, or confidently invent an answer. Evaluate retrieval separately from generation so you know which stage to fix.",
+      "related": [
+        "rag",
+        "semantic-search",
+        "bm25",
+        "query-rewriting"
+      ]
+    },
+    {
+      "slug": "rag",
+      "term": "Retrieval-augmented generation (RAG)",
+      "aka": [
+        "RAG"
+      ],
+      "category": "Building apps",
+      "short": "Fetching relevant documents at query time and adding them to the prompt so the model answers from them.",
+      "definition": "Retrieval-augmented generation pairs a search step with a language model. When a question arrives, the system retrieves the most relevant passages from your own content, such as help-center articles, contracts or wiki pages, and places them in the prompt with an instruction to answer from that material. The model never has to memorize your data, you can update content without retraining, and answers can cite their sources. The term comes from a 2020 paper by researchers at Facebook AI Research. Most RAG failures are really retrieval failures: if the right passage isn't found, the model can't use it, so invest in chunking, hybrid search and reranking before swapping models.",
+      "related": [
+        "vector-database",
+        "chunking",
+        "grounding",
+        "reranker"
+      ]
+    },
+    {
+      "slug": "semantic-search",
+      "term": "Semantic search",
+      "aka": [
+        "vector search",
+        "dense retrieval",
+        "neural search"
+      ],
+      "category": "Building apps",
+      "short": "Search that matches by meaning rather than exact keywords, usually by comparing embeddings.",
+      "definition": "Semantic search finds results that mean the same thing as the query even when they share no words. The query and the documents are converted to embeddings, and the system returns the documents whose vectors are most similar. A search for 'laptop won't turn on' can surface an article titled 'Troubleshooting power failures on notebooks'. It handles paraphrases, synonyms and even cross-language matches well, but it can miss exact identifiers such as product codes, error numbers or rare names that keyword search finds easily. That gap is why many production systems combine semantic and keyword search in a hybrid setup, then rerank the merged results.",
+      "related": [
+        "embedding",
+        "hybrid-search",
+        "bm25",
+        "vector-database"
+      ]
+    },
+    {
+      "slug": "structured-outputs",
+      "term": "Structured outputs",
+      "aka": [
+        "structured generation",
+        "constrained generation"
+      ],
+      "category": "Building apps",
+      "short": "Forcing a model's output to follow a defined format, typically valid JSON matching a schema you supply.",
+      "definition": "Structured outputs make a model return data your code can parse reliably instead of free text you have to pick apart. There are levels. Asking for JSON in the prompt usually works but occasionally fails. JSON mode guarantees syntactically valid JSON but not the fields you need. Schema-enforced structured outputs, offered by several major APIs and by local engines through grammars, use constrained decoding: at each step, tokens that would break the schema are masked out, so the result always matches your JSON Schema. Even then, validate values in code, since a field can be correctly typed and still wrong, and very strict schemas can sometimes lower answer quality.",
+      "related": [
+        "tool-calling",
+        "logits",
+        "prompt-chaining"
+      ]
+    },
+    {
+      "slug": "tool-calling",
+      "term": "Tool calling",
+      "aka": [
+        "function calling",
+        "tool use"
+      ],
+      "category": "Building apps",
+      "short": "Letting a model request that your code run a defined function, then using the result in its answer.",
+      "definition": "Tool calling lets a model act on the outside world in a structured way. You describe each available tool with a name, a plain-language description and a JSON Schema for its arguments, often called the function schema. When the model decides a tool would help, it returns a structured call, such as get_weather with the argument city set to Lisbon, instead of prose. Your application runs the function, sends the result back, and the model continues. The model never executes anything itself. Clear tool descriptions matter as much as prompts, and because arguments come from the model, validate them and check permissions before running anything consequential.",
+      "related": [
+        "ai-agent",
+        "structured-outputs",
+        "model-context-protocol",
+        "prompt-injection"
+      ]
+    },
+    {
+      "slug": "vector-database",
+      "term": "Vector database",
+      "aka": [
+        "vector store",
+        "vector index"
+      ],
+      "category": "Building apps",
+      "short": "A database built to store embeddings and quickly find the ones most similar to a query.",
+      "definition": "A vector database stores embeddings alongside the text and metadata they came from, and answers one question fast: which stored vectors are closest to this query vector? Comparing a query against millions of vectors one by one is too slow, so these systems use approximate nearest-neighbor indexes such as HNSW, which trade a sliver of accuracy for results in milliseconds. Options range from dedicated vector services to extensions such as pgvector for PostgreSQL and vector features in search engines you may already run. For a few thousand documents, a simple in-memory index is often enough. As data grows, weigh metadata filtering, hybrid search support, update speed and cost.",
+      "related": [
+        "embedding",
+        "semantic-search",
+        "rag",
+        "hybrid-search"
+      ]
+    }
+  ]
+}
