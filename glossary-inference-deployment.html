@@ -1,0 +1,598 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inference and Deployment Terms: LLM Glossary (33 Definitions) | LLModel.com</title>
+<meta name="description" content="Plain-English definitions of 33 inference and deployment terms for large language models, including KV cache, quantization, temperature and vLLM.">
+<link rel="canonical" href="https://llmodel.com/glossary-inference-deployment.html">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="google-adsense-account" content="ca-pub-6620975821265271">
+<meta name="theme-color" content="#f4f6fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12101e" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="LLModel.com">
+<meta property="og:title" content="Inference and Deployment Terms: LLM Glossary (33 Definitions)">
+<meta property="og:description" content="Plain-English definitions of 33 inference and deployment terms for large language models, including KV cache, quantization, temperature and vLLM.">
+<meta property="og:url" content="https://llmodel.com/glossary-inference-deployment.html">
+<meta property="og:image" content="https://llmodel.com/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="LLModel: the independent field guide to large language models">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="alternate" type="text/plain" href="llms.txt" title="llms.txt">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Martian+Mono:wght@400..500&family=Newsreader:ital,opsz,wght@0,6..72,400..650;1,6..72,400&display=swap">
+<link rel="stylesheet" href="assets/css/style.css?v=dae4813595">
+<script>(function(){var d=document.documentElement,t=null;try{t=localStorage.getItem('llm-theme')}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}d.setAttribute('data-theme',t)})();</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6620975821265271" crossorigin="anonymous"></script>
+<script type="application/ld+json">{
+ "@type": "Organization",
+ "@id": "https://llmodel.com/#org",
+ "name": "LLModel.com",
+ "url": "https://llmodel.com/",
+ "logo": "https://llmodel.com/assets/img/icon-512.png",
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://llmodel.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Glossary",
+   "item": "https://llmodel.com/glossary.html"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "Inference and deployment"
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "DefinedTermSet",
+ "name": "LLM glossary: inference and deployment",
+ "url": "https://llmodel.com/glossary-inference-deployment.html",
+ "hasDefinedTerm": [
+  {
+   "@type": "DefinedTerm",
+   "name": "AWQ (activation-aware weight quantization)",
+   "description": "A 4-bit quantization method that protects the weights most important to a model's activations.",
+   "url": "https://llmodel.com/glossary-inference-deployment.html#awq"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "FLOPs",
+   "description": "Counts of floating-point arithmetic operations, the standard unit for training and inference compute.",
+   "url": "https://llmodel.com/glossary-inference-deployment.html#flops"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "GGUF",
+   "description": "A single-file model format from the llama.cpp project, widely used to run quantized models locally.",
+   "url": "https://llmodel.com/glossary-inference-deployment.html#gguf"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "GPTQ",
+   "description": "A post-training method that compresses model weights to about 3-4 bits using a small calibration set.",
+   "url": "https://llmodel.com/glossary-inference-deployment.html#gptq"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "GPU (graphics processing unit)",
+   "description": "The parallel processor that trains and runs most LLMs; memory size and bandwidth matter most.",
+   "url": "https://llmodel.com/glossary-inference-deployment.html#gpu"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Greedy decoding",
+   "description": "Always choosing the single most likely next token, with no randomness.",
+   "url": "https://llmodel.com/glossary-inference-deployment.html#greedy-decoding"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Inference",
+   "description": "Running a trained model to produce output, as opposed to training it.",
+   "url": "https://llmodel.com/glossary-inference-deployment.html#inference"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Inference engine",
+   "description": "Software that loads a model and serves it efficiently, handling batching, memory and scheduling.",
+   "url": "https://llmodel.com/glossary-inference-deployment.html#inference-engine"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "KV cache",
+   "description": "Memory that stores attention keys and values for earlier tokens so they aren't recomputed each step.",
+   "url": "https://llmodel.com/glossary-inference-deployment.html#kv-cache"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Latency",
+   "description": "How long you wait for a response, from sending a request to receiving the full answer.",
+   "url": "https://llmodel.com/glossary-inference-deployment.html#latency"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "llama.cpp",
+   "description": "An open-source C/C++ engine for running LLMs efficiently on CPUs, Macs and consumer GPUs.",
+   "url": "https://llmodel.com/glossary-inference-deployment.html#llama-cpp"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Logits",
+   "description": "The raw, unnormalized scores a model assigns to every token in its vocabulary at each step.",
+   "url": "https://llmodel.com/glossary-inference-deployment.html#logits"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Logprobs",
+   "description": "The log probabilities a model assigned to the tokens it generated, exposed by some APIs.",
+   "url": "https://llmodel.com/glossary-inference-deployment.html#logprobs"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Max tokens",
+   "description": "The cap you set on how many tokens a model may generate in one response.",
+   "url": "https://llmodel.com/glossary-inference-deployment.html#max-tokens"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "MLX",
+   "description": "Apple's open-source machine learning framework, optimized for running and fine-tuning models on Apple silicon.",
+   "url": "https://llmodel.com/glossary-inference-deployment.html#mlx"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Numeric precision (FP16, BF16, FP8, INT8)",
+   "description": "How many bits are used to store each number in a model, trading accuracy for memory and speed.",
+   "url": "https://llmodel.com/glossary-inference-deployment.html#numeric-precision"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Ollama",
+   "description": "A free tool that downloads and runs open-weights models locally with simple commands and an API.",
+   "url": "https://llmodel.com/glossary-inference-deployment.html#ollama"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "On-device AI",
+   "description": "Running models directly on a phone, laptop or other local hardware instead of in the cloud.",
+   "url": "https://llmodel.com/glossary-inference-deployment.html#on-device-ai"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Quantization",
+   "description": "Storing a model's numbers at lower precision to cut memory use and speed up inference.",
+   "url": "https://llmodel.com/glossary-inference-deployment.html#quantization"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Repetition penalty",
+   "description": "A setting that lowers the scores of tokens already used, to discourage loops and repeated phrases.",
+   "url": "https://llmodel.com/glossary-inference-deployment.html#repetition-penalty"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Self-hosting",
+   "description": "Running models on hardware you control, in your data center or cloud account, instead of calling an API.",
+   "url": "https://llmodel.com/glossary-inference-deployment.html#self-hosting"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Speculative decoding",
+   "description": "A speed-up where a small model drafts several tokens and the large model checks them all at once.",
+   "url": "https://llmodel.com/glossary-inference-deployment.html#speculative-decoding"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Stop sequence",
+   "description": "A string that tells the model to end generation as soon as it produces it.",
+   "url": "https://llmodel.com/glossary-inference-deployment.html#stop-sequence"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Streaming",
+   "description": "Sending a model's output to the client piece by piece as it is generated, rather than all at once.",
+   "url": "https://llmodel.com/glossary-inference-deployment.html#streaming"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Temperature",
+   "description": "A sampling setting that controls how random or predictable a model's word choices are.",
+   "url": "https://llmodel.com/glossary-inference-deployment.html#temperature"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Test-time compute",
+   "description": "Extra computation spent while answering, such as longer reasoning, to get better results.",
+   "url": "https://llmodel.com/glossary-inference-deployment.html#test-time-compute"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Throughput",
+   "description": "How much work a system completes per unit of time, such as total tokens per second across all users.",
+   "url": "https://llmodel.com/glossary-inference-deployment.html#throughput"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Time to first token (TTFT)",
+   "description": "How long a model takes to start responding after receiving a request.",
+   "url": "https://llmodel.com/glossary-inference-deployment.html#time-to-first-token"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Tokens per second",
+   "description": "How fast a model generates output, the standard measure of LLM generation speed.",
+   "url": "https://llmodel.com/glossary-inference-deployment.html#tokens-per-second"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Top-k sampling",
+   "description": "A sampling setting that restricts each choice to the k most likely next tokens.",
+   "url": "https://llmodel.com/glossary-inference-deployment.html#top-k"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Top-p (nucleus sampling)",
+   "description": "A sampling setting that limits choices to the smallest set of tokens covering a set share of probability.",
+   "url": "https://llmodel.com/glossary-inference-deployment.html#top-p"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "vLLM",
+   "description": "A popular open-source engine for serving LLMs at high throughput on GPUs.",
+   "url": "https://llmodel.com/glossary-inference-deployment.html#vllm"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "VRAM (GPU memory)",
+   "description": "The memory on a GPU, which must hold the model's weights plus working memory to run it.",
+   "url": "https://llmodel.com/glossary-inference-deployment.html#vram"
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+
+</head>
+<body class="page-glossary-inference-deployment">
+<a class="skip" href="#main">Skip to content</a>
+<div class="partner-bar"><a href="https://web.works/contact" target="_blank" rel="noopener"><span>Contact, if you are interested in this website / domain name / sponsorship / advertisement / partnership</span></a></div>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+    <nav class="nav" aria-label="Main"><a href="models.html">Models</a><a href="compare.html">Compare</a><a href="leaderboard.html">Rankings</a><a href="tools.html">Tools</a><a href="guides.html" aria-current="page">Learn</a><a href="videos.html">Videos</a></nav>
+    <div class="header-actions">
+      <button class="search-btn" type="button" data-open-search aria-label="Search the site"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="search-label">Search</span><span class="kbd" aria-hidden="true">/</span></button>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><svg class="theme-icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="theme-icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+      <a class="btn btn--primary btn--sm header-cta" href="hire-llm-experts.html">Get expert help</a>
+      <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile">
+    <ul><li><a href="models.html">Models</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="tools.html">Tools</a></li>
+<li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="contact.html">Contact</a></li>
+<li class="mobile-cta"><a class="btn btn--primary btn--block" href="hire-llm-experts.html">Get expert help</a></li>
+</ul>
+  </nav>
+</header>
+<main id="main">
+<nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li aria-current="page">Inference and deployment</li>
+</ol>
+</nav>
+<header class="page-head wrap"><h1>LLM glossary: inference and deployment</h1><p class="lede">Running models: sampling settings such as temperature and top-p, quantization formats, the KV cache, speed metrics, GPUs and VRAM, and the engines used to serve or self-host models. 33 terms, each with a short definition, a fuller explanation and links to related terms.</p>
+<div class="page-meta"><span>Updated October 10, 2026</span><span><a href="glossary.html">All 169 terms</a></span></div>
+</header>
+<div class="wrap">
+<nav class="pill-nav" aria-label="Other glossary topics"><a href="glossary-fundamentals.html">Fundamentals</a><a href="glossary-architecture.html">Model architecture</a><a href="glossary-training.html">Training</a><a href="glossary-prompting.html">Prompting</a><a href="glossary-building-apps.html">Building LLM apps</a><a href="glossary-evaluation.html">Evaluation and benchmarks</a><a href="glossary-safety-governance.html">Safety and governance</a><a href="glossary-business-pricing.html">Business and pricing</a></nav>
+<div class="filters" style="margin-top:1.5rem"><div class="filters__top"><label class="visually-hidden" for="gl-q">Filter terms</label><input class="input" id="gl-q" type="search" placeholder="Filter 33 terms" autocomplete="off"></div>
+<p class="result-count" id="gl-count" aria-live="polite">33 terms</p>
+</div>
+<aside class="ad-slot" data-ad="glossary-top" aria-label="Sponsored message"><span class="ad-label">From LLModel</span><div class="ad-fill"><div class="house"><div><strong>Selling to LLM builders?</strong><span>List your model, API or tool where teams compare their options.</span></div>
+<a class="btn btn--ghost btn--sm" href="list-your-product.html">See listing options</a></div>
+</div>
+</aside>
+<div id="gl-list"><div class="terms"><article class="term" id="awq" data-cat="Inference &amp; deployment" data-text="awq (activation-aware weight quantization) activation-aware weight quantization"><h3>AWQ (activation-aware weight quantization) <span class="aka">activation-aware weight quantization</span><a class="anchor" href="#awq" aria-label="Link to AWQ (activation-aware weight quantization)">#</a></h3>
+<p class="short">A 4-bit quantization method that protects the weights most important to a model&#x27;s activations.</p>
+<p class="def">Activation-aware weight quantization, from MIT researchers in 2023, starts from the observation that a small share of weights, around one percent, matters far more than the rest, and that you can identify them by the size of the activations flowing through them rather than by the weights themselves. AWQ scales those important channels before quantizing so they lose less precision, then compresses everything to about 4 bits. It needs no backpropagation and only a small calibration set, and it tends to generalize well across domains. AWQ checkpoints are widely available and supported by major GPU serving engines, making it a common alternative to GPTQ.</p>
+<div class="rel tags"><a class="tag" href="#quantization">Quantization</a><a class="tag" href="#gptq">GPTQ</a><a class="tag" href="#numeric-precision">Numeric precision (FP16, BF16, FP8, INT8)</a></div>
+</article>
+<article class="term" id="flops" data-cat="Inference &amp; deployment" data-text="flops floating-point operations flop/s"><h3>FLOPs <span class="aka">floating-point operations, FLOP/s</span><a class="anchor" href="#flops" aria-label="Link to FLOPs">#</a></h3>
+<p class="short">Counts of floating-point arithmetic operations, the standard unit for training and inference compute.</p>
+<p class="def">FLOPs counts floating-point operations; FLOP/s, or FLOPS, is a rate per second, though the two are often confused. A widely used approximation puts training compute at about six times parameters times training tokens. An 8B model trained on 15 trillion tokens therefore needs roughly 7 x 10^23 FLOPs. Generating one token takes about two FLOPs per active parameter. Compute thresholds also appear in regulation: the EU AI Act presumes a general-purpose model has systemic risk if its training exceeded 10^25 FLOPs. In practice, achieved speed on real hardware is well below a chip&#x27;s peak, because memory movement and communication eat into utilization.</p>
+<div class="rel tags"><a class="tag" href="glossary-training.html#scaling-laws">Scaling laws</a><a class="tag" href="#gpu">GPU (graphics processing unit)</a><a class="tag" href="glossary-safety-governance.html#eu-ai-act">EU AI Act</a><a class="tag" href="glossary-fundamentals.html#parameters">Parameters</a></div>
+</article>
+<article class="term" id="gguf" data-cat="Inference &amp; deployment" data-text="gguf gguf format"><h3>GGUF <span class="aka">GGUF format</span><a class="anchor" href="#gguf" aria-label="Link to GGUF">#</a></h3>
+<p class="short">A single-file model format from the llama.cpp project, widely used to run quantized models locally.</p>
+<p class="def">GGUF is a binary file format created in 2023 by the llama.cpp project as the successor to its earlier GGML format. One GGUF file packs the model weights together with the metadata needed to run them, such as architecture details, tokenizer and chat template, so you can download a single file and run it. GGUF files come in many quantization levels with names like Q4_K_M or Q8_0, where the number roughly indicates bits per weight; Q4_K_M is a popular balance of size and quality. The format is used by llama.cpp, Ollama, LM Studio and many other local tools, and it runs well on CPUs, Apple silicon and consumer GPUs.</p>
+<div class="rel tags"><a class="tag" href="#llama-cpp">llama.cpp</a><a class="tag" href="#quantization">Quantization</a><a class="tag" href="#ollama">Ollama</a><a class="tag" href="glossary-training.html#checkpoint">Checkpoint</a></div>
+</article>
+<article class="term" id="gptq" data-cat="Inference &amp; deployment" data-text="gptq"><h3>GPTQ <a class="anchor" href="#gptq" aria-label="Link to GPTQ">#</a></h3>
+<p class="short">A post-training method that compresses model weights to about 3-4 bits using a small calibration set.</p>
+<p class="def">GPTQ, published in 2022, is a post-training quantization method: it compresses an already-trained model without retraining it. Working layer by layer, it rounds weights to low precision, typically 4 bits, and uses approximate second-order information from a small calibration dataset to adjust the remaining weights so each layer&#x27;s output changes as little as possible. The paper reported quantizing 175B-parameter models in roughly four GPU hours. GPTQ models are widely available on Hugging Face and run in engines such as vLLM, mainly on NVIDIA GPUs. Results depend on the calibration data, so include text resembling your use case when quantizing yourself.</p>
+<div class="rel tags"><a class="tag" href="#quantization">Quantization</a><a class="tag" href="#awq">AWQ (activation-aware weight quantization)</a><a class="tag" href="#gguf">GGUF</a><a class="tag" href="#numeric-precision">Numeric precision (FP16, BF16, FP8, INT8)</a></div>
+</article>
+<article class="term" id="gpu" data-cat="Inference &amp; deployment" data-text="gpu (graphics processing unit) graphics card accelerator"><h3>GPU (graphics processing unit) <span class="aka">graphics card, accelerator</span><a class="anchor" href="#gpu" aria-label="Link to GPU (graphics processing unit)">#</a></h3>
+<p class="short">The parallel processor that trains and runs most LLMs; memory size and bandwidth matter most.</p>
+<p class="def">A GPU is a processor with thousands of small cores built for parallel arithmetic, which suits the giant matrix multiplications at the heart of neural networks. NVIDIA dominates LLM training and serving, helped by its mature CUDA software stack, while AMD GPUs, Google&#x27;s TPUs and custom chips from cloud providers offer alternatives. For LLM work, the specs that matter most are memory capacity, which decides which models fit; memory bandwidth, which largely sets generation speed; support for low-precision formats such as FP8; and fast interconnects between chips for multi-GPU jobs. Raw compute matters most for training and long prompts.</p>
+<div class="rel tags"><a class="tag" href="#vram">VRAM (GPU memory)</a><a class="tag" href="#flops">FLOPs</a><a class="tag" href="#numeric-precision">Numeric precision (FP16, BF16, FP8, INT8)</a><a class="tag" href="glossary-training.html#parallelism">Parallelism (data, tensor, pipeline, expert)</a></div>
+</article>
+<article class="term" id="greedy-decoding" data-cat="Inference &amp; deployment" data-text="greedy decoding greedy search argmax decoding"><h3>Greedy decoding <span class="aka">greedy search, argmax decoding</span><a class="anchor" href="#greedy-decoding" aria-label="Link to Greedy decoding">#</a></h3>
+<p class="short">Always choosing the single most likely next token, with no randomness.</p>
+<p class="def">Greedy decoding picks the highest-probability token at every step, which is what setting temperature to 0 approximates. It suits tasks with one right answer, such as extraction, classification or tests you want to rerun, though long outputs can fall into repetitive loops. Beam search is a related method that tracks several candidate sequences in parallel and keeps the best-scoring ones; it remains common in translation and speech recognition but is rare for chat. One caution: even greedy settings may not give identical outputs on hosted APIs, because batching and floating-point arithmetic on GPUs can introduce tiny numerical differences that change a close call.</p>
+<div class="rel tags"><a class="tag" href="#temperature">Temperature</a><a class="tag" href="#logits">Logits</a><a class="tag" href="#top-k">Top-k sampling</a><a class="tag" href="glossary-fundamentals.html#autoregressive-model">Autoregressive model</a></div>
+</article>
+<article class="term" id="inference" data-cat="Inference &amp; deployment" data-text="inference model inference llm inference"><h3>Inference <span class="aka">model inference, LLM inference</span><a class="anchor" href="#inference" aria-label="Link to Inference">#</a></h3>
+<p class="short">Running a trained model to produce output, as opposed to training it.</p>
+<p class="def">Inference is the act of using a trained model: you send a prompt and it computes a response. For LLMs it has two phases. Prefill processes your whole prompt in parallel and is limited mainly by raw compute. Decode then generates output one token at a time, re-reading the model&#x27;s weights for every token, so it is limited mainly by memory bandwidth. That split explains several practical patterns: long prompts raise the wait before the first token, long answers raise total time, and output tokens usually cost several times more than input tokens. Over a model&#x27;s lifetime, inference often costs more in total than training it did.</p>
+<div class="rel tags"><a class="tag" href="#latency">Latency</a><a class="tag" href="#throughput">Throughput</a><a class="tag" href="#kv-cache">KV cache</a><a class="tag" href="#inference-engine">Inference engine</a></div>
+</article>
+<article class="term" id="inference-engine" data-cat="Inference &amp; deployment" data-text="inference engine inference server serving engine serving framework"><h3>Inference engine <span class="aka">inference server, serving engine, serving framework</span><a class="anchor" href="#inference-engine" aria-label="Link to Inference engine">#</a></h3>
+<p class="short">Software that loads a model and serves it efficiently, handling batching, memory and scheduling.</p>
+<p class="def">An inference engine is the software layer that turns model weights into a fast, reliable service. It manages GPU memory and the KV cache, batches requests from many users, runs optimized attention kernels, applies sampling settings and usually exposes an API compatible with OpenAI&#x27;s. Popular choices include vLLM and SGLang for data-center GPUs, NVIDIA&#x27;s TensorRT-LLM for maximum performance on NVIDIA hardware, llama.cpp for CPUs and consumer devices, and ONNX Runtime for cross-platform deployment of models exported to the open ONNX format. Engine choice can change throughput severalfold on identical hardware, so benchmark candidates with your own models and traffic.</p>
+<div class="rel tags"><a class="tag" href="#vllm">vLLM</a><a class="tag" href="#llama-cpp">llama.cpp</a><a class="tag" href="#throughput">Throughput</a><a class="tag" href="#kv-cache">KV cache</a></div>
+</article>
+<article class="term" id="kv-cache" data-cat="Inference &amp; deployment" data-text="kv cache key-value cache"><h3>KV cache <span class="aka">key-value cache</span><a class="anchor" href="#kv-cache" aria-label="Link to KV cache">#</a></h3>
+<p class="short">Memory that stores attention keys and values for earlier tokens so they aren&#x27;t recomputed each step.</p>
+<p class="def">During generation, each new token attends to all earlier ones. Rather than recomputing the attention keys and values for the whole sequence at every step, the model stores them in the KV cache and only computes them for the newest token. That makes decoding fast but costs memory that grows with context length and with the number of simultaneous requests. For Llama 3 8B (32 layers, 8 key-value heads of 128 dimensions, 16-bit values), each token needs 2 x 32 x 8 x 128 x 2 bytes, about 128 KB, so a 128,000-token context needs roughly 16 GB, as much as the model&#x27;s own 16-bit weights.</p>
+<div class="rel tags"><a class="tag" href="glossary-architecture.html#attention">Attention</a><a class="tag" href="glossary-architecture.html#grouped-query-attention">Grouped-query attention (GQA)</a><a class="tag" href="#vram">VRAM (GPU memory)</a><a class="tag" href="glossary-business-pricing.html#prompt-caching">Prompt caching</a></div>
+</article>
+<article class="term" id="latency" data-cat="Inference &amp; deployment" data-text="latency response time end-to-end latency"><h3>Latency <span class="aka">response time, end-to-end latency</span><a class="anchor" href="#latency" aria-label="Link to Latency">#</a></h3>
+<p class="short">How long you wait for a response, from sending a request to receiving the full answer.</p>
+<p class="def">Latency is the delay a user experiences. For LLMs it breaks into parts: network and queueing time, time to first token (driven largely by prompt length), and generation time, which is output length divided by output speed. A model with a 0.5-second time to first token that streams at 50 tokens per second needs about 10.5 seconds for a 500-token answer. Reasoning models add thinking time before the visible answer. You can cut latency by shortening prompts and outputs, caching repeated prompt prefixes, streaming results, choosing a smaller or faster model, or using a provider with dedicated capacity.</p>
+<div class="rel tags"><a class="tag" href="#time-to-first-token">Time to first token (TTFT)</a><a class="tag" href="#tokens-per-second">Tokens per second</a><a class="tag" href="#throughput">Throughput</a><a class="tag" href="#streaming">Streaming</a></div>
+</article>
+<aside class="ad-slot" data-ad="in-article-2" aria-label="Sponsored message"><span class="ad-label">From LLModel</span><div class="ad-fill"><div class="house"><div><strong>Building with LLMs?</strong><span>Tell us what you&#x27;re building and get a vendor-neutral stack plan within 2 business days.</span></div>
+<a class="btn btn--ghost btn--sm" href="hire-llm-experts.html">Get my stack plan</a></div>
+</div>
+</aside>
+<article class="term" id="llama-cpp" data-cat="Inference &amp; deployment" data-text="llama.cpp"><h3>llama.cpp <a class="anchor" href="#llama-cpp" aria-label="Link to llama.cpp">#</a></h3>
+<p class="short">An open-source C/C++ engine for running LLMs efficiently on CPUs, Macs and consumer GPUs.</p>
+<p class="def">llama.cpp is an open-source project started by Georgi Gerganov in March 2023 to run Meta&#x27;s LLaMA model on a laptop. It has since grown into a general engine for local inference that supports a long list of model architectures and runs on CPUs, Apple silicon via Metal, NVIDIA and AMD GPUs and more. It introduced the GGUF file format and a family of quantization types that let large models fit in modest memory. It includes a command-line tool and an OpenAI-compatible HTTP server, and many desktop apps, including Ollama and LM Studio, are built on it or on its underlying ggml library.</p>
+<div class="rel tags"><a class="tag" href="#gguf">GGUF</a><a class="tag" href="#ollama">Ollama</a><a class="tag" href="#quantization">Quantization</a><a class="tag" href="#on-device-ai">On-device AI</a></div>
+</article>
+<article class="term" id="logits" data-cat="Inference &amp; deployment" data-text="logits raw scores unnormalized scores"><h3>Logits <span class="aka">raw scores, unnormalized scores</span><a class="anchor" href="#logits" aria-label="Link to Logits">#</a></h3>
+<p class="short">The raw, unnormalized scores a model assigns to every token in its vocabulary at each step.</p>
+<p class="def">At every generation step, the final layer of an LLM outputs one number per vocabulary entry, often more than 100,000 numbers, called logits. Higher means more likely, but logits are not probabilities until softmax converts them. All sampling settings act on this vector: temperature divides it, top-k and top-p trim it, and repetition penalties lower the scores of tokens already used. Some APIs offer a logit bias option that adds a fixed amount to chosen tokens, which you can use to forbid a word or push a classifier toward a fixed set of labels. Log probabilities, when exposed, are derived from these same scores.</p>
+<div class="rel tags"><a class="tag" href="glossary-architecture.html#softmax">Softmax</a><a class="tag" href="#temperature">Temperature</a><a class="tag" href="#logprobs">Logprobs</a><a class="tag" href="#top-p">Top-p (nucleus sampling)</a></div>
+</article>
+<article class="term" id="logprobs" data-cat="Inference &amp; deployment" data-text="logprobs log probabilities token probabilities"><h3>Logprobs <span class="aka">log probabilities, token probabilities</span><a class="anchor" href="#logprobs" aria-label="Link to Logprobs">#</a></h3>
+<p class="short">The log probabilities a model assigned to the tokens it generated, exposed by some APIs.</p>
+<p class="def">Logprobs are the natural logarithms of the probabilities a model assigned to each token it produced, and optionally to the top alternatives at each position. A logprob of -0.05 means the model was about 95 percent sure of that token; -2.3 means about 10 percent. Some APIs return them on request, and local inference tools almost always can. They are useful for confidence scoring, for example flagging extracted fields where the model hesitated, for building classifiers from a single generated token, and for evaluation research. Low probability is a hint rather than proof of an error, and models trained with preference tuning are not always well calibrated.</p>
+<div class="rel tags"><a class="tag" href="#logits">Logits</a><a class="tag" href="glossary-architecture.html#softmax">Softmax</a><a class="tag" href="glossary-evaluation.html#perplexity">Perplexity</a></div>
+</article>
+<article class="term" id="max-tokens" data-cat="Inference &amp; deployment" data-text="max tokens max_tokens max output tokens output limit"><h3>Max tokens <span class="aka">max_tokens, max output tokens, output limit</span><a class="anchor" href="#max-tokens" aria-label="Link to Max tokens">#</a></h3>
+<p class="short">The cap you set on how many tokens a model may generate in one response.</p>
+<p class="def">Max tokens is a request parameter, named max_tokens, max_output_tokens or similar depending on the API, that limits how much the model can write. When the cap is hit, the response stops mid-sentence and the finish reason reports the cutoff, so check for that in your code. Setting a sensible limit protects you from runaway costs and endless loops. On many reasoning models, hidden thinking tokens count toward the same limit, so a cap that is too tight can leave no room for the visible answer. Each model also has its own maximum output length, often far smaller than its context window.</p>
+<div class="rel tags"><a class="tag" href="#stop-sequence">Stop sequence</a><a class="tag" href="glossary-fundamentals.html#context-window">Context window</a><a class="tag" href="glossary-business-pricing.html#cost-per-token">Cost per token</a><a class="tag" href="glossary-fundamentals.html#reasoning-model">Reasoning model</a></div>
+</article>
+<article class="term" id="mlx" data-cat="Inference &amp; deployment" data-text="mlx apple mlx"><h3>MLX <span class="aka">Apple MLX</span><a class="anchor" href="#mlx" aria-label="Link to MLX">#</a></h3>
+<p class="short">Apple&#x27;s open-source machine learning framework, optimized for running and fine-tuning models on Apple silicon.</p>
+<p class="def">MLX is an array framework released by Apple&#x27;s machine learning research team in December 2023 and designed specifically for Apple silicon. It takes advantage of unified memory, which the CPU and GPU share, so model weights don&#x27;t need to be copied between separate memory pools. The companion mlx-lm package can download models, convert and quantize them, generate text and fine-tune with LoRA on a Mac. Many open-weights models are published in ready-made MLX versions, and some desktop apps can use MLX as a backend. On Apple silicon it is a strong choice for local inference, often competitive with llama.cpp in speed.</p>
+<div class="rel tags"><a class="tag" href="#on-device-ai">On-device AI</a><a class="tag" href="#llama-cpp">llama.cpp</a><a class="tag" href="#quantization">Quantization</a><a class="tag" href="#vram">VRAM (GPU memory)</a></div>
+</article>
+<article class="term" id="numeric-precision" data-cat="Inference &amp; deployment" data-text="numeric precision (fp16, bf16, fp8, int8) data type dtype bit width"><h3>Numeric precision (FP16, BF16, FP8, INT8) <span class="aka">data type, dtype, bit width</span><a class="anchor" href="#numeric-precision" aria-label="Link to Numeric precision (FP16, BF16, FP8, INT8)">#</a></h3>
+<p class="short">How many bits are used to store each number in a model, trading accuracy for memory and speed.</p>
+<p class="def">Every weight and activation is stored in a numeric format, and fewer bits mean less memory and faster math. FP32 uses four bytes per number and is rarely used for released LLM weights. FP16 and BF16 use two bytes; BF16 keeps FP32&#x27;s range of exponents with less precision, which makes training more stable, so it is the usual format for released weights. FP8 and INT8 use one byte, and 4-bit formats use half a byte; newer GPUs accelerate several of these directly. Mixed-precision training keeps sensitive values, such as optimizer state, in higher precision. Inference often uses 8-bit or 4-bit weights with only modest quality loss.</p>
+<div class="rel tags"><a class="tag" href="#quantization">Quantization</a><a class="tag" href="#vram">VRAM (GPU memory)</a><a class="tag" href="#gpu">GPU (graphics processing unit)</a></div>
+</article>
+<article class="term" id="ollama" data-cat="Inference &amp; deployment" data-text="ollama"><h3>Ollama <a class="anchor" href="#ollama" aria-label="Link to Ollama">#</a></h3>
+<p class="short">A free tool that downloads and runs open-weights models locally with simple commands and an API.</p>
+<p class="def">Ollama is an open-source application for running open-weights models on your own computer. You type a single command, ollama run followed by a model name, and it downloads a quantized version, loads it and opens a chat. It also runs a local server, by default on port 11434, with a REST API and an OpenAI-compatible endpoint, so your code can switch from a hosted model to a local one with few changes. A Modelfile lets you set a default system prompt and parameters. Ollama trades some fine-grained control and peak throughput for convenience; for heavy multi-user serving, an engine such as vLLM is a better fit.</p>
+<div class="rel tags"><a class="tag" href="#llama-cpp">llama.cpp</a><a class="tag" href="#gguf">GGUF</a><a class="tag" href="#self-hosting">Self-hosting</a><a class="tag" href="#on-device-ai">On-device AI</a></div>
+</article>
+<article class="term" id="on-device-ai" data-cat="Inference &amp; deployment" data-text="on-device ai edge ai local ai local llm"><h3>On-device AI <span class="aka">edge AI, local AI, local LLM</span><a class="anchor" href="#on-device-ai" aria-label="Link to On-device AI">#</a></h3>
+<p class="short">Running models directly on a phone, laptop or other local hardware instead of in the cloud.</p>
+<p class="def">On-device AI runs a model on the hardware in front of you, such as a phone, laptop, car or factory sensor, rather than sending data to a remote server. The benefits are privacy, offline operation, no per-token fees and no network delay. The costs are tight memory, power and heat limits, which is why on-device models are usually small language models of a few billion parameters or less, heavily quantized and often paired with a cloud model for harder requests. Phone and PC makers now ship such models inside their operating systems, and tools like Ollama, llama.cpp and MLX make local LLMs practical on ordinary laptops.</p>
+<div class="rel tags"><a class="tag" href="glossary-fundamentals.html#small-language-model">Small language model (SLM)</a><a class="tag" href="#quantization">Quantization</a><a class="tag" href="#ollama">Ollama</a><a class="tag" href="glossary-building-apps.html#model-routing">Model routing and fallback</a></div>
+</article>
+<article class="term" id="quantization" data-cat="Inference &amp; deployment" data-text="quantization model quantization weight quantization"><h3>Quantization <span class="aka">model quantization, weight quantization</span><a class="anchor" href="#quantization" aria-label="Link to Quantization">#</a></h3>
+<p class="short">Storing a model&#x27;s numbers at lower precision to cut memory use and speed up inference.</p>
+<p class="def">Quantization stores weights, and sometimes activations or the KV cache, in fewer bits than the 16 used for training. Dropping from 16 to 8 bits halves memory; 4 bits cuts it to roughly a quarter. A 70B-parameter model needs about 140 GB at 16-bit but around 40 GB at 4-bit once overhead is included, which turns a multi-GPU job into one that fits on a single large card or a high-memory Mac. Eight-bit is usually close to lossless, while 4-bit costs a little quality that varies by model and task. Common methods include GPTQ, AWQ, GGUF quantization types and FP8; test quantized models on your own tasks before relying on them.</p>
+<div class="rel tags"><a class="tag" href="#vram">VRAM (GPU memory)</a><a class="tag" href="#gguf">GGUF</a><a class="tag" href="#gptq">GPTQ</a><a class="tag" href="#numeric-precision">Numeric precision (FP16, BF16, FP8, INT8)</a></div>
+</article>
+<article class="term" id="repetition-penalty" data-cat="Inference &amp; deployment" data-text="repetition penalty frequency penalty presence penalty"><h3>Repetition penalty <span class="aka">frequency penalty, presence penalty</span><a class="anchor" href="#repetition-penalty" aria-label="Link to Repetition penalty">#</a></h3>
+<p class="short">A setting that lowers the scores of tokens already used, to discourage loops and repeated phrases.</p>
+<p class="def">Repetition penalties reduce the chance that a model repeats itself by lowering the scores of tokens that have already appeared. OpenAI-style APIs offer two kinds: a frequency penalty that grows with how many times a token has occurred, and a presence penalty that applies a flat reduction once a token has appeared at all. Local tools such as llama.cpp and Ollama offer a multiplicative repetition penalty, where values around 1.1 are a common choice. Use them sparingly. Too strong a penalty pushes the model away from words it legitimately needs, such as variable names in code or key terms in a technical summary, and can make text read as strained.</p>
+<div class="rel tags"><a class="tag" href="#logits">Logits</a><a class="tag" href="#temperature">Temperature</a><a class="tag" href="#greedy-decoding">Greedy decoding</a></div>
+</article>
+<article class="term" id="self-hosting" data-cat="Inference &amp; deployment" data-text="self-hosting self-hosted llm on-premises deployment"><h3>Self-hosting <span class="aka">self-hosted LLM, on-premises deployment</span><a class="anchor" href="#self-hosting" aria-label="Link to Self-hosting">#</a></h3>
+<p class="short">Running models on hardware you control, in your data center or cloud account, instead of calling an API.</p>
+<p class="def">Self-hosting means serving open-weights models on GPUs you own or rent, using an inference engine such as vLLM. You gain control over data, model versions and latency, and freedom from rate limits. You also take on capacity planning, monitoring, security patches and idle time. Cost depends on utilization. In a hypothetical case, a GPU rented for $2 an hour costs about $1,460 a month running nonstop; if an API charges a blended $1 per million tokens, you need to process roughly 1.5 billion tokens a month on that GPU before self-hosting wins on price alone, before counting engineering time.</p>
+<div class="rel tags"><a class="tag" href="glossary-fundamentals.html#open-weights">Open weights</a><a class="tag" href="#vllm">vLLM</a><a class="tag" href="glossary-business-pricing.html#cost-per-token">Cost per token</a><a class="tag" href="glossary-business-pricing.html#inference-provider">Inference provider</a></div>
+</article>
+<article class="term" id="speculative-decoding" data-cat="Inference &amp; deployment" data-text="speculative decoding speculative sampling assisted generation"><h3>Speculative decoding <span class="aka">speculative sampling, assisted generation</span><a class="anchor" href="#speculative-decoding" aria-label="Link to Speculative decoding">#</a></h3>
+<p class="short">A speed-up where a small model drafts several tokens and the large model checks them all at once.</p>
+<p class="def">Speculative decoding accelerates generation without changing the output. A small, fast draft model guesses the next several tokens; the large target model then verifies all of them in a single forward pass, keeping every token up to the first one it disagrees with and supplying its own token at that point. Because checking five tokens costs about the same as generating one, each accepted guess is nearly free. With the standard acceptance rule, the results follow exactly the target model&#x27;s distribution. Typical speedups are around two to three times, depending on how often drafts are accepted. Variants include Medusa and EAGLE draft heads and n-gram lookup from the prompt.</p>
+<div class="rel tags"><a class="tag" href="glossary-fundamentals.html#autoregressive-model">Autoregressive model</a><a class="tag" href="#latency">Latency</a><a class="tag" href="#tokens-per-second">Tokens per second</a><a class="tag" href="#inference-engine">Inference engine</a></div>
+</article>
+<article class="term" id="stop-sequence" data-cat="Inference &amp; deployment" data-text="stop sequence stop token stop string"><h3>Stop sequence <span class="aka">stop token, stop string</span><a class="anchor" href="#stop-sequence" aria-label="Link to Stop sequence">#</a></h3>
+<p class="short">A string that tells the model to end generation as soon as it produces it.</p>
+<p class="def">A stop sequence is text you specify that ends generation the moment the model emits it; the stop text itself is usually left out of the response. It is a cheap way to keep output tidy and short. If you ask for one answer inside answer tags, a stop sequence of the closing tag ensures nothing follows it; when completing a dialog transcript, a stop sequence on the next speaker label prevents the model from writing both sides. Models also stop on their own end-of-sequence token. Stop sequences save output tokens, and the API response&#x27;s finish reason tells you which condition ended the generation.</p>
+<div class="rel tags"><a class="tag" href="#max-tokens">Max tokens</a><a class="tag" href="glossary-fundamentals.html#special-tokens">Special tokens</a><a class="tag" href="glossary-building-apps.html#structured-outputs">Structured outputs</a></div>
+</article>
+<article class="term" id="streaming" data-cat="Inference &amp; deployment" data-text="streaming token streaming streamed responses"><h3>Streaming <span class="aka">token streaming, streamed responses</span><a class="anchor" href="#streaming" aria-label="Link to Streaming">#</a></h3>
+<p class="short">Sending a model&#x27;s output to the client piece by piece as it is generated, rather than all at once.</p>
+<p class="def">Streaming returns a response incrementally, typically over server-sent events, so your app can display words as they are generated. Total generation time stays the same, but the perceived wait drops to the time to first token, which is why nearly every chat interface streams. It also lets users cancel a bad answer early, saving output tokens. Streaming adds some complexity: you must assemble partial chunks, handle errors that arrive mid-stream, and parse tool calls or JSON only once they are complete. For background jobs where nobody is watching, a single non-streamed response, or a batch request, is simpler.</p>
+<div class="rel tags"><a class="tag" href="#time-to-first-token">Time to first token (TTFT)</a><a class="tag" href="#latency">Latency</a><a class="tag" href="glossary-building-apps.html#structured-outputs">Structured outputs</a></div>
+</article>
+<article class="term" id="temperature" data-cat="Inference &amp; deployment" data-text="temperature sampling temperature"><h3>Temperature <span class="aka">sampling temperature</span><a class="anchor" href="#temperature" aria-label="Link to Temperature">#</a></h3>
+<p class="short">A sampling setting that controls how random or predictable a model&#x27;s word choices are.</p>
+<p class="def">Temperature rescales the model&#x27;s raw scores before they become probabilities. Below 1 it sharpens the distribution toward the most likely tokens; above 1 it flattens it so unlikely tokens get picked more often. Take three candidates with scores 2.0, 1.0 and 0.1: at temperature 1 their probabilities are about 0.66, 0.24 and 0.10; at 0.5 they become 0.86, 0.12 and 0.02; at 2 they shift to roughly 0.50, 0.30 and 0.19. Use low values for extraction, classification and code, and moderate values for brainstorming. Temperature 0 approximates always picking the top token, and some reasoning models restrict or ignore the setting.</p>
+<div class="rel tags"><a class="tag" href="#logits">Logits</a><a class="tag" href="glossary-architecture.html#softmax">Softmax</a><a class="tag" href="#top-p">Top-p (nucleus sampling)</a><a class="tag" href="#greedy-decoding">Greedy decoding</a></div>
+</article>
+<article class="term" id="test-time-compute" data-cat="Inference &amp; deployment" data-text="test-time compute inference-time compute inference-time scaling test-time scaling"><h3>Test-time compute <span class="aka">inference-time compute, inference-time scaling, test-time scaling</span><a class="anchor" href="#test-time-compute" aria-label="Link to Test-time compute">#</a></h3>
+<p class="short">Extra computation spent while answering, such as longer reasoning, to get better results.</p>
+<p class="def">Test-time compute is computation spent when a model answers rather than when it is trained. Reasoning models scale it by thinking longer before responding, and OpenAI&#x27;s o1 release in September 2024 showed accuracy on hard math and coding problems rising steadily as thinking time grew. Other approaches sample several answers and pick the most common or the one a verifier scores highest. Many APIs expose a control for this, often called reasoning effort or a thinking budget. More thinking raises cost and latency, so match the setting to the task: low for routine requests, high for difficult analysis, debugging or planning.</p>
+<div class="rel tags"><a class="tag" href="glossary-fundamentals.html#reasoning-model">Reasoning model</a><a class="tag" href="glossary-prompting.html#chain-of-thought">Chain-of-thought prompting (CoT)</a><a class="tag" href="glossary-prompting.html#self-consistency">Self-consistency</a><a class="tag" href="glossary-training.html#scaling-laws">Scaling laws</a></div>
+</article>
+<article class="term" id="throughput" data-cat="Inference &amp; deployment" data-text="throughput aggregate throughput system throughput"><h3>Throughput <span class="aka">aggregate throughput, system throughput</span><a class="anchor" href="#throughput" aria-label="Link to Throughput">#</a></h3>
+<p class="short">How much work a system completes per unit of time, such as total tokens per second across all users.</p>
+<p class="def">Throughput measures total output across all requests a deployment serves, for example 5,000 tokens per second summed over 100 concurrent users. It differs from per-user speed: batching many requests together keeps the GPU busy and raises throughput, but each individual stream may slow down. Inference engines use continuous batching, which slots new requests into the running batch as soon as others finish, to keep utilization high. Throughput is the number that sets your cost per token when you self-host, while per-user speed and latency determine how responsive the product feels. Benchmark both under a realistic mix of prompt and response lengths.</p>
+<div class="rel tags"><a class="tag" href="#latency">Latency</a><a class="tag" href="#tokens-per-second">Tokens per second</a><a class="tag" href="#inference-engine">Inference engine</a><a class="tag" href="glossary-business-pricing.html#batch-api">Batch API</a></div>
+</article>
+<article class="term" id="time-to-first-token" data-cat="Inference &amp; deployment" data-text="time to first token (ttft) ttft"><h3>Time to first token (TTFT) <span class="aka">TTFT</span><a class="anchor" href="#time-to-first-token" aria-label="Link to Time to first token (TTFT)">#</a></h3>
+<p class="short">How long a model takes to start responding after receiving a request.</p>
+<p class="def">Time to first token measures the gap between sending a request and receiving the first piece of output. It covers network time, any queueing at the provider, and the prefill phase in which the model processes your entire prompt, so it grows with prompt length. Reasoning models may also think for a while before emitting visible text. TTFT is what makes a chat interface feel snappy or sluggish: users tolerate a slow stream far better than a long blank wait. To reduce it, trim prompts, reuse cached prompt prefixes, pick a smaller or faster model, and stream responses so the first words appear immediately.</p>
+<div class="rel tags"><a class="tag" href="#latency">Latency</a><a class="tag" href="#tokens-per-second">Tokens per second</a><a class="tag" href="#streaming">Streaming</a><a class="tag" href="glossary-business-pricing.html#prompt-caching">Prompt caching</a></div>
+</article>
+<article class="term" id="tokens-per-second" data-cat="Inference &amp; deployment" data-text="tokens per second output speed tps tok/s"><h3>Tokens per second <span class="aka">output speed, TPS, tok/s</span><a class="anchor" href="#tokens-per-second" aria-label="Link to Tokens per second">#</a></h3>
+<p class="short">How fast a model generates output, the standard measure of LLM generation speed.</p>
+<p class="def">Tokens per second is the rate at which a model produces output once it has started. Per-user speed governs how long a long answer takes: at 40 tokens per second, a 1,200-token report needs 30 seconds. Most people read well under 10 tokens per second, so streaming at 30 or more feels instant for chat, but agents and batch jobs benefit from much higher rates. Generation is usually limited by memory bandwidth, so a rough ceiling is bandwidth divided by the bytes read per token: about 125 tokens per second for 8 GB of weights on a GPU with 1 TB/s of bandwidth. Quantization, speculative decoding and specialized hardware all raise speed.</p>
+<div class="rel tags"><a class="tag" href="#latency">Latency</a><a class="tag" href="#throughput">Throughput</a><a class="tag" href="#time-to-first-token">Time to first token (TTFT)</a><a class="tag" href="#speculative-decoding">Speculative decoding</a></div>
+</article>
+<article class="term" id="top-k" data-cat="Inference &amp; deployment" data-text="top-k sampling top_k"><h3>Top-k sampling <span class="aka">top_k</span><a class="anchor" href="#top-k" aria-label="Link to Top-k sampling">#</a></h3>
+<p class="short">A sampling setting that restricts each choice to the k most likely next tokens.</p>
+<p class="def">Top-k sampling keeps only the k highest-probability tokens at each step, renormalizes their probabilities and samples from that short list. With k set to 40, the 41st most likely token can never be chosen, no matter how close its score. The weakness is that k is fixed: when the model is very sure, 40 options may let in nonsense, and when many words fit, 40 may be too few. That is why it is usually combined with, or replaced by, adaptive methods such as top-p and min-p, which adjust to the shape of the distribution. Local inference tools usually expose top-k, while some hosted APIs leave it out entirely.</p>
+<div class="rel tags"><a class="tag" href="#top-p">Top-p (nucleus sampling)</a><a class="tag" href="#temperature">Temperature</a><a class="tag" href="#logits">Logits</a><a class="tag" href="#greedy-decoding">Greedy decoding</a></div>
+</article>
+<article class="term" id="top-p" data-cat="Inference &amp; deployment" data-text="top-p (nucleus sampling) nucleus sampling top_p"><h3>Top-p (nucleus sampling) <span class="aka">nucleus sampling, top_p</span><a class="anchor" href="#top-p" aria-label="Link to Top-p (nucleus sampling)">#</a></h3>
+<p class="short">A sampling setting that limits choices to the smallest set of tokens covering a set share of probability.</p>
+<p class="def">Top-p sampling, introduced in a 2019 paper as nucleus sampling, picks the next token only from the smallest group of candidates whose probabilities add up to at least p. With p set to 0.9 and candidates at 0.50, 0.30, 0.15 and 0.05, the first three cover 0.95, so the fourth is excluded. Unlike a fixed top-k cutoff, the pool adapts: when the model is confident, only one or two tokens qualify; when it is unsure, many do. Values between 0.9 and 1.0 are common. Providers generally suggest adjusting temperature or top-p rather than both, since they interact in ways that are hard to reason about.</p>
+<div class="rel tags"><a class="tag" href="#temperature">Temperature</a><a class="tag" href="#top-k">Top-k sampling</a><a class="tag" href="#logits">Logits</a><a class="tag" href="#greedy-decoding">Greedy decoding</a></div>
+</article>
+<article class="term" id="vllm" data-cat="Inference &amp; deployment" data-text="vllm"><h3>vLLM <a class="anchor" href="#vllm" aria-label="Link to vLLM">#</a></h3>
+<p class="short">A popular open-source engine for serving LLMs at high throughput on GPUs.</p>
+<p class="def">vLLM is an open-source inference and serving engine that began at UC Berkeley in 2023. Its key idea, PagedAttention, manages the KV cache the way an operating system manages memory pages: in small blocks allocated on demand rather than one large reserved region per request. That sharply reduces wasted GPU memory, so more requests fit in a batch at once, and continuous batching keeps the GPU busy as requests arrive and finish. vLLM supports most popular open-weights models, many quantization formats and multi-GPU parallelism, and it exposes an OpenAI-compatible API, making it a common default for self-hosting at production scale.</p>
+<div class="rel tags"><a class="tag" href="#inference-engine">Inference engine</a><a class="tag" href="#kv-cache">KV cache</a><a class="tag" href="#throughput">Throughput</a><a class="tag" href="#self-hosting">Self-hosting</a></div>
+</article>
+<article class="term" id="vram" data-cat="Inference &amp; deployment" data-text="vram (gpu memory) video ram gpu memory"><h3>VRAM (GPU memory) <span class="aka">video RAM, GPU memory</span><a class="anchor" href="#vram" aria-label="Link to VRAM (GPU memory)">#</a></h3>
+<p class="short">The memory on a GPU, which must hold the model&#x27;s weights plus working memory to run it.</p>
+<p class="def">VRAM is the GPU&#x27;s onboard memory, and it is usually the first limit you hit when running models. A rough budget is weights plus KV cache plus about 10 to 20 percent overhead. Weights take parameters times bytes per parameter: an 8B model needs about 16 GB at 16-bit, 8 GB at 8-bit and 5 GB at 4-bit. Consumer cards typically offer 8 to 32 GB, while data-center GPUs carry 80 GB or more of high-bandwidth memory. Apple silicon Macs share one pool of unified memory between CPU and GPU, which lets high-memory machines load surprisingly large models, though at lower speed than top data-center GPUs.</p>
+<div class="rel tags"><a class="tag" href="#quantization">Quantization</a><a class="tag" href="#kv-cache">KV cache</a><a class="tag" href="#gpu">GPU (graphics processing unit)</a><a class="tag" href="glossary-fundamentals.html#parameters">Parameters</a></div>
+</article>
+</div>
+</div>
+<p class="empty" id="gl-empty" hidden>No terms on this page match that filter. Try a shorter word, or filter <a href="glossary.html">all 169 terms</a>.</p>
+<section class="lead-band" aria-labelledby="lead-default-glossary">
+  <div>
+    <h2 id="lead-default-glossary">Building with LLMs? Get a vendor-neutral plan.</h2>
+    <p>Tell us what you&#x27;re building. Within 2 business days you get a model shortlist, an architecture outline and a cost estimate, plus optional introductions to vetted implementation partners.</p>
+    <ul><li>Free and vendor-neutral: no model provider pays for placement.</li>
+<li>Your details go only to partners you agree to.</li>
+</ul>
+  </div>
+  <form class="mini-form" action="hire-llm-experts.html" method="get">
+    <label for="need-default-glossary">What do you need help with?</label>
+    <select id="need-default-glossary" name="need"><option value="choose-model">Choose the right model</option>
+<option value="chatbot">Build a chatbot or assistant</option>
+<option value="rag">Answer questions over our documents (RAG)</option>
+<option value="agents">Automate work with AI agents</option>
+<option value="self-host">Fine-tune or self-host a model</option>
+<option value="cut-costs">Cut our LLM costs</option>
+<option value="security">Security, privacy or compliance review</option>
+<option value="not-sure">Not sure yet</option>
+</select>
+    <input type="hidden" name="from" value="glossary">
+    <button class="btn btn--yellow btn--block" type="submit">Start my free plan</button>
+    <p class="fine">Takes about 2 minutes. No sales calls unless you ask for one.</p>
+  </form>
+</section>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+      <p>The independent field guide to large language models. Model data checked against provider documentation; last full check October 10, 2026.</p>
+    </div>
+    <div><h2>Explore</h2>
+<ul><li><a href="models.html">Model directory</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare models</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="search.html">Search</a></li>
+</ul>
+</div>
+<div><h2>Tools</h2>
+<ul><li><a href="llm-cost-calculator.html">Cost calculator</a></li>
+<li><a href="token-counter.html">Token counter</a></li>
+<li><a href="vram-calculator.html">GPU and VRAM calculator</a></li>
+<li><a href="llm-picker.html">Which LLM should I use?</a></li>
+<li><a href="context-window-visualizer.html">Context window visualizer</a></li>
+<li><a href="prompt-builder.html">Prompt builder</a></li>
+<li><a href="self-host-vs-api-calculator.html">Self-host vs API calculator</a></li>
+</ul>
+</div>
+<div><h2>Learn</h2>
+<ul><li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+</ul>
+</div>
+<div><h2>Work with us</h2>
+<ul><li><a href="hire-llm-experts.html">Get expert help</a></li>
+<li><a href="list-your-product.html">List your product</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</div>
+<div><h2>About</h2>
+<ul><li><a href="about.html">About LLModel</a></li>
+<li><a href="editorial-policy.html">Editorial policy</a></li>
+<li><a href="privacy.html">Privacy policy</a></li>
+<li><a href="terms.html">Terms of use</a></li>
+<li><a href="disclaimer.html">Disclaimer</a></li>
+<li><a href="trademark-copyright.html">Trademark and copyright</a></li>
+<li><a href="sitemap.html">Site map</a></li>
+<li><button class="linklike" type="button" data-privacy-choices>Privacy and cookie choices</button></li>
+</ul>
+</div>
+  </div>
+  <div class="wrap footer-legal">
+    <p>&copy; 2026 LLModel.com. Independent: not affiliated with, endorsed by or sponsored by any model provider. Model and company names are trademarks of their respective owners and are used only to identify products. See <a href="trademark-copyright.html">trademark and copyright</a>.</p>
+    <p>Prices and specifications change often. Always confirm on the provider's own pricing page before you buy.</p>
+  </div>
+</footer>
+<div class="palette" id="palette" hidden role="dialog" aria-modal="true" aria-label="Search LLModel">
+  <div class="palette__box">
+    <label class="visually-hidden" for="palette-input">Search models, tools, guides and terms</label>
+    <input class="palette__input" id="palette-input" type="search" placeholder="Search models, tools, guides, terms" autocomplete="off" spellcheck="false" aria-controls="palette-list">
+    <ul class="palette__list" id="palette-list" role="listbox"></ul>
+    <div class="palette__foot"><span><span class="kbd">&uarr;</span> <span class="kbd">&darr;</span> to move</span><span><span class="kbd">Enter</span> to open</span><span><span class="kbd">Esc</span> to close</span></div>
+  </div>
+</div>
+<script src="assets/js/config.js?v=caa5324cbb"></script>
+
+<script src="assets/js/app.js?v=4b39d7c1bd" defer></script>
+<script src="assets/js/pages/glossary.js?v=a99c13579b" defer></script>
+</body>
+</html>
