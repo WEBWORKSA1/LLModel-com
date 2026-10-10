@@ -1,0 +1,78 @@
+<!--meta
+{
+  "slug": "list-your-product",
+  "title": "List Your LLM, AI API or Tool on LLModel.com",
+  "h1": "List your model, API or tool",
+  "lede": "LLModel readers are choosing models, inference providers and tooling right now. Submit your product for a free editorial review, or put it in front of the right shortlist with a clearly labeled featured placement.",
+  "head_meta": ["Founding rates for the first 20 partners", "Editorial listings are never paid for"],
+  "description": "Get your LLM, inference API, framework, vector database or AI tool listed on LLModel.com: free editorial review, fast-track review, featured listings and category sponsorships.",
+  "section": "",
+  "crumbs": [["Home", "index.html"], ["List your product", null]],
+  "priority": 0.6,
+  "faq": [
+    {"q": "Is a free listing guaranteed?", "a": "No. Editorial listings are included when a product is useful to people building with LLMs, is generally available and has public documentation and pricing. We review every submission and reply either way."},
+    {"q": "Do paid placements affect rankings?", "a": "Never. Featured listings and sponsorships appear in labeled slots. They don't change the order of any ranking, shortlist or comparison, and sponsors can't edit our text."},
+    {"q": "How do I pay?", "a": "After we confirm the placement and dates, we send a secure payment link or invoice. Nothing is charged before you approve the details."}
+  ]
+}
+-->
+<div class="wrap">
+  <div class="table-wrap">
+    <table class="table rates">
+      <thead><tr><th>Option</th><th>What you get</th><th class="num">Founding rate</th></tr></thead>
+      <tbody>
+        <tr><td>Editorial review</td><td>We assess your product for the directory, resources page or relevant shortlists. Inclusion is our call and is never sold.</td><td class="num"><span class="price">Free</span></td></tr>
+        <tr><td>Fast-track review</td><td>Same editorial standards, with a decision within 3 business days. Refunded if we don't list it.</td><td class="num"><span class="price">$49</span> once</td></tr>
+        <tr><td>Featured listing</td><td>A labeled featured card on up to two relevant shortlists or tool pages, with a link to your site.</td><td class="num"><span class="price">$99</span> a month</td></tr>
+        <tr><td>Category sponsor</td><td>The single sponsor slot at the top of one shortlist, such as coding, agents or local models.</td><td class="num"><span class="price">$249</span> a month</td></tr>
+        <tr><td>Newsletter spotlight</td><td>A short, labeled product spotlight in The LLM Brief.</td><td class="num"><span class="price">$149</span> an issue</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="small muted" style="margin-top:.6rem">Founding rates are locked for 12 months for the first 20 partners. Sponsored links carry rel="sponsored". See our <a href="editorial-policy.html#sponsored">rules for sponsored content</a>, and the <a href="advertise.html">full advertising options</a>.</p>
+</div>
+
+<section class="section" aria-labelledby="submit-h">
+  <div class="wrap grid grid--sidebar">
+    <div class="panel">
+      <h2 class="h2" id="submit-h">Submit your product</h2>
+      <p class="muted" style="margin:.4rem 0 1.25rem">We reply within 5 business days, or 3 with fast-track.</p>
+      <form class="form" data-form="listing" data-subject="Product listing request" data-replace data-success-title="Submission received" data-success="Thanks. We'll review it and reply by email within 5 business days (3 with fast-track). If you chose a paid option, we'll confirm details before anything is charged." novalidate>
+        <div class="form-row">
+          <div class="field"><label for="ls-product">Product name<span class="req" aria-hidden="true">*</span></label><input class="input" id="ls-product" name="product" required></div>
+          <div class="field"><label for="ls-url">Product website<span class="req" aria-hidden="true">*</span></label><input class="input" id="ls-url" name="product_url" type="url" required placeholder="https://"></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label for="ls-cat">Category<span class="req" aria-hidden="true">*</span></label>
+            <select class="select" id="ls-cat" name="category" required><option value="">Choose one</option><option>Model or model API</option><option>Inference platform or GPU cloud</option><option>Framework or SDK</option><option>Vector database or retrieval</option><option>Evaluation or observability</option><option>Agent platform</option><option>Fine-tuning or training</option><option>Local or on-device tool</option><option>Consulting or agency</option><option>Other</option></select></div>
+          <div class="field"><label for="ls-pkg">Option<span class="req" aria-hidden="true">*</span></label>
+            <select class="select" id="ls-pkg" name="package" required><option>Editorial review (free)</option><option>Fast-track review ($49)</option><option>Featured listing ($99 a month)</option><option>Category sponsor ($249 a month)</option><option>Newsletter spotlight ($149 an issue)</option><option>Not sure yet</option></select></div>
+        </div>
+        <div class="field"><label for="ls-desc">What it does and who it's for<span class="req" aria-hidden="true">*</span></label><textarea class="textarea" id="ls-desc" name="description" required maxlength="800" rows="4"></textarea></div>
+        <div class="form-row">
+          <div class="field"><label for="ls-pricing">Pricing <span class="muted">(link or summary)</span></label><input class="input" id="ls-pricing" name="pricing"></div>
+          <div class="field"><label for="ls-docs">Documentation link</label><input class="input" id="ls-docs" name="docs" type="url" placeholder="https://"></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label for="ls-name">Your name<span class="req" aria-hidden="true">*</span></label><input class="input" id="ls-name" name="name" required autocomplete="name"></div>
+          <div class="field"><label for="ls-email">Work email<span class="req" aria-hidden="true">*</span></label><input class="input" id="ls-email" name="email" type="email" required autocomplete="email"></div>
+        </div>
+        <label class="check"><input type="checkbox" name="consent" value="yes" required> I'm authorized to submit this product and agree to be contacted about it.<span class="req" aria-hidden="true">*</span></label>
+        {{honeypot}}
+        <button class="btn btn--primary" type="submit">Submit for review</button>
+        <div class="form-status" role="status" aria-live="polite"></div>
+      </form>
+    </div>
+    <aside class="aside-box">
+      <h2>What we look for</h2>
+      <ul>
+        <li>Useful to teams building with LLMs</li>
+        <li>Generally available, not a waitlist</li>
+        <li>Public documentation and clear pricing</li>
+        <li>Honest claims we can check</li>
+      </ul>
+      <h2 style="margin-top:1.25rem">Bigger plans?</h2>
+      <p class="small muted" style="margin-top:.4rem">For partnerships, custom campaigns, or interest in this website or the LLModel.com domain, <a href="https://web.works/contact" target="_blank" rel="noopener">contact us here</a>.</p>
+    </aside>
+  </div>
+</section>
