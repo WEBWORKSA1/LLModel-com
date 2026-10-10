@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LLM Resources: Tools, Frameworks, Vector Databases, Courses and Papers | LLModel.com</title>
+<meta name="description" content="A curated, vendor-neutral directory of 109 LLM resources: APIs, Ollama and local runners, vLLM, LangChain, vector databases, evals, fine-tuning tools, courses and key papers.">
+<link rel="canonical" href="https://llmodel.com/resources.html">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="google-adsense-account" content="ca-pub-6620975821265271">
+<meta name="theme-color" content="#f4f6fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12101e" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="LLModel.com">
+<meta property="og:title" content="LLM Resources: Tools, Frameworks, Vector Databases, Courses and Papers">
+<meta property="og:description" content="A curated, vendor-neutral directory of 109 LLM resources: APIs, Ollama and local runners, vLLM, LangChain, vector databases, evals, fine-tuning tools, courses and key papers.">
+<meta property="og:url" content="https://llmodel.com/resources.html">
+<meta property="og:image" content="https://llmodel.com/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="LLModel: the independent field guide to large language models">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="alternate" type="text/plain" href="llms.txt" title="llms.txt">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Martian+Mono:wght@400..500&family=Newsreader:ital,opsz,wght@0,6..72,400..650;1,6..72,400&display=swap">
+<link rel="stylesheet" href="assets/css/style.css?v=dae4813595">
+<script>(function(){var d=document.documentElement,t=null;try{t=localStorage.getItem('llm-theme')}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}d.setAttribute('data-theme',t)})();</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6620975821265271" crossorigin="anonymous"></script>
+<script type="application/ld+json">{
+ "@type": "Organization",
+ "@id": "https://llmodel.com/#org",
+ "name": "LLModel.com",
+ "url": "https://llmodel.com/",
+ "logo": "https://llmodel.com/assets/img/icon-512.png",
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://llmodel.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Resources"
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+
+</head>
+<body class="page-resources">
+<a class="skip" href="#main">Skip to content</a>
+<div class="partner-bar"><a href="https://web.works/contact" target="_blank" rel="noopener"><span>Contact, if you are interested in this website / domain name / sponsorship / advertisement / partnership</span></a></div>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+    <nav class="nav" aria-label="Main"><a href="models.html">Models</a><a href="compare.html">Compare</a><a href="leaderboard.html">Rankings</a><a href="tools.html">Tools</a><a href="guides.html" aria-current="page">Learn</a><a href="videos.html">Videos</a></nav>
+    <div class="header-actions">
+      <button class="search-btn" type="button" data-open-search aria-label="Search the site"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="search-label">Search</span><span class="kbd" aria-hidden="true">/</span></button>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><svg class="theme-icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="theme-icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+      <a class="btn btn--primary btn--sm header-cta" href="hire-llm-experts.html">Get expert help</a>
+      <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile">
+    <ul><li><a href="models.html">Models</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="tools.html">Tools</a></li>
+<li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="contact.html">Contact</a></li>
+<li class="mobile-cta"><a class="btn btn--primary btn--block" href="hire-llm-experts.html">Get expert help</a></li>
+</ul>
+  </nav>
+</header>
+<main id="main">
+<nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li>
+<li aria-current="page">Resources</li>
+</ol>
+</nav>
+<header class="page-head wrap"><h1>LLM resources</h1><p class="lede">109 vendor-neutral picks: model APIs, local runners, serving engines, frameworks, vector databases, evaluation tools, courses and the papers that started it all.</p>
+<div class="page-meta"><span>Checked October 10, 2026</span><span>No paid placements in this list</span></div>
+<div style="margin-top:1.25rem"><div class="pill-nav"><a href="#r-apis">Model APIs &amp; platforms</a><a href="#r-hubs">Model hubs &amp; leaderboards</a><a href="#r-local">Run models locally</a><a href="#r-serving">Serving &amp; inference engines</a><a href="#r-frameworks">Frameworks &amp; orchestration</a><a href="#r-retrieval">Vector databases &amp; retrieval</a><a href="#r-evals">Evaluation &amp; observability</a><a href="#r-training">Fine-tuning &amp; training</a><a href="#r-agents">Agents &amp; MCP</a><a href="#r-safety">Safety &amp; security</a><a href="#r-learning">Courses &amp; learning</a><a href="#r-papers">Key papers</a><a href="#r-communities">Communities &amp; newsletters</a></div>
+</div>
+</header>
+<section class="section" aria-labelledby="r-apis"><div class="wrap"><div class="section-head"><div><h2 id="r-apis">Model APIs &amp; platforms</h2>
+<p>Hosted developer platforms and gateways where you send prompts to a model and pay per token, from first-party labs to multi-provider aggregators and cloud marketplaces.</p>
+</div>
+</div>
+<ul class="rowlist"><li><a class="row" href="https://developers.openai.com/api/docs" target="_blank" rel="noopener" data-aff=""><span class="row__title">OpenAI API</span><span class="row__desc">OpenAI&#x27;s developer documentation, with quickstarts, the Responses API, a model overview and guides for text, vision, audio and agents. Start here when you want to call GPT models or build with the Agents SDK.</span><span class="row__meta">Commercial</span></a></li>
+<li><a class="row" href="https://platform.claude.com/docs/en/home" target="_blank" rel="noopener" data-aff=""><span class="row__title">Claude Platform (Anthropic API)</span><span class="row__desc">Anthropic&#x27;s developer documentation, from first API call to production use, covering the Messages API, the Claude model family and agent building blocks. Use it when you plan to integrate Claude into an application.</span><span class="row__meta">Commercial</span></a></li>
+<li><a class="row" href="https://ai.google.dev/gemini-api/docs" target="_blank" rel="noopener" data-aff=""><span class="row__title">Google AI Studio &amp; Gemini API</span><span class="row__desc">Google&#x27;s developer docs for the Gemini API, with AI Studio for trying prompts and generating API keys. A quick route to multimodal Gemini models when you want to prototype before moving to Google Cloud.</span><span class="row__meta">Freemium</span></a></li>
+<li><a class="row" href="https://docs.cloud.google.com/gemini-enterprise-agent-platform" target="_blank" rel="noopener" data-aff=""><span class="row__title">Gemini Enterprise Agent Platform (formerly Vertex AI)</span><span class="row__desc">Google Cloud&#x27;s managed platform for building, governing and deploying AI agents and apps with Gemini plus partner and open models. Old Vertex AI documentation links now redirect here; choose it for enterprise workloads on Google Cloud.</span><span class="row__meta">Commercial</span></a></li>
+<li><a class="row" href="https://docs.mistral.ai/" target="_blank" rel="noopener" data-aff=""><span class="row__title">Mistral Studio &amp; API</span><span class="row__desc">Documentation for Mistral&#x27;s developer console and API, where you call its hosted models and manage keys, usage and administration. A sensible pick if you want a European provider that also releases open-weight models.</span><span class="row__meta">Commercial</span></a></li>
+<li><a class="row" href="https://docs.cohere.com" target="_blank" rel="noopener" data-aff=""><span class="row__title">Cohere API</span><span class="row__desc">Cohere&#x27;s API documentation covering text generation, embeddings and reranking. A practical starting point when your project centers on enterprise search, retrieval-augmented generation or document classification rather than open-ended chat.</span><span class="row__meta">Commercial</span></a></li>
+<li><a class="row" href="https://docs.x.ai" target="_blank" rel="noopener" data-aff=""><span class="row__title">Grok API (xAI)</span><span class="row__desc">Developer documentation for the Grok API, covering text, code, voice, image and video models, plus tools, files and deployment guides. Use it when you want to call Grok models from your own applications.</span><span class="row__meta">Commercial</span></a></li>
+<li><a class="row" href="https://api-docs.deepseek.com" target="_blank" rel="noopener" data-aff=""><span class="row__title">DeepSeek API</span><span class="row__desc">Docs for DeepSeek&#x27;s hosted API, which accepts OpenAI-style and Anthropic-style request formats, so existing client code often needs only a new base URL and key. Use it to try DeepSeek models from tools you already run.</span><span class="row__meta">Commercial</span></a></li>
+<li><a class="row" href="https://openrouter.ai" target="_blank" rel="noopener" data-aff=""><span class="row__title">OpenRouter</span><span class="row__desc">One API and billing account that routes requests to hundreds of models from many providers. Useful for comparing models quickly, adding fallbacks, or avoiding separate contracts with every lab.</span><span class="row__meta">Commercial</span></a></li>
+<li><a class="row" href="https://aws.amazon.com/bedrock/" target="_blank" rel="noopener" data-aff=""><span class="row__title">Amazon Bedrock</span><span class="row__desc">AWS&#x27;s managed service for calling foundation models from several providers through one API inside your AWS account. Choose it when security reviews, IAM controls and existing AWS billing drive your vendor decisions.</span><span class="row__meta">Commercial</span></a></li>
+<li><a class="row" href="https://learn.microsoft.com/en-us/azure/foundry/what-is-foundry" target="_blank" rel="noopener" data-aff=""><span class="row__title">Microsoft Foundry (formerly Azure AI Foundry)</span><span class="row__desc">Microsoft&#x27;s platform for building AI agents, models and apps on Azure, renamed from Azure AI Foundry. Use it when your organization standardizes on Microsoft cloud services and wants hosted models with enterprise governance.</span><span class="row__meta">Commercial</span></a></li>
+</ul>
+</div>
+</section>
+<section class="section" aria-labelledby="r-hubs"><div class="wrap"><div class="section-head"><div><h2 id="r-hubs">Model hubs &amp; leaderboards</h2>
+<p>Places to find open model weights and to compare models on benchmarks, human votes, price and speed before you commit to one.</p>
+</div>
+</div>
+<ul class="rowlist"><li><a class="row" href="https://huggingface.co/docs/hub/index" target="_blank" rel="noopener" data-aff=""><span class="row__title">Hugging Face Hub</span><span class="row__desc">The main public registry for open models, datasets and demo apps, hosting millions of repositories with model cards and version history. Search it when you need open weights, a dataset or a reference implementation.</span><span class="row__meta">Freemium</span></a></li>
+<li><a class="row" href="https://arena.ai/leaderboard" target="_blank" rel="noopener" data-aff=""><span class="row__title">Arena (formerly LMArena)</span><span class="row__desc">A public leaderboard built from anonymous side-by-side votes, where people compare two models&#x27; answers without knowing which is which. Treat it as one signal of conversational quality, alongside task-specific benchmarks.</span><span class="row__meta">Free</span></a></li>
+<li><a class="row" href="https://artificialanalysis.ai" target="_blank" rel="noopener" data-aff=""><span class="row__title">Artificial Analysis</span><span class="row__desc">Independent comparisons of AI models and API providers on intelligence scores, price, output speed and latency. Handy when you are choosing both a model and a host and need quality and cost side by side.</span><span class="row__meta">Free</span></a></li>
+<li><a class="row" href="https://livebench.ai" target="_blank" rel="noopener" data-aff=""><span class="row__title">LiveBench</span><span class="row__desc">A benchmark built to resist test-set contamination, using questions refreshed over time and scored automatically against ground-truth answers. Check it for objective comparisons of reasoning, coding and math ability across models.</span><span class="row__meta">Free</span></a></li>
+<li><a class="row" href="https://epoch.ai/benchmarks" target="_blank" rel="noopener" data-aff=""><span class="row__title">Epoch AI Benchmarking Hub</span><span class="row__desc">Epoch AI&#x27;s database of benchmark results, mixing evaluations the team runs itself with figures from outside sources. Use it to see how leading models score on hard tasks and to compare them across several tests.</span><span class="row__meta">Free</span></a></li>
+<li><a class="row" href="https://www.swebench.com" target="_blank" rel="noopener" data-aff=""><span class="row__title">SWE-bench</span><span class="row__desc">A benchmark of real GitHub issues from Python repositories, with public leaderboards for variants such as Verified, Multilingual and Lite. Use it to judge how well a model or coding agent resolves genuine software tasks.</span><span class="row__meta">Open source</span></a></li>
+<li><a class="row" href="https://crfm.stanford.edu/helm/" target="_blank" rel="noopener" data-aff=""><span class="row__title">Stanford HELM</span><span class="row__desc">Stanford&#x27;s Holistic Evaluation of Language Models, an open framework and living set of leaderboards that score models across many scenarios and metrics rather than accuracy alone. Use it for transparent, reproducible comparisons.</span><span class="row__meta">Open source</span></a></li>
+</ul>
+</div>
+</section>
+<section class="section" aria-labelledby="r-local"><div class="wrap"><div class="section-head"><div><h2 id="r-local">Run models locally</h2>
+<p>Apps and runtimes that let you download open-weight models and run them on your own laptop, workstation or server.</p>
+</div>
+</div>
+<ul class="rowlist"><li><a class="row" href="https://ollama.com" target="_blank" rel="noopener" data-aff=""><span class="row__title">Ollama</span><span class="row__desc">A runtime that pulls open models with one command and serves them through a local REST API on macOS, Windows and Linux. Choose it for quick experiments and as the backend for other local tools; hosted cloud models are optional.</span><span class="row__meta">Open source</span></a></li>
+<li><a class="row" href="https://lmstudio.ai" target="_blank" rel="noopener" data-aff=""><span class="row__title">LM Studio</span><span class="row__desc">A desktop app for discovering, downloading and chatting with local models, built on llama.cpp and MLX runtimes and able to expose a local server. Pick it if you want a graphical interface rather than a command line.</span><span class="row__meta">Freemium</span></a></li>
+<li><a class="row" href="https://github.com/ggml-org/llama.cpp" target="_blank" rel="noopener" data-aff=""><span class="row__title">llama.cpp</span><span class="row__desc">A C/C++ inference engine behind much of the local-model ecosystem, with GGUF quantization and backends for CPUs, Apple silicon and GPUs. Use it directly for tight control over memory, or through the apps built on it.</span><span class="row__meta">Open source</span></a></li>
+<li><a class="row" href="https://github.com/ml-explore/mlx-lm" target="_blank" rel="noopener" data-aff=""><span class="row__title">MLX LM</span><span class="row__desc">A Python package for running and fine-tuning language models on Apple silicon with the MLX framework. Reach for it when a Mac is your main machine and you want quantized models and LoRA training in Python.</span><span class="row__meta">Open source</span></a></li>
+<li><a class="row" href="https://jan.ai" target="_blank" rel="noopener" data-aff=""><span class="row__title">Jan</span><span class="row__desc">A free desktop chat app that runs open models on your own computer and can also connect to hosted services such as OpenAI or Anthropic. Suited to people who want a private, ChatGPT-style window they control.</span><span class="row__meta">Open source</span></a></li>
+<li><a class="row" href="https://openwebui.com" target="_blank" rel="noopener" data-aff=""><span class="row__title">Open WebUI</span><span class="row__desc">A self-hosted chat interface for Ollama and OpenAI-compatible endpoints that you can extend with Python. Its license requires keeping the Open WebUI branding, so read the terms before white-labeling it.</span><span class="row__meta">Free</span></a></li>
+</ul>
+<aside class="ad-slot" data-ad="resources-2" aria-label="Sponsored message"><span class="ad-label">From LLModel</span><div class="ad-fill"><div class="house"><div><strong>Price your workload</strong><span>Compare the monthly bill for your token volume across every priced model.</span></div>
+<a class="btn btn--ghost btn--sm" href="llm-cost-calculator.html">Open the calculator</a></div>
+</div>
+</aside>
+</div>
+</section>
+<section class="section" aria-labelledby="r-serving"><div class="wrap"><div class="section-head"><div><h2 id="r-serving">Serving &amp; inference engines</h2>
+<p>Open-source inference engines and hosted GPU platforms for serving models at production speed, from self-managed clusters to pay-per-token endpoints.</p>
+</div>
+</div>
+<ul class="rowlist"><li><a class="row" href="https://docs.vllm.ai/en/latest/" target="_blank" rel="noopener" data-aff=""><span class="row__title">vLLM</span><span class="row__desc">A widely used open-source engine for high-throughput LLM serving, built around continuous batching and efficient KV-cache memory management. Choose it to host open models behind an OpenAI-compatible API on your own GPUs.</span><span class="row__meta">Open source</span></a></li>
+<li><a class="row" href="https://docs.sglang.io/" target="_blank" rel="noopener" data-aff=""><span class="row__title">SGLang</span><span class="row__desc">A high-performance serving framework for language and multimodal models, with strong support for structured output and large mixture-of-experts models. Worth benchmarking against vLLM when you run big open models on your own GPUs.</span><span class="row__meta">Open source</span></a></li>
+<li><a class="row" href="https://nvidia.github.io/TensorRT-LLM/" target="_blank" rel="noopener" data-aff=""><span class="row__title">TensorRT-LLM</span><span class="row__desc">NVIDIA&#x27;s library for optimized LLM inference on its GPUs, with a Python API, quantization, speculative decoding, LoRA support and a trtllm-serve command. Consider it when you run NVIDIA hardware at scale and want vendor-tuned performance.</span><span class="row__meta">Open source</span></a></li>
+<li><a class="row" href="https://www.together.ai" target="_blank" rel="noopener" data-aff=""><span class="row__title">Together AI</span><span class="row__desc">A cloud for running open models through serverless or dedicated endpoints, with managed fine-tuning and GPU compute under the same roof. A fit when you want open-weight models without operating inference infrastructure yourself.</span><span class="row__meta">Commercial</span></a></li>
+<li><a class="row" href="https://fireworks.ai" target="_blank" rel="noopener" data-aff=""><span class="row__title">Fireworks AI</span><span class="row__desc">A platform for serving open models and training specialized versions of them, with fine-tuning offered alongside inference. Consider it when you plan to tune a model on your own data and deploy it on the same service.</span><span class="row__meta">Commercial</span></a></li>
+<li><a class="row" href="https://console.groq.com/docs/overview" target="_blank" rel="noopener" data-aff=""><span class="row__title">Groq (GroqCloud)</span><span class="row__desc">A hosted inference service running open models on Groq&#x27;s custom chips, with an OpenAI-compatible API. Try it when response speed matters most, such as voice agents and interactive tools.</span><span class="row__meta">Commercial</span></a></li>
+<li><a class="row" href="https://www.cerebras.ai" target="_blank" rel="noopener" data-aff=""><span class="row__title">Cerebras Inference</span><span class="row__desc">Inference served from Cerebras&#x27;s wafer-scale chips through an OpenAI-compatible API, with a free trial for developers. Look at it when you need very fast generation from the open models it supports.</span><span class="row__meta">Commercial</span></a></li>
+<li><a class="row" href="https://deepinfra.com" target="_blank" rel="noopener" data-aff=""><span class="row__title">DeepInfra</span><span class="row__desc">A pay-as-you-go API for running many open models without managing GPUs, with usage-based pricing. A reasonable place to price-check open-weight models against larger providers before committing.</span><span class="row__meta">Commercial</span></a></li>
+<li><a class="row" href="https://replicate.com" target="_blank" rel="noopener" data-aff=""><span class="row__title">Replicate</span><span class="row__desc">A hosted service for running open and custom models through a simple API, billed by usage. Useful for trying community models, including image and audio ones, or packaging your own model for deployment.</span><span class="row__meta">Commercial</span></a></li>
+<li><a class="row" href="https://modal.com" target="_blank" rel="noopener" data-aff=""><span class="row__title">Modal</span><span class="row__desc">Serverless cloud infrastructure where you define GPU workloads in Python and scale them to zero when idle. Use it to deploy your own inference servers, batch jobs or fine-tuning runs without managing clusters.</span><span class="row__meta">Commercial</span></a></li>
+<li><a class="row" href="https://www.runpod.io" target="_blank" rel="noopener" data-aff=""><span class="row__title">Runpod</span><span class="row__desc">A GPU cloud that rents pods by the hour or second and offers serverless endpoints that scale to zero. A practical option for self-hosting an open model or running a fine-tune on a budget.</span><span class="row__meta">Commercial</span></a></li>
+</ul>
+</div>
+</section>
+<section class="section" aria-labelledby="r-frameworks"><div class="wrap"><div class="section-head"><div><h2 id="r-frameworks">Frameworks &amp; orchestration</h2>
+<p>Libraries that wire models, prompts, tools and data together so you can build chains, pipelines and applications without hand-rolling every call.</p>
+</div>
+</div>
+<ul class="rowlist"><li><a class="row" href="https://docs.langchain.com" target="_blank" rel="noopener" data-aff=""><span class="row__title">LangChain</span><span class="row__desc">A widely adopted open-source toolkit with standard interfaces for models, tools and retrievers, available in Python and TypeScript. Start here for prebuilt integrations, and add LangGraph when you need stateful agent workflows.</span><span class="row__meta">Open source</span></a></li>
+<li><a class="row" href="https://www.langchain.com/langgraph" target="_blank" rel="noopener" data-aff=""><span class="row__title">LangGraph</span><span class="row__desc">A low-level orchestration framework that models agents as graphs, with persistent state and human-in-the-loop checkpoints. Choose it when a simple chain is not enough and you need explicit control over loops and branching.</span><span class="row__meta">Open source</span></a></li>
+<li><a class="row" href="https://www.llamaindex.ai" target="_blank" rel="noopener" data-aff=""><span class="row__title">LlamaIndex</span><span class="row__desc">A framework and hosted services for turning documents into agent-ready context, including parsing, extraction and indexing. Use it when your main challenge is getting messy PDFs and files into a reliable retrieval pipeline.</span><span class="row__meta">Open source</span></a></li>
+<li><a class="row" href="https://haystack.deepset.ai" target="_blank" rel="noopener" data-aff=""><span class="row__title">Haystack</span><span class="row__desc">deepset&#x27;s open-source Python framework for building search, RAG and agent pipelines from modular components you can inspect and debug. A good fit for teams that want explicit, testable pipelines in production.</span><span class="row__meta">Open source</span></a></li>
+<li><a class="row" href="https://dspy.ai/" target="_blank" rel="noopener" data-aff=""><span class="row__title">DSPy</span><span class="row__desc">A Python framework from Stanford NLP that replaces hand-written prompts with declarative signatures and modules, then optimizes them against your own metric. Reach for it when prompts keep breaking as models or tasks change.</span><span class="row__meta">Open source</span></a></li>
+<li><a class="row" href="https://learn.microsoft.com/en-us/semantic-kernel/overview/" target="_blank" rel="noopener" data-aff=""><span class="row__title">Semantic Kernel</span><span class="row__desc">Microsoft&#x27;s open-source SDK for building AI agents in C#, Python and Java. Microsoft now names Agent Framework as its successor, so consider Semantic Kernel mainly when maintaining existing code.</span><span class="row__meta">Open source</span></a></li>
+<li><a class="row" href="https://ai-sdk.dev" target="_blank" rel="noopener" data-aff=""><span class="row__title">Vercel AI SDK</span><span class="row__desc">A TypeScript toolkit for building AI apps and agents with one interface across model providers, plus streaming helpers and UI hooks for frameworks like React. A natural choice for Next.js and other JavaScript front ends.</span><span class="row__meta">Open source</span></a></li>
+<li><a class="row" href="https://pydantic.dev/docs/ai/overview/" target="_blank" rel="noopener" data-aff=""><span class="row__title">Pydantic AI</span><span class="row__desc">A typed Python agent framework from the Pydantic team, in which tools, dependencies and outputs are validated through type hints. Choose it for production agents when you want structured results and strong editor support.</span><span class="row__meta">Open source</span></a></li>
+</ul>
+</div>
+</section>
+<section class="section" aria-labelledby="r-retrieval"><div class="wrap"><div class="section-head"><div><h2 id="r-retrieval">Vector databases &amp; retrieval</h2>
+<p>Databases, embedding models and rerankers that power semantic search and retrieval-augmented generation over your own documents.</p>
+</div>
+</div>
+<ul class="rowlist"><li><a class="row" href="https://github.com/pgvector/pgvector" target="_blank" rel="noopener" data-aff=""><span class="row__title">pgvector</span><span class="row__desc">An extension that adds vector columns and similarity search to PostgreSQL, with exact search and approximate indexes. The simplest route to retrieval when your application data already lives in Postgres.</span><span class="row__meta">Open source</span></a></li>
+<li><a class="row" href="https://www.pinecone.io" target="_blank" rel="noopener" data-aff=""><span class="row__title">Pinecone</span><span class="row__desc">A fully managed vector database service aimed at production search and retrieval without cluster operations. Consider it when you want a hosted index and would rather not run database infrastructure yourself.</span><span class="row__meta">Commercial</span></a></li>
+<li><a class="row" href="https://weaviate.io" target="_blank" rel="noopener" data-aff=""><span class="row__title">Weaviate</span><span class="row__desc">An open-source AI database that combines vector search with keyword filtering and built-in options for embeddings and retrieval-augmented generation. Run it yourself or use its managed cloud when you need hybrid search at scale.</span><span class="row__meta">Open source</span></a></li>
+<li><a class="row" href="https://qdrant.tech" target="_blank" rel="noopener" data-aff=""><span class="row__title">Qdrant</span><span class="row__desc">An open-source vector search engine written in Rust, with payload filtering and a managed cloud option. A solid candidate when you want fast, filtered similarity search that you can also self-host.</span><span class="row__meta">Open source</span></a></li>
+<li><a class="row" href="https://milvus.io" target="_blank" rel="noopener" data-aff=""><span class="row__title">Milvus</span><span class="row__desc">A cloud-native, open-source vector database built to handle very large collections across distributed clusters. Look at it for large-scale similarity search; Zilliz Cloud offers it as a managed service.</span><span class="row__meta">Open source</span></a></li>
+<li><a class="row" href="https://www.trychroma.com" target="_blank" rel="noopener" data-aff=""><span class="row__title">Chroma</span><span class="row__desc">An Apache 2.0 search backend for AI applications, covering vector, full-text, regex and metadata queries. Easy to start with locally, which makes it popular for prototypes that may later grow into production.</span><span class="row__meta">Open source</span></a></li>
+<li><a class="row" href="https://www.elastic.co/elasticsearch/vector-database" target="_blank" rel="noopener" data-aff=""><span class="row__title">Elasticsearch vector search</span><span class="row__desc">Elastic&#x27;s search engine doubles as a vector database, so one system can combine keyword relevance, filters and embedding similarity. A natural pick if you already operate Elasticsearch for search or log analytics.</span><span class="row__meta">Open source</span></a></li>
+<li><a class="row" href="https://huggingface.co/spaces/mteb/leaderboard" target="_blank" rel="noopener" data-aff=""><span class="row__title">MTEB Leaderboard</span><span class="row__desc">The Massive Text Embedding Benchmark leaderboard on Hugging Face, ranking embedding models on retrieval, classification, clustering and multilingual tasks. Filter it by language to shortlist models before testing them on your own data.</span><span class="row__meta">Free</span></a></li>
+<li><a class="row" href="https://www.sbert.net" target="_blank" rel="noopener" data-aff=""><span class="row__title">Sentence Transformers</span><span class="row__desc">A Python library for computing text embeddings and for training embedding, reranker and sparse retrieval models, with many pretrained checkpoints on Hugging Face. Use it to run open embedding models locally or fine-tune one on your domain.</span><span class="row__meta">Open source</span></a></li>
+</ul>
+</div>
+</section>
+<section class="section" aria-labelledby="r-evals"><div class="wrap"><div class="section-head"><div><h2 id="r-evals">Evaluation &amp; observability</h2>
+<p>Tools for testing prompts and models, scoring outputs, and tracing what your LLM application actually does in production.</p>
+</div>
+</div>
+<ul class="rowlist"><li><a class="row" href="https://www.promptfoo.dev" target="_blank" rel="noopener" data-aff=""><span class="row__title">promptfoo</span><span class="row__desc">Runs prompt tests and red-team scans against many models from declarative configs, in the terminal or CI. OpenAI acquired the company in 2026; its README says the project remains open source under the MIT license.</span><span class="row__meta">Open source</span></a></li>
+<li><a class="row" href="https://docs.ragas.io" target="_blank" rel="noopener" data-aff=""><span class="row__title">Ragas</span><span class="row__desc">A Python library for evaluating LLM applications, best known for retrieval-augmented generation metrics such as faithfulness and context precision. Use it to replace informal spot checks with repeatable scores and test sets.</span><span class="row__meta">Open source</span></a></li>
+<li><a class="row" href="https://deepeval.com" target="_blank" rel="noopener" data-aff=""><span class="row__title">DeepEval</span><span class="row__desc">An Apache 2.0 framework that brings unit-test style evaluation to LLM apps, RAG pipelines and agents, with many built-in metrics. A good fit for teams that want evals to run inside pytest and CI.</span><span class="row__meta">Open source</span></a></li>
+<li><a class="row" href="https://langfuse.com" target="_blank" rel="noopener" data-aff=""><span class="row__title">Langfuse</span><span class="row__desc">An MIT-licensed platform for tracing, prompt management and evaluation of LLM applications, self-hostable or available as a cloud service. It joined ClickHouse in January 2026, and the product remains open source.</span><span class="row__meta">Open source</span></a></li>
+<li><a class="row" href="https://www.langchain.com/langsmith" target="_blank" rel="noopener" data-aff=""><span class="row__title">LangSmith</span><span class="row__desc">LangChain&#x27;s hosted platform for tracing, monitoring and evaluating agents and LLM apps, and it works with many frameworks beyond LangChain. Consider it if you already use LangChain or LangGraph and want first-party tooling.</span><span class="row__meta">Commercial</span></a></li>
+<li><a class="row" href="https://arize.com/docs/phoenix" target="_blank" rel="noopener" data-aff=""><span class="row__title">Arize Phoenix</span><span class="row__desc">A self-hostable tool for tracing LLM calls, running evaluations and comparing prompt experiments. Arize also sells a separate managed platform, so review Phoenix&#x27;s license terms before embedding it in a product.</span><span class="row__meta">Free</span></a></li>
+<li><a class="row" href="https://www.braintrust.dev" target="_blank" rel="noopener" data-aff=""><span class="row__title">Braintrust</span><span class="row__desc">A commercial platform that pairs production tracing with evals, so teams can score model output, compare experiments and catch regressions before release. Evaluate it if you want a managed workflow instead of assembling open-source parts.</span><span class="row__meta">Commercial</span></a></li>
+<li><a class="row" href="https://inspect.aisi.org.uk/" target="_blank" rel="noopener" data-aff=""><span class="row__title">Inspect</span><span class="row__desc">An MIT-licensed evaluation framework from the UK AI Security Institute for building benchmarks and agent evaluations, with tool use, multi-turn dialog and model-graded scoring. Use it for rigorous, reproducible model testing.</span><span class="row__meta">Open source</span></a></li>
+</ul>
+</div>
+</section>
+<section class="section" aria-labelledby="r-training"><div class="wrap"><div class="section-head"><div><h2 id="r-training">Fine-tuning &amp; training</h2>
+<p>Libraries and managed services for adapting open models to your data with supervised fine-tuning, LoRA, and preference or reinforcement learning methods.</p>
+</div>
+</div>
+<ul class="rowlist"><li><a class="row" href="https://huggingface.co/docs/trl/index" target="_blank" rel="noopener" data-aff=""><span class="row__title">Hugging Face TRL</span><span class="row__desc">Hugging Face&#x27;s library for post-training transformer models with supervised fine-tuning, preference optimization such as DPO, and reinforcement learning methods. A standard starting point for aligning an open model on your own data.</span><span class="row__meta">Open source</span></a></li>
+<li><a class="row" href="https://huggingface.co/docs/peft" target="_blank" rel="noopener" data-aff=""><span class="row__title">Hugging Face PEFT</span><span class="row__desc">A library for parameter-efficient fine-tuning that trains small adapter weights, such as LoRA, instead of every parameter. Use it to tune large models on modest GPUs and keep each variant as a small file.</span><span class="row__meta">Open source</span></a></li>
+<li><a class="row" href="https://unsloth.ai" target="_blank" rel="noopener" data-aff=""><span class="row__title">Unsloth</span><span class="row__desc">A fine-tuning and reinforcement learning toolkit built to cut memory use and training time on a single GPU, now with a local app for running and training models. Suited to individuals and small teams tuning open models.</span><span class="row__meta">Open source</span></a></li>
+<li><a class="row" href="https://docs.axolotl.ai" target="_blank" rel="noopener" data-aff=""><span class="row__title">Axolotl</span><span class="row__desc">An open-source tool for fine-tuning and post-training language models from a YAML configuration, covering techniques from LoRA to multi-GPU runs. Pick it for repeatable, config-driven training without writing your own training loop.</span><span class="row__meta">Open source</span></a></li>
+<li><a class="row" href="https://github.com/hiyouga/LlamaFactory" target="_blank" rel="noopener" data-aff=""><span class="row__title">LLaMA-Factory</span><span class="row__desc">An Apache 2.0 toolkit for fine-tuning more than 100 language and vision-language models, with a web interface and support for LoRA, QLoRA and preference tuning. Handy if you want training without writing much code.</span><span class="row__meta">Open source</span></a></li>
+<li><a class="row" href="https://docs.fireworks.ai/fine-tuning/training-api/introduction" target="_blank" rel="noopener" data-aff=""><span class="row__title">Fireworks Training API</span><span class="row__desc">Fireworks&#x27;s managed training service for supervised fine-tuning, preference optimization and reinforcement learning on open models, with serverless and dedicated options. Consider it when you want to tune and then deploy on one platform.</span><span class="row__meta">Commercial</span></a></li>
+<li><a class="row" href="https://docs.together.ai/docs/fine-tuning-overview" target="_blank" rel="noopener" data-aff=""><span class="row__title">Together AI Fine-Tuning</span><span class="row__desc">Together AI&#x27;s managed fine-tuning for open models, accepting instruction, preference and plain-text datasets and serving the result from dedicated endpoints. Useful when you want to tune a model without provisioning GPUs yourself.</span><span class="row__meta">Commercial</span></a></li>
+</ul>
+<aside class="ad-slot" data-ad="resources-7" aria-label="Sponsored message"><span class="ad-label">From LLModel</span><div class="ad-fill"><div class="house"><div><strong>The LLM Brief</strong><span>One short email a week: new models, price changes and one tool worth trying.</span></div>
+<a class="btn btn--ghost btn--sm" href="newsletter.html">Subscribe free</a></div>
+</div>
+</aside>
+</div>
+</section>
+<section class="section" aria-labelledby="r-agents"><div class="wrap"><div class="section-head"><div><h2 id="r-agents">Agents &amp; MCP</h2>
+<p>Protocols and SDKs for building tool-using agents, connecting models to external systems and coordinating several agents.</p>
+</div>
+</div>
+<ul class="rowlist"><li><a class="row" href="https://modelcontextprotocol.io" target="_blank" rel="noopener" data-aff=""><span class="row__title">Model Context Protocol</span><span class="row__desc">An open standard for connecting AI applications to external data, tools and workflows through a common client-server protocol. Read it when you want assistants to use your own systems or to reuse existing MCP servers.</span><span class="row__meta">Standard</span></a></li>
+<li><a class="row" href="https://a2a-protocol.org" target="_blank" rel="noopener" data-aff=""><span class="row__title">Agent2Agent (A2A) Protocol</span><span class="row__desc">An open protocol, now hosted by the Linux Foundation, that lets agents built on different frameworks discover each other&#x27;s capabilities and collaborate on tasks. Relevant when agents from separate teams or vendors must interoperate.</span><span class="row__meta">Standard</span></a></li>
+<li><a class="row" href="https://openai.github.io/openai-agents-python/" target="_blank" rel="noopener" data-aff=""><span class="row__title">OpenAI Agents SDK</span><span class="row__desc">A lightweight Python framework for multi-agent workflows with handoffs, guardrails and tracing, positioned as the production-ready successor to OpenAI&#x27;s experimental Swarm project. Start here for agents built around OpenAI&#x27;s APIs.</span><span class="row__meta">Open source</span></a></li>
+<li><a class="row" href="https://platform.claude.com/docs/en/agents-and-tools/agent-sdk/overview" target="_blank" rel="noopener" data-aff=""><span class="row__title">Claude Agent SDK</span><span class="row__desc">Anthropic&#x27;s SDK for building agents on the same loop, tools and context management that power Claude Code, available for Python and TypeScript. Use it for coding, research or file-handling agents.</span><span class="row__meta">Free</span></a></li>
+<li><a class="row" href="https://adk.dev/" target="_blank" rel="noopener" data-aff=""><span class="row__title">Google Agent Development Kit</span><span class="row__desc">Google&#x27;s open-source framework for building, debugging and deploying agents, with SDKs for Python, TypeScript, Go, Java and Kotlin and support for graph-based workflows. Model-agnostic by design, though tuned for Gemini and Google Cloud.</span><span class="row__meta">Open source</span></a></li>
+<li><a class="row" href="https://learn.microsoft.com/en-us/agent-framework/overview/" target="_blank" rel="noopener" data-aff=""><span class="row__title">Microsoft Agent Framework</span><span class="row__desc">Microsoft&#x27;s framework for agents and graph-based multi-agent workflows in .NET and Python, with Go in public preview. It is the direct successor to Semantic Kernel and AutoGen, and migration guides cover both.</span><span class="row__meta">Open source</span></a></li>
+<li><a class="row" href="https://docs.crewai.com" target="_blank" rel="noopener" data-aff=""><span class="row__title">CrewAI</span><span class="row__desc">A Python framework for defining role-based agents, called crews, and event-driven flows that coordinate them. Reach for it when a task splits naturally into specialist roles and you want a readable, high-level setup.</span><span class="row__meta">Open source</span></a></li>
+<li><a class="row" href="https://strandsagents.com" target="_blank" rel="noopener" data-aff=""><span class="row__title">Strands Agents</span><span class="row__desc">An open-source SDK from AWS for building production agents in Python and TypeScript, designed to work with models from many providers on any cloud. A lightweight choice for teams already building on AWS.</span><span class="row__meta">Open source</span></a></li>
+</ul>
+</div>
+</section>
+<section class="section" aria-labelledby="r-safety"><div class="wrap"><div class="section-head"><div><h2 id="r-safety">Safety &amp; security</h2>
+<p>Risk frameworks, guardrail libraries and red-teaming tools for finding and reducing prompt injection, data leakage and other LLM-specific failures.</p>
+</div>
+</div>
+<ul class="rowlist"><li><a class="row" href="https://genai.owasp.org/llm-top-10/" target="_blank" rel="noopener" data-aff=""><span class="row__title">OWASP Top 10 for LLM Applications</span><span class="row__desc">OWASP&#x27;s ranked list of the most critical risks in LLM applications, led in the 2025 edition by prompt injection, sensitive information disclosure and supply chain weaknesses. Use it as a threat-modeling checklist before launch.</span><span class="row__meta">Standard</span></a></li>
+<li><a class="row" href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank" rel="noopener" data-aff=""><span class="row__title">NIST AI Risk Management Framework</span><span class="row__desc">NIST&#x27;s voluntary framework for identifying and managing AI risks, with a companion Generative AI Profile (AI 600-1). NIST says AI RMF 1.0 is being revised, so check the page for the current version.</span><span class="row__meta">Standard</span></a></li>
+<li><a class="row" href="https://atlas.mitre.org" target="_blank" rel="noopener" data-aff=""><span class="row__title">MITRE ATLAS</span><span class="row__desc">A knowledge base of adversary tactics, techniques and case studies for attacks on AI-enabled systems, organized like MITRE ATT&amp;CK. Use it to map threats and structure red-team exercises in a shared vocabulary.</span><span class="row__meta">Free</span></a></li>
+<li><a class="row" href="https://github.com/NVIDIA-NeMo/Guardrails" target="_blank" rel="noopener" data-aff=""><span class="row__title">NVIDIA NeMo Guardrails</span><span class="row__desc">An open-source toolkit for adding programmable guardrails to LLM-based conversational systems, steering topics and filtering inputs and outputs. Consider it when you want policy defined in configuration rather than scattered through prompts.</span><span class="row__meta">Open source</span></a></li>
+<li><a class="row" href="https://www.guardrailsai.com/docs" target="_blank" rel="noopener" data-aff=""><span class="row__title">Guardrails AI</span><span class="row__desc">A Python framework that wraps LLM calls with validators for format, safety and content rules, and can re-ask or fix output that fails. A good fit for enforcing structured, policy-compliant responses.</span><span class="row__meta">Open source</span></a></li>
+<li><a class="row" href="https://garak.ai" target="_blank" rel="noopener" data-aff=""><span class="row__title">garak</span><span class="row__desc">NVIDIA&#x27;s open-source LLM vulnerability scanner, which probes a model for prompt injection, data leakage, jailbreaks and other failures using a library of attack probes. Run it before release, much as you would scan a server.</span><span class="row__meta">Open source</span></a></li>
+<li><a class="row" href="https://microsoft.github.io/PyRIT/" target="_blank" rel="noopener" data-aff=""><span class="row__title">PyRIT</span><span class="row__desc">Microsoft&#x27;s open-source Python Risk Identification Tool for generative AI, which automates red-team campaigns against models and applications. Use it to scale adversarial testing beyond manual probing.</span><span class="row__meta">Open source</span></a></li>
+</ul>
+</div>
+</section>
+<section class="section" aria-labelledby="r-learning"><div class="wrap"><div class="section-head"><div><h2 id="r-learning">Courses &amp; learning</h2>
+<p>Free and low-cost courses, lecture series and code-along projects that take you from transformer basics to building and training language models.</p>
+</div>
+</div>
+<ul class="rowlist"><li><a class="row" href="https://www.deeplearning.ai/short-courses/" target="_blank" rel="noopener" data-aff=""><span class="row__title">DeepLearning.AI Short Courses</span><span class="row__desc">Short, hands-on courses taught with industry partners on prompting, RAG, agents, fine-tuning and evaluation, each with runnable code. Good for learning one technique in an evening without committing to a full curriculum.</span><span class="row__meta">Course</span></a></li>
+<li><a class="row" href="https://huggingface.co/learn" target="_blank" rel="noopener" data-aff=""><span class="row__title">Hugging Face Learn</span><span class="row__desc">Free, code-first courses from Hugging Face, including a course on Transformers and LLMs, an Agents course and an MCP course, plus cookbook recipes. Work through them to learn the open-model ecosystem by building.</span><span class="row__meta">Course</span></a></li>
+<li><a class="row" href="https://course.fast.ai" target="_blank" rel="noopener" data-aff=""><span class="row__title">fast.ai Practical Deep Learning</span><span class="row__desc">Jeremy Howard&#x27;s free, code-first course that builds working deep-learning models first and explains the theory afterward. A strong foundation in training loops, fine-tuning and NLP before you move on to LLM-specific material.</span><span class="row__meta">Course</span></a></li>
+<li><a class="row" href="https://github.com/karpathy/nn-zero-to-hero" target="_blank" rel="noopener" data-aff=""><span class="row__title">Neural Networks: Zero to Hero</span><span class="row__desc">Andrej Karpathy&#x27;s video series that builds neural networks in code from the basics up to a GPT-style transformer, with notebooks in the linked repository. Watch it to understand what happens inside a language model.</span><span class="row__meta">Course</span></a></li>
+<li><a class="row" href="https://cs336.stanford.edu" target="_blank" rel="noopener" data-aff=""><span class="row__title">Stanford CS336: Language Modeling from Scratch</span><span class="row__desc">Stanford&#x27;s course on building a language model end to end, with assignments on tokenization, training, systems efficiency, scaling laws, data and alignment. Public course materials let you follow along on your own.</span><span class="row__meta">Course</span></a></li>
+<li><a class="row" href="https://www.promptingguide.ai" target="_blank" rel="noopener" data-aff=""><span class="row__title">Prompt Engineering Guide</span><span class="row__desc">An open, community-maintained guide to prompting techniques, with explanations, examples and paper links covering chain-of-thought, RAG, agents and more. Use it as a reference when designing or debugging prompts.</span><span class="row__meta">Free</span></a></li>
+<li><a class="row" href="https://github.com/rasbt/LLMs-from-scratch" target="_blank" rel="noopener" data-aff=""><span class="row__title">LLMs from Scratch (Sebastian Raschka)</span><span class="row__desc">Sebastian Raschka&#x27;s companion repository for building a GPT-style model step by step in PyTorch, covering tokenization, attention, pretraining and instruction fine-tuning in notebooks. Ideal if you learn best by reading and running code.</span><span class="row__meta">Free</span></a></li>
+</ul>
+</div>
+</section>
+<section class="section" aria-labelledby="r-papers"><div class="wrap"><div class="section-head"><div><h2 id="r-papers">Key papers</h2>
+<p>The research papers behind today&#x27;s models, from the original transformer to scaling laws, alignment methods and open reasoning models, linked to arXiv.</p>
+</div>
+</div>
+<ul class="rowlist"><li><a class="row" href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noopener" data-aff=""><span class="row__title">Attention Is All You Need (Vaswani et al., 2017)</span><span class="row__desc">The paper that introduced the transformer, replacing recurrence with self-attention so models train in parallel and scale well. Read it for the architecture that nearly every modern LLM builds on.</span><span class="row__meta">Paper</span></a></li>
+<li><a class="row" href="https://arxiv.org/abs/2005.14165" target="_blank" rel="noopener" data-aff=""><span class="row__title">Language Models Are Few-Shot Learners (Brown et al., 2020)</span><span class="row__desc">OpenAI&#x27;s GPT-3 paper, showing that a 175-billion-parameter model can pick up new tasks from a few examples in the prompt, with no weight updates. It established in-context learning as a core idea.</span><span class="row__meta">Paper</span></a></li>
+<li><a class="row" href="https://arxiv.org/abs/2203.02155" target="_blank" rel="noopener" data-aff=""><span class="row__title">Training Language Models to Follow Instructions with Human Feedback (Ouyang et al., 2022)</span><span class="row__desc">OpenAI&#x27;s InstructGPT paper, which tunes GPT-3 with human demonstrations and preference-based reinforcement learning. Raters preferred a 1.3B tuned model over the 175B base model, making RLHF the template for chat assistants.</span><span class="row__meta">Paper</span></a></li>
+<li><a class="row" href="https://arxiv.org/abs/2203.15556" target="_blank" rel="noopener" data-aff=""><span class="row__title">Training Compute-Optimal Large Language Models (Hoffmann et al., 2022)</span><span class="row__desc">DeepMind&#x27;s Chinchilla study, which found that model size and training tokens should grow together, and showed a 70B model trained on far more data beating much larger ones. Use it to reason about compute-optimal training budgets.</span><span class="row__meta">Paper</span></a></li>
+<li><a class="row" href="https://arxiv.org/abs/2302.13971" target="_blank" rel="noopener" data-aff=""><span class="row__title">LLaMA: Open and Efficient Foundation Language Models (Touvron et al., 2023)</span><span class="row__desc">Meta&#x27;s paper introducing the LLaMA models, trained on publicly available data at sizes from 7B to 65B parameters, with the smaller ones competitive with far larger models. It helped spark the open-weight ecosystem of fine-tuned derivatives.</span><span class="row__meta">Paper</span></a></li>
+<li><a class="row" href="https://arxiv.org/abs/2201.11903" target="_blank" rel="noopener" data-aff=""><span class="row__title">Chain-of-Thought Prompting Elicits Reasoning in Large Language Models (Wei et al., 2022)</span><span class="row__desc">Google researchers show that including worked reasoning steps in the prompt substantially improves large models on arithmetic and logic tasks. The idea behind step-by-step prompting and a precursor to dedicated reasoning models.</span><span class="row__meta">Paper</span></a></li>
+<li><a class="row" href="https://arxiv.org/abs/2005.11401" target="_blank" rel="noopener" data-aff=""><span class="row__title">Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks (Lewis et al., 2020)</span><span class="row__desc">The paper that named retrieval-augmented generation, pairing a text generator with a retriever over a document index so answers draw on external knowledge. Read it for the origin of the RAG pattern.</span><span class="row__meta">Paper</span></a></li>
+<li><a class="row" href="https://arxiv.org/abs/2106.09685" target="_blank" rel="noopener" data-aff=""><span class="row__title">LoRA: Low-Rank Adaptation of Large Language Models (Hu et al., 2021)</span><span class="row__desc">Introduces training small low-rank update matrices while the base weights stay frozen, sharply cutting trainable parameters and memory. The technique behind most adapter-based fine-tuning of open models.</span><span class="row__meta">Paper</span></a></li>
+<li><a class="row" href="https://arxiv.org/abs/2305.14314" target="_blank" rel="noopener" data-aff=""><span class="row__title">QLoRA: Efficient Finetuning of Quantized LLMs (Dettmers et al., 2023)</span><span class="row__desc">Shows how to fine-tune a 4-bit quantized model through LoRA adapters, making it possible to tune a 65B-parameter model on a single 48 GB GPU. Essential background for budget fine-tuning.</span><span class="row__meta">Paper</span></a></li>
+<li><a class="row" href="https://arxiv.org/abs/2305.18290" target="_blank" rel="noopener" data-aff=""><span class="row__title">Direct Preference Optimization: Your Language Model Is Secretly a Reward Model (Rafailov et al., 2023)</span><span class="row__desc">Derives a simple classification-style loss that optimizes a model directly from preference pairs, skipping the separate reward model and reinforcement learning loop of RLHF. A common choice for aligning open models.</span><span class="row__meta">Paper</span></a></li>
+<li><a class="row" href="https://arxiv.org/abs/2212.08073" target="_blank" rel="noopener" data-aff=""><span class="row__title">Constitutional AI: Harmlessness from AI Feedback (Bai et al., 2022)</span><span class="row__desc">Anthropic&#x27;s method for training a harmless assistant from a written set of principles, using AI-generated critiques and preference labels instead of human harm labels. It introduced reinforcement learning from AI feedback.</span><span class="row__meta">Paper</span></a></li>
+<li><a class="row" href="https://arxiv.org/abs/2401.04088" target="_blank" rel="noopener" data-aff=""><span class="row__title">Mixtral of Experts (Jiang et al., 2024)</span><span class="row__desc">Mistral&#x27;s sparse mixture-of-experts model, which routes each token to two of eight expert networks per layer, so only a fraction of its parameters is active per token. A readable case study in MoE efficiency.</span><span class="row__meta">Paper</span></a></li>
+<li><a class="row" href="https://arxiv.org/abs/2501.12948" target="_blank" rel="noopener" data-aff=""><span class="row__title">DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning (DeepSeek-AI, 2025)</span><span class="row__desc">DeepSeek&#x27;s report on training reasoning models with large-scale reinforcement learning, including an R1-Zero variant trained without a supervised fine-tuning stage, and on distilling the results into smaller models. Key reading on open reasoning models.</span><span class="row__meta">Paper</span></a></li>
+<li><a class="row" href="https://arxiv.org/abs/2001.08361" target="_blank" rel="noopener" data-aff=""><span class="row__title">Scaling Laws for Neural Language Models (Kaplan et al., 2020)</span><span class="row__desc">OpenAI&#x27;s study showing that language-model loss falls as a smooth power law with model size, dataset size and compute. It set up the scaling debate that Chinchilla later refined.</span><span class="row__meta">Paper</span></a></li>
+</ul>
+</div>
+</section>
+<section class="section" aria-labelledby="r-communities"><div class="wrap"><div class="section-head"><div><h2 id="r-communities">Communities &amp; newsletters</h2>
+<p>Forums, newsletters and blogs where practitioners share releases, benchmarks and hard-won lessons about building with language models.</p>
+</div>
+</div>
+<ul class="rowlist"><li><a class="row" href="https://www.reddit.com/r/LocalLLaMA/" target="_blank" rel="noopener" data-aff=""><span class="row__title">r/LocalLLaMA</span><span class="row__desc">A busy subreddit where people trade local-model benchmarks, quantization results, hardware builds and first impressions of new open-weight releases. Useful for practical reports on what actually runs well on consumer machines.</span><span class="row__meta">Community</span></a></li>
+<li><a class="row" href="https://discuss.huggingface.co" target="_blank" rel="noopener" data-aff=""><span class="row__title">Hugging Face Forums</span><span class="row__desc">The official Hugging Face discussion forum for questions about Transformers, datasets, training, Spaces and inference. A reasonable place to ask for help with open-model tooling and to see how others solved similar problems.</span><span class="row__meta">Community</span></a></li>
+<li><a class="row" href="https://www.latent.space" target="_blank" rel="noopener" data-aff=""><span class="row__title">Latent Space</span><span class="row__desc">A newsletter and podcast for AI engineers, featuring interviews with builders, analysis of model releases and deep dives into tooling. Follow it to keep up with how practitioners ship LLM products.</span><span class="row__meta">Community</span></a></li>
+<li><a class="row" href="https://simonwillison.net" target="_blank" rel="noopener" data-aff=""><span class="row__title">Simon Willison&#x27;s Weblog</span><span class="row__desc">Independent developer Simon Willison&#x27;s running notes on new models, tools and techniques, with frequent hands-on tests and clear writing about prompt injection. A dependable daily read for developers building with LLMs.</span><span class="row__meta">Community</span></a></li>
+<li><a class="row" href="https://www.interconnects.ai" target="_blank" rel="noopener" data-aff=""><span class="row__title">Interconnects</span><span class="row__desc">Nathan Lambert&#x27;s newsletter on open models, post-training and the AI industry, written from a researcher&#x27;s vantage point. Worth reading for context on reinforcement learning, open releases and where the field is heading.</span><span class="row__meta">Community</span></a></li>
+<li><a class="row" href="https://huggingface.co/papers" target="_blank" rel="noopener" data-aff=""><span class="row__title">Hugging Face Daily Papers</span><span class="row__desc">A daily, community-voted list of notable new arXiv papers, with discussion threads and links to related models and demos. Skim it to see which research practitioners are paying attention to.</span><span class="row__meta">Community</span></a></li>
+</ul>
+</div>
+</section>
+<div class="wrap"><p class="small muted">Know a tool that belongs here? <a href="list-your-product.html">Suggest it</a>. Editorial picks are never paid for; sponsored listings are labeled.</p>
+<section class="lead-band" aria-labelledby="lead-build-resources">
+  <div>
+    <h2 id="lead-build-resources">Need hands-on help building it?</h2>
+    <p>RAG, agents, fine-tuning or a production chatbot: describe the project and we&#x27;ll suggest an approach and, if you want, partners who build it.</p>
+    <ul><li>Free and vendor-neutral: no model provider pays for placement.</li>
+<li>Your details go only to partners you agree to.</li>
+</ul>
+  </div>
+  <form class="mini-form" action="hire-llm-experts.html" method="get">
+    <label for="need-build-resources">What do you need help with?</label>
+    <select id="need-build-resources" name="need"><option value="choose-model">Choose the right model</option>
+<option value="chatbot">Build a chatbot or assistant</option>
+<option value="rag">Answer questions over our documents (RAG)</option>
+<option value="agents">Automate work with AI agents</option>
+<option value="self-host">Fine-tune or self-host a model</option>
+<option value="cut-costs">Cut our LLM costs</option>
+<option value="security">Security, privacy or compliance review</option>
+<option value="not-sure">Not sure yet</option>
+</select>
+    <input type="hidden" name="from" value="resources">
+    <button class="btn btn--yellow btn--block" type="submit">Start my free plan</button>
+    <p class="fine">Takes about 2 minutes. No sales calls unless you ask for one.</p>
+  </form>
+</section>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+      <p>The independent field guide to large language models. Model data checked against provider documentation; last full check October 10, 2026.</p>
+    </div>
+    <div><h2>Explore</h2>
+<ul><li><a href="models.html">Model directory</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare models</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="search.html">Search</a></li>
+</ul>
+</div>
+<div><h2>Tools</h2>
+<ul><li><a href="llm-cost-calculator.html">Cost calculator</a></li>
+<li><a href="token-counter.html">Token counter</a></li>
+<li><a href="vram-calculator.html">GPU and VRAM calculator</a></li>
+<li><a href="llm-picker.html">Which LLM should I use?</a></li>
+<li><a href="context-window-visualizer.html">Context window visualizer</a></li>
+<li><a href="prompt-builder.html">Prompt builder</a></li>
+<li><a href="self-host-vs-api-calculator.html">Self-host vs API calculator</a></li>
+</ul>
+</div>
+<div><h2>Learn</h2>
+<ul><li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+</ul>
+</div>
+<div><h2>Work with us</h2>
+<ul><li><a href="hire-llm-experts.html">Get expert help</a></li>
+<li><a href="list-your-product.html">List your product</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</div>
+<div><h2>About</h2>
+<ul><li><a href="about.html">About LLModel</a></li>
+<li><a href="editorial-policy.html">Editorial policy</a></li>
+<li><a href="privacy.html">Privacy policy</a></li>
+<li><a href="terms.html">Terms of use</a></li>
+<li><a href="disclaimer.html">Disclaimer</a></li>
+<li><a href="trademark-copyright.html">Trademark and copyright</a></li>
+<li><a href="sitemap.html">Site map</a></li>
+<li><button class="linklike" type="button" data-privacy-choices>Privacy and cookie choices</button></li>
+</ul>
+</div>
+  </div>
+  <div class="wrap footer-legal">
+    <p>&copy; 2026 LLModel.com. Independent: not affiliated with, endorsed by or sponsored by any model provider. Model and company names are trademarks of their respective owners and are used only to identify products. See <a href="trademark-copyright.html">trademark and copyright</a>.</p>
+    <p>Prices and specifications change often. Always confirm on the provider's own pricing page before you buy.</p>
+  </div>
+</footer>
+<div class="palette" id="palette" hidden role="dialog" aria-modal="true" aria-label="Search LLModel">
+  <div class="palette__box">
+    <label class="visually-hidden" for="palette-input">Search models, tools, guides and terms</label>
+    <input class="palette__input" id="palette-input" type="search" placeholder="Search models, tools, guides, terms" autocomplete="off" spellcheck="false" aria-controls="palette-list">
+    <ul class="palette__list" id="palette-list" role="listbox"></ul>
+    <div class="palette__foot"><span><span class="kbd">&uarr;</span> <span class="kbd">&darr;</span> to move</span><span><span class="kbd">Enter</span> to open</span><span><span class="kbd">Esc</span> to close</span></div>
+  </div>
+</div>
+<script src="assets/js/config.js?v=caa5324cbb"></script>
+
+<script src="assets/js/app.js?v=4b39d7c1bd" defer></script>
+
+</body>
+</html>
