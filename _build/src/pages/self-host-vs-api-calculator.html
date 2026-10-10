@@ -1,0 +1,76 @@
+<!--meta
+{
+  "slug": "self-host-vs-api-calculator",
+  "title": "Self-Host vs API Calculator: When Do Your Own GPUs Beat Per-Token Pricing?",
+  "h1": "Self-host vs API calculator",
+  "lede": "Compare paying per token with renting GPUs to serve an open-weight model yourself. Enter your monthly volume, a GPU price and a throughput you've measured; the calculator finds the break-even point.",
+  "head_meta": ["Defaults are examples, not quotes", "Replace them with your own numbers"],
+  "description": "Find the break-even point between LLM API pricing and self-hosting on rented GPUs: monthly token volume, GPU hourly cost, throughput, utilization and ops cost, with a chart.",
+  "section": "tools",
+  "crumbs": [["Home", "index.html"], ["Tools", "tools.html"], ["Self-host vs API", null]],
+  "data": ["models"],
+  "scripts": ["tools/breakeven.js"],
+  "priority": 0.8,
+  "faq": [
+    {"q": "When does self-hosting an LLM make sense?", "a": "When volume is high and steady enough to keep GPUs busy, when data must stay in your own environment, or when you need a fine-tuned or customized open model. At low or spiky volume, per-token APIs are usually cheaper because you pay nothing when idle."},
+    {"q": "Where do I get the throughput number?", "a": "Measure it: serve the model with your runtime (for example vLLM or SGLang) on the GPU you plan to use, replay realistic traffic with the concurrency you expect, and record total output tokens per second. Published benchmarks vary widely with model, quantization, prompt length and batch size."},
+    {"q": "What costs does the calculator leave out?", "a": "Engineering time beyond the monthly ops figure you enter, storage and networking, redundancy for failover, and price changes on either side. API prices have fallen repeatedly, which moves the break-even point higher over time."}
+  ]
+}
+-->
+<div class="wrap">
+  <div class="tool">
+    <form class="tool__in" id="be-form" onsubmit="return false">
+      <h2 class="tool-h">Your volume</h2>
+      <div class="form-row">
+        <div class="field"><label for="be-in">Input tokens per month (millions)</label><input class="input" type="number" id="be-in" min="0" step="10" value="600" inputmode="decimal"></div>
+        <div class="field"><label for="be-out">Output tokens per month (millions)</label><input class="input" type="number" id="be-out" min="0" step="10" value="150" inputmode="decimal"></div>
+      </div>
+      <h2 class="tool-h">API option</h2>
+      <div class="field"><label for="be-model">Model</label><select class="select" id="be-model"></select></div>
+      <div class="form-row">
+        <div class="field"><label for="be-pin">Input $ per 1M</label><input class="input" type="number" id="be-pin" min="0" step="0.01" inputmode="decimal"></div>
+        <div class="field"><label for="be-pout">Output $ per 1M</label><input class="input" type="number" id="be-pout" min="0" step="0.01" inputmode="decimal"></div>
+      </div>
+      <h2 class="tool-h">Self-host option</h2>
+      <div class="form-row">
+        <div class="field"><label for="be-gpu">GPU price ($ per GPU-hour)</label><input class="input" type="number" id="be-gpu" min="0" step="0.05" value="2.50" inputmode="decimal"><p class="hint">Example rate for a rented data-center GPU; use your quote.</p></div>
+        <div class="field"><label for="be-gpus">GPUs per replica</label><input class="input" type="number" id="be-gpus" min="1" step="1" value="1" inputmode="numeric"></div>
+      </div>
+      <div class="field"><label for="be-tps">Throughput per replica (output tokens per second)</label><input class="input" type="number" id="be-tps" min="1" step="50" value="1500" inputmode="numeric"><p class="hint">Measured at your expected concurrency. This example value is not a benchmark.</p></div>
+      <div class="field"><label for="be-util">Average utilization</label><div class="range-row"><input type="range" id="be-util" min="10" max="100" step="5" value="50"><output for="be-util" id="be-util-out">50%</output></div><p class="hint">Real traffic has peaks and quiet hours; 30-60% is common.</p></div>
+      <div class="field"><label for="be-ops">Ops and engineering ($ per month)</label><input class="input" type="number" id="be-ops" min="0" step="100" value="1500" inputmode="numeric"></div>
+    </form>
+    <div class="tool__out">
+      <p class="out-label" id="be-verdict-label">At your volume</p>
+      <p class="out-big" id="be-verdict" aria-live="polite"></p>
+      <div class="out-grid" id="be-grid" style="margin-top:1rem"></div>
+      <div class="chart" id="be-chart" style="margin-top:1.5rem" role="img" aria-label="Monthly cost of API and self-hosting across volumes"></div>
+      <div class="legend"><span><i style="background:var(--v3)"></i>API, per token</span><span><i style="background:var(--v6)"></i>Self-host, per replica</span><span><i style="background:var(--ink)"></i>Your volume</span></div>
+      <p class="small muted" style="margin-top:.75rem">Capacity counts input tokens at a tenth of an output token, because processing a prompt is much cheaper than generating text. That ratio is an assumption; adjust throughput if your prompts are very long.</p>
+      <div class="notice" style="margin-top:1rem">Close to the line either way? <a href="hire-llm-experts.html?need=self-host&amp;from=break-even">Get an independent review</a> of the numbers, serving stack and risks before you commit.</div>
+    </div>
+  </div>
+  {{ad:tool-result}}
+</div>
+
+<section class="section" aria-labelledby="how-h">
+  <div class="wrap wrap--read prose">
+    <h2 id="how-h">How the break-even works</h2>
+    <p>The API bill grows in a straight line with volume: input tokens times the input price plus output tokens times the output price. Self-hosting is a staircase: each replica costs the same per month whether it's busy or idle, and when traffic outgrows one replica you add another.</p>
+    <pre><code>API cost       = input &times; input price + output &times; output price
+capacity       = throughput &times; 3,600 s &times; 730 h &times; utilization   (per replica)
+replicas       = ceiling((output + 0.1 &times; input) &divide; capacity)
+self-host cost = replicas &times; GPUs per replica &times; GPU price &times; 730 + ops</code></pre>
+    <p>Break-even is the volume where the two lines cross. Below it, the API wins because you never pay for idle hardware. Above it, a well-utilized replica spreads its fixed cost over enough tokens to undercut per-token prices.</p>
+    <h3 id="decide">What else should decide it</h3>
+    <ul>
+      <li><strong>Quality.</strong> Compare the open model you'd host against the API model on your tasks. Saving money on a weaker model can cost more in errors.</li>
+      <li><strong>Data control.</strong> Regulated data or contractual limits can make self-hosting worth a premium.</li>
+      <li><strong>Team.</strong> Someone has to run upgrades, monitoring and on-call. The ops figure is real money.</li>
+      <li><strong>Price trends.</strong> API prices have fallen with each model generation, so rerun this when you renew hardware commitments.</li>
+    </ul>
+    <p>Size the hardware with the <a href="vram-calculator.html">VRAM calculator</a> and read <a href="open-source-vs-closed-llms.html">open-source vs closed LLMs</a> for the wider trade-off.</p>
+  </div>
+</section>
+<div class="wrap">{{lead:local,self-host}}</div>
