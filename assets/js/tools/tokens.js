@@ -12,7 +12,7 @@
   var models = PICKS.map(function (s) { return D.models.filter(function (m) { return m.s === s; })[0]; }).filter(function (m) { return m && m.i != null; });
 
   function estimate(t) {
-    var cjk = (t.match(/[぀-ヿ㐀-䶿一-鿿가-힯]/g) || []).length;
+    var cjk = (t.match(/[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uac00-\ud7af]/g) || []).length;
     var other = (t.match(/[^\x00-\x7f]/g) || []).length - cjk;
     var ascii = t.length - cjk - Math.max(0, other);
     var symbols = (t.match(/[{}\[\]()<>;=_\/\\|`~^$#@*+-]/g) || []).length;
