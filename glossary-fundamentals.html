@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fundamentals Terms: LLM Glossary (22 Definitions) | LLModel.com</title>
+<meta name="description" content="Plain-English definitions of 22 fundamentals terms for large language models, including tokens, context windows, parameters and reasoning models.">
+<link rel="canonical" href="https://llmodel.com/glossary-fundamentals.html">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="google-adsense-account" content="ca-pub-6620975821265271">
+<meta name="theme-color" content="#f4f6fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12101e" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="LLModel.com">
+<meta property="og:title" content="Fundamentals Terms: LLM Glossary (22 Definitions)">
+<meta property="og:description" content="Plain-English definitions of 22 fundamentals terms for large language models, including tokens, context windows, parameters and reasoning models.">
+<meta property="og:url" content="https://llmodel.com/glossary-fundamentals.html">
+<meta property="og:image" content="https://llmodel.com/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="LLModel: the independent field guide to large language models">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="alternate" type="text/plain" href="llms.txt" title="llms.txt">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Martian+Mono:wght@400..500&family=Newsreader:ital,opsz,wght@0,6..72,400..650;1,6..72,400&display=swap">
+<link rel="stylesheet" href="assets/css/style.css?v=dae4813595">
+<script>(function(){var d=document.documentElement,t=null;try{t=localStorage.getItem('llm-theme')}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}d.setAttribute('data-theme',t)})();</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6620975821265271" crossorigin="anonymous"></script>
+<script type="application/ld+json">{
+ "@type": "Organization",
+ "@id": "https://llmodel.com/#org",
+ "name": "LLModel.com",
+ "url": "https://llmodel.com/",
+ "logo": "https://llmodel.com/assets/img/icon-512.png",
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://llmodel.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Glossary",
+   "item": "https://llmodel.com/glossary.html"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "Fundamentals"
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "DefinedTermSet",
+ "name": "LLM glossary: fundamentals",
+ "url": "https://llmodel.com/glossary-fundamentals.html",
+ "hasDefinedTerm": [
+  {
+   "@type": "DefinedTerm",
+   "name": "Artificial general intelligence (AGI)",
+   "description": "A hypothetical AI that can match or exceed people across most cognitive tasks, not just narrow ones.",
+   "url": "https://llmodel.com/glossary-fundamentals.html#agi"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Autoregressive model",
+   "description": "A model that generates output one token at a time, each conditioned on everything before it.",
+   "url": "https://llmodel.com/glossary-fundamentals.html#autoregressive-model"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Base model",
+   "description": "A model straight out of pretraining that continues text but hasn't been tuned to follow instructions.",
+   "url": "https://llmodel.com/glossary-fundamentals.html#base-model"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Byte-pair encoding (BPE)",
+   "description": "A subword tokenization method that builds a vocabulary by repeatedly merging the most frequent adjacent symbol pairs.",
+   "url": "https://llmodel.com/glossary-fundamentals.html#byte-pair-encoding"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Chat model",
+   "description": "A base model further trained to follow instructions and hold a conversation in turns.",
+   "url": "https://llmodel.com/glossary-fundamentals.html#chat-model"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Context window",
+   "description": "The maximum number of tokens a model can consider at once, covering both input and output.",
+   "url": "https://llmodel.com/glossary-fundamentals.html#context-window"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Embedding",
+   "description": "A list of numbers that represents the meaning of a token, sentence or document as a point in space.",
+   "url": "https://llmodel.com/glossary-fundamentals.html#embedding"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Emergent abilities",
+   "description": "Skills that seem to appear suddenly once models pass a certain scale, rather than improving gradually.",
+   "url": "https://llmodel.com/glossary-fundamentals.html#emergent-abilities"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Foundation model",
+   "description": "A large model trained on broad data that can be adapted to many downstream tasks.",
+   "url": "https://llmodel.com/glossary-fundamentals.html#foundation-model"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Frontier model",
+   "description": "One of the most capable models available at a given time, usually from a well-funded lab.",
+   "url": "https://llmodel.com/glossary-fundamentals.html#frontier-model"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Hallucination",
+   "description": "When a model states something false or unsupported with the same confidence as a fact.",
+   "url": "https://llmodel.com/glossary-fundamentals.html#hallucination"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Knowledge cutoff",
+   "description": "The date after which a model's training data stops, so it knows little about later events.",
+   "url": "https://llmodel.com/glossary-fundamentals.html#knowledge-cutoff"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Large language model (LLM)",
+   "description": "A neural network trained on huge amounts of text to predict and generate language.",
+   "url": "https://llmodel.com/glossary-fundamentals.html#large-language-model"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Long context",
+   "description": "The ability to process very long inputs, from hundreds of thousands to millions of tokens.",
+   "url": "https://llmodel.com/glossary-fundamentals.html#long-context"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Multimodal",
+   "description": "Able to take in or produce more than one kind of data, such as text, images and audio.",
+   "url": "https://llmodel.com/glossary-fundamentals.html#multimodal"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Open weights",
+   "description": "A model whose trained parameters are published for anyone to download and run.",
+   "url": "https://llmodel.com/glossary-fundamentals.html#open-weights"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Parameters",
+   "description": "The learned numbers inside a model; their count is the usual measure of model size.",
+   "url": "https://llmodel.com/glossary-fundamentals.html#parameters"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Reasoning model",
+   "description": "An LLM trained to work through a problem in intermediate steps before giving its final answer.",
+   "url": "https://llmodel.com/glossary-fundamentals.html#reasoning-model"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Small language model (SLM)",
+   "description": "A language model small enough to run cheaply or on a single device, often under about 10B parameters.",
+   "url": "https://llmodel.com/glossary-fundamentals.html#small-language-model"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Special tokens",
+   "description": "Reserved tokens that mark structure, such as the start of a message or the end of output.",
+   "url": "https://llmodel.com/glossary-fundamentals.html#special-tokens"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Token",
+   "description": "The basic unit of text a language model reads and writes, often a word or word fragment.",
+   "url": "https://llmodel.com/glossary-fundamentals.html#token"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Tokenization",
+   "description": "Splitting text into the tokens a model uses, and mapping each one to an ID number.",
+   "url": "https://llmodel.com/glossary-fundamentals.html#tokenization"
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+
+</head>
+<body class="page-glossary-fundamentals">
+<a class="skip" href="#main">Skip to content</a>
+<div class="partner-bar"><a href="https://web.works/contact" target="_blank" rel="noopener"><span>Contact, if you are interested in this website / domain name / sponsorship / advertisement / partnership</span></a></div>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+    <nav class="nav" aria-label="Main"><a href="models.html">Models</a><a href="compare.html">Compare</a><a href="leaderboard.html">Rankings</a><a href="tools.html">Tools</a><a href="guides.html" aria-current="page">Learn</a><a href="videos.html">Videos</a></nav>
+    <div class="header-actions">
+      <button class="search-btn" type="button" data-open-search aria-label="Search the site"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="search-label">Search</span><span class="kbd" aria-hidden="true">/</span></button>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><svg class="theme-icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="theme-icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+      <a class="btn btn--primary btn--sm header-cta" href="hire-llm-experts.html">Get expert help</a>
+      <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile">
+    <ul><li><a href="models.html">Models</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="tools.html">Tools</a></li>
+<li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="contact.html">Contact</a></li>
+<li class="mobile-cta"><a class="btn btn--primary btn--block" href="hire-llm-experts.html">Get expert help</a></li>
+</ul>
+  </nav>
+</header>
+<main id="main">
+<nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li aria-current="page">Fundamentals</li>
+</ol>
+</nav>
+<header class="page-head wrap"><h1>LLM glossary: fundamentals</h1><p class="lede">The core ideas: what a large language model is, how text becomes tokens, what parameters and context windows are, and the words used to describe different kinds of models. 22 terms, each with a short definition, a fuller explanation and links to related terms.</p>
+<div class="page-meta"><span>Updated October 10, 2026</span><span><a href="glossary.html">All 169 terms</a></span></div>
+</header>
+<div class="wrap">
+<nav class="pill-nav" aria-label="Other glossary topics"><a href="glossary-architecture.html">Model architecture</a><a href="glossary-training.html">Training</a><a href="glossary-inference-deployment.html">Inference and deployment</a><a href="glossary-prompting.html">Prompting</a><a href="glossary-building-apps.html">Building LLM apps</a><a href="glossary-evaluation.html">Evaluation and benchmarks</a><a href="glossary-safety-governance.html">Safety and governance</a><a href="glossary-business-pricing.html">Business and pricing</a></nav>
+<div class="filters" style="margin-top:1.5rem"><div class="filters__top"><label class="visually-hidden" for="gl-q">Filter terms</label><input class="input" id="gl-q" type="search" placeholder="Filter 22 terms" autocomplete="off"></div>
+<p class="result-count" id="gl-count" aria-live="polite">22 terms</p>
+</div>
+<aside class="ad-slot" data-ad="glossary-top" aria-label="Sponsored message"><span class="ad-label">From LLModel</span><div class="ad-fill"><div class="house"><div><strong>Building with LLMs?</strong><span>Tell us what you&#x27;re building and get a vendor-neutral stack plan within 2 business days.</span></div>
+<a class="btn btn--ghost btn--sm" href="hire-llm-experts.html">Get my stack plan</a></div>
+</div>
+</aside>
+<div id="gl-list"><div class="terms"><article class="term" id="agi" data-cat="Fundamentals" data-text="artificial general intelligence (agi) agi"><h3>Artificial general intelligence (AGI) <span class="aka">AGI</span><a class="anchor" href="#agi" aria-label="Link to Artificial general intelligence (AGI)">#</a></h3>
+<p class="short">A hypothetical AI that can match or exceed people across most cognitive tasks, not just narrow ones.</p>
+<p class="def">Artificial general intelligence describes an AI system able to learn and perform most intellectual tasks a capable person can, adapting to new problems without being specially built for each. There is no agreed test or definition: some researchers frame it in terms of economically valuable work, others in terms of flexible learning or autonomy. Several AI labs state AGI as their goal, and predictions about its arrival vary wildly. For practical purposes, treat AGI claims in marketing with caution and judge models by measured performance on the tasks you care about.</p>
+<div class="rel tags"><a class="tag" href="#frontier-model">Frontier model</a><a class="tag" href="#emergent-abilities">Emergent abilities</a><a class="tag" href="glossary-safety-governance.html#alignment">Alignment</a></div>
+</article>
+<article class="term" id="autoregressive-model" data-cat="Fundamentals" data-text="autoregressive model autoregressive generation next-token prediction"><h3>Autoregressive model <span class="aka">autoregressive generation, next-token prediction</span><a class="anchor" href="#autoregressive-model" aria-label="Link to Autoregressive model">#</a></h3>
+<p class="short">A model that generates output one token at a time, each conditioned on everything before it.</p>
+<p class="def">An autoregressive model produces a sequence step by step: it predicts a probability distribution for the next token, one token is chosen, that token is appended to the input, and the loop repeats. Nearly all of today&#x27;s LLMs work this way. The design is simple and powerful but has two practical consequences. Generation is inherently sequential, so a 1,000-token answer needs about 1,000 forward passes, which is why output speed is limited and techniques like speculative decoding exist. And early mistakes can&#x27;t be revised; the model can only continue from what it has already written.</p>
+<div class="rel tags"><a class="tag" href="glossary-architecture.html#decoder-only">Decoder-only model</a><a class="tag" href="glossary-inference-deployment.html#inference">Inference</a><a class="tag" href="glossary-inference-deployment.html#speculative-decoding">Speculative decoding</a><a class="tag" href="glossary-architecture.html#diffusion-language-model">Diffusion language model</a></div>
+</article>
+<article class="term" id="base-model" data-cat="Fundamentals" data-text="base model pretrained model"><h3>Base model <span class="aka">pretrained model</span><a class="anchor" href="#base-model" aria-label="Link to Base model">#</a></h3>
+<p class="short">A model straight out of pretraining that continues text but hasn&#x27;t been tuned to follow instructions.</p>
+<p class="def">A base model is the raw result of pretraining: it has absorbed patterns from vast amounts of text and is excellent at continuing whatever you give it, but it hasn&#x27;t been taught to act as an assistant. Ask a base model a question and it may answer, write more questions or continue in the style of a forum thread. Developers use base models as the starting point for their own fine-tuning, for research, and for tasks like text completion or synthetic data generation. Most people interact with chat or instruct versions, which are the same base model after instruction tuning and preference training.</p>
+<div class="rel tags"><a class="tag" href="glossary-training.html#pretraining">Pretraining</a><a class="tag" href="#chat-model">Chat model</a><a class="tag" href="glossary-training.html#instruction-tuning">Instruction tuning</a></div>
+</article>
+<article class="term" id="byte-pair-encoding" data-cat="Fundamentals" data-text="byte-pair encoding (bpe) bpe"><h3>Byte-pair encoding (BPE) <span class="aka">BPE</span><a class="anchor" href="#byte-pair-encoding" aria-label="Link to Byte-pair encoding (BPE)">#</a></h3>
+<p class="short">A subword tokenization method that builds a vocabulary by repeatedly merging the most frequent adjacent symbol pairs.</p>
+<p class="def">Byte-pair encoding is the most widely used way to build an LLM tokenizer. Training starts with individual characters or bytes, counts which adjacent pairs appear most often in a large text sample, merges the top pair into a new symbol, and repeats until the vocabulary reaches a target size. Frequent words like &#x27;the&#x27; end up as single tokens, while rare words are assembled from smaller pieces instead of being marked unknown. Byte-level BPE goes further by working on raw bytes, so it can represent any language, emoji or odd string. The technique began as a 1990s compression algorithm and was adapted for neural machine translation in 2015 before becoming standard for LLMs.</p>
+<div class="rel tags"><a class="tag" href="#tokenization">Tokenization</a><a class="tag" href="#token">Token</a><a class="tag" href="#special-tokens">Special tokens</a></div>
+</article>
+<article class="term" id="chat-model" data-cat="Fundamentals" data-text="chat model instruct model instruction-tuned model assistant model"><h3>Chat model <span class="aka">instruct model, instruction-tuned model, assistant model</span><a class="anchor" href="#chat-model" aria-label="Link to Chat model">#</a></h3>
+<p class="short">A base model further trained to follow instructions and hold a conversation in turns.</p>
+<p class="def">A chat model, also called an instruct model, starts as a base model and then goes through post-training: supervised fine-tuning on example conversations, followed by preference training such as RLHF or DPO. The result answers questions directly, follows formatting instructions, declines some harmful requests and keeps track of who said what across turns using a chat template. Open-weights releases often come in pairs, a base checkpoint and a version labeled Instruct or Chat, so you can choose a raw model for your own fine-tuning or a ready-to-use assistant. For almost all application work, you want the chat version.</p>
+<div class="rel tags"><a class="tag" href="#base-model">Base model</a><a class="tag" href="glossary-training.html#instruction-tuning">Instruction tuning</a><a class="tag" href="glossary-training.html#rlhf">Reinforcement learning from human feedback (RLHF)</a><a class="tag" href="glossary-prompting.html#prompt-template">Prompt template</a></div>
+</article>
+<article class="term" id="context-window" data-cat="Fundamentals" data-text="context window context length context size"><h3>Context window <span class="aka">context length, context size</span><a class="anchor" href="#context-window" aria-label="Link to Context window">#</a></h3>
+<p class="short">The maximum number of tokens a model can consider at once, covering both input and output.</p>
+<p class="def">The context window is the model&#x27;s working memory for a single request: everything it can see at once, including the system prompt, conversation history, retrieved documents, tool results and the answer it is writing. Anything outside the window is invisible to the model. Sizes are quoted in tokens; as of October 2026, several frontier models accept a million tokens or more, while many smaller open models top out between 32,000 and 128,000. A bigger window is not free: each extra token adds cost and latency, and models often use information in the middle of very long inputs less reliably than material near the start or end.</p>
+<div class="rel tags"><a class="tag" href="#token">Token</a><a class="tag" href="#long-context">Long context</a><a class="tag" href="glossary-inference-deployment.html#kv-cache">KV cache</a><a class="tag" href="glossary-evaluation.html#lost-in-the-middle">Lost in the middle</a></div>
+</article>
+<article class="term" id="embedding" data-cat="Fundamentals" data-text="embedding vector embedding embedding vector"><h3>Embedding <span class="aka">vector embedding, embedding vector</span><a class="anchor" href="#embedding" aria-label="Link to Embedding">#</a></h3>
+<p class="short">A list of numbers that represents the meaning of a token, sentence or document as a point in space.</p>
+<p class="def">An embedding is a fixed-length vector of numbers, often hundreds or thousands of dimensions long, that encodes meaning so that similar items sit close together. Inside an LLM, every token is first converted to an embedding before the transformer layers process it. Separately, dedicated embedding models turn whole sentences or documents into vectors for search: &#x27;How do I reset my password?&#x27; and &#x27;forgot login credentials&#x27; land near each other even though they share no words. You compare embeddings with a similarity measure such as cosine similarity, which is the core operation behind semantic search and retrieval-augmented generation.</p>
+<div class="rel tags"><a class="tag" href="glossary-building-apps.html#embedding-model">Embedding model</a><a class="tag" href="glossary-building-apps.html#vector-database">Vector database</a><a class="tag" href="glossary-building-apps.html#cosine-similarity">Cosine similarity</a><a class="tag" href="glossary-building-apps.html#semantic-search">Semantic search</a></div>
+</article>
+<article class="term" id="emergent-abilities" data-cat="Fundamentals" data-text="emergent abilities emergence"><h3>Emergent abilities <span class="aka">emergence</span><a class="anchor" href="#emergent-abilities" aria-label="Link to Emergent abilities">#</a></h3>
+<p class="short">Skills that seem to appear suddenly once models pass a certain scale, rather than improving gradually.</p>
+<p class="def">Emergent abilities are capabilities that small models lack but larger models display, such as multi-step arithmetic or following novel instructions from a few examples. A widely cited 2022 study documented many tasks where performance jumped sharply past a certain scale. Later work argued that many of these jumps reflect the metric, not the model: scoring answers as all-or-nothing hides steady underlying improvement that smoother metrics reveal. The practical lesson is that capabilities can be hard to predict from smaller versions of a model, which is one reason labs evaluate each new model directly.</p>
+<div class="rel tags"><a class="tag" href="glossary-training.html#scaling-laws">Scaling laws</a><a class="tag" href="glossary-evaluation.html#benchmark">Benchmark</a><a class="tag" href="glossary-prompting.html#in-context-learning">In-context learning (ICL)</a></div>
+</article>
+<article class="term" id="foundation-model" data-cat="Fundamentals" data-text="foundation model general-purpose ai model"><h3>Foundation model <span class="aka">general-purpose AI model</span><a class="anchor" href="#foundation-model" aria-label="Link to Foundation model">#</a></h3>
+<p class="short">A large model trained on broad data that can be adapted to many downstream tasks.</p>
+<p class="def">A foundation model is a large model pretrained on broad, mostly unlabeled data and meant to serve as a base for many applications rather than one task. Stanford researchers popularized the term in 2021 to describe how a single model, such as an LLM, can be adapted through prompting, fine-tuning or retrieval to write code, answer support tickets or classify documents. The concept matters for governance too: the EU AI Act&#x27;s rules for general-purpose AI models target this category. LLMs are the best-known foundation models, but the term also covers image, audio and multimodal models.</p>
+<div class="rel tags"><a class="tag" href="#base-model">Base model</a><a class="tag" href="glossary-training.html#pretraining">Pretraining</a><a class="tag" href="glossary-training.html#fine-tuning">Fine-tuning</a><a class="tag" href="glossary-safety-governance.html#eu-ai-act">EU AI Act</a></div>
+</article>
+<article class="term" id="frontier-model" data-cat="Fundamentals" data-text="frontier model frontier ai"><h3>Frontier model <span class="aka">frontier AI</span><a class="anchor" href="#frontier-model" aria-label="Link to Frontier model">#</a></h3>
+<p class="short">One of the most capable models available at a given time, usually from a well-funded lab.</p>
+<p class="def">A frontier model sits at the leading edge of capability when it is released, typically trained with enormous compute by a small number of well-resourced labs. The label is relative: today&#x27;s frontier becomes mid-tier within a year or two as newer models and cheaper competitors catch up. Regulators use related ideas to decide who faces extra obligations. Under the EU AI Act, for example, a general-purpose model trained with more than 10^25 floating-point operations is presumed to carry systemic risk. For buyers, frontier models offer the best quality on hard tasks but usually the highest price per token.</p>
+<div class="rel tags"><a class="tag" href="#foundation-model">Foundation model</a><a class="tag" href="glossary-training.html#scaling-laws">Scaling laws</a><a class="tag" href="glossary-safety-governance.html#eu-ai-act">EU AI Act</a><a class="tag" href="glossary-inference-deployment.html#flops">FLOPs</a></div>
+</article>
+<aside class="ad-slot" data-ad="in-article-2" aria-label="Sponsored message"><span class="ad-label">From LLModel</span><div class="ad-fill"><div class="house"><div><strong>Selling to LLM builders?</strong><span>List your model, API or tool where teams compare their options.</span></div>
+<a class="btn btn--ghost btn--sm" href="list-your-product.html">See listing options</a></div>
+</div>
+</aside>
+<article class="term" id="hallucination" data-cat="Fundamentals" data-text="hallucination confabulation fabrication"><h3>Hallucination <span class="aka">confabulation, fabrication</span><a class="anchor" href="#hallucination" aria-label="Link to Hallucination">#</a></h3>
+<p class="short">When a model states something false or unsupported with the same confidence as a fact.</p>
+<p class="def">A hallucination is output that sounds plausible but is wrong or made up: a citation to a paper that doesn&#x27;t exist, an API function that was never written, or a confident summary that contradicts its source. It happens because a language model generates statistically likely text rather than looking facts up, and training rarely rewards saying &#x27;I don&#x27;t know.&#x27; You can reduce hallucinations by grounding answers in retrieved documents, asking for citations you can check, lowering temperature for factual tasks and letting the model abstain. You cannot eliminate them, so high-stakes outputs need verification by a person or an automated check.</p>
+<div class="rel tags"><a class="tag" href="glossary-building-apps.html#grounding">Grounding</a><a class="tag" href="glossary-building-apps.html#rag">Retrieval-augmented generation (RAG)</a><a class="tag" href="glossary-building-apps.html#citations">Citations</a></div>
+</article>
+<article class="term" id="knowledge-cutoff" data-cat="Fundamentals" data-text="knowledge cutoff training cutoff training data cutoff"><h3>Knowledge cutoff <span class="aka">training cutoff, training data cutoff</span><a class="anchor" href="#knowledge-cutoff" aria-label="Link to Knowledge cutoff">#</a></h3>
+<p class="short">The date after which a model&#x27;s training data stops, so it knows little about later events.</p>
+<p class="def">The knowledge cutoff is the point in time where a model&#x27;s training data ends. Ask about anything after it, such as a new library release, a recent price change or this week&#x27;s news, and the model will either say it doesn&#x27;t know or, worse, guess. Cutoffs usually trail a model&#x27;s public release by several months, and coverage thins out in the final months before the cutoff because less had been written about them yet. To work with current information, give the model fresh context through retrieval, web search or tool calls, and include today&#x27;s date in the prompt when timing matters.</p>
+<div class="rel tags"><a class="tag" href="glossary-building-apps.html#rag">Retrieval-augmented generation (RAG)</a><a class="tag" href="glossary-building-apps.html#grounding">Grounding</a><a class="tag" href="glossary-training.html#pretraining">Pretraining</a></div>
+</article>
+<article class="term" id="large-language-model" data-cat="Fundamentals" data-text="large language model (llm) llm language model"><h3>Large language model (LLM) <span class="aka">LLM, language model</span><a class="anchor" href="#large-language-model" aria-label="Link to Large language model (LLM)">#</a></h3>
+<p class="short">A neural network trained on huge amounts of text to predict and generate language.</p>
+<p class="def">A large language model is a neural network, almost always a transformer, trained on vast amounts of text to predict the next token in a sequence. Repeating that one prediction step lets it draft emails, answer questions, write code and summarize documents. Large refers to the parameter count, which ranges from a few billion to a trillion or more, and to the compute spent on training. An LLM has no built-in database of facts; what it knows is stored implicitly in its weights, which is why it can sound confident while being wrong. Most products you use pair a pretrained model with further tuning so it follows instructions.</p>
+<div class="rel tags"><a class="tag" href="glossary-architecture.html#transformer">Transformer</a><a class="tag" href="#token">Token</a><a class="tag" href="#foundation-model">Foundation model</a><a class="tag" href="glossary-training.html#pretraining">Pretraining</a></div>
+</article>
+<article class="term" id="long-context" data-cat="Fundamentals" data-text="long context long-context model long-context window"><h3>Long context <span class="aka">long-context model, long-context window</span><a class="anchor" href="#long-context" aria-label="Link to Long context">#</a></h3>
+<p class="short">The ability to process very long inputs, from hundreds of thousands to millions of tokens.</p>
+<p class="def">Long context refers to models and techniques that handle very large inputs in one request, such as an entire codebase, a stack of contracts or hours of transcripts. It relies on architectural work like extended position encodings, efficient attention kernels and compressed KV caches. Long context can replace a retrieval pipeline for small or one-off document sets, but it has trade-offs: cost and latency grow with every token, and accuracy can slip on facts buried mid-document. A common pattern is to retrieve the most relevant material first and use long context for the parts that need full detail.</p>
+<div class="rel tags"><a class="tag" href="#context-window">Context window</a><a class="tag" href="glossary-evaluation.html#needle-in-a-haystack">Needle in a haystack</a><a class="tag" href="glossary-evaluation.html#lost-in-the-middle">Lost in the middle</a><a class="tag" href="glossary-building-apps.html#rag">Retrieval-augmented generation (RAG)</a></div>
+</article>
+<article class="term" id="multimodal" data-cat="Fundamentals" data-text="multimodal multimodal model multimodal llm vision-language model"><h3>Multimodal <span class="aka">multimodal model, multimodal LLM, vision-language model</span><a class="anchor" href="#multimodal" aria-label="Link to Multimodal">#</a></h3>
+<p class="short">Able to take in or produce more than one kind of data, such as text, images and audio.</p>
+<p class="def">A multimodal model handles several input or output types instead of text alone. The most common form is a vision-language model that accepts images alongside text, so you can ask it to read a chart, transcribe a receipt or describe a screenshot. Others accept audio or video, and some can generate images or speech as well as text. Under the hood, non-text inputs are usually converted into embeddings the language model can attend to, much like extra tokens, and a single image can consume hundreds or thousands of tokens. Check a model&#x27;s documentation for which modalities it supports in each direction, since input and output support often differ.</p>
+<div class="rel tags"><a class="tag" href="#large-language-model">Large language model (LLM)</a><a class="tag" href="glossary-building-apps.html#computer-use">Computer use</a><a class="tag" href="#embedding">Embedding</a></div>
+</article>
+<article class="term" id="open-weights" data-cat="Fundamentals" data-text="open weights open-weight model open model"><h3>Open weights <span class="aka">open-weight model, open model</span><a class="anchor" href="#open-weights" aria-label="Link to Open weights">#</a></h3>
+<p class="short">A model whose trained parameters are published for anyone to download and run.</p>
+<p class="def">An open-weights model is one whose trained parameters you can download, run on your own hardware and usually fine-tune. That differs from open source in the full sense: the training data and code may stay private, and the license may restrict some uses, so check it before building a product. Open weights give you control over privacy, cost and customization, and you can&#x27;t lose access if a provider retires a model. In exchange you take on hosting, scaling and safety work yourself. The quality gap between the strongest open-weights and closed models has narrowed considerably since 2023, though it varies by task.</p>
+<div class="rel tags"><a class="tag" href="glossary-business-pricing.html#license">Model license</a><a class="tag" href="glossary-safety-governance.html#open-source-ai-definition">Open Source AI Definition (OSAID)</a><a class="tag" href="glossary-inference-deployment.html#self-hosting">Self-hosting</a></div>
+</article>
+<article class="term" id="parameters" data-cat="Fundamentals" data-text="parameters weights parameter count"><h3>Parameters <span class="aka">weights, parameter count</span><a class="anchor" href="#parameters" aria-label="Link to Parameters">#</a></h3>
+<p class="short">The learned numbers inside a model; their count is the usual measure of model size.</p>
+<p class="def">Parameters are the numerical values, mostly weights in matrix multiplications, that a model adjusts during training and then uses to compute its outputs. A model described as 8B has about eight billion of them. Parameter count drives memory needs: at 16-bit precision each parameter takes two bytes, so an 8B model needs roughly 16 GB just to hold its weights, before any working memory. More parameters generally mean more capacity, but training data, architecture and post-training matter as much, and a mixture-of-experts model may use only a fraction of its total parameters for each token.</p>
+<div class="rel tags"><a class="tag" href="glossary-inference-deployment.html#vram">VRAM (GPU memory)</a><a class="tag" href="glossary-training.html#scaling-laws">Scaling laws</a><a class="tag" href="glossary-inference-deployment.html#quantization">Quantization</a><a class="tag" href="glossary-architecture.html#mixture-of-experts">Mixture of experts (MoE)</a></div>
+</article>
+<article class="term" id="reasoning-model" data-cat="Fundamentals" data-text="reasoning model thinking model large reasoning model"><h3>Reasoning model <span class="aka">thinking model, large reasoning model</span><a class="anchor" href="#reasoning-model" aria-label="Link to Reasoning model">#</a></h3>
+<p class="short">An LLM trained to work through a problem in intermediate steps before giving its final answer.</p>
+<p class="def">A reasoning model generates a stretch of intermediate thinking, sometimes hidden and sometimes summarized, before producing its answer. It is trained largely with reinforcement learning on problems whose answers can be checked, such as math and code, so it learns to plan, test ideas and backtrack. This makes it markedly better on multi-step tasks, at the price of more output tokens, higher cost and longer waits. Many APIs let you control how much the model thinks through a setting such as reasoning effort or a thinking budget. For simple lookups or rewriting, a standard model is usually faster and cheaper.</p>
+<div class="rel tags"><a class="tag" href="glossary-prompting.html#chain-of-thought">Chain-of-thought prompting (CoT)</a><a class="tag" href="glossary-inference-deployment.html#test-time-compute">Test-time compute</a><a class="tag" href="glossary-training.html#rlvr">Reinforcement learning with verifiable rewards (RLVR)</a><a class="tag" href="glossary-training.html#grpo">Group relative policy optimization (GRPO)</a></div>
+</article>
+<article class="term" id="small-language-model" data-cat="Fundamentals" data-text="small language model (slm) slm compact model"><h3>Small language model (SLM) <span class="aka">SLM, compact model</span><a class="anchor" href="#small-language-model" aria-label="Link to Small language model (SLM)">#</a></h3>
+<p class="short">A language model small enough to run cheaply or on a single device, often under about 10B parameters.</p>
+<p class="def">A small language model is a compact LLM, typically from a few hundred million to roughly ten billion parameters, built to run on a laptop, phone or a single modest GPU. SLMs trade breadth of knowledge for speed, privacy and low cost. They are often trained with distillation from larger models and heavy data filtering, which lets them punch above their size on focused tasks. They work well for classification, extraction, routing and on-device assistants, especially after fine-tuning on your own data. For open-ended reasoning or broad world knowledge, larger models still usually win.</p>
+<div class="rel tags"><a class="tag" href="glossary-inference-deployment.html#on-device-ai">On-device AI</a><a class="tag" href="glossary-training.html#distillation">Distillation</a><a class="tag" href="glossary-inference-deployment.html#quantization">Quantization</a><a class="tag" href="glossary-building-apps.html#model-routing">Model routing and fallback</a></div>
+</article>
+<article class="term" id="special-tokens" data-cat="Fundamentals" data-text="special tokens control tokens reserved tokens"><h3>Special tokens <span class="aka">control tokens, reserved tokens</span><a class="anchor" href="#special-tokens" aria-label="Link to Special tokens">#</a></h3>
+<p class="short">Reserved tokens that mark structure, such as the start of a message or the end of output.</p>
+<p class="def">Special tokens are vocabulary entries that carry structure rather than text. Typical examples mark the beginning and end of a sequence, separate the system, user and assistant turns in a chat, or signal a tool call. When a model emits its end-of-sequence token, generation stops. You rarely type these yourself because chat APIs and prompt templates insert them automatically, but they matter when you run open models locally: using the wrong chat template, or letting user text masquerade as a special token, can degrade answers or open a path for prompt injection.</p>
+<div class="rel tags"><a class="tag" href="#tokenization">Tokenization</a><a class="tag" href="glossary-prompting.html#prompt-template">Prompt template</a><a class="tag" href="#chat-model">Chat model</a><a class="tag" href="glossary-safety-governance.html#prompt-injection">Prompt injection</a></div>
+</article>
+<article class="term" id="token" data-cat="Fundamentals" data-text="token"><h3>Token <a class="anchor" href="#token" aria-label="Link to Token">#</a></h3>
+<p class="short">The basic unit of text a language model reads and writes, often a word or word fragment.</p>
+<p class="def">A token is the chunk of text a model actually processes: a whole word, part of a word, a punctuation mark or a byte. A tokenizer splits your input into tokens before the model sees it and turns the model&#x27;s output tokens back into text. In English, one token averages roughly four characters, or about three-quarters of a word, so a 1,500-word article is around 2,000 tokens. Tokens matter in practice because providers bill per token, context windows are measured in tokens, and generation speed is quoted in tokens per second. Code, non-English text and unusual strings often use more tokens per word.</p>
+<div class="rel tags"><a class="tag" href="#tokenization">Tokenization</a><a class="tag" href="#context-window">Context window</a><a class="tag" href="glossary-business-pricing.html#cost-per-token">Cost per token</a><a class="tag" href="#byte-pair-encoding">Byte-pair encoding (BPE)</a></div>
+</article>
+<article class="term" id="tokenization" data-cat="Fundamentals" data-text="tokenization tokenizer"><h3>Tokenization <span class="aka">tokenizer</span><a class="anchor" href="#tokenization" aria-label="Link to Tokenization">#</a></h3>
+<p class="short">Splitting text into the tokens a model uses, and mapping each one to an ID number.</p>
+<p class="def">Tokenization is the step that converts raw text into a list of integer IDs drawn from a fixed vocabulary, and back again. Most modern LLMs use subword schemes such as byte-pair encoding, so common words map to a single token while rare words break into pieces: a long technical term might become four or five tokens. Vocabularies typically hold from about 32,000 to over 200,000 entries. Each model family ships its own tokenizer, so the same paragraph can produce noticeably different token counts, and therefore different costs, across providers. Tokenization also explains some odd failures, like miscounting the letters in a word the model never sees letter by letter.</p>
+<div class="rel tags"><a class="tag" href="#token">Token</a><a class="tag" href="#byte-pair-encoding">Byte-pair encoding (BPE)</a><a class="tag" href="#special-tokens">Special tokens</a></div>
+</article>
+</div>
+</div>
+<p class="empty" id="gl-empty" hidden>No terms on this page match that filter. Try a shorter word, or filter <a href="glossary.html">all 169 terms</a>.</p>
+<section class="lead-band" aria-labelledby="lead-default-glossary">
+  <div>
+    <h2 id="lead-default-glossary">Building with LLMs? Get a vendor-neutral plan.</h2>
+    <p>Tell us what you&#x27;re building. Within 2 business days you get a model shortlist, an architecture outline and a cost estimate, plus optional introductions to vetted implementation partners.</p>
+    <ul><li>Free and vendor-neutral: no model provider pays for placement.</li>
+<li>Your details go only to partners you agree to.</li>
+</ul>
+  </div>
+  <form class="mini-form" action="hire-llm-experts.html" method="get">
+    <label for="need-default-glossary">What do you need help with?</label>
+    <select id="need-default-glossary" name="need"><option value="choose-model">Choose the right model</option>
+<option value="chatbot">Build a chatbot or assistant</option>
+<option value="rag">Answer questions over our documents (RAG)</option>
+<option value="agents">Automate work with AI agents</option>
+<option value="self-host">Fine-tune or self-host a model</option>
+<option value="cut-costs">Cut our LLM costs</option>
+<option value="security">Security, privacy or compliance review</option>
+<option value="not-sure">Not sure yet</option>
+</select>
+    <input type="hidden" name="from" value="glossary">
+    <button class="btn btn--yellow btn--block" type="submit">Start my free plan</button>
+    <p class="fine">Takes about 2 minutes. No sales calls unless you ask for one.</p>
+  </form>
+</section>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+      <p>The independent field guide to large language models. Model data checked against provider documentation; last full check October 10, 2026.</p>
+    </div>
+    <div><h2>Explore</h2>
+<ul><li><a href="models.html">Model directory</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare models</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="search.html">Search</a></li>
+</ul>
+</div>
+<div><h2>Tools</h2>
+<ul><li><a href="llm-cost-calculator.html">Cost calculator</a></li>
+<li><a href="token-counter.html">Token counter</a></li>
+<li><a href="vram-calculator.html">GPU and VRAM calculator</a></li>
+<li><a href="llm-picker.html">Which LLM should I use?</a></li>
+<li><a href="context-window-visualizer.html">Context window visualizer</a></li>
+<li><a href="prompt-builder.html">Prompt builder</a></li>
+<li><a href="self-host-vs-api-calculator.html">Self-host vs API calculator</a></li>
+</ul>
+</div>
+<div><h2>Learn</h2>
+<ul><li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+</ul>
+</div>
+<div><h2>Work with us</h2>
+<ul><li><a href="hire-llm-experts.html">Get expert help</a></li>
+<li><a href="list-your-product.html">List your product</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</div>
+<div><h2>About</h2>
+<ul><li><a href="about.html">About LLModel</a></li>
+<li><a href="editorial-policy.html">Editorial policy</a></li>
+<li><a href="privacy.html">Privacy policy</a></li>
+<li><a href="terms.html">Terms of use</a></li>
+<li><a href="disclaimer.html">Disclaimer</a></li>
+<li><a href="trademark-copyright.html">Trademark and copyright</a></li>
+<li><a href="sitemap.html">Site map</a></li>
+<li><button class="linklike" type="button" data-privacy-choices>Privacy and cookie choices</button></li>
+</ul>
+</div>
+  </div>
+  <div class="wrap footer-legal">
+    <p>&copy; 2026 LLModel.com. Independent: not affiliated with, endorsed by or sponsored by any model provider. Model and company names are trademarks of their respective owners and are used only to identify products. See <a href="trademark-copyright.html">trademark and copyright</a>.</p>
+    <p>Prices and specifications change often. Always confirm on the provider's own pricing page before you buy.</p>
+  </div>
+</footer>
+<div class="palette" id="palette" hidden role="dialog" aria-modal="true" aria-label="Search LLModel">
+  <div class="palette__box">
+    <label class="visually-hidden" for="palette-input">Search models, tools, guides and terms</label>
+    <input class="palette__input" id="palette-input" type="search" placeholder="Search models, tools, guides, terms" autocomplete="off" spellcheck="false" aria-controls="palette-list">
+    <ul class="palette__list" id="palette-list" role="listbox"></ul>
+    <div class="palette__foot"><span><span class="kbd">&uarr;</span> <span class="kbd">&darr;</span> to move</span><span><span class="kbd">Enter</span> to open</span><span><span class="kbd">Esc</span> to close</span></div>
+  </div>
+</div>
+<script src="assets/js/config.js?v=caa5324cbb"></script>
+
+<script src="assets/js/app.js?v=4b39d7c1bd" defer></script>
+<script src="assets/js/pages/glossary.js?v=a99c13579b" defer></script>
+</body>
+</html>
