@@ -1,0 +1,273 @@
+<!--meta
+{
+  "slug": "prompt-engineering-guide",
+  "title": "Prompt Engineering Guide: Techniques, Examples and a Reusable Template",
+  "h1": "Prompt engineering: a practical guide with examples",
+  "description": "Prompt engineering guide with before-and-after examples: the parts of a prompt, core techniques, prompting reasoning models, testing, and a reusable template.",
+  "category": "Building",
+  "level": "Beginner",
+  "updated": "2026-10-10",
+  "keywords": ["prompt engineering", "prompt engineering guide", "prompt engineering techniques", "few-shot prompting", "how to write prompts", "prompting reasoning models"],
+  "summary": "A practical guide to writing prompts that work: the five parts of a prompt, core principles, eight techniques with before-and-after examples, and how reasoning models change the rules. Includes a testing workflow and a reusable template.",
+  "key_takeaways": [
+    "A complete prompt has five parts: instructions, context, examples, the input and an output format.",
+    "Specific goals, stated reasons and explicit formats do more for quality than clever phrasing.",
+    "Use schema-enforced structured outputs when code reads the response, and delimiters to separate instructions from data.",
+    "For reasoning models, describe the outcome and success criteria and set effort in the API instead of writing 'think step by step'.",
+    "Treat prompts like code: version them, pin model snapshots and rerun a test set after every change."
+  ],
+  "faq": [
+    {"q": "What is prompt engineering?", "a": "Prompt engineering is the practice of designing the instructions, context, examples and format rules you give a language model so it produces useful, consistent output. It covers wording, structure, choosing techniques such as few-shot examples or prompt chaining, and testing prompts against real inputs. It is usually the cheapest and fastest way to improve results before you consider retrieval or fine-tuning."},
+    {"q": "Does 'think step by step' still work?", "a": "With standard, non-reasoning models, asking for step-by-step reasoning still tends to help on multi-step math and logic. With reasoning models it is usually unnecessary, because they reason internally before answering, and OpenAI's guidance warns it can even reduce quality. Set the reasoning effort or thinking level in the API instead, and use the prompt to describe the goal and what a correct answer looks like."},
+    {"q": "How many examples should a few-shot prompt include?", "a": "Start with two or three and add more only if test results improve. Anthropic's guidance suggests three to five varied examples, while OpenAI recommends trying reasoning models with no examples first. Make the examples diverse, include an edge case, keep their format identical, and make sure they agree with your written instructions, since models tend to imitate examples over rules when the two conflict."},
+    {"q": "Should instructions go in the system prompt or the user message?", "a": "Put stable rules, the role, the output format and examples in the system prompt or developer message, and put the changing input in the user message. Providers give system-level instructions higher priority, and keeping that prefix identical across requests lets prompt caching cut cost and latency. Never place secrets or access rules in either, because prompts can leak."},
+    {"q": "How do I know if a prompt change made things better?", "a": "Run the old and new versions on the same test set of real inputs, ideally 30 to 100 cases including known failures, and compare pass rates, cost and latency. Score structured outputs with code and open-ended answers with a rubric. Run each case more than once, because outputs vary, and treat small differences as noise until they repeat."}
+  ],
+  "sources": [
+    {"title": "OpenAI: Prompt engineering guide", "url": "https://developers.openai.com/api/docs/guides/prompt-engineering"},
+    {"title": "OpenAI: Reasoning best practices", "url": "https://developers.openai.com/api/docs/guides/reasoning-best-practices"},
+    {"title": "OpenAI: Using the latest models (GPT-6 family and GPT-5.5 guidance)", "url": "https://developers.openai.com/api/docs/guides/latest-model/gpt-5.5"},
+    {"title": "Anthropic: Prompting best practices for Claude", "url": "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"},
+    {"title": "Anthropic: Extended thinking tips", "url": "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/extended-thinking-tips"},
+    {"title": "Google: Prompt design strategies for the Gemini API", "url": "https://ai.google.dev/gemini-api/docs/prompting-strategies"},
+    {"title": "Google: Gemini thinking", "url": "https://ai.google.dev/gemini-api/docs/generate-content/thinking"},
+    {"title": "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models (Wei et al., 2022)", "url": "https://arxiv.org/abs/2201.11903"},
+    {"title": "Language Models are Few-Shot Learners (Brown et al., 2020)", "url": "https://arxiv.org/abs/2005.14165"}
+  ],
+  "related_tools": ["prompt-builder", "token-counter", "llm-cost-calculator"],
+  "related_guides": ["fine-tuning-vs-rag-vs-prompting", "llm-hallucinations", "ai-agents-explained", "llm-benchmarks-explained"]
+}
+-->
+<p>A prompt is the main lever you have over a language model's behavior at run time, so small wording changes can swing quality, cost and reliability. This guide breaks a prompt into its parts, covers the principles that matter most, walks through eight techniques with before-and-after examples, explains what changes with reasoning models as of October 2026, and ends with a template you can reuse.</p>
+<p>The advice applies to chat apps and APIs alike. If the term is new to you, the <a href="glossary.html#prompt-engineering">prompt engineering</a> glossary entry is a one-minute primer.</p>
+
+<h2 id="what-a-prompt-is-made-of">What a prompt is made of</h2>
+<p>Most effective prompts combine five parts. You won't need all five every time, but knowing them makes it obvious what a weak prompt is missing.</p>
+<table>
+<thead><tr><th>Part</th><th>What it does</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td>Instructions</td><td>States the task and the rules</td><td>"Classify each support ticket by urgency."</td></tr>
+<tr><td>Context</td><td>Explains background, audience and purpose</td><td>"Customers are small businesses; urgent means they can't take payments."</td></tr>
+<tr><td>Examples</td><td>Shows the pattern you want</td><td>Three sample tickets with correct labels</td></tr>
+<tr><td>Input</td><td>The data to work on this time</td><td>The text of today's ticket</td></tr>
+<tr><td>Output format</td><td>Defines the shape of the answer</td><td>"Return JSON with the fields urgency and reason."</td></tr>
+</tbody>
+</table>
+<p>In an API call, the stable parts (role, rules, format, examples) usually go in the <a href="glossary.html#system-prompt">system prompt</a> or developer message, while the changing input goes in the user message. That split keeps behavior consistent across requests and lets <a href="glossary.html#prompt-caching">prompt caching</a> reuse the repeated prefix, which lowers cost and latency.</p>
+<p>Every part also costs <a href="glossary.html#token">tokens</a>. A 1,500-token system prompt sent with 200,000 requests a month adds up to 300 million input tokens before any user text, so cut anything that doesn't change the output. The <a href="token-counter.html">token counter</a> shows what yours costs.</p>
+
+<h2 id="core-principles">Core principles</h2>
+<h3 id="be-specific">Be specific</h3>
+<p>Vague requests get generic answers because the model fills the gaps with the most average interpretation. Name the audience, length, scope and what a good result looks like.</p>
+<pre><code>Before:
+Write about our new feature.
+
+After:
+Write a 120-word announcement of our new CSV export for existing
+customers of a payroll app. Lead with the benefit (exports open
+cleanly in Excel), say it's included on every plan, and end with
+one sentence on where to find it (Settings &gt; Reports).</code></pre>
+<h3 id="give-context-and-purpose">Give context and purpose</h3>
+<p>Explaining why a rule exists helps the model apply it to cases you didn't foresee. "Keep answers under 40 words" is a rule. "Keep answers under 40 words because they appear in a phone notification" is a rule the model can generalize, for example by also dropping greetings and sign-offs.</p>
+<h3 id="show-examples">Show examples</h3>
+<p>One or two worked examples often communicate format and tone faster than a paragraph of description. Anthropic's current guidance suggests three to five varied examples, while OpenAI advises starting reasoning models with none and adding examples only if needed. Either way, examples must agree with your written instructions, because models tend to copy the examples when the two conflict.</p>
+<h3 id="specify-the-format">Specify the format</h3>
+<p>State exactly what the output should look like: prose or bullets, length, headings, fields, units, date formats. If code will parse the response, enforce a schema, covered below, rather than hoping the model stays consistent.</p>
+<h3 id="set-constraints">Set constraints</h3>
+<p>Constraints mark the boundaries: which sources to use, a word limit, a reading level, what to do when information is missing. Phrase them positively where you can, since "write in plain paragraphs" works better than "don't use Markdown." Save absolute words like "always" and "never" for true invariants such as security rules or required fields.</p>
+
+<h2 id="techniques">Techniques with before-and-after examples</h2>
+<h3 id="role-and-system-prompts">Role and system prompts</h3>
+<p>A one-line role in the system prompt sets vocabulary, depth and tone. It works best when it names the audience and the job, not just an impressive title.</p>
+<pre><code>Before (user message only):
+Explain this error log.
+
+After (system prompt):
+You are a senior site-reliability engineer helping a junior developer.
+Explain errors in plain language, name the most likely root cause
+first, and give one command they can run to confirm it.</code></pre>
+<p>Don't rely on a role for security. System prompts can be extracted or overridden, so permissions belong in code, as the <a href="llm-security-and-privacy.html">LLM security guide</a> explains.</p>
+<h3 id="few-shot-examples">Few-shot examples</h3>
+<p><a href="glossary.html#few-shot-prompting">Few-shot prompting</a> means including input-output pairs so the model can copy the pattern. It's especially effective for classification, extraction and matching a house style.</p>
+<pre><code>Before:
+Tag the sentiment of this review: "Shipping took forever but the
+blender is great."
+
+After:
+Tag sentiment as positive, negative or mixed.
+
+Review: "Arrived early, works perfectly."
+Sentiment: positive
+
+Review: "Broke after two uses. The refund took a month."
+Sentiment: negative
+
+Review: "Shipping took forever but the blender is great."
+Sentiment:</code></pre>
+<p>Vary your examples so the model doesn't learn an accidental rule, and include at least one tricky case.</p>
+<h3 id="step-by-step-decomposition">Step-by-step decomposition</h3>
+<p>When a task has distinct stages, list them. The model is less likely to skip one, and you can see exactly which stage goes wrong.</p>
+<pre><code>Before:
+Is this vendor proposal any good?
+
+After:
+Evaluate the vendor proposal below in three steps:
+1. Summarize what they will deliver, by when, and for how much.
+2. List anything missing that a fixed-price IT project normally includes.
+3. Rate the proposal as strong, acceptable or weak, with two reasons.</code></pre>
+<p>This structures the output so you can review it. It isn't the same as telling a model how to think internally, which the next technique covers.</p>
+<h3 id="asking-for-reasoning">Asking for reasoning vs using a reasoning model</h3>
+<p>With a standard model, asking it to reason before answering, known as <a href="glossary.html#chain-of-thought">chain-of-thought</a> prompting, often improves multi-step math and logic. The 2022 research that named the technique showed large gains simply from including worked reasoning in the examples.</p>
+<p>A <a href="glossary.html#reasoning-model">reasoning model</a> already reasons internally before it writes the answer. Adding "think step by step" is redundant at best, and OpenAI's guidance notes it can hurt. Control depth with the API's effort or thinking setting instead, and spend the prompt on the goal and the success criteria.</p>
+<pre><code>Standard model:
+Solve the problem below. Work through it step by step, then give
+the final answer on its own line, starting with "Answer:".
+
+Reasoning model (effort is set in the API call, not the prompt):
+Solve the problem below. Give the final answer on its own line,
+starting with "Answer:".</code></pre>
+<h3 id="self-critique-and-revision">Self-critique and revision</h3>
+<p>Models catch more of their own errors when reviewing is a separate step with explicit criteria. The most dependable version uses two calls: one drafts, the other checks the draft against a list and rewrites it.</p>
+<pre><code>Before:
+Write a product description for our hiking boots.
+
+After (second call, with the draft attached):
+Review the draft below against these criteria:
+- Mentions weight, waterproofing and sizing advice
+- Under 150 words
+- No claims we can't prove, such as "best" or "lightest"
+List each criterion it fails, then output a corrected version.</code></pre>
+<p>Check this against your model, though. Anthropic advises removing carried-over self-check instructions for Claude Opus 5, which verifies its own work by default and can over-verify when told to.</p>
+<h3 id="structured-json-output">Structured JSON output</h3>
+<p>When software consumes the answer, ask for JSON and enforce it with your provider's <a href="glossary.html#structured-outputs">structured outputs</a> feature, which constrains the model to a JSON Schema you supply. OpenAI and Google both recommend schema enforcement over describing the format in prose.</p>
+<pre><code>Before:
+Pull the key details out of this invoice.
+
+After (instruction plus a schema passed to the API):
+Extract the invoice fields. Use null when a field is missing; never guess.
+
+{
+  "type": "object",
+  "properties": {
+    "vendor": {"type": "string"},
+    "invoice_date": {"type": ["string", "null"], "description": "YYYY-MM-DD"},
+    "total": {"type": ["number", "null"]},
+    "currency": {"type": ["string", "null"], "description": "ISO 4217 code"}
+  },
+  "required": ["vendor", "invoice_date", "total", "currency"],
+  "additionalProperties": false
+}</code></pre>
+<p>Keep a validation step anyway, because a valid shape can still hold a wrong value. The old trick of pre-filling the assistant's reply with an opening brace no longer works on newer Claude models, which reject a prefilled final assistant turn, so schema features are the durable approach.</p>
+<h3 id="delimiters">Delimiters</h3>
+<p>Delimiters such as XML-style tags, Markdown headings or triple quotes separate your instructions from the material they act on. They stop the model from confusing a pasted document with your request and make long prompts easier to maintain.</p>
+<pre><code>Before:
+Summarize this for the board: [three pages of meeting notes]
+
+After:
+&lt;meeting_notes&gt;
+...pasted notes...
+&lt;/meeting_notes&gt;
+
+&lt;instructions&gt;
+Summarize the meeting notes above for the board in five bullets.
+Flag any decision that changes the budget.
+&lt;/instructions&gt;</code></pre>
+<p>For long inputs, put the documents first and the question last. Anthropic reports quality gains of up to 30 percent in its tests from that ordering on complex, multi-document prompts. Delimiters aren't a security boundary, though: text inside the tags can still carry a <a href="glossary.html#prompt-injection">prompt injection</a>.</p>
+<h3 id="prompt-chaining">Prompt chaining</h3>
+<p>Prompt chaining splits a job into a sequence of focused calls, where each output feeds the next. You get inspectable intermediate results, the option to use a cheaper model for simple steps, and room for code checks in between.</p>
+<pre><code>Step 1 (small, fast model): Extract every customer complaint from
+these 40 reviews as a JSON list.
+Step 2 (plain code): Remove duplicates and count complaints by theme.
+Step 3 (stronger model): Write a one-page summary of the top five
+themes for the product team, with two quotes each.</code></pre>
+<p>Chaining adds latency and failure points, so use it when one prompt keeps failing or you need to audit the middle steps. Let the model choose the steps and call tools, and it becomes an <a href="ai-agents-explained.html">AI agent</a>.</p>
+
+<h2 id="prompting-reasoning-models">Prompting reasoning models in 2026</h2>
+<p>Reasoning models think before they respond, and that has overturned some long-standing advice. Here is what the three largest API providers recommend as of October 2026, based on their current documentation.</p>
+<table>
+<thead><tr><th>Provider</th><th>How you control reasoning</th><th>Prompting advice</th></tr></thead>
+<tbody>
+<tr><td>OpenAI (GPT-5.5, GPT-6 family)</td><td>A reasoning effort parameter, from none or low up to xhigh or max, depending on the model</td><td>Write outcome-first prompts with success criteria and stop conditions; drop process micromanagement; start at low or medium effort and raise it only when evals improve</td></tr>
+<tr><td>Anthropic (Claude 4.6 and later)</td><td>Adaptive thinking guided by an effort setting; fixed thinking budgets are rejected by the newest models</td><td>Prefer high-level guidance such as "think thoroughly" over scripted steps; examples still help; don't ask for visible reasoning in tags on the newest models</td></tr>
+<tr><td>Google (Gemini 3 series)</td><td>A thinking level (minimal, low, medium or high), with supported values varying by model</td><td>Keep temperature at its default; skip requests to outline steps; read thought summaries to debug odd answers</td></tr>
+</tbody>
+</table>
+<p>The common thread is a shift from scripting the process to specifying the outcome. Older prompts spelled out every step because earlier models needed it. With reasoning models, that detail can block a better approach the model would have found on its own, which is why OpenAI's GPT-5.5 guidance favors outcome-first prompts with success criteria and stop conditions over step-by-step process instructions.</p>
+<ul>
+<li><strong>Specify success, not steps.</strong> State the goal, the constraints, what a correct answer must contain and when to stop.</li>
+<li><strong>Tune effort before wording.</strong> Hidden reasoning tokens are billed, so test lower effort first. Many classification and extraction tasks don't need high effort.</li>
+<li><strong>Leave sampling settings alone.</strong> Some reasoning models don't accept temperature changes at all, and Google warns that lowering temperature on Gemini 3 can cause looping.</li>
+<li><strong>Retest when you upgrade.</strong> An instruction that helped one generation, like "double-check everything," can cause overthinking or over-verification in the next.</li>
+</ul>
+
+<h2 id="testing-and-versioning-prompts">Testing and versioning prompts</h2>
+<p>A prompt is code running on a probabilistic interpreter, so treat changes like code changes. This workflow is light enough for a solo developer and scales to a team.</p>
+<ol>
+<li><strong>Build a test set.</strong> Collect 30 to 100 real inputs, including edge cases and past failures, each with an expected output or a pass/fail rubric.</li>
+<li><strong>Score automatically where possible.</strong> Use exact-match or schema checks for structured output, and an <a href="glossary.html#llm-as-a-judge">LLM-as-a-judge</a> with a clear rubric for open-ended text, spot-checked by a person.</li>
+<li><strong>Change one thing at a time.</strong> Rerun the full set after each edit and compare pass rate, cost and latency with the previous version.</li>
+<li><strong>Version everything.</strong> Keep prompts in your repository with IDs, review changes like code, and log the prompt version and model snapshot with every production output.</li>
+<li><strong>Pin model versions.</strong> Use dated model snapshots in production so a silent update can't change behavior, and rerun your tests before switching.</li>
+</ol>
+<p>OpenAI's documentation now recommends keeping production prompts in application code under tests and code review. Its hosted prompt objects are being retired, with that endpoint scheduled to shut down on November 30, 2026.</p>
+<p>Run each test case more than once. Outputs vary, so a prompt that passes 46 of 50 cases on one run may pass 43 on the next; treat gaps of a few cases as noise until a second run confirms them. Watch cost too: five 200-token examples add 1,000 input tokens per call, which at 500,000 calls a month and $2 per million input tokens is $1,000 a month. The <a href="llm-benchmarks-explained.html">benchmarks guide</a> covers how to size and score an evaluation set.</p>
+
+<h2 id="common-mistakes">Common mistakes</h2>
+<ul>
+<li><strong>Burying the task.</strong> Three paragraphs of background before the actual request makes the model guess what matters. Lead with the task.</li>
+<li><strong>Contradicting yourself.</strong> "Be concise" in the system prompt and "explain thoroughly" in the user message forces the model to pick one, unpredictably.</li>
+<li><strong>Examples that break the rules.</strong> If your instructions say 50 words and your examples run to 120, expect 120.</li>
+<li><strong>Shouting.</strong> All-caps warnings and stacked "CRITICAL" labels make newer models overreact.</li>
+<li><strong>Asking for facts the model can't know.</strong> Recent events and your internal data must be supplied, typically through <a href="rag-explained.html">retrieval</a>; otherwise you invite <a href="glossary.html#hallucination">hallucinations</a>.</li>
+<li><strong>Testing on one input.</strong> A prompt that works on your favorite example can fail on a third of real traffic.</li>
+<li><strong>Porting prompts unchanged.</strong> Wording tuned for one model or generation often underperforms on another.</li>
+</ul>
+
+<h2 id="reusable-prompt-template">A reusable prompt template</h2>
+<p>Copy this skeleton, delete the sections you don't need and fill in the rest. Stable material comes first, which also helps prompt caching, and the changing input comes last.</p>
+<pre><code># Role
+You are a [role] helping [audience] with [job].
+
+# Goal
+[One or two sentences: the outcome you want and why it matters.]
+
+# Context
+[Facts the model can't know: product details, policies, definitions.]
+
+# Instructions and constraints
+- [Rule, with the reason if it isn't obvious]
+- [Scope, sources to use, length, reading level]
+- If information is missing, [ask / reply "unknown" / use null].
+
+# Examples
+&lt;example&gt;
+Input: [...]
+Output: [...]
+&lt;/example&gt;
+
+# Success criteria
+A good answer [contains X], [stays under N words], [cites the source].
+Stop when [condition].
+
+# Output format
+[Prose / bullets / JSON matching the supplied schema]
+
+# Input
+&lt;input&gt;
+{{user_input}}
+&lt;/input&gt;</code></pre>
+<p>Before you ship a prompt built from the template, run through this list:</p>
+<div class="checklist"><ul>
+<li>The task is stated in the first two lines.</li>
+<li>Audience, purpose and length are explicit.</li>
+<li>Pasted or untrusted content sits inside delimiters.</li>
+<li>Examples match the instructions and include an edge case.</li>
+<li>The output format is defined, with a schema if code parses it.</li>
+<li>There's a rule for missing information.</li>
+<li>Reasoning depth is set in the API, not with "think step by step."</li>
+<li>The prompt has a version ID and passes your test set.</li>
+</ul></div>
+
+<h2 id="next-steps">Next steps</h2>
+<p>Turn the template into a working prompt with the <a href="prompt-builder.html">prompt builder</a>, which walks you through role, task, context, format and constraints. Browse the <a href="prompts.html">prompt library</a> for tested starting points by use case.</p>
+<p>If prompting alone isn't getting you there, <a href="fine-tuning-vs-rag-vs-prompting.html">fine-tuning vs RAG vs prompting</a> will help you decide what to try next. Teams that want a hands-on review of production prompts and evaluations can <a href="hire-llm-experts.html">get help from LLM specialists</a>.</p>
