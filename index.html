@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LLModel.com: Compare Large Language Models, Prices and Context Windows</title>
+<meta name="description" content="The independent field guide to large language models: compare 55 LLMs on price, context and licensing, run free cost and GPU calculators, and learn how LLMs work.">
+<link rel="canonical" href="https://llmodel.com/">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="google-adsense-account" content="ca-pub-6620975821265271">
+<meta name="theme-color" content="#f4f6fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12101e" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="LLModel.com">
+<meta property="og:title" content="LLModel.com: Compare Large Language Models, Prices and Context Windows">
+<meta property="og:description" content="The independent field guide to large language models: compare 55 LLMs on price, context and licensing, run free cost and GPU calculators, and learn how LLMs work.">
+<meta property="og:url" content="https://llmodel.com/">
+<meta property="og:image" content="https://llmodel.com/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="LLModel: the independent field guide to large language models">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="alternate" type="text/plain" href="llms.txt" title="llms.txt">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Martian+Mono:wght@400..500&family=Newsreader:ital,opsz,wght@0,6..72,400..650;1,6..72,400&display=swap">
+<link rel="stylesheet" href="assets/css/style.css?v=dae4813595">
+<script>(function(){var d=document.documentElement,t=null;try{t=localStorage.getItem('llm-theme')}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}d.setAttribute('data-theme',t)})();</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6620975821265271" crossorigin="anonymous"></script>
+<script type="application/ld+json">{
+ "@type": "Organization",
+ "@id": "https://llmodel.com/#org",
+ "name": "LLModel.com",
+ "url": "https://llmodel.com/",
+ "logo": "https://llmodel.com/assets/img/icon-512.png",
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is LLModel.com?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "LLModel.com is an independent reference for large language models. It tracks the models from major providers and open-weight labs with prices, context windows and licenses checked against provider documentation, and adds free calculators, comparisons, plain-English guides, a glossary and curated videos."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How do you keep model prices up to date?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Every model entry lists the official pages we checked and the date we checked them. We re-verify prices and specs against provider documentation on a regular schedule and when providers announce changes. Prices still change often, so confirm on the provider's pricing page before you buy."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Which LLM should I use?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "It depends on the task, your budget, how much text you send, and whether data can leave your network. Start with the five-question model picker or a shortlist by job, then test the top two or three models on a sample of your own work and compare cost per correct answer."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Are the tools free?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes. The calculators, comparison tool, token counter and prompt builder are free and need no account. They run in your browser, so the text and numbers you enter aren't sent to us."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How does LLModel make money?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Through display advertising, clearly labeled sponsorships, optional introductions to implementation partners when you ask for help, and reader support. No provider pays to change a ranking, a score or an editorial verdict. Our editorial policy explains the rules."
+   }
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "WebSite",
+ "name": "LLModel.com",
+ "url": "https://llmodel.com/",
+ "potentialAction": {
+  "@type": "SearchAction",
+  "target": "https://llmodel.com/search.html?q={search_term_string}",
+  "query-input": "required name=search_term_string"
+ },
+ "@context": "https://schema.org"
+}</script>
+
+</head>
+<body class="page-index">
+<a class="skip" href="#main">Skip to content</a>
+<div class="partner-bar"><a href="https://web.works/contact" target="_blank" rel="noopener"><span>Contact, if you are interested in this website / domain name / sponsorship / advertisement / partnership</span></a></div>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+    <nav class="nav" aria-label="Main"><a href="models.html">Models</a><a href="compare.html">Compare</a><a href="leaderboard.html">Rankings</a><a href="tools.html">Tools</a><a href="guides.html">Learn</a><a href="videos.html">Videos</a></nav>
+    <div class="header-actions">
+      <button class="search-btn" type="button" data-open-search aria-label="Search the site"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="search-label">Search</span><span class="kbd" aria-hidden="true">/</span></button>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><svg class="theme-icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="theme-icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+      <a class="btn btn--primary btn--sm header-cta" href="hire-llm-experts.html">Get expert help</a>
+      <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile">
+    <ul><li><a href="models.html">Models</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="tools.html">Tools</a></li>
+<li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="contact.html">Contact</a></li>
+<li class="mobile-cta"><a class="btn btn--primary btn--block" href="hire-llm-experts.html">Get expert help</a></li>
+</ul>
+  </nav>
+</header>
+<main id="main">
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="wrap">
+    <div class="hero__copy">
+      <h1 id="hero-title">The field guide to large language models</h1>
+      <p class="lede">Compare 55 models from 17 providers on price, context and licensing. Run the numbers with free calculators. Learn how it all works in plain English.</p>
+      <div class="btn-row">
+        <a class="btn btn--primary" href="models.html">Browse the model directory</a>
+        <a class="btn btn--ghost" href="llm-picker.html">Help me choose a model</a>
+      </div>
+      <p class="hero-note">Prices and specs checked against provider documentation on October 10, 2026. No provider pays for placement.</p>
+    </div>
+    <div class="ntp" id="ntp" role="group" aria-labelledby="ntp-title">
+      <p class="visually-hidden" id="ntp-title">Interactive demo: how a language model picks its next word</p>
+      <p class="ntp__prompt" aria-live="polite"><span class="ntp__given">I need a language model for </span><span class="ntp__next" id="ntp-next" hidden></span><span class="ntp__caret" aria-hidden="true"></span></p>
+      <div class="ntp__label"><span>Next-token candidates</span><span>Probability</span></div>
+      <ul class="ntp__cands" id="ntp-cands">
+        <li><button type="button" class="ntp__cand" data-token="coding" data-p="0.31" data-say="Coding it is. Start with the models their providers build for software work, ranked by tier and price." data-href="best-llms-for-coding.html" data-cta="See the coding shortlist" data-href2="llm-cost-calculator.html?preset=coding" data-cta2="price a coding agent"><span class="ntp__tok">coding</span><span class="ntp__track"><span class="ntp__bar" style="--c:#440154;width:31%"></span></span><span class="ntp__p">0.31</span></button></li>
+        <li><button type="button" class="ntp__cand" data-token="customer support" data-p="0.19" data-say="Support bots live on volume, so cost per conversation and speed matter most." data-href="best-llms-for-customer-support.html" data-cta="See the support shortlist" data-href2="llm-cost-calculator.html?preset=chatbot" data-cta2="price 30,000 conversations"><span class="ntp__tok">customer support</span><span class="ntp__track"><span class="ntp__bar" style="--c:#443983;width:19%"></span></span><span class="ntp__p">0.19</span></button></li>
+        <li><button type="button" class="ntp__cand" data-token="long documents" data-p="0.15" data-say="Many current models read a million tokens at once. Check the long-prompt surcharges first." data-href="best-llms-for-long-documents.html" data-cta="See long-context models" data-href2="context-window-visualizer.html" data-cta2="see what fits in a context window"><span class="ntp__tok">long documents</span><span class="ntp__track"><span class="ntp__bar" style="--c:#31688e;width:15%"></span></span><span class="ntp__p">0.15</span></button></li>
+        <li><button type="button" class="ntp__cand" data-token="running offline" data-p="0.12" data-say="Open-weight models run on your own GPU or Mac. Memory is the limit." data-href="llms-you-can-run-locally.html" data-cta="See models you can run locally" data-href2="vram-calculator.html" data-cta2="check your GPU memory"><span class="ntp__tok">running offline</span><span class="ntp__track"><span class="ntp__bar" style="--c:#21918c;width:12%"></span></span><span class="ntp__p">0.12</span></button></li>
+        <li><button type="button" class="ntp__cand" data-token="the lowest cost" data-p="0.11" data-say="Ranked by blended price per million tokens. The cheapest model that passes your quality bar wins." data-href="cheapest-llm-apis.html" data-cta="See the cheapest APIs" data-href2="llm-cost-calculator.html" data-cta2="price your workload"><span class="ntp__tok">the lowest cost</span><span class="ntp__track"><span class="ntp__bar" style="--c:#35b779;width:11%"></span></span><span class="ntp__p">0.11</span></button></li>
+        <li><button type="button" class="ntp__cand" data-token="AI agents" data-p="0.08" data-say="Agents need dependable tool calling over many steps. Reliability beats peak scores." data-href="best-llms-for-agents.html" data-cta="See models for agents" data-href2="ai-agents-explained.html" data-cta2="read how agents work"><span class="ntp__tok">AI agents</span><span class="ntp__track"><span class="ntp__bar" style="--c:#90d743;width:8%"></span></span><span class="ntp__p">0.08</span></button></li>
+        <li><button type="button" class="ntp__cand" data-token="something else" data-p="0.04" data-say="Low probability, still possible. Five questions narrow 55 models to three." data-href="llm-picker.html" data-cta="Take the model picker" data-href2="models.html" data-cta2="filter the full directory"><span class="ntp__tok">something else</span><span class="ntp__track"><span class="ntp__bar" style="--c:#fde725;width:4%"></span></span><span class="ntp__p">0.04</span></button></li>
+      </ul>
+      <div class="ntp__controls">
+        <label for="ntp-temp">Temperature <input type="range" id="ntp-temp" min="0" max="2" step="0.1" value="1"></label>
+        <output class="ntp__temp" id="ntp-temp-out" for="ntp-temp">1.0</output>
+        <button type="button" class="btn btn--ghost btn--sm" id="ntp-sample">Sample a token</button>
+      </div>
+      <div class="ntp__answer" id="ntp-answer" hidden></div>
+      <p class="small muted" style="margin-top:.8rem">This is how an LLM writes: it scores every possible next token, then samples one. Raise the temperature and the odds flatten; drop it to zero and the top token always wins. Pick a token to jump to the right page.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="latest">
+  <div class="wrap">
+    <div class="section-head"><div><h2 id="latest">Latest releases</h2>
+<p>The newest models in the directory, each with specs and prices checked against the provider's own pages.</p>
+</div>
+<a class="more" href="models.html">All 55 models</a></div>
+    <ul class="releases"><li><a href="model-claude-haiku-5-5.html"><span class="r-name">Claude Haiku 5.5</span><span class="r-meta">Anthropic, Oct 7, 2026</span></a></li>
+<li><a href="model-mistral-large-4.html"><span class="r-name">Mistral Large 4</span><span class="r-meta">Mistral AI, Oct 6, 2026</span></a></li>
+<li><a href="model-gpt-6-1-sol.html"><span class="r-name">GPT-6.1 Sol</span><span class="r-meta">OpenAI, Sep 29, 2026</span></a></li>
+<li><a href="model-claude-sonnet-5-5.html"><span class="r-name">Claude Sonnet 5.5</span><span class="r-meta">Anthropic, Sep 28, 2026</span></a></li>
+<li><a href="model-claude-opus-5-5.html"><span class="r-name">Claude Opus 5.5</span><span class="r-meta">Anthropic, Sep 22, 2026</span></a></li>
+<li><a href="model-gpt-6-luna.html"><span class="r-name">GPT-6 Luna</span><span class="r-meta">OpenAI, Sep 22, 2026</span></a></li>
+</ul>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="snapshot">
+  <div class="wrap">
+    <div class="section-head"><div><h2 id="snapshot">What the leading models cost</h2>
+<p>List prices per million tokens, and what a 30,000-conversation support bot would cost each month on each model.</p>
+</div>
+<a class="more" href="llm-cost-calculator.html">Price your own workload</a></div>
+    <div class="table-wrap"><table class="table"><thead><tr><th>Model</th><th>Weights</th><th class="num">Context</th><th class="num">Input / 1M</th><th class="num">Output / 1M</th><th class="num">Support bot, per month*</th></tr>
+</thead>
+<tbody><tr><td class="m-name"><a href="model-gpt-6-1-sol.html">GPT-6.1 Sol</a><span class="m-sub">OpenAI</span></td><td><span class="badge badge--closed">Closed</span></td><td class="num">1.05M</td><td class="num">$2</td><td class="num">$10</td><td class="num">$240</td></tr>
+<tr><td class="m-name"><a href="model-claude-sonnet-5-5.html">Claude Sonnet 5.5</a><span class="m-sub">Anthropic</span></td><td><span class="badge badge--closed">Closed</span></td><td class="num">1M</td><td class="num">$2</td><td class="num">$10</td><td class="num">$240</td></tr>
+<tr><td class="m-name"><a href="model-claude-opus-5-5.html">Claude Opus 5.5</a><span class="m-sub">Anthropic</span></td><td><span class="badge badge--closed">Closed</span></td><td class="num">1M</td><td class="num">$4</td><td class="num">$20</td><td class="num">$480</td></tr>
+<tr><td class="m-name"><a href="model-grok-4-7.html">Grok 4.7</a><span class="m-sub">xAI</span></td><td><span class="badge badge--closed">Closed</span></td><td class="num">500K</td><td class="num">$2</td><td class="num">$6</td><td class="num">$192</td></tr>
+<tr><td class="m-name"><a href="model-deepseek-v4-1-flash.html">DeepSeek-V4.1-Flash</a><span class="m-sub">DeepSeek</span></td><td><span class="badge badge--open">Open weights</span></td><td class="num">1M</td><td class="num">$0.30</td><td class="num">$1.20</td><td class="num">$32</td></tr>
+<tr><td class="m-name"><a href="model-gpt-6-astra.html">GPT-6 Astra</a><span class="m-sub">OpenAI</span></td><td><span class="badge badge--closed">Closed</span></td><td class="num">1.05M</td><td class="num">$10</td><td class="num">$50</td><td class="num">$1,200</td></tr>
+<tr><td class="m-name"><a href="model-gemini-3-8-flash.html">Gemini 3.8 Flash</a><span class="m-sub">Google</span></td><td><span class="badge badge--closed">Closed</span></td><td class="num">1M</td><td class="num">$0.75</td><td class="num">$3.75</td><td class="num">$90</td></tr>
+<tr><td class="m-name"><a href="model-claude-fable-5-1.html">Claude Fable 5.1</a><span class="m-sub">Anthropic</span></td><td><span class="badge badge--closed">Closed</span></td><td class="num">1M</td><td class="num">$10</td><td class="num">$50</td><td class="num">$1,200</td></tr>
+<tr><td class="m-name"><a href="model-glm-5-3.html">GLM-5.3</a><span class="m-sub">Z.ai (Zhipu AI)</span></td><td><span class="badge badge--open">Open weights</span></td><td class="num">1M</td><td class="num">$1.40</td><td class="num">$4.40</td><td class="num">$137</td></tr>
+<tr><td class="m-name"><a href="model-qwen3-8-2-4t-a95b.html">Qwen3.8-2.4T-A95B</a><span class="m-sub">Alibaba (Qwen)</span></td><td><span class="badge badge--open">Open weights</span></td><td class="num">256K</td><td class="num">$2</td><td class="num">$6</td><td class="num">$192</td></tr>
+</tbody>
+</table>
+</div>
+<p class="small muted" style="margin-top:.6rem">*30,000 conversations of 2,000 input and 400 output tokens at list price. Frontier and advanced models, newest first.</p>
+    <aside class="ad-slot" data-ad="home" aria-label="Sponsored message"><span class="ad-label">From LLModel</span><div class="ad-fill"><div class="house"><div><strong>Building with LLMs?</strong><span>Tell us what you&#x27;re building and get a vendor-neutral stack plan within 2 business days.</span></div>
+<a class="btn btn--ghost btn--sm" href="hire-llm-experts.html">Get my stack plan</a></div>
+</div>
+</aside>
+  </div>
+</section>
+
+<section class="section section--tint" aria-labelledby="tools-h">
+  <div class="wrap">
+    <div class="section-head"><div><h2 id="tools-h">Free tools for people building with LLMs</h2>
+<p>Seven calculators and builders. No sign-up and nothing to install; what you type stays in your browser.</p>
+</div>
+<a class="more" href="tools.html">All tools</a></div>
+    <ul class="tool-index"><li><a href="llm-cost-calculator.html"><span class="ti-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><ellipse cx="9" cy="7" rx="6" ry="3"/><path d="M3 7v5c0 1.7 2.7 3 6 3s6-1.3 6-3V7"/><path d="M9 15v2c0 1.7 2.7 3 6 3s6-1.3 6-3v-5c0-1.7-2.7-3-6-3"/></svg></span><span><span class="ti-name">LLM API cost calculator</span><span class="ti-desc">Price a workload across every model with a published rate. Set tokens, requests and caching; get a ranked monthly bill.</span></span></a></li>
+<li><a href="token-counter.html"><span class="ti-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="2.5" y="7" width="6" height="10" rx="2"/><rect x="9.5" y="7" width="5" height="10" rx="2"/><rect x="15.5" y="7" width="6" height="10" rx="2"/></svg></span><span><span class="ti-name">Token counter</span><span class="ti-desc">Paste text to estimate tokens, see how it splits, get an exact count with OpenAI&#x27;s tokenizer and price it per model.</span></span></a></li>
+<li><a href="vram-calculator.html"><span class="ti-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></span><span><span class="ti-name">GPU and VRAM calculator</span><span class="ti-desc">Work out the memory an open-weight model needs at each precision, including the KV cache, and which GPUs or Macs fit it.</span></span></a></li>
+<li><a href="llm-picker.html"><span class="ti-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg></span><span><span class="ti-name">Which LLM should I use?</span><span class="ti-desc">Answer five questions about your task, budget and deployment. Get a shortlist of three models with the reasons.</span></span></a></li>
+<li><a href="context-window-visualizer.html"><span class="ti-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="M2.5 9h19M7 13h6"/></svg></span><span><span class="ti-name">Context window visualizer</span><span class="ti-desc">See what 8K, 128K or 1M tokens hold in pages, books, code and meeting hours, and compare model limits.</span></span></a></li>
+<li><a href="prompt-builder.html"><span class="ti-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13.5 6.5 4 4"/></svg></span><span><span class="ti-name">Prompt builder</span><span class="ti-desc">Assemble a structured prompt from role, task, context, format and constraints. Copy it or download it.</span></span></a></li>
+<li><a href="self-host-vs-api-calculator.html"><span class="ti-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M5 21h14M6 7h12"/><path d="m6 7-3 6a3 3 0 0 0 6 0zM18 7l-3 6a3 3 0 0 0 6 0z"/></svg></span><span><span class="ti-name">Self-host vs API calculator</span><span class="ti-desc">Find the monthly volume where renting GPUs beats paying per token, with your own prices and throughput.</span></span></a></li>
+</ul>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="short-h">
+  <div class="wrap grid grid--2" style="gap:3rem">
+    <div>
+      <h2 class="h2" id="short-h">Shortlists by job</h2>
+      <p class="muted" style="margin:.5rem 0 1.25rem">Start from what you're building and get the models that fit, with prices and licenses side by side.</p>
+      <div class="pill-nav"><a href="best-llms-for-coding.html">Coding</a><a href="best-llms-for-agents.html">Agents</a><a href="best-llms-for-long-documents.html">Long documents</a><a href="cheapest-llm-apis.html">Cheapest APIs</a><a href="longest-context-llms.html">Longest context</a><a href="best-open-weight-llms.html">Open weights</a><a href="llms-you-can-run-locally.html">Run locally</a><a href="multimodal-llms.html">Multimodal</a><a href="reasoning-models.html">Reasoning</a><a href="best-llms-for-customer-support.html">Customer support</a></div>
+      <h3 style="margin-top:2rem">Rankings you can tune</h3>
+      <p class="muted" style="margin-top:.4rem">Our value index weighs capability, price, context, openness and recency. Move the sliders to match your priorities.</p>
+      <p style="margin-top:.75rem"><a href="leaderboard.html">Open the LLM rankings</a></p>
+    </div>
+    <div>
+      <h2 class="h2">Popular comparisons</h2>
+      <p class="muted" style="margin:.5rem 0 1rem">Head-to-head specs and the monthly bill for three real workloads.</p>
+      <ul class="rowlist"><li><a class="row" href="claude-opus-5-5-vs-gpt-6-astra.html"><span class="row__title">Claude Opus 5.5 vs GPT-6 Astra</span><span class="row__desc">Anthropic vs OpenAI: prices, context and costs for three workloads</span><span class="row__meta">$4 vs $10 input</span></a></li>
+<li><a class="row" href="claude-sonnet-5-5-vs-gpt-6-1-sol.html"><span class="row__title">Claude Sonnet 5.5 vs GPT-6.1 Sol</span><span class="row__desc">Anthropic vs OpenAI: prices, context and costs for three workloads</span><span class="row__meta">$2 vs $2 input</span></a></li>
+<li><a class="row" href="claude-haiku-5-5-vs-gpt-6-luna.html"><span class="row__title">Claude Haiku 5.5 vs GPT-6 Luna</span><span class="row__desc">Anthropic vs OpenAI: prices, context and costs for three workloads</span><span class="row__meta">$0.10 vs $0.10 input</span></a></li>
+<li><a class="row" href="gemini-3-1-pro-vs-gpt-6-astra.html"><span class="row__title">Gemini 3.1 Pro vs GPT-6 Astra</span><span class="row__desc">Google vs OpenAI: prices, context and costs for three workloads</span><span class="row__meta">$2 vs $10 input</span></a></li>
+<li><a class="row" href="claude-opus-5-5-vs-gemini-3-1-pro.html"><span class="row__title">Claude Opus 5.5 vs Gemini 3.1 Pro</span><span class="row__desc">Anthropic vs Google: prices, context and costs for three workloads</span><span class="row__meta">$4 vs $2 input</span></a></li>
+<li><a class="row" href="claude-fable-5-1-vs-gpt-6-astra.html"><span class="row__title">Claude Fable 5.1 vs GPT-6 Astra</span><span class="row__desc">Anthropic vs OpenAI: prices, context and costs for three workloads</span><span class="row__meta">$10 vs $10 input</span></a></li>
+</ul>
+      <p style="margin-top:1rem"><a href="compare.html">Compare any models side by side</a></p>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><section class="lead-band" aria-labelledby="lead-default-index">
+  <div>
+    <h2 id="lead-default-index">Building with LLMs? Get a vendor-neutral plan.</h2>
+    <p>Tell us what you&#x27;re building. Within 2 business days you get a model shortlist, an architecture outline and a cost estimate, plus optional introductions to vetted implementation partners.</p>
+    <ul><li>Free and vendor-neutral: no model provider pays for placement.</li>
+<li>Your details go only to partners you agree to.</li>
+</ul>
+  </div>
+  <form class="mini-form" action="hire-llm-experts.html" method="get">
+    <label for="need-default-index">What do you need help with?</label>
+    <select id="need-default-index" name="need"><option value="choose-model">Choose the right model</option>
+<option value="chatbot">Build a chatbot or assistant</option>
+<option value="rag">Answer questions over our documents (RAG)</option>
+<option value="agents">Automate work with AI agents</option>
+<option value="self-host">Fine-tune or self-host a model</option>
+<option value="cut-costs">Cut our LLM costs</option>
+<option value="security">Security, privacy or compliance review</option>
+<option value="not-sure">Not sure yet</option>
+</select>
+    <input type="hidden" name="from" value="index">
+    <button class="btn btn--yellow btn--block" type="submit">Start my free plan</button>
+    <p class="fine">Takes about 2 minutes. No sales calls unless you ask for one.</p>
+  </form>
+</section>
+</div>
+
+<section class="section" aria-labelledby="learn-h">
+  <div class="wrap">
+    <div class="section-head"><div><h2 id="learn-h">Understand what you're buying</h2>
+<p>14 plain-English guides on how LLMs work, what they cost and where they fail, each checked against primary sources.</p>
+</div>
+<a class="more" href="guides.html">All guides</a></div>
+    <div class="grid grid--sidebar">
+      <div><div class="cardlist"><a class="card" href="what-is-a-large-language-model.html"><span class="card__kicker">Fundamentals</span><span class="card__title">What is a large language model?</span><span class="card__desc">A large language model is a neural network trained on enormous amounts of text to predict what comes next, which turns out to be enough to draft, summarize, translate and write code. This guide explains what LLMs are, how they&#x27;re trained, the kinds you&#x27;ll meet, the major families as of October 2026 and the limits to plan around.</span><span class="card__foot"><span>Beginner</span><span>10 min read</span></span></a><a class="card" href="how-to-choose-an-llm.html"><span class="card__kicker">Choosing &amp; buying</span><span class="card__title">How to choose an LLM for your project</span><span class="card__desc">A practical framework for choosing a large language
+model: define the job, weigh ten criteria in a scoring matrix, and run a quick evaluation on your own data. Includes starting points for five common use cases as of October 2026 and a procurement checklist.</span><span class="card__foot"><span>Intermediate</span><span>10 min read</span></span></a><a class="card" href="llm-api-pricing-explained.html"><span class="card__kicker">Choosing &amp; buying</span><span class="card__title">LLM API pricing explained</span><span class="card__desc">LLM APIs bill per token, but output, reasoning, caching, batching and long-context tiers can change a bill several-fold. This guide explains each pricing component, shows real prices as of October 2026 and works through three cost examples step by step.</span><span class="card__foot"><span>Beginner</span><span>11 min read</span></span></a><a class="card" href="run-llms-locally.html"><span class="card__kicker">Running
+&amp; deploying</span><span class="card__title">How to run LLMs locally</span><span class="card__desc">A practical guide to running open-weight language models on your own computer, from memory math and quantization formats to tools and model picks. It includes an Ollama quick start, hardware tiers as of October 2026, performance tips and fixes for common errors.</span><span class="card__foot"><span>Intermediate</span><span>11 min read</span></span></a><a class="card" href="rag-explained.html"><span class="card__kicker">Building</span><span class="card__title">Retrieval-augmented generation (RAG) explained</span><span class="card__desc">A practical guide to retrieval-augmented generation, covering each stage of the pipeline from parsing and chunking to hybrid search, reranking and cited answers. It also explains how to evaluate RAG quality, when long context or fine-tuning fits better and
+how to secure the system.</span><span class="card__foot"><span>Intermediate</span><span>10 min read</span></span></a><a class="card" href="prompt-engineering-guide.html"><span class="card__kicker">Building</span><span class="card__title">Prompt engineering: a practical guide with examples</span><span class="card__desc">A practical guide to writing prompts that work: the five parts of a prompt, core principles, eight techniques with before-and-after examples, and how reasoning models change the rules. Includes a testing workflow and a reusable template.</span><span class="card__foot"><span>Beginner</span><span>11 min read</span></span></a></div>
+</div>
+      <div class="stack"><div class="panel"><p class="small muted">Term of the week</p>
+<h3 style="margin-top:.25rem"><a href="glossary-inference-deployment.html#speculative-decoding">Speculative decoding</a></h3>
+<p style="margin-top:.5rem">A speed-up where a small model drafts several tokens and the large model checks them all at once.</p>
+<p class="small" style="margin-top:.75rem"><a href="glossary.html">Browse all 169 terms</a></p>
+</div>
+<div class="panel newsletter-box">
+  <h2 class="h3">The LLM Brief</h2>
+  <p class="muted" style="margin-top:.4rem">One short email a week: model releases, price changes and one tool worth trying. Free, and you can unsubscribe anytime.</p>
+  <form class="form" data-form="newsletter" data-subject="Newsletter signup" novalidate style="margin-top:1rem">
+    <div class="inline-form">
+      <label class="visually-hidden" for="nl-indexhome-email">Email address</label>
+      <input class="input" type="email" id="nl-indexhome-email" name="email" required autocomplete="email" placeholder="Your work email">
+      <button class="btn btn--primary" type="submit">Subscribe</button>
+    </div>
+    <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <div class="form-status" role="status" aria-live="polite"></div>
+  </form>
+  <p class="fine" style="margin-top:.6rem">We send one email a week and never sell your address. See the <a href="privacy.html">privacy policy</a>.</p>
+</div>
+</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="watch-h">
+  <div class="wrap">
+    <div class="section-head"><div><h2 id="watch-h">Watch and learn</h2>
+<p>Hand-picked explainers from people who build these systems, each with a short summary so you know what you're getting.</p>
+</div>
+<a class="more" href="videos.html">All 26 videos</a></div>
+    <div class="grid grid--3"><article class="video-card" id="v-zjkBMFhNj_g"><div class="video" data-yt="zjkBMFhNj_g"><button class="video__btn" type="button" aria-label="Play video: [1hr Talk] Intro to Large Language Models"><img src="https://i.ytimg.com/vi/zjkBMFhNj_g/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="video__play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></button></div>
+<h3>[1hr Talk] Intro to Large Language Models</h3>
+<div class="vc-meta"><span>Andrej Karpathy</span><span>59:48</span><span>Beginner</span><a href="https://www.youtube.com/watch?v=zjkBMFhNj_g" target="_blank" rel="noopener">Watch on YouTube</a></div>
+<p class="muted small">A one-hour tour of what a large language model is, how one gets trained, and where it still falls short, presented without heavy math. It suits newcomers who want a complete mental model before reading about any single technique.</p>
+</article>
+<article class="video-card" id="v-LPZh9BOjkQs"><div class="video" data-yt="LPZh9BOjkQs"><button class="video__btn" type="button" aria-label="Play video: Large Language Models explained briefly"><img src="https://i.ytimg.com/vi/LPZh9BOjkQs/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="video__play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></button></div>
+<h3>Large Language Models explained briefly</h3>
+<div class="vc-meta"><span>3Blue1Brown</span><span>07:57</span><span>Beginner</span><a href="https://www.youtube.com/watch?v=LPZh9BOjkQs" target="_blank" rel="noopener">Watch on YouTube</a></div>
+<p class="muted small">A short, animated primer on how a language model predicts the next word, how training tunes billions of parameters, and what makes transformers different. It works as a first stop for beginners and as a quick refresher for everyone else.</p>
+</article>
+<article class="video-card" id="v-7xTGNNLPyMI"><div class="video" data-yt="7xTGNNLPyMI"><button class="video__btn" type="button" aria-label="Play video: Deep Dive into LLMs like ChatGPT"><img src="https://i.ytimg.com/vi/7xTGNNLPyMI/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="video__play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></button></div>
+<h3>Deep Dive into LLMs like ChatGPT</h3>
+<div class="vc-meta"><span>Andrej Karpathy</span><span>Intermediate</span><a href="https://www.youtube.com/watch?v=7xTGNNLPyMI" target="_blank" rel="noopener">Watch on YouTube</a></div>
+<p class="muted small">A multi-hour walkthrough of the full pipeline behind assistants like ChatGPT, from gathering web text and tokenizing it to pretraining, supervised fine-tuning and reinforcement learning. It rewards technical readers and curious builders who want a durable picture of how modern models are made and why they behave as they do.</p>
+</article>
+</div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="tl-h">
+  <div class="wrap grid grid--2" style="gap:3rem;align-items:start">
+    <div>
+      <h2 class="h2" id="tl-h">What happened lately</h2>
+      <p class="muted" style="margin-top:.5rem">The most recent milestones from our timeline of 65 events, from the 2017 Transformer paper to this month. Every entry links to a primary source.</p>
+      <p style="margin-top:1rem"><a class="btn btn--ghost" href="llm-timeline.html">See the full timeline</a></p>
+      <aside class="ad-slot" data-ad="home-2" aria-label="Sponsored message"><span class="ad-label">From LLModel</span><div class="ad-fill"><div class="house"><div><strong>The LLM Brief</strong><span>One short email a week: new models, price changes and one tool worth trying.</span></div>
+<a class="btn btn--ghost btn--sm" href="newsletter.html">Subscribe free</a></div>
+</div>
+</aside>
+    </div>
+    <div><ol class="timeline"><li style="--c:var(--v0)"><div class="tl-date">Oct 7, 2026</div>
+<div><div class="tl-title">GPT-6 rolls out in ChatGPT</div>
+<p class="tl-note">OpenAI began rolling GPT-6 out across ChatGPT, including the free tier, and added Intelligent UI, which can answer with charts, forms and small interactive tools as well as text.</p>
+</div>
+</li>
+<li style="--c:var(--v4)"><div class="tl-date">Sep 3, 2026</div>
+<div><div class="tl-title">GPT-6 Astra released</div>
+<p class="tl-note">OpenAI opened its GPT-6 generation with Astra, which it said met its &#x27;Critical&#x27; cybersecurity threshold, so it shipped with safeguards that refuse advanced cyber tasks such as proof-of-concept exploits.</p>
+</div>
+</li>
+<li style="--c:var(--v6)"><div class="tl-date">Aug 2026</div>
+<div><div class="tl-title">Qwen3.8 open weights released</div>
+<p class="tl-note">Alibaba&#x27;s Qwen3.8 open-weight releases included a 27B Apache 2.0 model and a 2.4-trillion-parameter mixture-of-experts flagship (95B active) under a separate custom license.</p>
+</div>
+</li>
+<li style="--c:var(--v8)"><div class="tl-date">Jul 27, 2026</div>
+<div><div class="tl-title">EU AI Act high-risk deadlines delayed</div>
+<p class="tl-note">The Digital Omnibus amendments pushed high-risk AI obligations to December 2027 and August 2028, days before the Act&#x27;s general application date of August 2, 2026.</p>
+</div>
+</li>
+<li style="--c:var(--v4)"><div class="tl-date">Jun 9, 2026</div>
+<div><div class="tl-title">Claude Fable 5 and Mythos 5 released</div>
+<p class="tl-note">Anthropic made a Mythos-class model generally available as Fable 5, routing some cyber, bio and distillation queries to Opus 4.8, while the less-restricted Mythos 5 went to vetted partners.</p>
+</div>
+</li>
+<li style="--c:var(--v4)"><div class="tl-date">May 19, 2026</div>
+<div><div class="tl-title">Gemini 3.5 Flash released</div>
+<p class="tl-note">Unveiled at Google I/O, Gemini 3.5 Flash opened Google&#x27;s 3.5 generation and was generally available in the Gemini API on day one; a larger 3.5 Pro was promised later.</p>
+</div>
+</li>
+</ol>
+</div>
+  </div>
+</section>
+
+<section class="section section--tint" aria-labelledby="work-h">
+  <div class="wrap">
+    <div class="section-head"><div><h2 id="work-h">Get involved</h2>
+<p>LLModel is independent and reader-supported. Here's how to take part.</p>
+</div>
+</div>
+    <div class="grid grid--4">
+      <a class="card" href="newsletter.html"><span class="card__kicker">Weekly email</span><span class="card__title">The LLM Brief</span><span class="card__desc">New models, price changes and one tool worth trying, in a five-minute read.</span></a>
+      <a class="card" href="contests.html"><span class="card__kicker">Contest</span><span class="card__title">Prompt Efficiency Challenge</span><span class="card__desc">Solve five tasks for the fewest dollars. Season 1 has $500 in prizes.</span></a>
+      <a class="card" href="list-your-product.html"><span class="card__kicker">For vendors</span><span class="card__title">List your model or tool</span><span class="card__desc">Reach the people comparing models and stacks right now. Free editorial review.</span></a>
+      <a class="card" href="support.html"><span class="card__kicker">Reader support</span><span class="card__title">Keep LLModel independent</span><span class="card__desc">Fund data checks, new tools, contest prizes and new writers.</span></a>
+    </div>
+  </div>
+</section>
+
+<div class="wrap wrap--read" style="margin-top:3.5rem"><section class="faq-wrap" aria-labelledby="faq"><h2 class="h2" id="faq" style="margin-bottom:1rem">Frequently asked questions</h2>
+<div class="faq"><details><summary>What is LLModel.com?</summary><div class="faq__a"><p>LLModel.com is an independent reference for large language models. It tracks the models from major providers and open-weight labs with prices, context windows and licenses checked against provider documentation, and adds free calculators, comparisons, plain-English guides, a glossary and curated videos.</p>
+</div>
+</details>
+<details><summary>How do you keep model prices up to date?</summary><div class="faq__a"><p>Every model entry lists the official pages we checked and the date we checked them. We re-verify prices and specs against provider documentation on a regular schedule and when providers announce changes. Prices still change often, so confirm on the provider&#x27;s pricing page before you buy.</p>
+</div>
+</details>
+<details><summary>Which LLM should I use?</summary><div class="faq__a"><p>It depends on the task, your budget, how much text you send, and whether data can leave your network. Start with the five-question model picker or a shortlist by job, then test the top two or three models on a sample of your own work and compare cost per correct answer.</p>
+</div>
+</details>
+<details><summary>Are the tools free?</summary><div class="faq__a"><p>Yes. The calculators, comparison tool, token counter and prompt builder are free and need no account. They run in your browser, so the text and numbers you enter aren&#x27;t sent to us.</p>
+</div>
+</details>
+<details><summary>How does LLModel make money?</summary><div class="faq__a"><p>Through display advertising, clearly labeled sponsorships, optional introductions to implementation partners when you ask for help, and reader support. No provider pays to change a ranking, a score or an editorial verdict. Our editorial policy explains the rules.</p>
+</div>
+</details>
+</div>
+</section>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+      <p>The independent field guide to large language models. Model data checked against provider documentation; last full check October 10, 2026.</p>
+    </div>
+    <div><h2>Explore</h2>
+<ul><li><a href="models.html">Model directory</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare models</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="search.html">Search</a></li>
+</ul>
+</div>
+<div><h2>Tools</h2>
+<ul><li><a href="llm-cost-calculator.html">Cost calculator</a></li>
+<li><a href="token-counter.html">Token counter</a></li>
+<li><a href="vram-calculator.html">GPU and VRAM calculator</a></li>
+<li><a href="llm-picker.html">Which LLM should I use?</a></li>
+<li><a href="context-window-visualizer.html">Context window visualizer</a></li>
+<li><a href="prompt-builder.html">Prompt builder</a></li>
+<li><a href="self-host-vs-api-calculator.html">Self-host vs API calculator</a></li>
+</ul>
+</div>
+<div><h2>Learn</h2>
+<ul><li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+</ul>
+</div>
+<div><h2>Work with us</h2>
+<ul><li><a href="hire-llm-experts.html">Get expert help</a></li>
+<li><a href="list-your-product.html">List your product</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</div>
+<div><h2>About</h2>
+<ul><li><a href="about.html">About LLModel</a></li>
+<li><a href="editorial-policy.html">Editorial policy</a></li>
+<li><a href="privacy.html">Privacy policy</a></li>
+<li><a href="terms.html">Terms of use</a></li>
+<li><a href="disclaimer.html">Disclaimer</a></li>
+<li><a href="trademark-copyright.html">Trademark and copyright</a></li>
+<li><a href="sitemap.html">Site map</a></li>
+<li><button class="linklike" type="button" data-privacy-choices>Privacy and cookie choices</button></li>
+</ul>
+</div>
+  </div>
+  <div class="wrap footer-legal">
+    <p>&copy; 2026 LLModel.com. Independent: not affiliated with, endorsed by or sponsored by any model provider. Model and company names are trademarks of their respective owners and are used only to identify products. See <a href="trademark-copyright.html">trademark and copyright</a>.</p>
+    <p>Prices and specifications change often. Always confirm on the provider's own pricing page before you buy.</p>
+  </div>
+</footer>
+<div class="palette" id="palette" hidden role="dialog" aria-modal="true" aria-label="Search LLModel">
+  <div class="palette__box">
+    <label class="visually-hidden" for="palette-input">Search models, tools, guides and terms</label>
+    <input class="palette__input" id="palette-input" type="search" placeholder="Search models, tools, guides, terms" autocomplete="off" spellcheck="false" aria-controls="palette-list">
+    <ul class="palette__list" id="palette-list" role="listbox"></ul>
+    <div class="palette__foot"><span><span class="kbd">&uarr;</span> <span class="kbd">&darr;</span> to move</span><span><span class="kbd">Enter</span> to open</span><span><span class="kbd">Esc</span> to close</span></div>
+  </div>
+</div>
+<script src="assets/js/config.js?v=caa5324cbb"></script>
+
+<script src="assets/js/app.js?v=4b39d7c1bd" defer></script>
+<script src="assets/js/pages/home.js?v=0f102bd61d" defer></script>
+</body>
+</html>
