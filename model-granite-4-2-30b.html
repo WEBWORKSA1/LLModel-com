@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Granite 4.2 30B: Pricing, Context Window and Specs (Oct 2026) | LLModel.com</title>
+<meta name="description" content="Granite 4.2 30B by IBM: $0.16/$0.65 per 1M tokens, 128K context, open weights. Specs, real-world costs, strengths and alternatives.">
+<link rel="canonical" href="https://llmodel.com/model-granite-4-2-30b.html">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="google-adsense-account" content="ca-pub-6620975821265271">
+<meta name="theme-color" content="#f4f6fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12101e" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="LLModel.com">
+<meta property="og:title" content="Granite 4.2 30B: Pricing, Context Window and Specs (Oct 2026)">
+<meta property="og:description" content="Granite 4.2 30B by IBM: $0.16/$0.65 per 1M tokens, 128K context, open weights. Specs, real-world costs, strengths and alternatives.">
+<meta property="og:url" content="https://llmodel.com/model-granite-4-2-30b.html">
+<meta property="og:image" content="https://llmodel.com/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="LLModel: the independent field guide to large language models">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="alternate" type="text/plain" href="llms.txt" title="llms.txt">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Martian+Mono:wght@400..500&family=Newsreader:ital,opsz,wght@0,6..72,400..650;1,6..72,400&display=swap">
+<link rel="stylesheet" href="assets/css/style.css?v=dae4813595">
+<script>(function(){var d=document.documentElement,t=null;try{t=localStorage.getItem('llm-theme')}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}d.setAttribute('data-theme',t)})();</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6620975821265271" crossorigin="anonymous"></script>
+<script type="application/ld+json">{
+ "@type": "Organization",
+ "@id": "https://llmodel.com/#org",
+ "name": "LLModel.com",
+ "url": "https://llmodel.com/",
+ "logo": "https://llmodel.com/assets/img/icon-512.png",
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://llmodel.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Models",
+   "item": "https://llmodel.com/models.html"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "IBM",
+   "item": "https://llmodel.com/ibm-models.html"
+  },
+  {
+   "@type": "ListItem",
+   "position": 4,
+   "name": "Granite 4.2 30B"
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "How much does Granite 4.2 30B cost?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Granite 4.2 30B lists at $0.16 per million input tokens and $0.65 per million output tokens, with cached input at $0.04 (checked October 10, 2026). DeepInfra serverless price (131,072 context). Native context is 128K; IBM says it can be extended to 512K. Confirm current rates on the provider's pricing page before you commit."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is the context window of Granite 4.2 30B?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Granite 4.2 30B accepts up to 131,072 tokens of context (about 98,000 words, or 200 pages). Long prompts cost more and can be slower, so most apps send only what the task needs."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Is Granite 4.2 30B open source?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Granite 4.2 30B is an open-weight model released under the Apache-2.0 license. You can download the weights from Hugging Face (ibm-granite/granite-4.2-30b) and run or fine-tune them yourself, within the license terms. Open weights isn't the same as fully open source: training data and code may not be published."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Can I run Granite 4.2 30B locally?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes, if you have enough memory. The weights alone need about 18 GB at 4-bit quantization and about 59 GB at 16-bit, plus room for the KV cache. Use the VRAM calculator on LLModel.com to check a specific GPU or Mac."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is Granite 4.2 30B best for?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "IBM positions Granite 4.2 30B for enterprise, self-hosting, agents, data extraction. It accepts text as input, has a reasoning (thinking) mode and supports tool calling. Test it on a sample of your own tasks before you choose it for production."
+   }
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "WebPage",
+ "name": "Granite 4.2 30B specs and pricing",
+ "dateModified": "2026-10-10",
+ "about": {
+  "@type": "Thing",
+  "name": "Granite 4.2 30B"
+ },
+ "@context": "https://schema.org"
+}</script>
+
+</head>
+<body class="page-model-granite-4-2-30b">
+<a class="skip" href="#main">Skip to content</a>
+<div class="partner-bar"><a href="https://web.works/contact" target="_blank" rel="noopener"><span>Contact, if you are interested in this website / domain name / sponsorship / advertisement / partnership</span></a></div>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+    <nav class="nav" aria-label="Main"><a href="models.html" aria-current="page">Models</a><a href="compare.html">Compare</a><a href="leaderboard.html">Rankings</a><a href="tools.html">Tools</a><a href="guides.html">Learn</a><a href="videos.html">Videos</a></nav>
+    <div class="header-actions">
+      <button class="search-btn" type="button" data-open-search aria-label="Search the site"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="search-label">Search</span><span class="kbd" aria-hidden="true">/</span></button>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><svg class="theme-icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="theme-icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+      <a class="btn btn--primary btn--sm header-cta" href="hire-llm-experts.html">Get expert help</a>
+      <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile">
+    <ul><li><a href="models.html">Models</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="tools.html">Tools</a></li>
+<li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="contact.html">Contact</a></li>
+<li class="mobile-cta"><a class="btn btn--primary btn--block" href="hire-llm-experts.html">Get expert help</a></li>
+</ul>
+  </nav>
+</header>
+<main id="main">
+<nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li>
+<li><a href="models.html">Models</a></li>
+<li><a href="ibm-models.html">IBM</a></li>
+<li aria-current="page">Granite 4.2 30B</li>
+</ol>
+</nav>
+<header class="page-head wrap"><h1>Granite 4.2 30B</h1><p class="lede">Granite 4.2 30B is the largest model in IBM&#x27;s August 2026 Granite 4.2 release, a dense transformer under Apache 2.0. It reasons in think tags by default, with non-thinking and low-effort modes, and supports OpenAI-style function calling. The native context is 128K tokens, extendable to 512K.</p>
+<div class="page-meta"><span>By <a href="ibm-models.html">IBM</a></span><span>Released August 25, 2026</span><span>Data checked October 10, 2026</span></div>
+<div class="tags" style="margin-top:1rem"><span class="badge badge--current">Current</span><span class="badge badge--open">Open weights</span><span class="tag" data-v="6">Efficient</span></div>
+</header>
+<div class="wrap grid grid--sidebar" style="padding-bottom:1rem">
+<div class="stack" style="--gap:2rem">
+  <section aria-labelledby="specs"><h2 class="h2" id="specs" style="margin-bottom:1rem">Specifications</h2>
+<dl class="specs"><div><dt>Context window</dt>
+<dd>128K<small>about 98,000 words, or 200 pages</small></dd>
+</div>
+<div><dt>Max output</dt>
+<dd>Not published</dd>
+</div>
+<div><dt>Input price</dt>
+<dd>$0.16<small>per 1M tokens</small></dd>
+</div>
+<div><dt>Output price</dt>
+<dd>$0.65<small>per 1M tokens</small></dd>
+</div>
+<div><dt>Cached input</dt>
+<dd>$0.04<small>per 1M tokens</small></dd>
+</div>
+<div><dt>Weights</dt>
+<dd>Open<small>Apache-2.0</small></dd>
+</div>
+<div><dt>Parameters</dt>
+<dd>29.3B<small>dense</small></dd>
+</div>
+<div><dt>Input types</dt>
+<dd>Text</dd>
+</div>
+<div><dt>Output types</dt>
+<dd>Text</dd>
+</div>
+<div><dt>Reasoning mode</dt>
+<dd>Yes</dd>
+</div>
+<div><dt>Tool calling</dt>
+<dd>Yes</dd>
+</div>
+<div><dt>Released</dt>
+<dd>Aug 25, 2026<small>Current</small></dd>
+</div>
+</dl><p class="small muted" style="margin-top:.75rem">DeepInfra serverless price (131,072 context). Native context is 128K; IBM says it can be extended to 512K.</p>
+</section>
+  <section aria-labelledby="costs" style="margin-top:2.5rem"><h2 class="h2" id="costs" style="margin-bottom:1rem">What it costs in practice</h2>
+<div class="table-wrap"><table class="table"><thead><tr><th>Workload</th><th class="num">Monthly cost at list price</th></tr>
+</thead>
+<tbody><tr><td><strong>Support chatbot</strong><span class="m-sub">30,000 conversations a month, 2,000 input and 400 output tokens each</span></td><td class="num">$17</td></tr>
+<tr><td><strong>Document summaries</strong><span class="m-sub">2,000 documents a month, 12,000 input and 800 output tokens each</span></td><td class="num">$4.88</td></tr>
+<tr><td><strong>Coding agent</strong><span class="m-sub">1,000 tasks a month, 60,000 input and 6,000 output tokens each</span></td><td class="num">$14</td></tr>
+</tbody>
+</table>
+</div>
+<p class="small muted" style="margin-top:.6rem">Standard rates, no caching or batch discounts. <a href="llm-cost-calculator.html?model=granite-4-2-30b">Run your own numbers</a>.</p>
+</section>
+  <aside class="ad-slot" data-ad="model-mid" aria-label="Sponsored message"><span class="ad-label">From LLModel</span><div class="ad-fill"><div class="house"><div><strong>Keep LLModel independent</strong><span>Reader support pays for data checks, new tools and contest prizes.</span></div>
+<a class="btn btn--ghost btn--sm" href="support.html">Support the site</a></div>
+</div>
+</aside>
+  <section class="pros-cons" aria-label="Strengths and trade-offs" style="margin-top:2.5rem">
+    <div class="panel"><h2 class="h3">Strengths</h2>
+<ul><li>Apache 2.0 license</li>
+<li>Three reasoning modes, including low-effort</li>
+<li>Tested in 12 languages</li>
+</ul>
+</div>
+    <div class="panel"><h2 class="h3">Trade-offs to weigh</h2>
+<ul><li>Text-only input</li>
+<li>Dense 29B weights need about 59 GB at BF16</li>
+</ul>
+</div>
+  </section>
+  <section aria-labelledby="fit" style="margin-top:2.5rem"><h2 class="h2" id="fit" style="margin-bottom:.75rem">Where it fits</h2>
+    <p class="muted" style="margin-bottom:.75rem">IBM positions Granite 4.2 30B for:</p>
+<div class="tags"><span class="tag">enterprise</span><span class="tag">self-hosting</span><span class="tag">agents</span><span class="tag">data extraction</span><span class="tag">multilingual</span></div>
+    <h3 style="margin-top:1.5rem">Where you can use it</h3>
+<ul style="margin-top:.5rem"><li>Hugging Face</li>
+<li>Ollama</li>
+<li>DeepInfra</li>
+</ul>
+</section>
+  <div style="margin-top:2.5rem"><section class="panel" aria-labelledby="run-it"><h2 class="h3" id="run-it">Run it yourself</h2>
+<p class="muted" style="margin:.4rem 0 1rem">Released under <strong>Apache-2.0</strong>. Approximate memory needed just to load the weights:</p>
+<div class="table-wrap"><table class="table"><thead><tr><th>Precision</th><th class="num">Memory for weights</th></tr>
+</thead>
+<tbody><tr><td>16-bit (BF16/FP16)</td><td class="num">59 GB</td></tr>
+<tr><td>8-bit (FP8/INT8)</td><td class="num">29 GB</td></tr>
+<tr><td>4-bit (Q4_K_M, about 4.85 bits)</td><td class="num">18 GB</td></tr>
+</tbody>
+</table>
+</div>
+<p class="small muted" style="margin-top:.6rem">Add memory for the KV cache (it grows with context length and concurrent users) and 1-2 GB of runtime overhead. <a href="vram-calculator.html?model=granite-4-2-30b">Size it precisely in the VRAM calculator</a>.</p>
+<p style="margin-top:.75rem"><a href="https://huggingface.co/ibm-granite/granite-4.2-30b" target="_blank" rel="noopener">Model card on Hugging Face</a></p>
+</section>
+</div>
+  <section aria-labelledby="alts" style="margin-top:2.5rem"><h2 class="h2" id="alts" style="margin-bottom:1rem">Alternatives to consider</h2>
+<div class="table-wrap"><table class="table"><thead><tr><th>Model</th><th>Tier</th><th class="num">Context</th><th class="num">Input / output per 1M</th><th></th></tr>
+</thead>
+<tbody><tr><td class="m-name"><a href="model-mistral-small-4.html">Mistral Small 4</a><span class="m-sub">Mistral AI</span></td><td><span class="tag" data-v="6">Efficient</span></td><td class="num">256K</td><td class="num">$0.15 / $0.60</td><td><a href="compare.html?models=granite-4-2-30b,mistral-small-4">Compare</a></td></tr>
+<tr><td class="m-name"><a href="model-gemma-4-31b.html">Gemma 4 31B</a><span class="m-sub">Google</span></td><td><span class="tag" data-v="6">Efficient</span></td><td class="num">256K</td><td class="num">$0.20 / $0.40</td><td><a href="compare.html?models=granite-4-2-30b,gemma-4-31b">Compare</a></td></tr>
+<tr><td class="m-name"><a href="model-glm-5-3-flash.html">GLM-5.3-Flash</a><span class="m-sub">Z.ai (Zhipu AI)</span></td><td><span class="tag" data-v="6">Efficient</span></td><td class="num">1M</td><td class="num">$0.15 / $0.50</td><td><a href="compare.html?models=granite-4-2-30b,glm-5-3-flash">Compare</a></td></tr>
+<tr><td class="m-name"><a href="model-ministral-3-14b.html">Ministral 3 14B</a><span class="m-sub">Mistral AI</span></td><td><span class="tag" data-v="6">Efficient</span></td><td class="num">256K</td><td class="num">$0.20 / $0.20</td><td><a href="compare.html?models=granite-4-2-30b,ministral-3-14b">Compare</a></td></tr>
+</tbody>
+</table>
+</div>
+</section>
+  <div style="margin-top:2.5rem"><section class="faq-wrap" aria-labelledby="faq"><h2 class="h2" id="faq" style="margin-bottom:1rem">Frequently asked questions</h2>
+<div class="faq"><details><summary>How much does Granite 4.2 30B cost?</summary><div class="faq__a"><p>Granite 4.2 30B lists at $0.16 per million input tokens and $0.65 per million output tokens, with cached input at $0.04 (checked October 10, 2026). DeepInfra serverless price (131,072 context). Native context is 128K; IBM says it can be extended to 512K. Confirm current rates on the provider&#x27;s pricing page before you commit.</p>
+</div>
+</details>
+<details><summary>What is the context window of Granite 4.2 30B?</summary><div class="faq__a"><p>Granite 4.2 30B accepts up to 131,072 tokens of context (about 98,000 words, or 200 pages). Long prompts cost more and can be slower, so most apps send only what the task needs.</p>
+</div>
+</details>
+<details><summary>Is Granite 4.2 30B open source?</summary><div class="faq__a"><p>Granite 4.2 30B is an open-weight model released under the Apache-2.0 license. You can download the weights from Hugging Face (ibm-granite/granite-4.2-30b) and run or fine-tune them yourself, within the license terms. Open weights isn&#x27;t the same as fully open source: training data and code may not be published.</p>
+</div>
+</details>
+<details><summary>Can I run Granite 4.2 30B locally?</summary><div class="faq__a"><p>Yes, if you have enough memory. The weights alone need about 18 GB at 4-bit quantization and about 59 GB at 16-bit, plus room for the KV cache. Use the VRAM calculator on LLModel.com to check a specific GPU or Mac.</p>
+</div>
+</details>
+<details><summary>What is Granite 4.2 30B best for?</summary><div class="faq__a"><p>IBM positions Granite 4.2 30B for enterprise, self-hosting, agents, data extraction. It accepts text as input, has a reasoning (thinking) mode and supports tool calling. Test it on a sample of your own tasks before you choose it for production.</p>
+</div>
+</details>
+</div>
+</section>
+</div>
+  <section class="sources" aria-labelledby="src" style="margin-top:2.5rem"><h2 class="h3" id="src">Sources</h2>
+<ol><li><a href="https://huggingface.co/ibm-granite/granite-4.2-30b" target="_blank" rel="noopener">huggingface.co/ibm-granite/granite-4.2-30b</a></li>
+<li><a href="https://deepinfra.com/ibm-granite/granite-4.2-30b" target="_blank" rel="noopener">deepinfra.com/ibm-granite/granite-4.2-30b</a></li>
+<li><a href="https://huggingface.co/ibm-granite/granite-4.2-30b/raw/main/config.json" target="_blank" rel="noopener">huggingface.co/ibm-granite/granite-4.2-30b/raw/main/config.json</a></li>
+<li><a href="https://huggingface.co/api/models/ibm-granite/granite-4.2-30b" target="_blank" rel="noopener">huggingface.co/api/models/ibm-granite/granite-4.2-30b</a></li>
+<li><a href="https://www.ibm.com/granite" target="_blank" rel="noopener">www.ibm.com/granite</a></li>
+<li><a href="https://ollama.com/library" target="_blank" rel="noopener">ollama.com/library</a></li>
+</ol>
+    <p class="small muted" style="margin-top:.5rem">Facts checked against these pages on October 10, 2026. Spot an error? <a href="contact.html?topic=correction">Tell us</a>.</p>
+</section>
+</div>
+<aside class="aside-box" aria-label="Quick actions">
+  <h2 class="h3">Quick actions</h2>
+  <ul class="inline-list" style="display:grid;gap:.55rem;margin-top:.5rem">
+    <li><a href="llm-cost-calculator.html?model=granite-4-2-30b">Price Granite 4.2 30B for your workload</a></li>
+    <li><a href="compare.html?models=granite-4-2-30b,mistral-small-4">Compare with Mistral Small 4</a></li>
+    <li><a href="vram-calculator.html?model=granite-4-2-30b">Check GPU memory</a></li>
+    <li><a href="ibm-models.html">All IBM models</a></li>
+    <li><a href="https://huggingface.co/ibm-granite/granite-4.2-30b" target="_blank" rel="noopener">Official model page</a></li>
+  </ul>
+  <hr style="border:0;border-top:1px solid var(--rule);margin:1rem 0">
+  <p class="small muted">Deploying Granite 4.2 30B? Get a second opinion on architecture, cost and risk.</p>
+  <a class="btn btn--primary btn--block" style="margin-top:.75rem" href="hire-llm-experts.html?need=choose-model&amp;model=granite-4-2-30b&amp;from=model">Get expert help</a>
+</aside>
+</div>
+<div class="wrap"><section class="lead-band" aria-labelledby="lead-choose-model-granite-4-2-30b">
+  <div>
+    <h2 id="lead-choose-model-granite-4-2-30b">Still choosing a model?</h2>
+    <p>Send us your use case and constraints. We&#x27;ll come back with a shortlist and an evaluation plan you can run on your own data.</p>
+    <ul><li>Free and vendor-neutral: no model provider pays for placement.</li>
+<li>Your details go only to partners you agree to.</li>
+</ul>
+  </div>
+  <form class="mini-form" action="hire-llm-experts.html" method="get">
+    <label for="need-choose-model-granite-4-2-30b">What do you need help with?</label>
+    <select id="need-choose-model-granite-4-2-30b" name="need"><option value="choose-model" selected>Choose the right model</option>
+<option value="chatbot">Build a chatbot or assistant</option>
+<option value="rag">Answer questions over our documents (RAG)</option>
+<option value="agents">Automate work with AI agents</option>
+<option value="self-host">Fine-tune or self-host a model</option>
+<option value="cut-costs">Cut our LLM costs</option>
+<option value="security">Security, privacy or compliance review</option>
+<option value="not-sure">Not sure yet</option>
+</select>
+    <input type="hidden" name="from" value="model-granite-4-2-30b">
+    <button class="btn btn--yellow btn--block" type="submit">Start my free plan</button>
+    <p class="fine">Takes about 2 minutes. No sales calls unless you ask for one.</p>
+  </form>
+</section>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+      <p>The independent field guide to large language models. Model data checked against provider documentation; last full check October 10, 2026.</p>
+    </div>
+    <div><h2>Explore</h2>
+<ul><li><a href="models.html">Model directory</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare models</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="search.html">Search</a></li>
+</ul>
+</div>
+<div><h2>Tools</h2>
+<ul><li><a href="llm-cost-calculator.html">Cost calculator</a></li>
+<li><a href="token-counter.html">Token counter</a></li>
+<li><a href="vram-calculator.html">GPU and VRAM calculator</a></li>
+<li><a href="llm-picker.html">Which LLM should I use?</a></li>
+<li><a href="context-window-visualizer.html">Context window visualizer</a></li>
+<li><a href="prompt-builder.html">Prompt builder</a></li>
+<li><a href="self-host-vs-api-calculator.html">Self-host vs API calculator</a></li>
+</ul>
+</div>
+<div><h2>Learn</h2>
+<ul><li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+</ul>
+</div>
+<div><h2>Work with us</h2>
+<ul><li><a href="hire-llm-experts.html">Get expert help</a></li>
+<li><a href="list-your-product.html">List your product</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</div>
+<div><h2>About</h2>
+<ul><li><a href="about.html">About LLModel</a></li>
+<li><a href="editorial-policy.html">Editorial policy</a></li>
+<li><a href="privacy.html">Privacy policy</a></li>
+<li><a href="terms.html">Terms of use</a></li>
+<li><a href="disclaimer.html">Disclaimer</a></li>
+<li><a href="trademark-copyright.html">Trademark and copyright</a></li>
+<li><a href="sitemap.html">Site map</a></li>
+<li><button class="linklike" type="button" data-privacy-choices>Privacy and cookie choices</button></li>
+</ul>
+</div>
+  </div>
+  <div class="wrap footer-legal">
+    <p>&copy; 2026 LLModel.com. Independent: not affiliated with, endorsed by or sponsored by any model provider. Model and company names are trademarks of their respective owners and are used only to identify products. See <a href="trademark-copyright.html">trademark and copyright</a>.</p>
+    <p>Prices and specifications change often. Always confirm on the provider's own pricing page before you buy.</p>
+  </div>
+</footer>
+<div class="palette" id="palette" hidden role="dialog" aria-modal="true" aria-label="Search LLModel">
+  <div class="palette__box">
+    <label class="visually-hidden" for="palette-input">Search models, tools, guides and terms</label>
+    <input class="palette__input" id="palette-input" type="search" placeholder="Search models, tools, guides, terms" autocomplete="off" spellcheck="false" aria-controls="palette-list">
+    <ul class="palette__list" id="palette-list" role="listbox"></ul>
+    <div class="palette__foot"><span><span class="kbd">&uarr;</span> <span class="kbd">&darr;</span> to move</span><span><span class="kbd">Enter</span> to open</span><span><span class="kbd">Esc</span> to close</span></div>
+  </div>
+</div>
+<script src="assets/js/config.js?v=caa5324cbb"></script>
+
+<script src="assets/js/app.js?v=4b39d7c1bd" defer></script>
+
+</body>
+</html>
