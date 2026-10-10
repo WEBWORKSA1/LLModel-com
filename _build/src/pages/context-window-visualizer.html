@@ -1,0 +1,67 @@
+<!--meta
+{
+  "slug": "context-window-visualizer",
+  "title": "Context Window Visualizer: What Fits in 8K, 128K or 1M Tokens?",
+  "h1": "Context window visualizer",
+  "lede": "Turn a token limit into things you can picture: pages, novels, hours of meeting transcript and lines of code. Then compare the context windows of current models on one scale.",
+  "head_meta": ["Conversions assume English text", "Model limits checked October 10, 2026"],
+  "description": "See what fits in an LLM context window: convert 8K, 32K, 128K, 1M or any token count into words, pages, books, code and transcript hours, and compare model context limits.",
+  "section": "tools",
+  "crumbs": [["Home", "index.html"], ["Tools", "tools.html"], ["Context window visualizer", null]],
+  "data": ["models"],
+  "scripts": ["tools/context.js"],
+  "priority": 0.8,
+  "faq": [
+    {"q": "How many words is 128K tokens?", "a": "About 96,000 words of English, using the rule of thumb of 0.75 words per token. That's roughly 190 pages at 500 words per page, or slightly more than an average novel. Code and non-English text fit less."},
+    {"q": "Does the context window include the model's answer?", "a": "Usually yes: the prompt and the response share the window, and many models also cap the response separately with a maximum output limit. Leave room for the answer, and for reasoning tokens if the model thinks before replying."},
+    {"q": "Is a bigger context window always better?", "a": "No. Long prompts cost more on every call, take longer to process, and models don't always use information buried in the middle of a long prompt reliably. Sending only the relevant parts is often cheaper and more accurate."}
+  ]
+}
+-->
+<div class="wrap">
+  <div class="tool">
+    <div class="tool__in">
+      <h2 class="tool-h">Pick a size</h2>
+      <div class="seg" id="cw-sizes" role="group" aria-label="Common sizes">
+        <button type="button" data-t="8192" aria-pressed="false">8K</button>
+        <button type="button" data-t="32768" aria-pressed="false">32K</button>
+        <button type="button" data-t="131072" aria-pressed="true">128K</button>
+        <button type="button" data-t="262144" aria-pressed="false">256K</button>
+        <button type="button" data-t="1048576" aria-pressed="false">1M</button>
+        <button type="button" data-t="10485760" aria-pressed="false">10M</button>
+      </div>
+      <div class="field"><label for="cw-tokens">Or enter tokens</label><input class="input" type="number" id="cw-tokens" min="1" step="1000" value="131072" inputmode="numeric"></div>
+      <div class="field"><label for="cw-model">Or use a model's limit</label><select class="select" id="cw-model"><option value="">Choose a model</option></select></div>
+      <div class="field"><label for="cw-ratio">Words per token</label><div class="range-row"><input type="range" id="cw-ratio" min="0.3" max="0.9" step="0.05" value="0.75"><output for="cw-ratio" id="cw-ratio-out">0.75</output></div>
+        <p class="hint">0.75 suits English prose. Use about 0.5 for code-heavy or non-English text.</p></div>
+    </div>
+    <div class="tool__out">
+      <p class="out-label">This much context holds about</p>
+      <p class="out-big" id="cw-words">96,000 words</p>
+      <div class="out-grid" id="cw-grid" style="margin-top:1rem" aria-live="polite"></div>
+      <h2 class="h3" style="margin:1.5rem 0 .6rem">Compared with familiar texts</h2>
+      <ul class="bars" id="cw-refs"></ul>
+      <h2 class="h3" style="margin:1.5rem 0 .6rem">Context windows of current models</h2>
+      <p class="small muted" style="margin-bottom:.6rem">Log scale: each step to the right is about ten times more text. The marker shows your size.</p>
+      <ul class="bars" id="cw-models"></ul>
+    </div>
+  </div>
+  {{ad:tool-result}}
+</div>
+
+<section class="section" aria-labelledby="about-h">
+  <div class="wrap wrap--read prose">
+    <h2 id="about-h">How the conversions work</h2>
+    <p>The visualizer converts tokens to words with your words-per-token ratio, then uses fixed rules of thumb: 500 words to a printed page, 90,000 words to an average novel, about 9,000 spoken words to an hour of meeting transcript (150 words a minute), and about 10 tokens to a line of code. All of these vary, so read the numbers as orders of magnitude.</p>
+    <p>The familiar-text comparisons use commonly cited word counts: about 77,000 words for the first Harry Potter book, about 587,000 for an English translation of War and Peace and about 884,000 for the complete works of Shakespeare.</p>
+    <h3 id="practice">What it means in practice</h3>
+    <ul>
+      <li><strong>Room for the answer.</strong> The response usually shares the window, so a prompt that fills it leaves nothing for output.</li>
+      <li><strong>Price per call.</strong> Every token you send is billed every time. A 500,000-token prompt on a model at $2 per million input tokens costs $1 per call before any output.</li>
+      <li><strong>Long-prompt surcharges.</strong> Several providers charge higher rates above a threshold such as 200K or 272K tokens; check the model page.</li>
+      <li><strong>Recall.</strong> Test whether the model finds facts deep in your documents before you rely on it.</li>
+    </ul>
+    <p>More in <a href="context-windows-explained.html">context windows explained</a>. To measure a real document, use the <a href="token-counter.html">token counter</a>.</p>
+  </div>
+</section>
+<div class="wrap">{{lead:build,rag}}</div>
