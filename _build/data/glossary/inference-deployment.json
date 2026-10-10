@@ -1,0 +1,548 @@
+{
+  "category": "Inference & deployment",
+  "updated": "2026-10-10",
+  "terms": [
+    {
+      "slug": "awq",
+      "term": "AWQ (activation-aware weight quantization)",
+      "aka": [
+        "activation-aware weight quantization"
+      ],
+      "category": "Inference & deployment",
+      "short": "A 4-bit quantization method that protects the weights most important to a model's activations.",
+      "definition": "Activation-aware weight quantization, from MIT researchers in 2023, starts from the observation that a small share of weights, around one percent, matters far more than the rest, and that you can identify them by the size of the activations flowing through them rather than by the weights themselves. AWQ scales those important channels before quantizing so they lose less precision, then compresses everything to about 4 bits. It needs no backpropagation and only a small calibration set, and it tends to generalize well across domains. AWQ checkpoints are widely available and supported by major GPU serving engines, making it a common alternative to GPTQ.",
+      "related": [
+        "quantization",
+        "gptq",
+        "numeric-precision"
+      ]
+    },
+    {
+      "slug": "flops",
+      "term": "FLOPs",
+      "aka": [
+        "floating-point operations",
+        "FLOP/s"
+      ],
+      "category": "Inference & deployment",
+      "short": "Counts of floating-point arithmetic operations, the standard unit for training and inference compute.",
+      "definition": "FLOPs counts floating-point operations; FLOP/s, or FLOPS, is a rate per second, though the two are often confused. A widely used approximation puts training compute at about six times parameters times training tokens. An 8B model trained on 15 trillion tokens therefore needs roughly 7 x 10^23 FLOPs. Generating one token takes about two FLOPs per active parameter. Compute thresholds also appear in regulation: the EU AI Act presumes a general-purpose model has systemic risk if its training exceeded 10^25 FLOPs. In practice, achieved speed on real hardware is well below a chip's peak, because memory movement and communication eat into utilization.",
+      "related": [
+        "scaling-laws",
+        "gpu",
+        "eu-ai-act",
+        "parameters"
+      ]
+    },
+    {
+      "slug": "gguf",
+      "term": "GGUF",
+      "aka": [
+        "GGUF format"
+      ],
+      "category": "Inference & deployment",
+      "short": "A single-file model format from the llama.cpp project, widely used to run quantized models locally.",
+      "definition": "GGUF is a binary file format created in 2023 by the llama.cpp project as the successor to its earlier GGML format. One GGUF file packs the model weights together with the metadata needed to run them, such as architecture details, tokenizer and chat template, so you can download a single file and run it. GGUF files come in many quantization levels with names like Q4_K_M or Q8_0, where the number roughly indicates bits per weight; Q4_K_M is a popular balance of size and quality. The format is used by llama.cpp, Ollama, LM Studio and many other local tools, and it runs well on CPUs, Apple silicon and consumer GPUs.",
+      "related": [
+        "llama-cpp",
+        "quantization",
+        "ollama",
+        "checkpoint"
+      ]
+    },
+    {
+      "slug": "gptq",
+      "term": "GPTQ",
+      "aka": [],
+      "category": "Inference & deployment",
+      "short": "A post-training method that compresses model weights to about 3-4 bits using a small calibration set.",
+      "definition": "GPTQ, published in 2022, is a post-training quantization method: it compresses an already-trained model without retraining it. Working layer by layer, it rounds weights to low precision, typically 4 bits, and uses approximate second-order information from a small calibration dataset to adjust the remaining weights so each layer's output changes as little as possible. The paper reported quantizing 175B-parameter models in roughly four GPU hours. GPTQ models are widely available on Hugging Face and run in engines such as vLLM, mainly on NVIDIA GPUs. Results depend on the calibration data, so include text resembling your use case when quantizing yourself.",
+      "related": [
+        "quantization",
+        "awq",
+        "gguf",
+        "numeric-precision"
+      ]
+    },
+    {
+      "slug": "gpu",
+      "term": "GPU (graphics processing unit)",
+      "aka": [
+        "graphics card",
+        "accelerator"
+      ],
+      "category": "Inference & deployment",
+      "short": "The parallel processor that trains and runs most LLMs; memory size and bandwidth matter most.",
+      "definition": "A GPU is a processor with thousands of small cores built for parallel arithmetic, which suits the giant matrix multiplications at the heart of neural networks. NVIDIA dominates LLM training and serving, helped by its mature CUDA software stack, while AMD GPUs, Google's TPUs and custom chips from cloud providers offer alternatives. For LLM work, the specs that matter most are memory capacity, which decides which models fit; memory bandwidth, which largely sets generation speed; support for low-precision formats such as FP8; and fast interconnects between chips for multi-GPU jobs. Raw compute matters most for training and long prompts.",
+      "related": [
+        "vram",
+        "flops",
+        "numeric-precision",
+        "parallelism"
+      ]
+    },
+    {
+      "slug": "greedy-decoding",
+      "term": "Greedy decoding",
+      "aka": [
+        "greedy search",
+        "argmax decoding"
+      ],
+      "category": "Inference & deployment",
+      "short": "Always choosing the single most likely next token, with no randomness.",
+      "definition": "Greedy decoding picks the highest-probability token at every step, which is what setting temperature to 0 approximates. It suits tasks with one right answer, such as extraction, classification or tests you want to rerun, though long outputs can fall into repetitive loops. Beam search is a related method that tracks several candidate sequences in parallel and keeps the best-scoring ones; it remains common in translation and speech recognition but is rare for chat. One caution: even greedy settings may not give identical outputs on hosted APIs, because batching and floating-point arithmetic on GPUs can introduce tiny numerical differences that change a close call.",
+      "related": [
+        "temperature",
+        "logits",
+        "top-k",
+        "autoregressive-model"
+      ]
+    },
+    {
+      "slug": "inference",
+      "term": "Inference",
+      "aka": [
+        "model inference",
+        "LLM inference"
+      ],
+      "category": "Inference & deployment",
+      "short": "Running a trained model to produce output, as opposed to training it.",
+      "definition": "Inference is the act of using a trained model: you send a prompt and it computes a response. For LLMs it has two phases. Prefill processes your whole prompt in parallel and is limited mainly by raw compute. Decode then generates output one token at a time, re-reading the model's weights for every token, so it is limited mainly by memory bandwidth. That split explains several practical patterns: long prompts raise the wait before the first token, long answers raise total time, and output tokens usually cost several times more than input tokens. Over a model's lifetime, inference often costs more in total than training it did.",
+      "related": [
+        "latency",
+        "throughput",
+        "kv-cache",
+        "inference-engine"
+      ]
+    },
+    {
+      "slug": "inference-engine",
+      "term": "Inference engine",
+      "aka": [
+        "inference server",
+        "serving engine",
+        "serving framework"
+      ],
+      "category": "Inference & deployment",
+      "short": "Software that loads a model and serves it efficiently, handling batching, memory and scheduling.",
+      "definition": "An inference engine is the software layer that turns model weights into a fast, reliable service. It manages GPU memory and the KV cache, batches requests from many users, runs optimized attention kernels, applies sampling settings and usually exposes an API compatible with OpenAI's. Popular choices include vLLM and SGLang for data-center GPUs, NVIDIA's TensorRT-LLM for maximum performance on NVIDIA hardware, llama.cpp for CPUs and consumer devices, and ONNX Runtime for cross-platform deployment of models exported to the open ONNX format. Engine choice can change throughput severalfold on identical hardware, so benchmark candidates with your own models and traffic.",
+      "related": [
+        "vllm",
+        "llama-cpp",
+        "throughput",
+        "kv-cache"
+      ]
+    },
+    {
+      "slug": "kv-cache",
+      "term": "KV cache",
+      "aka": [
+        "key-value cache"
+      ],
+      "category": "Inference & deployment",
+      "short": "Memory that stores attention keys and values for earlier tokens so they aren't recomputed each step.",
+      "definition": "During generation, each new token attends to all earlier ones. Rather than recomputing the attention keys and values for the whole sequence at every step, the model stores them in the KV cache and only computes them for the newest token. That makes decoding fast but costs memory that grows with context length and with the number of simultaneous requests. For Llama 3 8B (32 layers, 8 key-value heads of 128 dimensions, 16-bit values), each token needs 2 x 32 x 8 x 128 x 2 bytes, about 128 KB, so a 128,000-token context needs roughly 16 GB, as much as the model's own 16-bit weights.",
+      "related": [
+        "attention",
+        "grouped-query-attention",
+        "vram",
+        "prompt-caching"
+      ]
+    },
+    {
+      "slug": "latency",
+      "term": "Latency",
+      "aka": [
+        "response time",
+        "end-to-end latency"
+      ],
+      "category": "Inference & deployment",
+      "short": "How long you wait for a response, from sending a request to receiving the full answer.",
+      "definition": "Latency is the delay a user experiences. For LLMs it breaks into parts: network and queueing time, time to first token (driven largely by prompt length), and generation time, which is output length divided by output speed. A model with a 0.5-second time to first token that streams at 50 tokens per second needs about 10.5 seconds for a 500-token answer. Reasoning models add thinking time before the visible answer. You can cut latency by shortening prompts and outputs, caching repeated prompt prefixes, streaming results, choosing a smaller or faster model, or using a provider with dedicated capacity.",
+      "related": [
+        "time-to-first-token",
+        "tokens-per-second",
+        "throughput",
+        "streaming"
+      ]
+    },
+    {
+      "slug": "llama-cpp",
+      "term": "llama.cpp",
+      "aka": [],
+      "category": "Inference & deployment",
+      "short": "An open-source C/C++ engine for running LLMs efficiently on CPUs, Macs and consumer GPUs.",
+      "definition": "llama.cpp is an open-source project started by Georgi Gerganov in March 2023 to run Meta's LLaMA model on a laptop. It has since grown into a general engine for local inference that supports a long list of model architectures and runs on CPUs, Apple silicon via Metal, NVIDIA and AMD GPUs and more. It introduced the GGUF file format and a family of quantization types that let large models fit in modest memory. It includes a command-line tool and an OpenAI-compatible HTTP server, and many desktop apps, including Ollama and LM Studio, are built on it or on its underlying ggml library.",
+      "related": [
+        "gguf",
+        "ollama",
+        "quantization",
+        "on-device-ai"
+      ]
+    },
+    {
+      "slug": "logits",
+      "term": "Logits",
+      "aka": [
+        "raw scores",
+        "unnormalized scores"
+      ],
+      "category": "Inference & deployment",
+      "short": "The raw, unnormalized scores a model assigns to every token in its vocabulary at each step.",
+      "definition": "At every generation step, the final layer of an LLM outputs one number per vocabulary entry, often more than 100,000 numbers, called logits. Higher means more likely, but logits are not probabilities until softmax converts them. All sampling settings act on this vector: temperature divides it, top-k and top-p trim it, and repetition penalties lower the scores of tokens already used. Some APIs offer a logit bias option that adds a fixed amount to chosen tokens, which you can use to forbid a word or push a classifier toward a fixed set of labels. Log probabilities, when exposed, are derived from these same scores.",
+      "related": [
+        "softmax",
+        "temperature",
+        "logprobs",
+        "top-p"
+      ]
+    },
+    {
+      "slug": "logprobs",
+      "term": "Logprobs",
+      "aka": [
+        "log probabilities",
+        "token probabilities"
+      ],
+      "category": "Inference & deployment",
+      "short": "The log probabilities a model assigned to the tokens it generated, exposed by some APIs.",
+      "definition": "Logprobs are the natural logarithms of the probabilities a model assigned to each token it produced, and optionally to the top alternatives at each position. A logprob of -0.05 means the model was about 95 percent sure of that token; -2.3 means about 10 percent. Some APIs return them on request, and local inference tools almost always can. They are useful for confidence scoring, for example flagging extracted fields where the model hesitated, for building classifiers from a single generated token, and for evaluation research. Low probability is a hint rather than proof of an error, and models trained with preference tuning are not always well calibrated.",
+      "related": [
+        "logits",
+        "softmax",
+        "perplexity"
+      ]
+    },
+    {
+      "slug": "max-tokens",
+      "term": "Max tokens",
+      "aka": [
+        "max_tokens",
+        "max output tokens",
+        "output limit"
+      ],
+      "category": "Inference & deployment",
+      "short": "The cap you set on how many tokens a model may generate in one response.",
+      "definition": "Max tokens is a request parameter, named max_tokens, max_output_tokens or similar depending on the API, that limits how much the model can write. When the cap is hit, the response stops mid-sentence and the finish reason reports the cutoff, so check for that in your code. Setting a sensible limit protects you from runaway costs and endless loops. On many reasoning models, hidden thinking tokens count toward the same limit, so a cap that is too tight can leave no room for the visible answer. Each model also has its own maximum output length, often far smaller than its context window.",
+      "related": [
+        "stop-sequence",
+        "context-window",
+        "cost-per-token",
+        "reasoning-model"
+      ]
+    },
+    {
+      "slug": "mlx",
+      "term": "MLX",
+      "aka": [
+        "Apple MLX"
+      ],
+      "category": "Inference & deployment",
+      "short": "Apple's open-source machine learning framework, optimized for running and fine-tuning models on Apple silicon.",
+      "definition": "MLX is an array framework released by Apple's machine learning research team in December 2023 and designed specifically for Apple silicon. It takes advantage of unified memory, which the CPU and GPU share, so model weights don't need to be copied between separate memory pools. The companion mlx-lm package can download models, convert and quantize them, generate text and fine-tune with LoRA on a Mac. Many open-weights models are published in ready-made MLX versions, and some desktop apps can use MLX as a backend. On Apple silicon it is a strong choice for local inference, often competitive with llama.cpp in speed.",
+      "related": [
+        "on-device-ai",
+        "llama-cpp",
+        "quantization",
+        "vram"
+      ]
+    },
+    {
+      "slug": "numeric-precision",
+      "term": "Numeric precision (FP16, BF16, FP8, INT8)",
+      "aka": [
+        "data type",
+        "dtype",
+        "bit width"
+      ],
+      "category": "Inference & deployment",
+      "short": "How many bits are used to store each number in a model, trading accuracy for memory and speed.",
+      "definition": "Every weight and activation is stored in a numeric format, and fewer bits mean less memory and faster math. FP32 uses four bytes per number and is rarely used for released LLM weights. FP16 and BF16 use two bytes; BF16 keeps FP32's range of exponents with less precision, which makes training more stable, so it is the usual format for released weights. FP8 and INT8 use one byte, and 4-bit formats use half a byte; newer GPUs accelerate several of these directly. Mixed-precision training keeps sensitive values, such as optimizer state, in higher precision. Inference often uses 8-bit or 4-bit weights with only modest quality loss.",
+      "related": [
+        "quantization",
+        "vram",
+        "gpu"
+      ]
+    },
+    {
+      "slug": "ollama",
+      "term": "Ollama",
+      "aka": [],
+      "category": "Inference & deployment",
+      "short": "A free tool that downloads and runs open-weights models locally with simple commands and an API.",
+      "definition": "Ollama is an open-source application for running open-weights models on your own computer. You type a single command, ollama run followed by a model name, and it downloads a quantized version, loads it and opens a chat. It also runs a local server, by default on port 11434, with a REST API and an OpenAI-compatible endpoint, so your code can switch from a hosted model to a local one with few changes. A Modelfile lets you set a default system prompt and parameters. Ollama trades some fine-grained control and peak throughput for convenience; for heavy multi-user serving, an engine such as vLLM is a better fit.",
+      "related": [
+        "llama-cpp",
+        "gguf",
+        "self-hosting",
+        "on-device-ai"
+      ]
+    },
+    {
+      "slug": "on-device-ai",
+      "term": "On-device AI",
+      "aka": [
+        "edge AI",
+        "local AI",
+        "local LLM"
+      ],
+      "category": "Inference & deployment",
+      "short": "Running models directly on a phone, laptop or other local hardware instead of in the cloud.",
+      "definition": "On-device AI runs a model on the hardware in front of you, such as a phone, laptop, car or factory sensor, rather than sending data to a remote server. The benefits are privacy, offline operation, no per-token fees and no network delay. The costs are tight memory, power and heat limits, which is why on-device models are usually small language models of a few billion parameters or less, heavily quantized and often paired with a cloud model for harder requests. Phone and PC makers now ship such models inside their operating systems, and tools like Ollama, llama.cpp and MLX make local LLMs practical on ordinary laptops.",
+      "related": [
+        "small-language-model",
+        "quantization",
+        "ollama",
+        "model-routing"
+      ]
+    },
+    {
+      "slug": "quantization",
+      "term": "Quantization",
+      "aka": [
+        "model quantization",
+        "weight quantization"
+      ],
+      "category": "Inference & deployment",
+      "short": "Storing a model's numbers at lower precision to cut memory use and speed up inference.",
+      "definition": "Quantization stores weights, and sometimes activations or the KV cache, in fewer bits than the 16 used for training. Dropping from 16 to 8 bits halves memory; 4 bits cuts it to roughly a quarter. A 70B-parameter model needs about 140 GB at 16-bit but around 40 GB at 4-bit once overhead is included, which turns a multi-GPU job into one that fits on a single large card or a high-memory Mac. Eight-bit is usually close to lossless, while 4-bit costs a little quality that varies by model and task. Common methods include GPTQ, AWQ, GGUF quantization types and FP8; test quantized models on your own tasks before relying on them.",
+      "related": [
+        "vram",
+        "gguf",
+        "gptq",
+        "numeric-precision"
+      ]
+    },
+    {
+      "slug": "repetition-penalty",
+      "term": "Repetition penalty",
+      "aka": [
+        "frequency penalty",
+        "presence penalty"
+      ],
+      "category": "Inference & deployment",
+      "short": "A setting that lowers the scores of tokens already used, to discourage loops and repeated phrases.",
+      "definition": "Repetition penalties reduce the chance that a model repeats itself by lowering the scores of tokens that have already appeared. OpenAI-style APIs offer two kinds: a frequency penalty that grows with how many times a token has occurred, and a presence penalty that applies a flat reduction once a token has appeared at all. Local tools such as llama.cpp and Ollama offer a multiplicative repetition penalty, where values around 1.1 are a common choice. Use them sparingly. Too strong a penalty pushes the model away from words it legitimately needs, such as variable names in code or key terms in a technical summary, and can make text read as strained.",
+      "related": [
+        "logits",
+        "temperature",
+        "greedy-decoding"
+      ]
+    },
+    {
+      "slug": "self-hosting",
+      "term": "Self-hosting",
+      "aka": [
+        "self-hosted LLM",
+        "on-premises deployment"
+      ],
+      "category": "Inference & deployment",
+      "short": "Running models on hardware you control, in your data center or cloud account, instead of calling an API.",
+      "definition": "Self-hosting means serving open-weights models on GPUs you own or rent, using an inference engine such as vLLM. You gain control over data, model versions and latency, and freedom from rate limits. You also take on capacity planning, monitoring, security patches and idle time. Cost depends on utilization. In a hypothetical case, a GPU rented for $2 an hour costs about $1,460 a month running nonstop; if an API charges a blended $1 per million tokens, you need to process roughly 1.5 billion tokens a month on that GPU before self-hosting wins on price alone, before counting engineering time.",
+      "related": [
+        "open-weights",
+        "vllm",
+        "cost-per-token",
+        "inference-provider"
+      ]
+    },
+    {
+      "slug": "speculative-decoding",
+      "term": "Speculative decoding",
+      "aka": [
+        "speculative sampling",
+        "assisted generation"
+      ],
+      "category": "Inference & deployment",
+      "short": "A speed-up where a small model drafts several tokens and the large model checks them all at once.",
+      "definition": "Speculative decoding accelerates generation without changing the output. A small, fast draft model guesses the next several tokens; the large target model then verifies all of them in a single forward pass, keeping every token up to the first one it disagrees with and supplying its own token at that point. Because checking five tokens costs about the same as generating one, each accepted guess is nearly free. With the standard acceptance rule, the results follow exactly the target model's distribution. Typical speedups are around two to three times, depending on how often drafts are accepted. Variants include Medusa and EAGLE draft heads and n-gram lookup from the prompt.",
+      "related": [
+        "autoregressive-model",
+        "latency",
+        "tokens-per-second",
+        "inference-engine"
+      ]
+    },
+    {
+      "slug": "stop-sequence",
+      "term": "Stop sequence",
+      "aka": [
+        "stop token",
+        "stop string"
+      ],
+      "category": "Inference & deployment",
+      "short": "A string that tells the model to end generation as soon as it produces it.",
+      "definition": "A stop sequence is text you specify that ends generation the moment the model emits it; the stop text itself is usually left out of the response. It is a cheap way to keep output tidy and short. If you ask for one answer inside answer tags, a stop sequence of the closing tag ensures nothing follows it; when completing a dialog transcript, a stop sequence on the next speaker label prevents the model from writing both sides. Models also stop on their own end-of-sequence token. Stop sequences save output tokens, and the API response's finish reason tells you which condition ended the generation.",
+      "related": [
+        "max-tokens",
+        "special-tokens",
+        "structured-outputs"
+      ]
+    },
+    {
+      "slug": "streaming",
+      "term": "Streaming",
+      "aka": [
+        "token streaming",
+        "streamed responses"
+      ],
+      "category": "Inference & deployment",
+      "short": "Sending a model's output to the client piece by piece as it is generated, rather than all at once.",
+      "definition": "Streaming returns a response incrementally, typically over server-sent events, so your app can display words as they are generated. Total generation time stays the same, but the perceived wait drops to the time to first token, which is why nearly every chat interface streams. It also lets users cancel a bad answer early, saving output tokens. Streaming adds some complexity: you must assemble partial chunks, handle errors that arrive mid-stream, and parse tool calls or JSON only once they are complete. For background jobs where nobody is watching, a single non-streamed response, or a batch request, is simpler.",
+      "related": [
+        "time-to-first-token",
+        "latency",
+        "structured-outputs"
+      ]
+    },
+    {
+      "slug": "temperature",
+      "term": "Temperature",
+      "aka": [
+        "sampling temperature"
+      ],
+      "category": "Inference & deployment",
+      "short": "A sampling setting that controls how random or predictable a model's word choices are.",
+      "definition": "Temperature rescales the model's raw scores before they become probabilities. Below 1 it sharpens the distribution toward the most likely tokens; above 1 it flattens it so unlikely tokens get picked more often. Take three candidates with scores 2.0, 1.0 and 0.1: at temperature 1 their probabilities are about 0.66, 0.24 and 0.10; at 0.5 they become 0.86, 0.12 and 0.02; at 2 they shift to roughly 0.50, 0.30 and 0.19. Use low values for extraction, classification and code, and moderate values for brainstorming. Temperature 0 approximates always picking the top token, and some reasoning models restrict or ignore the setting.",
+      "related": [
+        "logits",
+        "softmax",
+        "top-p",
+        "greedy-decoding"
+      ]
+    },
+    {
+      "slug": "test-time-compute",
+      "term": "Test-time compute",
+      "aka": [
+        "inference-time compute",
+        "inference-time scaling",
+        "test-time scaling"
+      ],
+      "category": "Inference & deployment",
+      "short": "Extra computation spent while answering, such as longer reasoning, to get better results.",
+      "definition": "Test-time compute is computation spent when a model answers rather than when it is trained. Reasoning models scale it by thinking longer before responding, and OpenAI's o1 release in September 2024 showed accuracy on hard math and coding problems rising steadily as thinking time grew. Other approaches sample several answers and pick the most common or the one a verifier scores highest. Many APIs expose a control for this, often called reasoning effort or a thinking budget. More thinking raises cost and latency, so match the setting to the task: low for routine requests, high for difficult analysis, debugging or planning.",
+      "related": [
+        "reasoning-model",
+        "chain-of-thought",
+        "self-consistency",
+        "scaling-laws"
+      ]
+    },
+    {
+      "slug": "throughput",
+      "term": "Throughput",
+      "aka": [
+        "aggregate throughput",
+        "system throughput"
+      ],
+      "category": "Inference & deployment",
+      "short": "How much work a system completes per unit of time, such as total tokens per second across all users.",
+      "definition": "Throughput measures total output across all requests a deployment serves, for example 5,000 tokens per second summed over 100 concurrent users. It differs from per-user speed: batching many requests together keeps the GPU busy and raises throughput, but each individual stream may slow down. Inference engines use continuous batching, which slots new requests into the running batch as soon as others finish, to keep utilization high. Throughput is the number that sets your cost per token when you self-host, while per-user speed and latency determine how responsive the product feels. Benchmark both under a realistic mix of prompt and response lengths.",
+      "related": [
+        "latency",
+        "tokens-per-second",
+        "inference-engine",
+        "batch-api"
+      ]
+    },
+    {
+      "slug": "time-to-first-token",
+      "term": "Time to first token (TTFT)",
+      "aka": [
+        "TTFT"
+      ],
+      "category": "Inference & deployment",
+      "short": "How long a model takes to start responding after receiving a request.",
+      "definition": "Time to first token measures the gap between sending a request and receiving the first piece of output. It covers network time, any queueing at the provider, and the prefill phase in which the model processes your entire prompt, so it grows with prompt length. Reasoning models may also think for a while before emitting visible text. TTFT is what makes a chat interface feel snappy or sluggish: users tolerate a slow stream far better than a long blank wait. To reduce it, trim prompts, reuse cached prompt prefixes, pick a smaller or faster model, and stream responses so the first words appear immediately.",
+      "related": [
+        "latency",
+        "tokens-per-second",
+        "streaming",
+        "prompt-caching"
+      ]
+    },
+    {
+      "slug": "tokens-per-second",
+      "term": "Tokens per second",
+      "aka": [
+        "output speed",
+        "TPS",
+        "tok/s"
+      ],
+      "category": "Inference & deployment",
+      "short": "How fast a model generates output, the standard measure of LLM generation speed.",
+      "definition": "Tokens per second is the rate at which a model produces output once it has started. Per-user speed governs how long a long answer takes: at 40 tokens per second, a 1,200-token report needs 30 seconds. Most people read well under 10 tokens per second, so streaming at 30 or more feels instant for chat, but agents and batch jobs benefit from much higher rates. Generation is usually limited by memory bandwidth, so a rough ceiling is bandwidth divided by the bytes read per token: about 125 tokens per second for 8 GB of weights on a GPU with 1 TB/s of bandwidth. Quantization, speculative decoding and specialized hardware all raise speed.",
+      "related": [
+        "latency",
+        "throughput",
+        "time-to-first-token",
+        "speculative-decoding"
+      ]
+    },
+    {
+      "slug": "top-k",
+      "term": "Top-k sampling",
+      "aka": [
+        "top_k"
+      ],
+      "category": "Inference & deployment",
+      "short": "A sampling setting that restricts each choice to the k most likely next tokens.",
+      "definition": "Top-k sampling keeps only the k highest-probability tokens at each step, renormalizes their probabilities and samples from that short list. With k set to 40, the 41st most likely token can never be chosen, no matter how close its score. The weakness is that k is fixed: when the model is very sure, 40 options may let in nonsense, and when many words fit, 40 may be too few. That is why it is usually combined with, or replaced by, adaptive methods such as top-p and min-p, which adjust to the shape of the distribution. Local inference tools usually expose top-k, while some hosted APIs leave it out entirely.",
+      "related": [
+        "top-p",
+        "temperature",
+        "logits",
+        "greedy-decoding"
+      ]
+    },
+    {
+      "slug": "top-p",
+      "term": "Top-p (nucleus sampling)",
+      "aka": [
+        "nucleus sampling",
+        "top_p"
+      ],
+      "category": "Inference & deployment",
+      "short": "A sampling setting that limits choices to the smallest set of tokens covering a set share of probability.",
+      "definition": "Top-p sampling, introduced in a 2019 paper as nucleus sampling, picks the next token only from the smallest group of candidates whose probabilities add up to at least p. With p set to 0.9 and candidates at 0.50, 0.30, 0.15 and 0.05, the first three cover 0.95, so the fourth is excluded. Unlike a fixed top-k cutoff, the pool adapts: when the model is confident, only one or two tokens qualify; when it is unsure, many do. Values between 0.9 and 1.0 are common. Providers generally suggest adjusting temperature or top-p rather than both, since they interact in ways that are hard to reason about.",
+      "related": [
+        "temperature",
+        "top-k",
+        "logits",
+        "greedy-decoding"
+      ]
+    },
+    {
+      "slug": "vllm",
+      "term": "vLLM",
+      "aka": [],
+      "category": "Inference & deployment",
+      "short": "A popular open-source engine for serving LLMs at high throughput on GPUs.",
+      "definition": "vLLM is an open-source inference and serving engine that began at UC Berkeley in 2023. Its key idea, PagedAttention, manages the KV cache the way an operating system manages memory pages: in small blocks allocated on demand rather than one large reserved region per request. That sharply reduces wasted GPU memory, so more requests fit in a batch at once, and continuous batching keeps the GPU busy as requests arrive and finish. vLLM supports most popular open-weights models, many quantization formats and multi-GPU parallelism, and it exposes an OpenAI-compatible API, making it a common default for self-hosting at production scale.",
+      "related": [
+        "inference-engine",
+        "kv-cache",
+        "throughput",
+        "self-hosting"
+      ]
+    },
+    {
+      "slug": "vram",
+      "term": "VRAM (GPU memory)",
+      "aka": [
+        "video RAM",
+        "GPU memory"
+      ],
+      "category": "Inference & deployment",
+      "short": "The memory on a GPU, which must hold the model's weights plus working memory to run it.",
+      "definition": "VRAM is the GPU's onboard memory, and it is usually the first limit you hit when running models. A rough budget is weights plus KV cache plus about 10 to 20 percent overhead. Weights take parameters times bytes per parameter: an 8B model needs about 16 GB at 16-bit, 8 GB at 8-bit and 5 GB at 4-bit. Consumer cards typically offer 8 to 32 GB, while data-center GPUs carry 80 GB or more of high-bandwidth memory. Apple silicon Macs share one pool of unified memory between CPU and GPU, which lets high-memory machines load surprisingly large models, though at lower speed than top data-center GPUs.",
+      "related": [
+        "quantization",
+        "kv-cache",
+        "gpu",
+        "parameters"
+      ]
+    }
+  ]
+}
