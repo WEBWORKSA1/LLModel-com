@@ -1,0 +1,6 @@
+# GitHub Pages builds this branch with Jekyll. These are left out of the published site;
+# every other file is copied as-is (the HTML pages have no front matter, so nothing is templated).
+title: LLModel.com
+exclude:
+  - README.md
+  - _build
