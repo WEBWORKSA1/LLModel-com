@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Building LLM Apps Terms: LLM Glossary (23 Definitions) | LLModel.com</title>
+<meta name="description" content="Plain-English definitions of 23 building LLM apps terms for large language models, including RAG, vector databases, tool calling and MCP.">
+<link rel="canonical" href="https://llmodel.com/glossary-building-apps.html">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="google-adsense-account" content="ca-pub-6620975821265271">
+<meta name="theme-color" content="#f4f6fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12101e" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="LLModel.com">
+<meta property="og:title" content="Building LLM Apps Terms: LLM Glossary (23 Definitions)">
+<meta property="og:description" content="Plain-English definitions of 23 building LLM apps terms for large language models, including RAG, vector databases, tool calling and MCP.">
+<meta property="og:url" content="https://llmodel.com/glossary-building-apps.html">
+<meta property="og:image" content="https://llmodel.com/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="LLModel: the independent field guide to large language models">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="alternate" type="text/plain" href="llms.txt" title="llms.txt">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Martian+Mono:wght@400..500&family=Newsreader:ital,opsz,wght@0,6..72,400..650;1,6..72,400&display=swap">
+<link rel="stylesheet" href="assets/css/style.css?v=dae4813595">
+<script>(function(){var d=document.documentElement,t=null;try{t=localStorage.getItem('llm-theme')}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}d.setAttribute('data-theme',t)})();</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6620975821265271" crossorigin="anonymous"></script>
+<script type="application/ld+json">{
+ "@type": "Organization",
+ "@id": "https://llmodel.com/#org",
+ "name": "LLModel.com",
+ "url": "https://llmodel.com/",
+ "logo": "https://llmodel.com/assets/img/icon-512.png",
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://llmodel.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Glossary",
+   "item": "https://llmodel.com/glossary.html"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "Building LLM apps"
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "DefinedTermSet",
+ "name": "LLM glossary: building LLM apps",
+ "url": "https://llmodel.com/glossary-building-apps.html",
+ "hasDefinedTerm": [
+  {
+   "@type": "DefinedTerm",
+   "name": "Agent memory",
+   "description": "Mechanisms that let an AI system keep and recall information beyond a single context window.",
+   "url": "https://llmodel.com/glossary-building-apps.html#agent-memory"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Agentic workflow",
+   "description": "A multi-step process in which LLMs plan, call tools and act, with control flow set by code or the model.",
+   "url": "https://llmodel.com/glossary-building-apps.html#agentic-workflow"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "AI agent",
+   "description": "A system where an LLM decides which actions to take, uses tools, observes results and repeats until done.",
+   "url": "https://llmodel.com/glossary-building-apps.html#ai-agent"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "BM25",
+   "description": "A classic keyword-ranking formula that scores documents by term frequency, rarity and length.",
+   "url": "https://llmodel.com/glossary-building-apps.html#bm25"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Chunking",
+   "description": "Splitting documents into smaller passages before embedding them, so retrieval returns focused, relevant text.",
+   "url": "https://llmodel.com/glossary-building-apps.html#chunking"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Citations",
+   "description": "References in a model's answer that point to the specific sources supporting each claim.",
+   "url": "https://llmodel.com/glossary-building-apps.html#citations"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Computer use",
+   "description": "Agents that operate a computer or browser through screenshots, mouse clicks and keystrokes, like a person.",
+   "url": "https://llmodel.com/glossary-building-apps.html#computer-use"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Cosine similarity",
+   "description": "A measure of how closely two vectors point in the same direction, widely used to compare embeddings.",
+   "url": "https://llmodel.com/glossary-building-apps.html#cosine-similarity"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Embedding model",
+   "description": "A model that converts text into vectors so that similar meanings produce nearby vectors.",
+   "url": "https://llmodel.com/glossary-building-apps.html#embedding-model"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Grounding",
+   "description": "Tying a model's answers to specific, verifiable sources such as retrieved documents, data or search results.",
+   "url": "https://llmodel.com/glossary-building-apps.html#grounding"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Hybrid search",
+   "description": "Combining keyword search and semantic vector search so each covers the other's blind spots.",
+   "url": "https://llmodel.com/glossary-building-apps.html#hybrid-search"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Model Context Protocol (MCP)",
+   "description": "An open standard for connecting AI applications to tools and data sources through a common interface.",
+   "url": "https://llmodel.com/glossary-building-apps.html#model-context-protocol"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Model routing and fallback",
+   "description": "Sending each request to the most suitable model, often a cheap one first, with fallbacks for failures.",
+   "url": "https://llmodel.com/glossary-building-apps.html#model-routing"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Multi-agent system",
+   "description": "An application in which several LLM agents with different roles or tools collaborate on a task.",
+   "url": "https://llmodel.com/glossary-building-apps.html#multi-agent-system"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Query rewriting",
+   "description": "Using a model to reformulate a user's question into better search queries before retrieval.",
+   "url": "https://llmodel.com/glossary-building-apps.html#query-rewriting"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "ReAct (reason + act)",
+   "description": "An agent pattern in which a model alternates between reasoning about a task and taking tool actions.",
+   "url": "https://llmodel.com/glossary-building-apps.html#react-pattern"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Reranker",
+   "description": "A model that re-scores an initial list of search results to put the most relevant ones first.",
+   "url": "https://llmodel.com/glossary-building-apps.html#reranker"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Retrieval",
+   "description": "Finding and returning the most relevant pieces of information from a collection for a given query.",
+   "url": "https://llmodel.com/glossary-building-apps.html#retrieval"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Retrieval-augmented generation (RAG)",
+   "description": "Fetching relevant documents at query time and adding them to the prompt so the model answers from them.",
+   "url": "https://llmodel.com/glossary-building-apps.html#rag"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Semantic search",
+   "description": "Search that matches by meaning rather than exact keywords, usually by comparing embeddings.",
+   "url": "https://llmodel.com/glossary-building-apps.html#semantic-search"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Structured outputs",
+   "description": "Forcing a model's output to follow a defined format, typically valid JSON matching a schema you supply.",
+   "url": "https://llmodel.com/glossary-building-apps.html#structured-outputs"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Tool calling",
+   "description": "Letting a model request that your code run a defined function, then using the result in its answer.",
+   "url": "https://llmodel.com/glossary-building-apps.html#tool-calling"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Vector database",
+   "description": "A database built to store embeddings and quickly find the ones most similar to a query.",
+   "url": "https://llmodel.com/glossary-building-apps.html#vector-database"
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+
+</head>
+<body class="page-glossary-building-apps">
+<a class="skip" href="#main">Skip to content</a>
+<div class="partner-bar"><a href="https://web.works/contact" target="_blank" rel="noopener"><span>Contact, if you are interested in this website / domain name / sponsorship / advertisement / partnership</span></a></div>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+    <nav class="nav" aria-label="Main"><a href="models.html">Models</a><a href="compare.html">Compare</a><a href="leaderboard.html">Rankings</a><a href="tools.html">Tools</a><a href="guides.html" aria-current="page">Learn</a><a href="videos.html">Videos</a></nav>
+    <div class="header-actions">
+      <button class="search-btn" type="button" data-open-search aria-label="Search the site"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="search-label">Search</span><span class="kbd" aria-hidden="true">/</span></button>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><svg class="theme-icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="theme-icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+      <a class="btn btn--primary btn--sm header-cta" href="hire-llm-experts.html">Get expert help</a>
+      <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile">
+    <ul><li><a href="models.html">Models</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="tools.html">Tools</a></li>
+<li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="contact.html">Contact</a></li>
+<li class="mobile-cta"><a class="btn btn--primary btn--block" href="hire-llm-experts.html">Get expert help</a></li>
+</ul>
+  </nav>
+</header>
+<main id="main">
+<nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li aria-current="page">Building LLM apps</li>
+</ol>
+</nav>
+<header class="page-head wrap"><h1>LLM glossary: building LLM apps</h1><p class="lede">Building products on models: retrieval-augmented generation, search and reranking, tool calling, MCP, structured outputs and AI agents. 23 terms, each with a short definition, a fuller explanation and links to related terms.</p>
+<div class="page-meta"><span>Updated October 10, 2026</span><span><a href="glossary.html">All 169 terms</a></span></div>
+</header>
+<div class="wrap">
+<nav class="pill-nav" aria-label="Other glossary topics"><a href="glossary-fundamentals.html">Fundamentals</a><a href="glossary-architecture.html">Model architecture</a><a href="glossary-training.html">Training</a><a href="glossary-inference-deployment.html">Inference and deployment</a><a href="glossary-prompting.html">Prompting</a><a href="glossary-evaluation.html">Evaluation and benchmarks</a><a href="glossary-safety-governance.html">Safety and governance</a><a href="glossary-business-pricing.html">Business and pricing</a></nav>
+<div class="filters" style="margin-top:1.5rem"><div class="filters__top"><label class="visually-hidden" for="gl-q">Filter terms</label><input class="input" id="gl-q" type="search" placeholder="Filter 23 terms" autocomplete="off"></div>
+<p class="result-count" id="gl-count" aria-live="polite">23 terms</p>
+</div>
+<aside class="ad-slot" data-ad="glossary-top" aria-label="Sponsored message"><span class="ad-label">From LLModel</span><div class="ad-fill"><div class="house"><div><strong>Prompt Efficiency Challenge</strong><span>Season 1 is open: solve five tasks for the fewest dollars. $500 in prizes.</span></div>
+<a class="btn btn--ghost btn--sm" href="contests.html">Read the brief</a></div>
+</div>
+</aside>
+<div id="gl-list"><div class="terms"><article class="term" id="agent-memory" data-cat="Building apps" data-text="agent memory memory llm memory"><h3>Agent memory <span class="aka">memory, LLM memory</span><a class="anchor" href="#agent-memory" aria-label="Link to Agent memory">#</a></h3>
+<p class="short">Mechanisms that let an AI system keep and recall information beyond a single context window.</p>
+<p class="def">Language models have no memory between calls; anything remembered must be stored by the application and put back into context. Short-term memory is the running conversation or task state, often summarized as it grows so it fits the context window. Long-term memory persists across sessions: user preferences, facts learned earlier, or past task outcomes, stored in a database or vector store and retrieved when relevant. Agents may also keep scratchpad files or notes to track progress on long jobs. Designing memory is mostly about choosing what to save, when to recall it and when to forget it, and about letting users see and delete what is stored.</p>
+<div class="rel tags"><a class="tag" href="#ai-agent">AI agent</a><a class="tag" href="glossary-prompting.html#context-engineering">Context engineering</a><a class="tag" href="#vector-database">Vector database</a><a class="tag" href="glossary-fundamentals.html#context-window">Context window</a></div>
+</article>
+<article class="term" id="agentic-workflow" data-cat="Building apps" data-text="agentic workflow agentic ai agentic system"><h3>Agentic workflow <span class="aka">agentic AI, agentic system</span><a class="anchor" href="#agentic-workflow" aria-label="Link to Agentic workflow">#</a></h3>
+<p class="short">A multi-step process in which LLMs plan, call tools and act, with control flow set by code or the model.</p>
+<p class="def">Agentic workflow is a broad label for systems where models do more than answer once: they plan, use tools, check their work and take actions across several steps. Designs sit on a spectrum. At one end, code fixes the path, as in prompt chains, routing and parallel calls with a vote. At the other, a fully autonomous agent chooses each next step itself. Plan-and-execute is a middle pattern in which one model call writes a plan and later calls carry out each step. Orchestration refers to the code or framework that manages these calls, state and retries. Start with the simplest structure that works and add autonomy only when the task genuinely needs it.</p>
+<div class="rel tags"><a class="tag" href="#ai-agent">AI agent</a><a class="tag" href="glossary-prompting.html#prompt-chaining">Prompt chaining</a><a class="tag" href="#multi-agent-system">Multi-agent system</a><a class="tag" href="#react-pattern">ReAct (reason + act)</a></div>
+</article>
+<article class="term" id="ai-agent" data-cat="Building apps" data-text="ai agent agent llm agent autonomous agent"><h3>AI agent <span class="aka">agent, LLM agent, autonomous agent</span><a class="anchor" href="#ai-agent" aria-label="Link to AI agent">#</a></h3>
+<p class="short">A system where an LLM decides which actions to take, uses tools, observes results and repeats until done.</p>
+<p class="def">An AI agent is a program in which a language model directs its own process to reach a goal. Instead of answering once, it works in a loop: decide on the next step, call a tool such as search, a database query or a code runner, read the result, and continue until the task is done or a limit is hit. A coding agent might read files, edit code, run the tests and fix failures over dozens of steps. Agents handle open-ended work that fixed pipelines can&#x27;t, but errors compound across steps, costs are less predictable and actions carry real risk, so give them narrow permissions, step limits and human approval for consequential actions.</p>
+<div class="rel tags"><a class="tag" href="#tool-calling">Tool calling</a><a class="tag" href="#agentic-workflow">Agentic workflow</a><a class="tag" href="#react-pattern">ReAct (reason + act)</a><a class="tag" href="#agent-memory">Agent memory</a></div>
+</article>
+<article class="term" id="bm25" data-cat="Building apps" data-text="bm25 okapi bm25 best matching 25"><h3>BM25 <span class="aka">Okapi BM25, Best Matching 25</span><a class="anchor" href="#bm25" aria-label="Link to BM25">#</a></h3>
+<p class="short">A classic keyword-ranking formula that scores documents by term frequency, rarity and length.</p>
+<p class="def">BM25, short for Best Matching 25, is a ranking function from the 1990s and still the default in search engines such as Elasticsearch, OpenSearch and Lucene-based systems. It scores a document higher when it contains the query&#x27;s words more often, with diminishing returns for repetition, when those words are rare across the collection, and when the document is not padded with unrelated text. It needs no training or GPU, is fast and transparent, and is excellent at exact matches like names, codes and jargon. Its weakness is vocabulary mismatch: it can&#x27;t tell that &#x27;car&#x27; and &#x27;automobile&#x27; are related. That&#x27;s why it is commonly paired with semantic search.</p>
+<div class="rel tags"><a class="tag" href="#hybrid-search">Hybrid search</a><a class="tag" href="#semantic-search">Semantic search</a><a class="tag" href="#retrieval">Retrieval</a></div>
+</article>
+<article class="term" id="chunking" data-cat="Building apps" data-text="chunking text splitting document chunking"><h3>Chunking <span class="aka">text splitting, document chunking</span><a class="anchor" href="#chunking" aria-label="Link to Chunking">#</a></h3>
+<p class="short">Splitting documents into smaller passages before embedding them, so retrieval returns focused, relevant text.</p>
+<p class="def">Chunking breaks long documents into passages that are embedded and retrieved individually. Size is a real trade-off: small chunks of around 200 tokens match queries precisely but can lose surrounding context, while chunks of 1,000 tokens or more carry context but dilute relevance and use more of the prompt. Common starting points are 300 to 800 tokens with 10 to 20 percent overlap so ideas aren&#x27;t cut in half. Splitting on natural boundaries such as headings, paragraphs or functions in code beats fixed character counts, and prefixing each chunk with its document title or section heading improves retrieval. Test chunking choices against real questions rather than guessing.</p>
+<div class="rel tags"><a class="tag" href="#rag">Retrieval-augmented generation (RAG)</a><a class="tag" href="glossary-fundamentals.html#embedding">Embedding</a><a class="tag" href="#vector-database">Vector database</a><a class="tag" href="glossary-fundamentals.html#context-window">Context window</a></div>
+</article>
+<article class="term" id="citations" data-cat="Building apps" data-text="citations source attribution source citations"><h3>Citations <span class="aka">source attribution, source citations</span><a class="anchor" href="#citations" aria-label="Link to Citations">#</a></h3>
+<p class="short">References in a model&#x27;s answer that point to the specific sources supporting each claim.</p>
+<p class="def">Citations link statements in a generated answer to the passages, documents or web pages they came from, so readers can check them. In a RAG system you typically number each retrieved chunk in the prompt and instruct the model to cite those numbers, or use an API feature that returns citations as structured data with exact quoted spans. Citations make hallucinations easier to catch and build user trust, but they can be wrong too: a model may cite a real source that doesn&#x27;t actually support the claim. For high-stakes uses, verify automatically that each cited passage contains the supporting text before showing the answer.</p>
+<div class="rel tags"><a class="tag" href="#grounding">Grounding</a><a class="tag" href="#rag">Retrieval-augmented generation (RAG)</a><a class="tag" href="glossary-fundamentals.html#hallucination">Hallucination</a></div>
+</article>
+<article class="term" id="computer-use" data-cat="Building apps" data-text="computer use computer-using agent gui agent"><h3>Computer use <span class="aka">computer-using agent, GUI agent</span><a class="anchor" href="#computer-use" aria-label="Link to Computer use">#</a></h3>
+<p class="short">Agents that operate a computer or browser through screenshots, mouse clicks and keystrokes, like a person.</p>
+<p class="def">Computer use lets a multimodal model control a graphical interface. The model receives a screenshot, decides where to click or what to type, the harness executes that action and returns a new screenshot, and the loop continues. This lets agents work with software that has no API, such as legacy internal tools, web forms or desktop apps. Anthropic introduced computer use in public beta in October 2024, and other major labs have since released browser and computer agents. It remains slower and less reliable than calling an API, and it is exposed to prompt injection from anything on screen, so run it in a sandbox and require confirmation for purchases or deletions.</p>
+<div class="rel tags"><a class="tag" href="#ai-agent">AI agent</a><a class="tag" href="glossary-fundamentals.html#multimodal">Multimodal</a><a class="tag" href="glossary-safety-governance.html#prompt-injection">Prompt injection</a><a class="tag" href="#tool-calling">Tool calling</a></div>
+</article>
+<article class="term" id="cosine-similarity" data-cat="Building apps" data-text="cosine similarity"><h3>Cosine similarity <a class="anchor" href="#cosine-similarity" aria-label="Link to Cosine similarity">#</a></h3>
+<p class="short">A measure of how closely two vectors point in the same direction, widely used to compare embeddings.</p>
+<p class="def">Cosine similarity compares two vectors by the angle between them, ignoring their length. It equals the dot product of the vectors divided by the product of their magnitudes, giving a value from -1 for opposite directions, through 0 for unrelated, to 1 for the same direction. With text embeddings, a query and a relevant passage might score 0.8 while an unrelated passage scores 0.2, but typical ranges vary by model, so similarity thresholds don&#x27;t transfer between embedding models. Many embedding models output vectors already normalized to length 1, in which case cosine similarity equals the plain dot product, which is cheaper to compute. Cosine distance is one minus the similarity.</p>
+<div class="rel tags"><a class="tag" href="glossary-fundamentals.html#embedding">Embedding</a><a class="tag" href="#semantic-search">Semantic search</a><a class="tag" href="#vector-database">Vector database</a></div>
+</article>
+<article class="term" id="embedding-model" data-cat="Building apps" data-text="embedding model text embedding model embedder"><h3>Embedding model <span class="aka">text embedding model, embedder</span><a class="anchor" href="#embedding-model" aria-label="Link to Embedding model">#</a></h3>
+<p class="short">A model that converts text into vectors so that similar meanings produce nearby vectors.</p>
+<p class="def">An embedding model turns a piece of text into one fixed-length vector, typically a few hundred to a few thousand dimensions, for search, clustering, deduplication and classification. Many are encoder-style transformers and some are adapted from decoder LLMs, but nearly all are trained with contrastive learning on pairs of related texts, so a question and its answer land close together. Most are much smaller than frontier chat models, cost a small fraction of chat-model rates, and many run comfortably on a CPU. Public leaderboards such as MTEB are a reasonable starting point, but test candidates on your own queries and documents. Switching embedding models later means re-embedding your whole collection, because vectors from different models aren&#x27;t comparable.</p>
+<div class="rel tags"><a class="tag" href="glossary-fundamentals.html#embedding">Embedding</a><a class="tag" href="#vector-database">Vector database</a><a class="tag" href="#semantic-search">Semantic search</a><a class="tag" href="glossary-architecture.html#encoder">Encoder</a></div>
+</article>
+<article class="term" id="grounding" data-cat="Building apps" data-text="grounding groundedness"><h3>Grounding <span class="aka">groundedness</span><a class="anchor" href="#grounding" aria-label="Link to Grounding">#</a></h3>
+<p class="short">Tying a model&#x27;s answers to specific, verifiable sources such as retrieved documents, data or search results.</p>
+<p class="def">Grounding means anchoring what a model says in source material you supply or it retrieves, rather than in whatever its weights happen to recall. A grounded support bot answers from the current policy document and can point to the passage it used; an ungrounded one improvises from training data that may be outdated. You achieve grounding with retrieval, web search, or database and tool results placed in context, plus instructions to rely only on that material and to say so when it lacks the answer. Groundedness can be measured by checking whether each claim in an answer is supported by the provided sources, a common metric in RAG evaluation.</p>
+<div class="rel tags"><a class="tag" href="#rag">Retrieval-augmented generation (RAG)</a><a class="tag" href="glossary-fundamentals.html#hallucination">Hallucination</a><a class="tag" href="#citations">Citations</a><a class="tag" href="glossary-evaluation.html#evaluation">Evaluation (evals)</a></div>
+</article>
+<aside class="ad-slot" data-ad="in-article-2" aria-label="Sponsored message"><span class="ad-label">From LLModel</span><div class="ad-fill"><div class="house"><div><strong>Price your workload</strong><span>Compare the monthly bill for your token volume across every priced model.</span></div>
+<a class="btn btn--ghost btn--sm" href="llm-cost-calculator.html">Open the calculator</a></div>
+</div>
+</aside>
+<article class="term" id="hybrid-search" data-cat="Building apps" data-text="hybrid search hybrid retrieval"><h3>Hybrid search <span class="aka">hybrid retrieval</span><a class="anchor" href="#hybrid-search" aria-label="Link to Hybrid search">#</a></h3>
+<p class="short">Combining keyword search and semantic vector search so each covers the other&#x27;s blind spots.</p>
+<p class="def">Hybrid search runs a keyword method such as BM25 and a semantic embedding search side by side, then merges their result lists. Keyword search reliably finds exact terms like &#x27;ERR_429&#x27;, SKU numbers or a person&#x27;s surname; semantic search finds passages that express the same idea in different words. A common merging method is reciprocal rank fusion, which gives each document 1/(k + rank) points from every list it appears in, with k a constant often set to 60, so documents near the top of both lists rise. Many vector databases and search engines support hybrid queries natively. Adding a reranker after the merge typically improves results further.</p>
+<div class="rel tags"><a class="tag" href="#bm25">BM25</a><a class="tag" href="#semantic-search">Semantic search</a><a class="tag" href="#reranker">Reranker</a><a class="tag" href="#rag">Retrieval-augmented generation (RAG)</a></div>
+</article>
+<article class="term" id="model-context-protocol" data-cat="Building apps" data-text="model context protocol (mcp) mcp"><h3>Model Context Protocol (MCP) <span class="aka">MCP</span><a class="anchor" href="#model-context-protocol" aria-label="Link to Model Context Protocol (MCP)">#</a></h3>
+<p class="short">An open standard for connecting AI applications to tools and data sources through a common interface.</p>
+<p class="def">The Model Context Protocol is an open standard, introduced by Anthropic in November 2024, that defines how AI applications connect to external tools and data. An MCP server wraps a system such as a file store, database, ticketing tool or code repository and exposes tools the model can call, resources it can read and reusable prompts. Any compatible client can then use that server, so one integration works across many assistants and coding tools, much as the Language Server Protocol lets one language plugin serve many code editors. In December 2025, Anthropic donated MCP to the Agentic AI Foundation, a fund under the Linux Foundation co-founded with Block and OpenAI. Treat third-party servers as untrusted code.</p>
+<div class="rel tags"><a class="tag" href="#tool-calling">Tool calling</a><a class="tag" href="#ai-agent">AI agent</a><a class="tag" href="glossary-safety-governance.html#prompt-injection">Prompt injection</a></div>
+</article>
+<article class="term" id="model-routing" data-cat="Building apps" data-text="model routing and fallback llm router model cascade"><h3>Model routing and fallback <span class="aka">LLM router, model cascade</span><a class="anchor" href="#model-routing" aria-label="Link to Model routing and fallback">#</a></h3>
+<p class="short">Sending each request to the most suitable model, often a cheap one first, with fallbacks for failures.</p>
+<p class="def">Model routing directs each request to the model best suited to it instead of sending everything to one model. A router might be a few rules, such as sending short classification tasks to a small model, or a trained classifier that predicts which requests need a frontier model. If most of your traffic is simple, routing it to a model that costs a tenth as much can cut the bill dramatically. Routing also covers resilience: a fallback sends the request to a second model or provider when the first errors out, times out or hits a rate limit. Track quality per route, since savings mean little if harder requests get misrouted.</p>
+<div class="rel tags"><a class="tag" href="glossary-fundamentals.html#small-language-model">Small language model (SLM)</a><a class="tag" href="glossary-business-pricing.html#cost-per-token">Cost per token</a><a class="tag" href="glossary-business-pricing.html#rate-limit">Rate limit</a><a class="tag" href="glossary-business-pricing.html#inference-provider">Inference provider</a></div>
+</article>
+<article class="term" id="multi-agent-system" data-cat="Building apps" data-text="multi-agent system multi-agent multi-agent architecture"><h3>Multi-agent system <span class="aka">multi-agent, multi-agent architecture</span><a class="anchor" href="#multi-agent-system" aria-label="Link to Multi-agent system">#</a></h3>
+<p class="short">An application in which several LLM agents with different roles or tools collaborate on a task.</p>
+<p class="def">A multi-agent system splits work among several agents, each with its own instructions, tools and context. A common shape is orchestrator and workers: a lead agent breaks a research question into parts, spawns subagents to investigate each one in parallel, and then combines their findings. Separation keeps each agent&#x27;s context focused and allows parallel work, which helps on broad tasks. The costs are significant: more tokens, harder debugging, and information lost or garbled in handoffs between agents. Use multiple agents when a task splits naturally into independent parts; for tightly coupled work, a single agent with good tools often performs better.</p>
+<div class="rel tags"><a class="tag" href="#ai-agent">AI agent</a><a class="tag" href="#agentic-workflow">Agentic workflow</a><a class="tag" href="#agent-memory">Agent memory</a></div>
+</article>
+<article class="term" id="query-rewriting" data-cat="Building apps" data-text="query rewriting query reformulation query transformation query expansion"><h3>Query rewriting <span class="aka">query reformulation, query transformation, query expansion</span><a class="anchor" href="#query-rewriting" aria-label="Link to Query rewriting">#</a></h3>
+<p class="short">Using a model to reformulate a user&#x27;s question into better search queries before retrieval.</p>
+<p class="def">Query rewriting transforms what the user typed into queries that retrieve better. In a chat, &#x27;what about the second one?&#x27; means nothing to a search index, so a model first rewrites it as a standalone question using the conversation history. Other variants split a compound question into several sub-queries, add synonyms and domain terms, or generate a hypothetical answer and search with that, a technique called HyDE, because an answer-shaped text often sits closer to the right documents in embedding space. Rewriting adds a model call and some latency, so use a small, fast model and measure whether retrieval recall actually improves.</p>
+<div class="rel tags"><a class="tag" href="#retrieval">Retrieval</a><a class="tag" href="#rag">Retrieval-augmented generation (RAG)</a><a class="tag" href="#semantic-search">Semantic search</a></div>
+</article>
+<article class="term" id="react-pattern" data-cat="Building apps" data-text="react (reason + act) react reason and act"><h3>ReAct (reason + act) <span class="aka">ReAct, reason and act</span><a class="anchor" href="#react-pattern" aria-label="Link to ReAct (reason + act)">#</a></h3>
+<p class="short">An agent pattern in which a model alternates between reasoning about a task and taking tool actions.</p>
+<p class="def">ReAct, from a 2022 paper by researchers at Princeton and Google, combines reasoning traces with actions in one loop. The model writes a thought about what it knows and what to do next, takes an action such as a search query, reads the observation that comes back, and repeats until it can answer. For example: think &#x27;I need the company&#x27;s founding year&#x27;, search, read the result, think &#x27;now I need its current CEO&#x27;, search again. Interleaving reasoning with real observations reduces the made-up facts that pure chain-of-thought can produce. Most modern agent loops built on tool calling follow this structure, even when they don&#x27;t use the name.</p>
+<div class="rel tags"><a class="tag" href="#ai-agent">AI agent</a><a class="tag" href="glossary-prompting.html#chain-of-thought">Chain-of-thought prompting (CoT)</a><a class="tag" href="#tool-calling">Tool calling</a><a class="tag" href="#agentic-workflow">Agentic workflow</a></div>
+</article>
+<article class="term" id="reranker" data-cat="Building apps" data-text="reranker reranking model re-ranker"><h3>Reranker <span class="aka">reranking model, re-ranker</span><a class="anchor" href="#reranker" aria-label="Link to Reranker">#</a></h3>
+<p class="short">A model that re-scores an initial list of search results to put the most relevant ones first.</p>
+<p class="def">A reranker takes a query and a shortlist of candidate passages, say the top 50 from a vector or keyword search, scores each pair for relevance and reorders them. Most rerankers are cross-encoders: unlike embedding models, which encode the query and each document separately, they read both together, so they catch subtler matches at a higher compute cost per pair. The standard pattern is to retrieve broadly with a fast method, then rerank and keep only the best five to ten passages for the prompt. Adding a reranker is often one of the largest quality gains available in a RAG pipeline, at the cost of some extra latency.</p>
+<div class="rel tags"><a class="tag" href="#rag">Retrieval-augmented generation (RAG)</a><a class="tag" href="#semantic-search">Semantic search</a><a class="tag" href="#hybrid-search">Hybrid search</a><a class="tag" href="glossary-architecture.html#encoder">Encoder</a></div>
+</article>
+<article class="term" id="retrieval" data-cat="Building apps" data-text="retrieval information retrieval ir"><h3>Retrieval <span class="aka">information retrieval, IR</span><a class="anchor" href="#retrieval" aria-label="Link to Retrieval">#</a></h3>
+<p class="short">Finding and returning the most relevant pieces of information from a collection for a given query.</p>
+<p class="def">Retrieval is the step that finds the right material before a model writes anything. In an LLM application it might mean searching a document index, querying a database, calling a search engine or looking up a user&#x27;s history. Quality is measured with metrics such as recall at k, which checks whether the needed passage appears in the top k results, and precision, which tracks how much of what was returned is actually useful. Retrieval sets a ceiling on answer quality: a strong model given the wrong passages will still answer wrongly, or confidently invent an answer. Evaluate retrieval separately from generation so you know which stage to fix.</p>
+<div class="rel tags"><a class="tag" href="#rag">Retrieval-augmented generation (RAG)</a><a class="tag" href="#semantic-search">Semantic search</a><a class="tag" href="#bm25">BM25</a><a class="tag" href="#query-rewriting">Query rewriting</a></div>
+</article>
+<article class="term" id="rag" data-cat="Building apps" data-text="retrieval-augmented generation (rag) rag"><h3>Retrieval-augmented generation (RAG) <span class="aka">RAG</span><a class="anchor" href="#rag" aria-label="Link to Retrieval-augmented generation (RAG)">#</a></h3>
+<p class="short">Fetching relevant documents at query time and adding them to the prompt so the model answers from them.</p>
+<p class="def">Retrieval-augmented generation pairs a search step with a language model. When a question arrives, the system retrieves the most relevant passages from your own content, such as help-center articles, contracts or wiki pages, and places them in the prompt with an instruction to answer from that material. The model never has to memorize your data, you can update content without retraining, and answers can cite their sources. The term comes from a 2020 paper by researchers at Facebook AI Research. Most RAG failures are really retrieval failures: if the right passage isn&#x27;t found, the model can&#x27;t use it, so invest in chunking, hybrid search and reranking before swapping models.</p>
+<div class="rel tags"><a class="tag" href="#vector-database">Vector database</a><a class="tag" href="#chunking">Chunking</a><a class="tag" href="#grounding">Grounding</a><a class="tag" href="#reranker">Reranker</a></div>
+</article>
+<article class="term" id="semantic-search" data-cat="Building apps" data-text="semantic search vector search dense retrieval neural search"><h3>Semantic search <span class="aka">vector search, dense retrieval, neural search</span><a class="anchor" href="#semantic-search" aria-label="Link to Semantic search">#</a></h3>
+<p class="short">Search that matches by meaning rather than exact keywords, usually by comparing embeddings.</p>
+<p class="def">Semantic search finds results that mean the same thing as the query even when they share no words. The query and the documents are converted to embeddings, and the system returns the documents whose vectors are most similar. A search for &#x27;laptop won&#x27;t turn on&#x27; can surface an article titled &#x27;Troubleshooting power failures on notebooks&#x27;. It handles paraphrases, synonyms and even cross-language matches well, but it can miss exact identifiers such as product codes, error numbers or rare names that keyword search finds easily. That gap is why many production systems combine semantic and keyword search in a hybrid setup, then rerank the merged results.</p>
+<div class="rel tags"><a class="tag" href="glossary-fundamentals.html#embedding">Embedding</a><a class="tag" href="#hybrid-search">Hybrid search</a><a class="tag" href="#bm25">BM25</a><a class="tag" href="#vector-database">Vector database</a></div>
+</article>
+<article class="term" id="structured-outputs" data-cat="Building apps" data-text="structured outputs structured generation constrained generation"><h3>Structured outputs <span class="aka">structured generation, constrained generation</span><a class="anchor" href="#structured-outputs" aria-label="Link to Structured outputs">#</a></h3>
+<p class="short">Forcing a model&#x27;s output to follow a defined format, typically valid JSON matching a schema you supply.</p>
+<p class="def">Structured outputs make a model return data your code can parse reliably instead of free text you have to pick apart. There are levels. Asking for JSON in the prompt usually works but occasionally fails. JSON mode guarantees syntactically valid JSON but not the fields you need. Schema-enforced structured outputs, offered by several major APIs and by local engines through grammars, use constrained decoding: at each step, tokens that would break the schema are masked out, so the result always matches your JSON Schema. Even then, validate values in code, since a field can be correctly typed and still wrong, and very strict schemas can sometimes lower answer quality.</p>
+<div class="rel tags"><a class="tag" href="#tool-calling">Tool calling</a><a class="tag" href="glossary-inference-deployment.html#logits">Logits</a><a class="tag" href="glossary-prompting.html#prompt-chaining">Prompt chaining</a></div>
+</article>
+<article class="term" id="tool-calling" data-cat="Building apps" data-text="tool calling function calling tool use"><h3>Tool calling <span class="aka">function calling, tool use</span><a class="anchor" href="#tool-calling" aria-label="Link to Tool calling">#</a></h3>
+<p class="short">Letting a model request that your code run a defined function, then using the result in its answer.</p>
+<p class="def">Tool calling lets a model act on the outside world in a structured way. You describe each available tool with a name, a plain-language description and a JSON Schema for its arguments, often called the function schema. When the model decides a tool would help, it returns a structured call, such as get_weather with the argument city set to Lisbon, instead of prose. Your application runs the function, sends the result back, and the model continues. The model never executes anything itself. Clear tool descriptions matter as much as prompts, and because arguments come from the model, validate them and check permissions before running anything consequential.</p>
+<div class="rel tags"><a class="tag" href="#ai-agent">AI agent</a><a class="tag" href="#structured-outputs">Structured outputs</a><a class="tag" href="#model-context-protocol">Model Context Protocol (MCP)</a><a class="tag" href="glossary-safety-governance.html#prompt-injection">Prompt injection</a></div>
+</article>
+<article class="term" id="vector-database" data-cat="Building apps" data-text="vector database vector store vector index"><h3>Vector database <span class="aka">vector store, vector index</span><a class="anchor" href="#vector-database" aria-label="Link to Vector database">#</a></h3>
+<p class="short">A database built to store embeddings and quickly find the ones most similar to a query.</p>
+<p class="def">A vector database stores embeddings alongside the text and metadata they came from, and answers one question fast: which stored vectors are closest to this query vector? Comparing a query against millions of vectors one by one is too slow, so these systems use approximate nearest-neighbor indexes such as HNSW, which trade a sliver of accuracy for results in milliseconds. Options range from dedicated vector services to extensions such as pgvector for PostgreSQL and vector features in search engines you may already run. For a few thousand documents, a simple in-memory index is often enough. As data grows, weigh metadata filtering, hybrid search support, update speed and cost.</p>
+<div class="rel tags"><a class="tag" href="glossary-fundamentals.html#embedding">Embedding</a><a class="tag" href="#semantic-search">Semantic search</a><a class="tag" href="#rag">Retrieval-augmented generation (RAG)</a><a class="tag" href="#hybrid-search">Hybrid search</a></div>
+</article>
+</div>
+</div>
+<p class="empty" id="gl-empty" hidden>No terms on this page match that filter. Try a shorter word, or filter <a href="glossary.html">all 169 terms</a>.</p>
+<section class="lead-band" aria-labelledby="lead-default-glossary">
+  <div>
+    <h2 id="lead-default-glossary">Building with LLMs? Get a vendor-neutral plan.</h2>
+    <p>Tell us what you&#x27;re building. Within 2 business days you get a model shortlist, an architecture outline and a cost estimate, plus optional introductions to vetted implementation partners.</p>
+    <ul><li>Free and vendor-neutral: no model provider pays for placement.</li>
+<li>Your details go only to partners you agree to.</li>
+</ul>
+  </div>
+  <form class="mini-form" action="hire-llm-experts.html" method="get">
+    <label for="need-default-glossary">What do you need help with?</label>
+    <select id="need-default-glossary" name="need"><option value="choose-model">Choose the right model</option>
+<option value="chatbot">Build a chatbot or assistant</option>
+<option value="rag">Answer questions over our documents (RAG)</option>
+<option value="agents">Automate work with AI agents</option>
+<option value="self-host">Fine-tune or self-host a model</option>
+<option value="cut-costs">Cut our LLM costs</option>
+<option value="security">Security, privacy or compliance review</option>
+<option value="not-sure">Not sure yet</option>
+</select>
+    <input type="hidden" name="from" value="glossary">
+    <button class="btn btn--yellow btn--block" type="submit">Start my free plan</button>
+    <p class="fine">Takes about 2 minutes. No sales calls unless you ask for one.</p>
+  </form>
+</section>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+      <p>The independent field guide to large language models. Model data checked against provider documentation; last full check October 10, 2026.</p>
+    </div>
+    <div><h2>Explore</h2>
+<ul><li><a href="models.html">Model directory</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare models</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="search.html">Search</a></li>
+</ul>
+</div>
+<div><h2>Tools</h2>
+<ul><li><a href="llm-cost-calculator.html">Cost calculator</a></li>
+<li><a href="token-counter.html">Token counter</a></li>
+<li><a href="vram-calculator.html">GPU and VRAM calculator</a></li>
+<li><a href="llm-picker.html">Which LLM should I use?</a></li>
+<li><a href="context-window-visualizer.html">Context window visualizer</a></li>
+<li><a href="prompt-builder.html">Prompt builder</a></li>
+<li><a href="self-host-vs-api-calculator.html">Self-host vs API calculator</a></li>
+</ul>
+</div>
+<div><h2>Learn</h2>
+<ul><li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+</ul>
+</div>
+<div><h2>Work with us</h2>
+<ul><li><a href="hire-llm-experts.html">Get expert help</a></li>
+<li><a href="list-your-product.html">List your product</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</div>
+<div><h2>About</h2>
+<ul><li><a href="about.html">About LLModel</a></li>
+<li><a href="editorial-policy.html">Editorial policy</a></li>
+<li><a href="privacy.html">Privacy policy</a></li>
+<li><a href="terms.html">Terms of use</a></li>
+<li><a href="disclaimer.html">Disclaimer</a></li>
+<li><a href="trademark-copyright.html">Trademark and copyright</a></li>
+<li><a href="sitemap.html">Site map</a></li>
+<li><button class="linklike" type="button" data-privacy-choices>Privacy and cookie choices</button></li>
+</ul>
+</div>
+  </div>
+  <div class="wrap footer-legal">
+    <p>&copy; 2026 LLModel.com. Independent: not affiliated with, endorsed by or sponsored by any model provider. Model and company names are trademarks of their respective owners and are used only to identify products. See <a href="trademark-copyright.html">trademark and copyright</a>.</p>
+    <p>Prices and specifications change often. Always confirm on the provider's own pricing page before you buy.</p>
+  </div>
+</footer>
+<div class="palette" id="palette" hidden role="dialog" aria-modal="true" aria-label="Search LLModel">
+  <div class="palette__box">
+    <label class="visually-hidden" for="palette-input">Search models, tools, guides and terms</label>
+    <input class="palette__input" id="palette-input" type="search" placeholder="Search models, tools, guides, terms" autocomplete="off" spellcheck="false" aria-controls="palette-list">
+    <ul class="palette__list" id="palette-list" role="listbox"></ul>
+    <div class="palette__foot"><span><span class="kbd">&uarr;</span> <span class="kbd">&darr;</span> to move</span><span><span class="kbd">Enter</span> to open</span><span><span class="kbd">Esc</span> to close</span></div>
+  </div>
+</div>
+<script src="assets/js/config.js?v=caa5324cbb"></script>
+
+<script src="assets/js/app.js?v=4b39d7c1bd" defer></script>
+<script src="assets/js/pages/glossary.js?v=a99c13579b" defer></script>
+</body>
+</html>
