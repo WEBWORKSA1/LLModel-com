@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Best LLMs for Long Documents: 1M-Token Context Windows Compared | LLModel.com</title>
+<meta name="description" content="Models with a context window of at least 1 million tokens, or that their providers position for long-document work. 31 models, data checked October 10, 2026.">
+<link rel="canonical" href="https://llmodel.com/best-llms-for-long-documents.html">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="google-adsense-account" content="ca-pub-6620975821265271">
+<meta name="theme-color" content="#f4f6fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12101e" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="LLModel.com">
+<meta property="og:title" content="Best LLMs for Long Documents: 1M-Token Context Windows Compared">
+<meta property="og:description" content="Models with a context window of at least 1 million tokens, or that their providers position for long-document work. 31 models, data checked October 10, 2026.">
+<meta property="og:url" content="https://llmodel.com/best-llms-for-long-documents.html">
+<meta property="og:image" content="https://llmodel.com/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="LLModel: the independent field guide to large language models">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="alternate" type="text/plain" href="llms.txt" title="llms.txt">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Martian+Mono:wght@400..500&family=Newsreader:ital,opsz,wght@0,6..72,400..650;1,6..72,400&display=swap">
+<link rel="stylesheet" href="assets/css/style.css?v=dae4813595">
+<script>(function(){var d=document.documentElement,t=null;try{t=localStorage.getItem('llm-theme')}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}d.setAttribute('data-theme',t)})();</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6620975821265271" crossorigin="anonymous"></script>
+<script type="application/ld+json">{
+ "@type": "Organization",
+ "@id": "https://llmodel.com/#org",
+ "name": "LLModel.com",
+ "url": "https://llmodel.com/",
+ "logo": "https://llmodel.com/assets/img/icon-512.png",
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://llmodel.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Models",
+   "item": "https://llmodel.com/models.html"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "Best LLMs for long documents"
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "How many pages fit in a 1M-token context window?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Roughly 1,500 pages of plain English text, using the rule of thumb of 0.75 words per token and 500 words per page. Tables, code and non-English text use more tokens per page, so the real number is often lower."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Is long context better than RAG?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "For questions that need the whole document, such as summarizing a contract or comparing chapters, long context is simpler. For finding specific facts across a large or changing collection, RAG is usually cheaper, faster and easier to keep current. Many production systems combine both."
+   }
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "ItemList",
+ "name": "Best LLMs for long documents",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "url": "https://llmodel.com/model-deepseek-v4-pro.html",
+   "name": "DeepSeek-V4-Pro"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "url": "https://llmodel.com/model-glm-5-3.html",
+   "name": "GLM-5.3"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "url": "https://llmodel.com/model-qwen3-8-max.html",
+   "name": "Qwen3.8-Max"
+  },
+  {
+   "@type": "ListItem",
+   "position": 4,
+   "url": "https://llmodel.com/model-kimi-k3.html",
+   "name": "Kimi K3"
+  },
+  {
+   "@type": "ListItem",
+   "position": 5,
+   "url": "https://llmodel.com/model-claude-opus-5-5.html",
+   "name": "Claude Opus 5.5"
+  },
+  {
+   "@type": "ListItem",
+   "position": 6,
+   "url": "https://llmodel.com/model-claude-fable-5-1.html",
+   "name": "Claude Fable 5.1"
+  },
+  {
+   "@type": "ListItem",
+   "position": 7,
+   "url": "https://llmodel.com/model-gpt-6-astra.html",
+   "name": "GPT-6 Astra"
+  },
+  {
+   "@type": "ListItem",
+   "position": 8,
+   "url": "https://llmodel.com/model-deepseek-v4-1-flash.html",
+   "name": "DeepSeek-V4.1-Flash"
+  },
+  {
+   "@type": "ListItem",
+   "position": 9,
+   "url": "https://llmodel.com/model-minimax-m3.html",
+   "name": "MiniMax-M3"
+  },
+  {
+   "@type": "ListItem",
+   "position": 10,
+   "url": "https://llmodel.com/model-mistral-large-3.html",
+   "name": "Mistral Large 3"
+  },
+  {
+   "@type": "ListItem",
+   "position": 11,
+   "url": "https://llmodel.com/model-nemotron-3-ultra.html",
+   "name": "NVIDIA Nemotron 3 Ultra"
+  },
+  {
+   "@type": "ListItem",
+   "position": 12,
+   "url": "https://llmodel.com/model-gemini-3-8-flash.html",
+   "name": "Gemini 3.8 Flash"
+  },
+  {
+   "@type": "ListItem",
+   "position": 13,
+   "url": "https://llmodel.com/model-gemini-3-6-flash.html",
+   "name": "Gemini 3.6 Flash"
+  },
+  {
+   "@type": "ListItem",
+   "position": 14,
+   "url": "https://llmodel.com/model-claude-sonnet-5-5.html",
+   "name": "Claude Sonnet 5.5"
+  },
+  {
+   "@type": "ListItem",
+   "position": 15,
+   "url": "https://llmodel.com/model-gpt-6-1-sol.html",
+   "name": "GPT-6.1 Sol"
+  },
+  {
+   "@type": "ListItem",
+   "position": 16,
+   "url": "https://llmodel.com/model-claude-haiku-5-5.html",
+   "name": "Claude Haiku 5.5"
+  },
+  {
+   "@type": "ListItem",
+   "position": 17,
+   "url": "https://llmodel.com/model-gpt-6-luna.html",
+   "name": "GPT-6 Luna"
+  },
+  {
+   "@type": "ListItem",
+   "position": 18,
+   "url": "https://llmodel.com/model-glm-5-3-flash.html",
+   "name": "GLM-5.3-Flash"
+  },
+  {
+   "@type": "ListItem",
+   "position": 19,
+   "url": "https://llmodel.com/model-gemini-3-1-flash-lite.html",
+   "name": "Gemini 3.1 Flash-Lite"
+  },
+  {
+   "@type": "ListItem",
+   "position": 20,
+   "url": "https://llmodel.com/model-gemini-3-5-flash-lite.html",
+   "name": "Gemini 3.5 Flash-Lite"
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+
+</head>
+<body class="page-best-llms-for-long-documents">
+<a class="skip" href="#main">Skip to content</a>
+<div class="partner-bar"><a href="https://web.works/contact" target="_blank" rel="noopener"><span>Contact, if you are interested in this website / domain name / sponsorship / advertisement / partnership</span></a></div>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+    <nav class="nav" aria-label="Main"><a href="models.html" aria-current="page">Models</a><a href="compare.html">Compare</a><a href="leaderboard.html">Rankings</a><a href="tools.html">Tools</a><a href="guides.html">Learn</a><a href="videos.html">Videos</a></nav>
+    <div class="header-actions">
+      <button class="search-btn" type="button" data-open-search aria-label="Search the site"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="search-label">Search</span><span class="kbd" aria-hidden="true">/</span></button>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><svg class="theme-icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="theme-icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+      <a class="btn btn--primary btn--sm header-cta" href="hire-llm-experts.html">Get expert help</a>
+      <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile">
+    <ul><li><a href="models.html">Models</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="tools.html">Tools</a></li>
+<li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="contact.html">Contact</a></li>
+<li class="mobile-cta"><a class="btn btn--primary btn--block" href="hire-llm-experts.html">Get expert help</a></li>
+</ul>
+  </nav>
+</header>
+<main id="main">
+<nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li>
+<li><a href="models.html">Models</a></li>
+<li aria-current="page">Best LLMs for long documents</li>
+</ol>
+</nav>
+<header class="page-head wrap"><h1>Best LLMs for long documents</h1><p class="lede">Models with a context window of at least 1 million tokens, or that their providers position for long-document work.</p>
+<div class="page-meta"><span>31 models</span><span>Data checked October 10, 2026</span></div>
+</header>
+<div class="wrap grid grid--sidebar"><div>
+<section aria-label="Introduction"><p style="max-width:46rem;margin-top:.9rem">A 1M-token window holds roughly 750,000 words: a stack of contracts, several long books or a mid-size codebase in a single request. That makes whole-document analysis possible without building a retrieval pipeline first.</p>
+<p style="max-width:46rem;margin-top:.9rem">A big window isn&#x27;t free. You pay for every input token on every call, many providers charge higher rates once a prompt passes a threshold, and accuracy on details buried in the middle of a long prompt varies by model. If you only need a few passages, retrieval (RAG) is usually cheaper and more precise.</p>
+</section>
+<section aria-labelledby="list" style="margin-top:2rem"><h2 class="h2" id="list" style="margin-bottom:1rem">The shortlist</h2>
+<div class="table-wrap"><table class="table"><thead><tr><th>Model</th><th>Tier</th><th>Weights</th><th class="num">Context</th><th class="num">Input / 1M</th><th class="num">Output / 1M</th><th>Inputs</th></tr>
+</thead>
+<tbody><tr><td class="m-name"><a href="model-deepseek-v4-pro.html">DeepSeek-V4-Pro</a><span class="m-sub">DeepSeek</span></td><td><span class="tag" data-v="0">Frontier</span></td><td><span class="badge badge--open">Open weights</span></td><td class="num">1M</td><td class="num">$1.32</td><td class="num">$3.96</td><td class="small">Text</td></tr>
+<tr><td class="m-name"><a href="model-glm-5-3.html">GLM-5.3</a><span class="m-sub">Z.ai (Zhipu AI)</span></td><td><span class="tag" data-v="0">Frontier</span></td><td><span class="badge badge--open">Open weights</span></td><td class="num">1M</td><td class="num">$1.40</td><td class="num">$4.40</td><td class="small">Text</td></tr>
+<tr><td class="m-name"><a href="model-qwen3-8-max.html">Qwen3.8-Max</a><span class="m-sub">Alibaba (Qwen)</span></td><td><span class="tag" data-v="0">Frontier</span></td><td><span class="badge badge--closed">Closed</span></td><td class="num">1M</td><td class="num">$2</td><td class="num">$6</td><td class="small">Text, Images</td></tr>
+<tr><td class="m-name"><a href="model-kimi-k3.html">Kimi K3</a><span class="m-sub">Moonshot AI</span></td><td><span class="tag" data-v="0">Frontier</span></td><td><span class="badge badge--open">Open weights</span></td><td class="num">1M</td><td class="num">$3</td><td class="num">$15</td><td class="small">Text, Images, Video</td></tr>
+<tr><td class="m-name"><a href="model-claude-opus-5-5.html">Claude Opus 5.5</a><span class="m-sub">Anthropic</span></td><td><span class="tag" data-v="0">Frontier</span></td><td><span class="badge badge--closed">Closed</span></td><td class="num">1M</td><td class="num">$4</td><td class="num">$20</td><td class="small">Text, Images, PDF</td></tr>
+<tr><td class="m-name"><a href="model-claude-fable-5-1.html">Claude Fable 5.1</a><span class="m-sub">Anthropic</span></td><td><span class="tag" data-v="0">Frontier</span></td><td><span class="badge badge--closed">Closed</span></td><td class="num">1M</td><td class="num">$10</td><td class="num">$50</td><td class="small">Text, Images, PDF</td></tr>
+<tr><td class="m-name"><a href="model-gpt-6-astra.html">GPT-6 Astra</a><span class="m-sub">OpenAI</span></td><td><span class="tag" data-v="0">Frontier</span></td><td><span class="badge badge--closed">Closed</span></td><td class="num">1.05M</td><td class="num">$10</td><td class="num">$50</td><td class="small">Text, Images</td></tr>
+<tr><td class="m-name"><a href="model-deepseek-v4-1-flash.html">DeepSeek-V4.1-Flash</a><span class="m-sub">DeepSeek</span></td><td><span class="tag" data-v="4">Advanced</span></td><td><span class="badge badge--open">Open weights</span></td><td class="num">1M</td><td class="num">$0.30</td><td class="num">$1.20</td><td class="small">Text, Images</td></tr>
+<tr><td class="m-name"><a href="model-minimax-m3.html">MiniMax-M3</a><span class="m-sub">MiniMax</span></td><td><span class="tag" data-v="4">Advanced</span></td><td><span class="badge badge--open">Open weights</span></td><td class="num">1M</td><td class="num">$0.30</td><td class="num">$1.20</td><td class="small">Text, Images, Video</td></tr>
+<tr><td class="m-name"><a href="model-mistral-large-3.html">Mistral Large 3</a><span class="m-sub">Mistral AI</span></td><td><span class="tag" data-v="4">Advanced</span></td><td><span class="badge badge--open">Open weights</span></td><td class="num">256K</td><td class="num">$0.50</td><td class="num">$1.50</td><td class="small">Text, Images</td></tr>
+<tr><td class="m-name"><a href="model-nemotron-3-ultra.html">NVIDIA Nemotron 3 Ultra</a><span class="m-sub">NVIDIA</span></td><td><span class="tag" data-v="4">Advanced</span></td><td><span class="badge badge--open">Open weights</span></td><td class="num">1M</td><td class="num">$0.50</td><td class="num">$2.20</td><td class="small">Text</td></tr>
+<tr><td class="m-name"><a href="model-gemini-3-8-flash.html">Gemini 3.8 Flash</a><span class="m-sub">Google</span></td><td><span class="tag" data-v="4">Advanced</span></td><td><span class="badge badge--closed">Closed</span></td><td class="num">1M</td><td class="num">$0.75</td><td class="num">$3.75</td><td class="small">Text, Images, Video, Audio, PDF</td></tr>
+<tr><td class="m-name"><a href="model-gemini-3-6-flash.html">Gemini 3.6 Flash</a><span class="m-sub">Google</span></td><td><span class="tag" data-v="4">Advanced</span></td><td><span class="badge badge--closed">Closed</span></td><td class="num">1M</td><td class="num">$0.75</td><td class="num">$3.75</td><td class="small">Text, Images, Video, Audio, PDF</td></tr>
+<tr><td class="m-name"><a href="model-claude-sonnet-5-5.html">Claude Sonnet 5.5</a><span class="m-sub">Anthropic</span></td><td><span class="tag" data-v="4">Advanced</span></td><td><span class="badge badge--closed">Closed</span></td><td class="num">1M</td><td class="num">$2</td><td class="num">$10</td><td class="small">Text, Images, PDF</td></tr>
+<tr><td class="m-name"><a href="model-gpt-6-1-sol.html">GPT-6.1 Sol</a><span class="m-sub">OpenAI</span></td><td><span class="tag" data-v="4">Advanced</span></td><td><span class="badge badge--closed">Closed</span></td><td class="num">1.05M</td><td class="num">$2</td><td class="num">$10</td><td class="small">Text, Images</td></tr>
+<tr><td class="m-name"><a href="model-claude-haiku-5-5.html">Claude Haiku 5.5</a><span class="m-sub">Anthropic</span></td><td><span class="tag" data-v="6">Efficient</span></td><td><span class="badge badge--closed">Closed</span></td><td class="num">1M</td><td class="num">$0.10</td><td class="num">$0.50</td><td class="small">Text, Images, PDF</td></tr>
+<tr><td class="m-name"><a href="model-gpt-6-luna.html">GPT-6 Luna</a><span class="m-sub">OpenAI</span></td><td><span class="tag" data-v="6">Efficient</span></td><td><span class="badge badge--closed">Closed</span></td><td class="num">1.05M</td><td class="num">$0.10</td><td class="num">$0.50</td><td class="small">Text, Images</td></tr>
+<tr><td class="m-name"><a href="model-glm-5-3-flash.html">GLM-5.3-Flash</a><span class="m-sub">Z.ai (Zhipu AI)</span></td><td><span class="tag" data-v="6">Efficient</span></td><td><span class="badge badge--open">Open weights</span></td><td class="num">1M</td><td class="num">$0.15</td><td class="num">$0.50</td><td class="small">Text, Images, Video</td></tr>
+<tr><td class="m-name"><a href="model-gemini-3-1-flash-lite.html">Gemini 3.1 Flash-Lite</a><span class="m-sub">Google</span></td><td><span class="tag" data-v="6">Efficient</span></td><td><span class="badge badge--closed">Closed</span></td><td class="num">1M</td><td class="num">$0.25</td><td class="num">$1.50</td><td class="small">Text, Images, Video, Audio, PDF</td></tr>
+<tr><td class="m-name"><a href="model-gemini-3-5-flash-lite.html">Gemini 3.5 Flash-Lite</a><span class="m-sub">Google</span></td><td><span class="tag" data-v="6">Efficient</span></td><td><span class="badge badge--closed">Closed</span></td><td class="num">1M</td><td class="num">$0.30</td><td class="num">$2.50</td><td class="small">Text, Images, Video, Audio, PDF</td></tr>
+<tr><td class="m-name"><a href="model-grok-4-3.html">Grok 4.3</a><span class="m-sub">xAI</span></td><td><span class="tag" data-v="6">Efficient</span></td><td><span class="badge badge--closed">Closed</span></td><td class="num">1M</td><td class="num">$1.25</td><td class="num">$2.50</td><td class="small">Text, Images</td></tr>
+<tr><td class="m-name"><a href="model-nova-2-lite.html">Amazon Nova 2 Lite</a><span class="m-sub">Amazon (AWS)</span></td><td><span class="tag" data-v="6">Efficient</span></td><td><span class="badge badge--closed">Closed</span></td><td class="num">1M</td><td class="num">&mdash;</td><td class="num">&mdash;</td><td class="small">Text, Images, Video, PDF</td></tr>
+<tr><td class="m-name"><a href="model-nemotron-3-5-lightning-30b-a3b.html">NVIDIA Nemotron 3.5 Lightning 30B-A3B</a><span class="m-sub">NVIDIA</span></td><td><span class="tag" data-v="9">Compact</span></td><td><span class="badge badge--open">Open weights</span></td><td class="num">1M</td><td class="num">$0.05</td><td class="num">$0.20</td><td class="small">Text</td></tr>
+<tr><td class="m-name"><a href="model-mistral-large-4.html">Mistral Large 4</a><span class="m-sub">Mistral AI</span></td><td><span class="tag" data-v="0">Frontier</span></td><td><span class="badge badge--closed">Closed</span></td><td class="num">1M</td><td class="num">$1.36</td><td class="num">$4.18</td><td class="small">Text, Images</td></tr>
+<tr><td class="m-name"><a href="model-gemini-3-1-pro.html">Gemini 3.1 Pro</a><span class="m-sub">Google</span></td><td><span class="tag" data-v="0">Frontier</span></td><td><span class="badge badge--closed">Closed</span></td><td class="num">1M</td><td class="num">$2</td><td class="num">$12</td><td class="small">Text, Images, Video, Audio, PDF</td></tr>
+<tr><td class="m-name"><a href="model-muse-spark-1-3.html">Muse Spark 1.3</a><span class="m-sub">Meta</span></td><td><span class="tag" data-v="4">Advanced</span></td><td><span class="badge badge--closed">Closed</span></td><td class="num">1M</td><td class="num">$1.25</td><td class="num">$4.25</td><td class="small">Text, Images, Video, PDF</td></tr>
+<tr><td class="m-name"><a href="model-gpt-5-6-sol.html">GPT-5.6 Sol</a><span class="m-sub">OpenAI</span></td><td><span class="tag" data-v="0">Frontier</span></td><td><span class="badge badge--closed">Closed</span></td><td class="num">1.05M</td><td class="num">$4</td><td class="num">$20</td><td class="small">Text, Images</td></tr>
+<tr><td class="m-name"><a href="model-claude-opus-5.html">Claude Opus 5</a><span class="m-sub">Anthropic</span></td><td><span class="tag" data-v="0">Frontier</span></td><td><span class="badge badge--closed">Closed</span></td><td class="num">1M</td><td class="num">$5</td><td class="num">$25</td><td class="small">Text, Images, PDF</td></tr>
+<tr><td class="m-name"><a href="model-gpt-5-5.html">GPT-5.5</a><span class="m-sub">OpenAI</span></td><td><span class="tag" data-v="0">Frontier</span></td><td><span class="badge badge--closed">Closed</span></td><td class="num">1.05M</td><td class="num">$5</td><td class="num">$30</td><td class="small">Text, Images</td></tr>
+<tr><td class="m-name"><a href="model-llama-4-maverick.html">Llama 4 Maverick</a><span class="m-sub">Meta</span></td><td><span class="tag" data-v="4">Advanced</span></td><td><span class="badge badge--open">Open weights</span></td><td class="num">1M</td><td class="num">&mdash;</td><td class="num">&mdash;</td><td class="small">Text, Images</td></tr>
+<tr><td class="m-name"><a href="model-llama-4-scout.html">Llama 4 Scout</a><span class="m-sub">Meta</span></td><td><span class="tag" data-v="6">Efficient</span></td><td><span class="badge badge--open">Open weights</span></td><td class="num">10M</td><td class="num">$0.10</td><td class="num">$0.30</td><td class="small">Text, Images</td></tr>
+</tbody>
+</table>
+</div>
+<p class="small muted" style="margin-top:.6rem">Ordered by status, capability tier and then price. Tiers are our editorial grouping of provider positioning and public benchmark standings, not our own test results. <a href="editorial-policy.html#rankings">How we rank</a>.</p>
+</section>
+<aside class="ad-slot" data-ad="hub-mid" aria-label="Sponsored message"><span class="ad-label">From LLModel</span><div class="ad-fill"><div class="house"><div><strong>Selling to LLM builders?</strong><span>List your model, API or tool where teams compare their options.</span></div>
+<a class="btn btn--ghost btn--sm" href="list-your-product.html">See listing options</a></div>
+</div>
+</aside>
+<section aria-labelledby="choose" style="margin-top:2.5rem"><h2 class="h2" id="choose" style="margin-bottom:.75rem">How to choose</h2>
+<ul style="max-width:46rem"><li>Check the long-context surcharge in each model's price note before you send 500K-token prompts.</li>
+<li>Use prompt caching when you ask many questions about the same document.</li>
+<li>Test recall on your own documents: plant a few facts deep in the text and check that the model finds them.</li>
+<li>Compare against a RAG setup; see <a href="rag-explained.html">RAG explained</a> and <a href="context-windows-explained.html">context windows explained</a>.</li>
+</ul>
+</section>
+<div style="margin-top:2.5rem"><section class="faq-wrap" aria-labelledby="faq"><h2 class="h2" id="faq" style="margin-bottom:1rem">Frequently asked questions</h2>
+<div class="faq"><details><summary>How many pages fit in a 1M-token context window?</summary><div class="faq__a"><p>Roughly 1,500 pages of plain English text, using the rule of thumb of 0.75 words per token and 500 words per page. Tables, code and non-English text use more tokens per page, so the real number is often lower.</p>
+</div>
+</details>
+<details><summary>Is long context better than RAG?</summary><div class="faq__a"><p>For questions that need the whole document, such as summarizing a contract or comparing chapters, long context is simpler. For finding specific facts across a large or changing collection, RAG is usually cheaper, faster and easier to keep current. Many production systems combine both.</p>
+</div>
+</details>
+</div>
+</section>
+</div>
+</div>
+<aside class="aside-box"><h2 class="h3">Tools for this</h2>
+<ul><li><a href="context-window-visualizer.html">Context window visualizer</a></li>
+<li><a href="token-counter.html">Token counter</a></li>
+</ul>
+<h2 class="h3" style="margin-top:1rem">Read next</h2>
+<ul><li><a href="context-windows-explained.html">Context windows explained</a></li>
+<li><a href="rag-explained.html">Retrieval-augmented generation (RAG) explained</a></li>
+</ul>
+<p style="margin-top:1rem"><a class="btn btn--ghost btn--block" href="models.html">Filter the full directory</a></p>
+</aside>
+</div>
+<div class="wrap" style="margin-top:2.5rem"><h2 class="h3" style="margin-bottom:.75rem">Other shortlists</h2>
+<div class="pill-nav"><a href="best-llms-for-coding.html">Coding</a><a href="best-llms-for-agents.html">Agents</a><a href="cheapest-llm-apis.html">Cheapest APIs</a><a href="longest-context-llms.html">Longest context</a><a href="best-open-weight-llms.html">Open weights</a><a href="llms-you-can-run-locally.html">Run locally</a><a href="multimodal-llms.html">Multimodal</a><a href="reasoning-models.html">Reasoning</a><a href="best-llms-for-customer-support.html">Customer support</a></div>
+</div>
+<div class="wrap"><section class="lead-band" aria-labelledby="lead-build-hub-best-llms-for-long-documents">
+  <div>
+    <h2 id="lead-build-hub-best-llms-for-long-documents">Need hands-on help building it?</h2>
+    <p>RAG, agents, fine-tuning or a production chatbot: describe the project and we&#x27;ll suggest an approach and, if you want, partners who build it.</p>
+    <ul><li>Free and vendor-neutral: no model provider pays for placement.</li>
+<li>Your details go only to partners you agree to.</li>
+</ul>
+  </div>
+  <form class="mini-form" action="hire-llm-experts.html" method="get">
+    <label for="need-build-hub-best-llms-for-long-documents">What do you need help with?</label>
+    <select id="need-build-hub-best-llms-for-long-documents" name="need"><option value="choose-model">Choose the right model</option>
+<option value="chatbot">Build a chatbot or assistant</option>
+<option value="rag">Answer questions over our documents (RAG)</option>
+<option value="agents">Automate work with AI agents</option>
+<option value="self-host">Fine-tune or self-host a model</option>
+<option value="cut-costs">Cut our LLM costs</option>
+<option value="security">Security, privacy or compliance review</option>
+<option value="not-sure">Not sure yet</option>
+</select>
+    <input type="hidden" name="from" value="hub-best-llms-for-long-documents">
+    <button class="btn btn--yellow btn--block" type="submit">Start my free plan</button>
+    <p class="fine">Takes about 2 minutes. No sales calls unless you ask for one.</p>
+  </form>
+</section>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+      <p>The independent field guide to large language models. Model data checked against provider documentation; last full check October 10, 2026.</p>
+    </div>
+    <div><h2>Explore</h2>
+<ul><li><a href="models.html">Model directory</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare models</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="search.html">Search</a></li>
+</ul>
+</div>
+<div><h2>Tools</h2>
+<ul><li><a href="llm-cost-calculator.html">Cost calculator</a></li>
+<li><a href="token-counter.html">Token counter</a></li>
+<li><a href="vram-calculator.html">GPU and VRAM calculator</a></li>
+<li><a href="llm-picker.html">Which LLM should I use?</a></li>
+<li><a href="context-window-visualizer.html">Context window visualizer</a></li>
+<li><a href="prompt-builder.html">Prompt builder</a></li>
+<li><a href="self-host-vs-api-calculator.html">Self-host vs API calculator</a></li>
+</ul>
+</div>
+<div><h2>Learn</h2>
+<ul><li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+</ul>
+</div>
+<div><h2>Work with us</h2>
+<ul><li><a href="hire-llm-experts.html">Get expert help</a></li>
+<li><a href="list-your-product.html">List your product</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</div>
+<div><h2>About</h2>
+<ul><li><a href="about.html">About LLModel</a></li>
+<li><a href="editorial-policy.html">Editorial policy</a></li>
+<li><a href="privacy.html">Privacy policy</a></li>
+<li><a href="terms.html">Terms of use</a></li>
+<li><a href="disclaimer.html">Disclaimer</a></li>
+<li><a href="trademark-copyright.html">Trademark and copyright</a></li>
+<li><a href="sitemap.html">Site map</a></li>
+<li><button class="linklike" type="button" data-privacy-choices>Privacy and cookie choices</button></li>
+</ul>
+</div>
+  </div>
+  <div class="wrap footer-legal">
+    <p>&copy; 2026 LLModel.com. Independent: not affiliated with, endorsed by or sponsored by any model provider. Model and company names are trademarks of their respective owners and are used only to identify products. See <a href="trademark-copyright.html">trademark and copyright</a>.</p>
+    <p>Prices and specifications change often. Always confirm on the provider's own pricing page before you buy.</p>
+  </div>
+</footer>
+<div class="palette" id="palette" hidden role="dialog" aria-modal="true" aria-label="Search LLModel">
+  <div class="palette__box">
+    <label class="visually-hidden" for="palette-input">Search models, tools, guides and terms</label>
+    <input class="palette__input" id="palette-input" type="search" placeholder="Search models, tools, guides, terms" autocomplete="off" spellcheck="false" aria-controls="palette-list">
+    <ul class="palette__list" id="palette-list" role="listbox"></ul>
+    <div class="palette__foot"><span><span class="kbd">&uarr;</span> <span class="kbd">&darr;</span> to move</span><span><span class="kbd">Enter</span> to open</span><span><span class="kbd">Esc</span> to close</span></div>
+  </div>
+</div>
+<script src="assets/js/config.js?v=caa5324cbb"></script>
+
+<script src="assets/js/app.js?v=4b39d7c1bd" defer></script>
+
+</body>
+</html>

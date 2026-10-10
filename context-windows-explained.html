@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Context Windows Explained: Tokens, Limits, Costs and Tips | LLModel.com</title>
+<meta name="description" content="Context windows explained: what an LLM context window is, how tokens convert to words and pages, current model limits, costs, caching and when to use RAG.">
+<link rel="canonical" href="https://llmodel.com/context-windows-explained.html">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="google-adsense-account" content="ca-pub-6620975821265271">
+<meta name="theme-color" content="#f4f6fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12101e" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="LLModel.com">
+<meta property="og:title" content="Context Windows Explained: Tokens, Limits, Costs and Tips">
+<meta property="og:description" content="Context windows explained: what an LLM context window is, how tokens convert to words and pages, current model limits, costs, caching and when to use RAG.">
+<meta property="og:url" content="https://llmodel.com/context-windows-explained.html">
+<meta property="og:image" content="https://llmodel.com/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="LLModel: the independent field guide to large language models">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="alternate" type="text/plain" href="llms.txt" title="llms.txt">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Martian+Mono:wght@400..500&family=Newsreader:ital,opsz,wght@0,6..72,400..650;1,6..72,400&display=swap">
+<link rel="stylesheet" href="assets/css/style.css?v=dae4813595">
+<script>(function(){var d=document.documentElement,t=null;try{t=localStorage.getItem('llm-theme')}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}d.setAttribute('data-theme',t)})();</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6620975821265271" crossorigin="anonymous"></script>
+<script type="application/ld+json">{
+ "@type": "Organization",
+ "@id": "https://llmodel.com/#org",
+ "name": "LLModel.com",
+ "url": "https://llmodel.com/",
+ "logo": "https://llmodel.com/assets/img/icon-512.png",
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://llmodel.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Guides",
+   "item": "https://llmodel.com/guides.html"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "Context windows explained"
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "Article",
+ "headline": "Context Windows Explained: Tokens, Limits, Costs and Tips",
+ "description": "Context windows explained: what an LLM context window is, how tokens convert to words and pages, current model limits, costs, caching and when to use RAG.",
+ "datePublished": "2026-10-10",
+ "dateModified": "2026-10-10",
+ "inLanguage": "en",
+ "mainEntityOfPage": "https://llmodel.com/context-windows-explained.html",
+ "image": "https://llmodel.com/assets/img/og-image.png",
+ "author": {
+  "@type": "Organization",
+  "name": "LLModel editorial team",
+  "url": "https://llmodel.com/about.html"
+ },
+ "publisher": {
+  "@id": "https://llmodel.com/#org"
+ },
+ "keywords": "context window, llm context window, context length, tokens to words, 1 million token context, long context vs rag, prompt caching",
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "How many words is 1 million tokens?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Roughly 750,000 English words, using the common rule of thumb of 0.75 words per token. That is about 1,500 dense single-spaced pages or eight full-length novels. The real figure depends on the tokenizer and the content: code, tables, numbers and many non-English languages need more tokens per word, so measure a sample of your own material before relying on the estimate."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does the context window include the model's response?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes. On most APIs the context window is one shared budget covering the system prompt, conversation history, documents, tool definitions, the reply and any hidden reasoning tokens. Models also have a separate, smaller cap on output length. If your input nearly fills the window, there may be too little room left for a complete answer, so reserve output space explicitly."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What happens when a conversation exceeds the context window?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "It depends on the software. An API usually rejects a request whose input is too long, or stops the reply early and reports a stop reason. Chat apps and frameworks often drop the oldest messages or replace them with a summary without telling you, so the model may forget earlier instructions or details. Starting a fresh conversation with a short recap is often the cleanest fix."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Is a bigger context window always better?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "No. A bigger window lets you send more, but research such as the lost-in-the-middle study, RULER and NoLiMa shows accuracy often falls as input grows, especially when a task needs several facts combined. Long prompts also cost more and respond more slowly. Send the most relevant material rather than everything, and test quality at the prompt length you actually plan to use."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Should I use a long context window or RAG?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Use long context when the material fits comfortably, the model needs to see all of it, and caching can absorb repeat costs. Use RAG when your corpus is larger than any window, content changes often, users have different permissions, or you need low cost and latency at high volume. Many production systems combine the two, retrieving generously and then reasoning over the results."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is prompt caching and how much does it save?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Prompt caching reuses the processed form of a repeated prompt prefix, such as a system prompt or a long document. As of October 2026, major providers typically charge around 0.1 times the normal input rate for cached reads, and some add a small premium to write the cache. At those rates, twenty questions about one 400,000-token document cost about 84% less in input, as long as requests arrive before the cache expires."
+   }
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+
+</head>
+<body class="page-context-windows-explained">
+<a class="skip" href="#main">Skip to content</a>
+<div class="partner-bar"><a href="https://web.works/contact" target="_blank" rel="noopener"><span>Contact, if you are interested in this website / domain name / sponsorship / advertisement / partnership</span></a></div>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+    <nav class="nav" aria-label="Main"><a href="models.html">Models</a><a href="compare.html">Compare</a><a href="leaderboard.html">Rankings</a><a href="tools.html">Tools</a><a href="guides.html" aria-current="page">Learn</a><a href="videos.html">Videos</a></nav>
+    <div class="header-actions">
+      <button class="search-btn" type="button" data-open-search aria-label="Search the site"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="search-label">Search</span><span class="kbd" aria-hidden="true">/</span></button>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><svg class="theme-icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="theme-icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+      <a class="btn btn--primary btn--sm header-cta" href="hire-llm-experts.html">Get expert help</a>
+      <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile">
+    <ul><li><a href="models.html">Models</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="tools.html">Tools</a></li>
+<li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="contact.html">Contact</a></li>
+<li class="mobile-cta"><a class="btn btn--primary btn--block" href="hire-llm-experts.html">Get expert help</a></li>
+</ul>
+  </nav>
+</header>
+<main id="main">
+<nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li>
+<li><a href="guides.html">Guides</a></li>
+<li aria-current="page">Context windows explained</li>
+</ol>
+</nav>
+<div class="read-progress" id="read-progress" aria-hidden="true"></div>
+<header class="page-head wrap"><h1>Context windows explained</h1><p class="lede">A context window is the token budget a model can read and write in one request. This guide converts tokens to words and pages, compares current limits and explains the cost, quality and memory trade-offs of long prompts.</p>
+<div class="page-meta"><span>Fundamentals</span><span>Beginner</span><span>11 min read</span><span>Updated October 10, 2026</span></div>
+</header>
+<div class="wrap article">
+  <nav class="article__toc toc" aria-label="On this page"><p class="toc-title">On this page</p>
+<ol><li><a href="#what-a-context-window-is">What a context window is</a></li>
+<li><a href="#tokens-to-words-pages-and-code">Converting tokens to words, pages, books and code</a></li>
+<li><a href="#context-window-sizes-2026">Context window sizes as of October 2026</a></li>
+<li><a href="#what-happens-at-the-limit">What happens when you hit the limit</a></li>
+<li><a href="#long-context-quality">Why a bigger window doesn&#x27;t guarantee better answers</a></li>
+<li><a href="#cost-latency-and-memory">Cost, latency and memory</a></li>
+<li><a href="#long-context-vs-rag">Long context or RAG?</a></li>
+<li><a href="#fit-more-in">Practical ways to fit more in</a></li>
+<li><a href="#common-mistakes">Common mistakes</a></li>
+<li><a href="#next-steps">Next steps</a></li>
+</ol>
+</nav>
+  <article class="prose" id="article">
+    <div class="takeaways"><h2>Key takeaways</h2>
+<ul><li>A context window is one token budget shared by your input, the model&#x27;s reply and any hidden reasoning tokens.</li>
+<li>For English, plan on about 0.75 words per token: 128K tokens is roughly 96,000 words and 1M tokens roughly 750,000 words.</li>
+<li>As of October 2026, most frontier APIs accept about 1M tokens, while output caps are much lower, typically 64K to 128K tokens.</li>
+<li>Accuracy often drops well before the advertised limit, so test your task at the prompt length you actually plan to use.</li>
+<li>Long prompts cost money, time and GPU memory; prompt caching and retrieval are the main ways to control all three.</li>
+</ul>
+</div>
+    <p>Every request you send to a large language model has a hard ceiling on how much text it can involve. That ceiling, the context window, shapes what you can paste in, how long a chat can run, what you pay and how reliable answers are. This guide explains how it works, converts tokens to words, pages and code with worked arithmetic, compares current limits and gives practical rules for long prompts.</p>
+
+<h2 id="what-a-context-window-is">What a context window is</h2>
+<p>A <a href="glossary-fundamentals.html#context-window">context window</a> is the maximum number of <a href="glossary-fundamentals.html#token">tokens</a> a model can process in one request. Tokens are the text chunks a model's <a href="glossary-fundamentals.html#tokenization">tokenizer</a> produces: common words are usually one token, while rarer words split into several.</p>
+<p>The window is one shared budget for input and output. Your system prompt, the full conversation history, pasted documents, images, tool definitions and tool results all count, and so does the reply. Anthropic's and OpenAI's API documentation both state that the reasoning tokens produced by <a href="glossary-fundamentals.html#reasoning-model">reasoning models</a> count against the same window.</p>
+<p>Most models also cap output separately, at a much lower number than the window. A model with a 1M-token window and a 128K output cap can read a very long prompt but cannot write a 500K-token reply in one call.</p>
+<p>Here is a worked budget for a self-hosted model with a 131,072-token window, the "128K" size Meta specifies for Llama 3.1:</p>
+<ul>
+<li>System prompt and rules: 1,500 tokens</li>
+<li>Tool definitions: 2,500 tokens</li>
+<li>Conversation history: 20,000 tokens</li>
+<li>Retrieved documents: 90,000 tokens</li>
+<li>Reserved for the reply: 8,000 tokens</li>
+</ul>
+<p>That totals 122,000 tokens, leaving about 9,000 spare. Each turn adds to the history, which is why long chats eventually hit the wall even when every message is short.</p>
+
+<h2 id="tokens-to-words-pages-and-code">Converting tokens to words, pages, books and code</h2>
+<p>For English prose, OpenAI's help center puts one token at roughly four characters or three-quarters of a word, so 100 tokens is about 75 words. Google's Gemini documentation uses the same four-character figure and a range of 60 to 80 words per 100 tokens. Plan with 0.75 words per token and treat every result as an estimate.</p>
+<p>The page, book and code columns below add three planning assumptions: a dense single-spaced page holds about 500 words, a typical novel runs about 90,000 words, and an average line of code costs about 10 tokens. For a 128K window the arithmetic is 128,000 × 0.75 = 96,000 words, then 96,000 ÷ 500 = 192 pages, 96,000 ÷ 90,000 ≈ 1.1 novels, and 128,000 ÷ 10 = 12,800 lines of code.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Window</th><th>Words</th><th>Single-spaced pages</th><th>Novels</th><th>Lines of code</th></tr>
+</thead>
+<tbody>
+<tr><td>8,000 tokens</td><td>6,000</td><td>12</td><td>0.07</td><td>800</td></tr>
+<tr><td>128,000 tokens</td><td>96,000</td><td>192</td><td>About 1</td><td>12,800</td></tr>
+<tr><td>200,000 tokens</td><td>150,000</td><td>300</td><td>About 1.7</td><td>20,000</td></tr>
+<tr><td>1,000,000 tokens</td><td>750,000</td><td>1,500</td><td>About 8</td><td>100,000</td></tr>
+</tbody>
+</table>
+</div>
+<p>These figures cover the whole window, so subtract your system prompt and reply budget first, then adjust for these caveats:</p>
+<ul>
+<li><strong>Language matters.</strong> The ratios above are for English. Other languages tokenize differently, and text in many non-Latin scripts can need noticeably more tokens for the same content.</li>
+<li><strong>Code and data are denser.</strong> Indentation, symbols, long identifiers, JSON keys and numbers all cost tokens, so your codebase may land well above or below 10 tokens per line.</li>
+<li><strong>Tokenizers differ.</strong> The same text produces different counts on different model families, and sometimes on different versions from one provider.</li>
+<li><strong>Media has its own rates.</strong> Gemini's docs count an image up to 384 pixels on each side as 258 tokens, tile larger images into 768-pixel squares at 258 tokens each, and count audio at 32 tokens per second. One hour of audio is therefore 3,600 × 32 = 115,200 tokens.</li>
+</ul>
+<p>The fastest way to stop guessing is to paste a real sample into the <a href="token-counter.html">token counter</a> and scale from there.</p>
+
+<aside class="ad-slot" data-ad="in-article" aria-label="Sponsored message"><span class="ad-label">From LLModel</span><div class="ad-fill"><div class="house"><div><strong>Keep LLModel independent</strong><span>Reader support pays for data checks, new tools and contest prizes.</span></div>
+<a class="btn btn--ghost btn--sm" href="support.html">Support the site</a></div>
+</div>
+</aside>
+<h2 id="context-window-sizes-2026">Context window sizes as of October 2026</h2>
+<p>The table lists published limits for current flagship models from major API providers, plus two widely used open-weight families, checked against each provider's documentation on October 10, 2026. Limits can differ by plan, region or cloud platform and change often, so confirm before you design around a number.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Model</th><th>Provider</th><th>Context window</th><th>Max output</th></tr>
+</thead>
+<tbody>
+<tr><td>GPT-6 Astra, GPT-6.1 Sol, GPT-6 Luna</td><td>OpenAI</td><td>1,050,000</td><td>128,000</td></tr>
+<tr><td>Claude Fable 5.1, Opus 5.5, Sonnet 5.5, Haiku 5.5</td><td>Anthropic</td><td>1M</td><td>128K</td></tr>
+<tr><td>Gemini 3.1 Pro Preview, Gemini 3.8 Flash</td><td>Google</td><td>1,048,576 (input limit)</td><td>65,536</td></tr>
+<tr><td>DeepSeek V4 Pro, DeepSeek V4.1 Flash</td><td>DeepSeek</td><td>1M</td><td>Up to 384K</td></tr>
+<tr><td>Grok 4.7</td><td>xAI</td><td>500K</td><td>Not listed</td></tr>
+<tr><td>Llama 4 Scout (open weights, 2025)</td><td>Meta</td><td>10M (announced)</td><td>Depends on host</td></tr>
+<tr><td>Llama 3.1 family (open weights, 2024)</td><td>Meta</td><td>128K</td><td>Depends on host</td></tr>
+</tbody>
+</table>
+</div>
+<p>Sources: <a href="https://developers.openai.com/api/docs/models" target="_blank" rel="noopener">OpenAI models</a>, <a href="https://platform.claude.com/docs/en/about-claude/models/overview" target="_blank" rel="noopener">Anthropic models overview</a>, <a href="https://ai.google.dev/gemini-api/docs/models" target="_blank" rel="noopener">Gemini models</a>, <a href="https://api-docs.deepseek.com/quick_start/pricing/" target="_blank" rel="noopener">DeepSeek models and pricing</a>, <a href="https://docs.x.ai/docs/models" target="_blank" rel="noopener">xAI models</a> and Meta's <a href="https://ai.meta.com/blog/llama-4-multimodal-intelligence/" target="_blank" rel="noopener">Llama 4 announcement</a>.</p>
+<p>Two patterns stand out: about 1M tokens is now standard for most frontier APIs, and output caps remain far smaller than input limits. For open-weight models, the advertised figure is what the model was built for; a host may serve less, and your own GPUs may force you lower. Browse the <a href="models.html">LLM directory</a> or <a href="compare.html">compare models side by side</a> for current specs.</p>
+
+<h2 id="what-happens-at-the-limit">What happens when you hit the limit</h2>
+<p>The result depends on where the overflow happens and what software sits between you and the model. Expect one of four behaviors.</p>
+<ul>
+<li><strong>The request is rejected.</strong> If your input alone exceeds the window, APIs refuse it. Anthropic's API, for example, returns a 400 error saying the prompt is too long.</li>
+<li><strong>The reply stops early.</strong> When output reaches the max output setting or the end of the window, generation stops mid-thought and the API reports a stop reason such as <code>max_tokens</code> or <code>length</code>. Anthropic's newer models use a dedicated <code>model_context_window_exceeded</code> reason. A JSON object cut off halfway will not parse, so check the stop reason before using any output.</li>
+<li><strong>Old content is silently dropped.</strong> Many chat apps and frameworks trim the oldest messages, or the middle of a long paste, to make room. The model cannot tell you about text it never received.</li>
+<li><strong>History is summarized.</strong> Some systems replace older turns with a summary, often called compaction, and OpenAI's Responses API offers it server-side. Summaries save space but lose detail, especially exact numbers, names and quotes.</li>
+</ul>
+<div class="callout tip"><p>Log input, output and cached token counts for every request. When a conversation crosses roughly 70% of the window, compact it on your own terms, keeping key facts verbatim, instead of letting a framework truncate it for you.</p>
+</div>
+
+<figure class="video-figure"><div class="video" data-yt="-QVoIxEpFkM"><button class="video__btn" type="button" aria-label="Play video: What is a Context Window? Unlocking LLM Secrets"><img src="https://i.ytimg.com/vi/-QVoIxEpFkM/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="video__play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></button></div>
+<figcaption>Watch: What is a Context Window? Unlocking LLM Secrets (IBM Technology). Explains the context window as a model&#x27;s working memory, counted in tokens, and how it limits what an LLM can take in during one session. It is a quick primer for anyone who has hit a length limit or wondered why long chats drift off course.</figcaption></figure>
+<h2 id="long-context-quality">Why a bigger window doesn't guarantee better answers</h2>
+<p>The advertised window tells you what fits. The effective context, meaning how much the model can actually use well, is often smaller and depends heavily on the task.</p>
+<p>The best-known finding is "lost in the middle." In a 2023 study, <a href="https://arxiv.org/abs/2307.03172" target="_blank" rel="noopener">Liu and colleagues</a> found that models answered best when the relevant passage sat at the start or end of a long input, and noticeably worse when it sat in the middle. The practical rule: keep the material that matters most near the beginning or end, and put your question last.</p>
+<p>Needle-in-a-haystack tests, which hide one fact in long filler text and ask the model to find it, flatter models because they reward simple lookup. The <a href="https://arxiv.org/abs/2404.06654" target="_blank" rel="noopener">RULER benchmark</a> tested 17 models in 2024: they scored nearly perfectly on the basic needle test, yet only half held up at 32K tokens on a broader mix of retrieval, tracing and aggregation tasks. The 2025 <a href="https://arxiv.org/abs/2502.05167" target="_blank" rel="noopener">NoLiMa study</a> removed literal word overlap between question and needle; at 32K tokens, 11 of 13 models fell below half their short-context scores, and GPT-4o dropped from 99.3% to 69.7%.</p>
+<p>Chroma's 2025 <a href="https://www.trychroma.com/research/context-rot" target="_blank" rel="noopener">context rot report</a> found similar patterns across 18 models, even on simple tasks: reliability fell as input grew, and distracting near-matches made it worse. Anthropic's documentation uses the same term and warns that adding context does not automatically improve results.</p>
+<p>The models in these studies are a generation or more old, so treat the numbers as historical. The lesson holds: test your own task at the length you plan to use.</p>
+
+<h2 id="cost-latency-and-memory">Cost, latency and memory</h2>
+<p>You pay for every input token on every request. Most chat APIs are stateless, so each turn resends the whole history. If every turn adds 2,000 tokens, turn 10 sends 20,000 tokens, and the 10 turns together send 2,000 × (1 + 2 + … + 10) = 110,000 input tokens, not 20,000.</p>
+<p>Long documents multiply quickly. At an illustrative $2.00 per million input tokens, a 400,000-token document costs 0.4 × $2.00 = $0.80 to send once. Ask 20 questions about it without caching and you pay $16.00 in input alone, before any output.</p>
+<p>Some providers also charge more per token above a length threshold. As of October 2026, OpenAI bills GPT-6 family requests with more than 272K input tokens at 2× the input rate and 1.5× the output rate for the whole request, and Google's Gemini 3.1 Pro Preview moves from $2.00 to $4.00 per million input tokens above 200K. Anthropic prices the full 1M window of its current models at standard rates, except Haiku 5.5, which steps up above 100K tokens. Run your numbers through the <a href="llm-cost-calculator.html">LLM cost calculator</a> and read <a href="llm-api-pricing-explained.html">LLM API pricing explained</a> before committing to a long-context design.</p>
+<p>Long prompts are also slower. The model must process every input token before the first output token appears, and standard attention work grows with the square of sequence length. Measure time to first token, a key part of <a href="glossary-inference-deployment.html#latency">latency</a>, at your real prompt size: a design that feels instant at 5,000 tokens can drag at 500,000.</p>
+
+<h3 id="prompt-caching">Prompt caching</h3>
+<p><a href="glossary-business-pricing.html#prompt-caching">Prompt caching</a> lets a provider reuse the processed form of a prompt prefix it has seen recently, such as a long system prompt, tool definitions or a document. As of October 2026, OpenAI and Anthropic list cache writes at about 1.25× the normal input rate and reads at about 0.1×, with deeper read discounts on several current models. Gemini caches automatically on 2.5 and newer models once a prompt passes a minimum size, 4,096 tokens on Gemini 3.1 Pro and recent Flash models.</p>
+<p>Rework the earlier example with caching. The first request writes the 400,000-token document at 1.25 × $2.00 = $2.50 per million, so $1.00. Each of the next 19 questions reads it at $0.20 per million, or $0.08, for $1.52 in total. You pay $2.52 instead of $16.00, a saving of about 84%, and cached requests generally start responding sooner.</p>
+<ul>
+<li><strong>Caches match exact prefixes.</strong> Put stable content first and variable content, such as the user's question or a timestamp, last. One changed character early in the prompt invalidates everything after it.</li>
+<li><strong>Caches expire.</strong> Anthropic's default lifetime is five minutes, refreshed on each hit, with a paid one-hour option. OpenAI's newer models keep a prefix eligible for 30 minutes after its last use.</li>
+<li><strong>Short prompts don't qualify.</strong> Minimums range from 512 to 4,096 tokens depending on provider and model.</li>
+</ul>
+
+<h3 id="kv-cache-memory">KV cache memory if you self-host</h3>
+<p>When you run an open model yourself, long context costs GPU memory. During generation the model stores key and value vectors for every token in context, in every layer, in what's called the <a href="glossary-inference-deployment.html#kv-cache">KV cache</a>. It grows linearly with context length and with the number of requests you serve at once.</p>
+<p>Bytes per token = 2 (keys and values) × layers × KV heads × head dimension × bytes per value. Llama 3.1 8B has 32 layers, 8 KV heads and a head dimension of 128, per Meta's published architecture in the <a href="https://arxiv.org/abs/2407.21783" target="_blank" rel="noopener">Llama 3 paper</a>. At 16-bit precision that is 2 × 32 × 8 × 128 × 2 = 131,072 bytes, or 128 KiB per token, so a full 131,072-token context needs 16 GiB of KV cache for a single request. That is about as much memory as the model's 16-bit weights.</p>
+<p>Llama 3.1 70B has 80 layers with the same KV heads and head dimension, so it needs 320 KiB per token and 40 GiB for one full-length request. Four users at full length need 160 GiB for the cache alone.</p>
+<p>To cope, cap the maximum context in your server settings, store the cache in 8-bit precision to halve it, and use a serving engine with paged memory management. The <a href="https://arxiv.org/abs/2309.06180" target="_blank" rel="noopener">vLLM paper</a> reported 2-4× higher throughput than earlier serving systems by cutting KV cache waste. The <a href="vram-calculator.html">VRAM calculator</a> runs this arithmetic for you.</p>
+
+<aside class="ad-slot" data-ad="in-article-2" aria-label="Sponsored message"><span class="ad-label">From LLModel</span><div class="ad-fill"><div class="house"><div><strong>Prompt Efficiency Challenge</strong><span>Season 1 is open: solve five tasks for the fewest dollars. $500 in prizes.</span></div>
+<a class="btn btn--ghost btn--sm" href="contests.html">Read the brief</a></div>
+</div>
+</aside>
+<h2 id="long-context-vs-rag">Long context or RAG?</h2>
+<p><a href="glossary-building-apps.html#rag">Retrieval-augmented generation</a> (RAG) searches your documents and sends the model only the most relevant passages, while long context sends everything. Neither is always better, so decide per workload.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Situation</th><th>Lean toward</th><th>Why</th></tr>
+</thead>
+<tbody>
+<tr><td>Material fits in well under half the window and you'll ask many questions in one session</td><td>Long context with caching</td><td>Simple to build, the model sees everything, and caching makes repeat questions cheap</td></tr>
+<tr><td>The task needs the whole document, such as finding contradictions or summarizing a contract</td><td>Long context</td><td>Retrieval can miss the pieces that matter</td></tr>
+<tr><td>The corpus is far larger than any window</td><td>RAG</td><td>Thousands of documents won't fit, and retrieval scales</td></tr>
+<tr><td>High volume with tight latency or cost targets</td><td>RAG</td><td>Sending 5,000 relevant tokens is far cheaper and faster than sending 500,000</td></tr>
+<tr><td>Content changes daily or users have different permissions</td><td>RAG</td><td>Indexes update incrementally and can filter by access rights</td></tr>
+<tr><td>Answers must cite exact sources</td><td>Either, with quote extraction</td><td>Ask for supporting quotes and passage IDs, then verify them</td></tr>
+</tbody>
+</table>
+</div>
+<p>Many production systems combine both: retrieve generously, then let a long-context model reason across dozens of passages at once. See <a href="rag-explained.html">RAG explained</a> for how to build the retrieval side.</p>
+
+<h2 id="fit-more-in">Practical ways to fit more in</h2>
+<div class="checklist"><ul>
+<li>Measure real prompts with a tokenizer before optimizing anything.</li>
+<li>Strip boilerplate: navigation, HTML markup, repeated headers and footers, email signatures and quoted reply chains.</li>
+<li>Convert documents to plain text or Markdown, and tables to compact CSV.</li>
+<li>Summarize older conversation turns, keep the last few verbatim, and pin key facts such as names, figures and decisions in a short state block.</li>
+<li>Retrieve the relevant sections instead of pasting whole files.</li>
+<li>Label each document with a title and source, put long material first, and put instructions and the question last.</li>
+<li>For long documents, ask the model to extract relevant quotes before it answers.</li>
+<li>Send only the tool definitions needed for the current step, since every schema is resent on every call.</li>
+<li>Downscale images to the smallest size that keeps the detail you need.</li>
+<li>Set an explicit max output so the reply budget is reserved rather than whatever is left over.</li>
+</ul>
+</div>
+
+<h2 id="common-mistakes">Common mistakes</h2>
+<ul>
+<li><strong>Treating the advertised window as usable capacity.</strong> A model that accepts 1M tokens may still reason poorly across 300,000 of them.</li>
+<li><strong>Forgetting the output and reasoning budget.</strong> A reasoning model can spend thousands of tokens thinking before it writes a word of the answer.</li>
+<li><strong>Using English ratios for code or other languages.</strong> Measure instead of assuming.</li>
+<li><strong>Ignoring stop reasons.</strong> Truncated output looks fine until a parser or a user hits the missing half.</li>
+<li><strong>Breaking the cache.</strong> A timestamp or user name at the top of the system prompt turns every request into a cache miss.</li>
+<li><strong>Self-hosting at maximum context by default.</strong> Under concurrent load, the growing KV cache is usually what exhausts GPU memory.</li>
+<li><strong>Comparing prices without long-context surcharges.</strong> Per-token rates can double past a threshold.</li>
+</ul>
+<p>If you're designing a long-document pipeline and want someone to review the architecture, you can <a href="hire-llm-experts.html">get hands-on help from LLM specialists</a>.</p>
+
+<h2 id="next-steps">Next steps</h2>
+<ul>
+<li>See how much text fits in 8K, 128K and 1M tokens with the <a href="context-window-visualizer.html">context window visualizer</a>.</li>
+<li>Count the tokens in your own prompts and estimate per-request cost with the <a href="token-counter.html">token counter</a>.</li>
+<li>Decide how to bring your own data into the window with <a href="rag-explained.html">RAG explained</a>.</li>
+</ul>
+    <section class="sources" aria-labelledby="sources"><h2 id="sources">Sources</h2>
+<ol><li><a href="https://developers.openai.com/api/docs/models" target="_blank" rel="noopener">OpenAI API documentation: Models</a></li>
+<li><a href="https://platform.claude.com/docs/en/about-claude/models/overview" target="_blank" rel="noopener">Anthropic documentation: Models overview</a></li>
+<li><a href="https://platform.claude.com/docs/en/build-with-claude/context-windows" target="_blank" rel="noopener">Anthropic documentation: Context windows</a></li>
+<li><a href="https://ai.google.dev/gemini-api/docs/tokens" target="_blank" rel="noopener">Google Gemini API documentation: Understand and count tokens</a></li>
+<li><a href="https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them" target="_blank" rel="noopener">OpenAI Help Center: What are tokens and how to count them?</a></li>
+<li><a href="https://arxiv.org/abs/2307.03172" target="_blank" rel="noopener">Lost in the Middle: How Language Models Use Long Contexts (Liu et al., 2023)</a></li>
+<li><a href="https://arxiv.org/abs/2404.06654" target="_blank" rel="noopener">RULER: What&#x27;s the Real Context Size of Your Long-Context Language Models? (Hsieh et al., 2024)</a></li>
+<li><a href="https://arxiv.org/abs/2502.05167" target="_blank" rel="noopener">NoLiMa: Long-Context Evaluation Beyond Literal Matching (Modarressi et al., 2025)</a></li>
+<li><a href="https://developers.openai.com/api/docs/guides/prompt-caching" target="_blank" rel="noopener">OpenAI API documentation: Prompt caching</a></li>
+<li><a href="https://arxiv.org/abs/2309.06180" target="_blank" rel="noopener">Efficient Memory Management for Large Language Model Serving with PagedAttention (Kwon et al., 2023)</a></li>
+</ol>
+      <p class="small muted">Written by the LLModel editorial team and checked against the sources above on October 10, 2026. Found an error? <a href="contact.html?topic=correction">Send a correction</a>.</p>
+</section>
+    <div class="share" aria-label="Share this guide"><span class="muted">Share:</span><button type="button" data-copy-link>Copy link</button><a href="https://www.linkedin.com/sharing/share-offsite/?url=https://llmodel.com/context-windows-explained.html" target="_blank" rel="noopener">LinkedIn</a><a href="https://twitter.com/intent/tweet?url=https://llmodel.com/context-windows-explained.html&amp;text=Context windows explained" target="_blank" rel="noopener">X</a><a href="https://news.ycombinator.com/submitlink?u=https://llmodel.com/context-windows-explained.html&amp;t=Context windows explained" target="_blank" rel="noopener">Hacker News</a><a href="https://www.reddit.com/submit?url=https://llmodel.com/context-windows-explained.html&amp;title=Context windows explained" target="_blank" rel="noopener">Reddit</a></div>
+  </article>
+  <aside class="article__side" aria-label="Related"><div class="panel"><h2 class="h3">Try the tools</h2>
+<ul style="margin:.5rem 0 0;padding-left:1.1rem"><li><a href="context-window-visualizer.html">Context window visualizer</a></li>
+<li><a href="token-counter.html">Token counter</a></li>
+<li><a href="llm-cost-calculator.html">LLM API cost calculator</a></li>
+<li><a href="vram-calculator.html">GPU and VRAM calculator</a></li>
+</ul>
+</div>
+<div class="panel"><h2 class="h3">Need hands-on help?</h2>
+<p class="small muted" style="margin-top:.4rem">Get a vendor-neutral plan for your project within 2 business days.</p>
+<a class="btn btn--primary btn--block" style="margin-top:.8rem" href="hire-llm-experts.html?from=guide-context-windows-explained">Get expert help</a></div>
+<div class="panel newsletter-box">
+
+  <p class="muted" style="margin-top:.4rem">One short email a week: model releases, price changes and one tool worth trying. Free, and you can unsubscribe anytime.</p>
+  <form class="form" data-form="newsletter" data-subject="Newsletter signup" novalidate style="margin-top:1rem">
+    <div class="inline-form">
+      <label class="visually-hidden" for="nl-side-email">Email address</label>
+      <input class="input" type="email" id="nl-side-email" name="email" required autocomplete="email" placeholder="Your work email">
+      <button class="btn btn--primary" type="submit">Subscribe</button>
+    </div>
+    <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <div class="form-status" role="status" aria-live="polite"></div>
+  </form>
+  <p class="fine" style="margin-top:.6rem">We send one email a week and never sell your address. See the <a href="privacy.html">privacy policy</a>.</p>
+</div>
+</aside>
+</div>
+<div class="wrap wrap--read" style="margin-top:3rem"><section class="faq-wrap" aria-labelledby="faq"><h2 class="h2" id="faq" style="margin-bottom:1rem">Frequently asked questions</h2>
+<div class="faq"><details><summary>How many words is 1 million tokens?</summary><div class="faq__a"><p>Roughly 750,000 English words, using the common rule of thumb of 0.75 words per token. That is about 1,500 dense single-spaced pages or eight full-length novels. The real figure depends on the tokenizer and the content: code, tables, numbers and many non-English languages need more tokens per word, so measure a sample of your own material before relying on the estimate.</p>
+</div>
+</details>
+<details><summary>Does the context window include the model&#x27;s response?</summary><div class="faq__a"><p>Yes. On most APIs the context window is one shared budget covering the system prompt, conversation history, documents, tool definitions, the reply and any hidden reasoning tokens. Models also have a separate, smaller cap on output length. If your input nearly fills the window, there may be too little room left for a complete answer, so reserve output space explicitly.</p>
+</div>
+</details>
+<details><summary>What happens when a conversation exceeds the context window?</summary><div class="faq__a"><p>It depends on the software. An API usually rejects a request whose input is too long, or stops the reply early and reports a stop reason. Chat apps and frameworks often drop the oldest messages or replace them with a summary without telling you, so the model may forget earlier instructions or details. Starting a fresh conversation with a short recap is often the cleanest fix.</p>
+</div>
+</details>
+<details><summary>Is a bigger context window always better?</summary><div class="faq__a"><p>No. A bigger window lets you send more, but research such as the lost-in-the-middle study, RULER and NoLiMa shows accuracy often falls as input grows, especially when a task needs several facts combined. Long prompts also cost more and respond more slowly. Send the most relevant material rather than everything, and test quality at the prompt length you actually plan to use.</p>
+</div>
+</details>
+<details><summary>Should I use a long context window or RAG?</summary><div class="faq__a"><p>Use long context when the material fits comfortably, the model needs to see all of it, and caching can absorb repeat costs. Use RAG when your corpus is larger than any window, content changes often, users have different permissions, or you need low cost and latency at high volume. Many production systems combine the two, retrieving generously and then reasoning over the results.</p>
+</div>
+</details>
+<details><summary>What is prompt caching and how much does it save?</summary><div class="faq__a"><p>Prompt caching reuses the processed form of a repeated prompt prefix, such as a system prompt or a long document. As of October 2026, major providers typically charge around 0.1 times the normal input rate for cached reads, and some add a small premium to write the cache. At those rates, twenty questions about one 400,000-token document cost about 84% less in input, as long as requests arrive before the cache expires.</p>
+</div>
+</details>
+</div>
+</section>
+</div>
+
+<section class="wrap" aria-labelledby="related" style="margin-top:3rem"><h2 class="h2" id="related" style="margin-bottom:1rem">Keep reading</h2>
+<div class="cardlist"><a class="card" href="rag-explained.html"><span class="card__kicker">Building</span><span class="card__title">Retrieval-augmented generation (RAG) explained</span><span class="card__desc">A practical guide to retrieval-augmented generation, covering each stage of the pipeline from parsing and chunking to hybrid search, reranking and cited answers. It also explains how to evaluate RAG quality, when long context or fine-tuning fits better and how to secure the system.</span><span class="card__foot"><span>Intermediate</span><span>10 min read</span></span></a><a class="card" href="llm-api-pricing-explained.html"><span class="card__kicker">Choosing &amp; buying</span><span class="card__title">LLM API pricing explained</span><span class="card__desc">LLM APIs bill per token, but output, reasoning, caching, batching and long-context tiers can change a bill several-fold. This
+guide explains each pricing component, shows real prices as of October 2026 and works through three cost examples step by step.</span><span class="card__foot"><span>Beginner</span><span>11 min read</span></span></a><a class="card" href="how-llms-work.html"><span class="card__kicker">Fundamentals</span><span class="card__title">How large language models work, step by step</span><span class="card__desc">Follow one sentence through a large language model, from tokens and embeddings through self-attention, logits and sampling, with small worked examples at each step. Then see how training, scaling and mixture-of-experts shape what models can do, and why they hallucinate.</span><span class="card__foot"><span>Intermediate</span><span>11 min read</span></span></a></div>
+</section>
+<div class="wrap"><section class="lead-band" aria-labelledby="lead-choose-guide-context-windows-explained">
+  <div>
+    <h2 id="lead-choose-guide-context-windows-explained">Still choosing a model?</h2>
+    <p>Send us your use case and constraints. We&#x27;ll come back with a shortlist and an evaluation plan you can run on your own data.</p>
+    <ul><li>Free and vendor-neutral: no model provider pays for placement.</li>
+<li>Your details go only to partners you agree to.</li>
+</ul>
+  </div>
+  <form class="mini-form" action="hire-llm-experts.html" method="get">
+    <label for="need-choose-guide-context-windows-explained">What do you need help with?</label>
+    <select id="need-choose-guide-context-windows-explained" name="need"><option value="choose-model">Choose the right model</option>
+<option value="chatbot">Build a chatbot or assistant</option>
+<option value="rag">Answer questions over our documents (RAG)</option>
+<option value="agents">Automate work with AI agents</option>
+<option value="self-host">Fine-tune or self-host a model</option>
+<option value="cut-costs">Cut our LLM costs</option>
+<option value="security">Security, privacy or compliance review</option>
+<option value="not-sure">Not sure yet</option>
+</select>
+    <input type="hidden" name="from" value="guide-context-windows-explained">
+    <button class="btn btn--yellow btn--block" type="submit">Start my free plan</button>
+    <p class="fine">Takes about 2 minutes. No sales calls unless you ask for one.</p>
+  </form>
+</section>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+      <p>The independent field guide to large language models. Model data checked against provider documentation; last full check October 10, 2026.</p>
+    </div>
+    <div><h2>Explore</h2>
+<ul><li><a href="models.html">Model directory</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare models</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="search.html">Search</a></li>
+</ul>
+</div>
+<div><h2>Tools</h2>
+<ul><li><a href="llm-cost-calculator.html">Cost calculator</a></li>
+<li><a href="token-counter.html">Token counter</a></li>
+<li><a href="vram-calculator.html">GPU and VRAM calculator</a></li>
+<li><a href="llm-picker.html">Which LLM should I use?</a></li>
+<li><a href="context-window-visualizer.html">Context window visualizer</a></li>
+<li><a href="prompt-builder.html">Prompt builder</a></li>
+<li><a href="self-host-vs-api-calculator.html">Self-host vs API calculator</a></li>
+</ul>
+</div>
+<div><h2>Learn</h2>
+<ul><li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+</ul>
+</div>
+<div><h2>Work with us</h2>
+<ul><li><a href="hire-llm-experts.html">Get expert help</a></li>
+<li><a href="list-your-product.html">List your product</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</div>
+<div><h2>About</h2>
+<ul><li><a href="about.html">About LLModel</a></li>
+<li><a href="editorial-policy.html">Editorial policy</a></li>
+<li><a href="privacy.html">Privacy policy</a></li>
+<li><a href="terms.html">Terms of use</a></li>
+<li><a href="disclaimer.html">Disclaimer</a></li>
+<li><a href="trademark-copyright.html">Trademark and copyright</a></li>
+<li><a href="sitemap.html">Site map</a></li>
+<li><button class="linklike" type="button" data-privacy-choices>Privacy and cookie choices</button></li>
+</ul>
+</div>
+  </div>
+  <div class="wrap footer-legal">
+    <p>&copy; 2026 LLModel.com. Independent: not affiliated with, endorsed by or sponsored by any model provider. Model and company names are trademarks of their respective owners and are used only to identify products. See <a href="trademark-copyright.html">trademark and copyright</a>.</p>
+    <p>Prices and specifications change often. Always confirm on the provider's own pricing page before you buy.</p>
+  </div>
+</footer>
+<div class="palette" id="palette" hidden role="dialog" aria-modal="true" aria-label="Search LLModel">
+  <div class="palette__box">
+    <label class="visually-hidden" for="palette-input">Search models, tools, guides and terms</label>
+    <input class="palette__input" id="palette-input" type="search" placeholder="Search models, tools, guides, terms" autocomplete="off" spellcheck="false" aria-controls="palette-list">
+    <ul class="palette__list" id="palette-list" role="listbox"></ul>
+    <div class="palette__foot"><span><span class="kbd">&uarr;</span> <span class="kbd">&darr;</span> to move</span><span><span class="kbd">Enter</span> to open</span><span><span class="kbd">Esc</span> to close</span></div>
+  </div>
+</div>
+<script src="assets/js/config.js?v=caa5324cbb"></script>
+
+<script src="assets/js/app.js?v=4b39d7c1bd" defer></script>
+<script src="assets/js/article.js?v=0235be8880" defer></script>
+</body>
+</html>
