@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LLM Guides: How Large Language Models Work, Cost and Fail | LLModel.com</title>
+<meta name="description" content="14 plain-English guides to large language models: how they work, how to choose one, pricing, RAG, agents, running models locally, security and more.">
+<link rel="canonical" href="https://llmodel.com/guides.html">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="google-adsense-account" content="ca-pub-6620975821265271">
+<meta name="theme-color" content="#f4f6fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12101e" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="LLModel.com">
+<meta property="og:title" content="LLM Guides: How Large Language Models Work, Cost and Fail">
+<meta property="og:description" content="14 plain-English guides to large language models: how they work, how to choose one, pricing, RAG, agents, running models locally, security and more.">
+<meta property="og:url" content="https://llmodel.com/guides.html">
+<meta property="og:image" content="https://llmodel.com/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="LLModel: the independent field guide to large language models">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="alternate" type="text/plain" href="llms.txt" title="llms.txt">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Martian+Mono:wght@400..500&family=Newsreader:ital,opsz,wght@0,6..72,400..650;1,6..72,400&display=swap">
+<link rel="stylesheet" href="assets/css/style.css?v=dae4813595">
+<script>(function(){var d=document.documentElement,t=null;try{t=localStorage.getItem('llm-theme')}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}d.setAttribute('data-theme',t)})();</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6620975821265271" crossorigin="anonymous"></script>
+<script type="application/ld+json">{
+ "@type": "Organization",
+ "@id": "https://llmodel.com/#org",
+ "name": "LLModel.com",
+ "url": "https://llmodel.com/",
+ "logo": "https://llmodel.com/assets/img/icon-512.png",
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://llmodel.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Guides"
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "CollectionPage",
+ "name": "LLM guides",
+ "hasPart": [
+  {
+   "@type": "Article",
+   "headline": "AI agents explained",
+   "url": "https://llmodel.com/ai-agents-explained.html"
+  },
+  {
+   "@type": "Article",
+   "headline": "Context windows explained",
+   "url": "https://llmodel.com/context-windows-explained.html"
+  },
+  {
+   "@type": "Article",
+   "headline": "Fine-tuning vs RAG vs prompting: which should you use?",
+   "url": "https://llmodel.com/fine-tuning-vs-rag-vs-prompting.html"
+  },
+  {
+   "@type": "Article",
+   "headline": "How large language models work, step by step",
+   "url": "https://llmodel.com/how-llms-work.html"
+  },
+  {
+   "@type": "Article",
+   "headline": "How to choose an LLM for your project",
+   "url": "https://llmodel.com/how-to-choose-an-llm.html"
+  },
+  {
+   "@type": "Article",
+   "headline": "LLM API pricing explained",
+   "url": "https://llmodel.com/llm-api-pricing-explained.html"
+  },
+  {
+   "@type": "Article",
+   "headline": "LLM benchmarks explained",
+   "url": "https://llmodel.com/llm-benchmarks-explained.html"
+  },
+  {
+   "@type": "Article",
+   "headline": "LLM hallucinations: why they happen and how to reduce them",
+   "url": "https://llmodel.com/llm-hallucinations.html"
+  },
+  {
+   "@type": "Article",
+   "headline": "LLM security and privacy: a practical guide",
+   "url": "https://llmodel.com/llm-security-and-privacy.html"
+  },
+  {
+   "@type": "Article",
+   "headline": "Open-source vs closed LLMs: how to decide",
+   "url": "https://llmodel.com/open-source-vs-closed-llms.html"
+  },
+  {
+   "@type": "Article",
+   "headline": "Prompt engineering: a practical guide with examples",
+   "url": "https://llmodel.com/prompt-engineering-guide.html"
+  },
+  {
+   "@type": "Article",
+   "headline": "Retrieval-augmented generation (RAG) explained",
+   "url": "https://llmodel.com/rag-explained.html"
+  },
+  {
+   "@type": "Article",
+   "headline": "How to run LLMs locally",
+   "url": "https://llmodel.com/run-llms-locally.html"
+  },
+  {
+   "@type": "Article",
+   "headline": "What is a large language model?",
+   "url": "https://llmodel.com/what-is-a-large-language-model.html"
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+
+</head>
+<body class="page-guides">
+<a class="skip" href="#main">Skip to content</a>
+<div class="partner-bar"><a href="https://web.works/contact" target="_blank" rel="noopener"><span>Contact, if you are interested in this website / domain name / sponsorship / advertisement / partnership</span></a></div>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+    <nav class="nav" aria-label="Main"><a href="models.html">Models</a><a href="compare.html">Compare</a><a href="leaderboard.html">Rankings</a><a href="tools.html">Tools</a><a href="guides.html" aria-current="page">Learn</a><a href="videos.html">Videos</a></nav>
+    <div class="header-actions">
+      <button class="search-btn" type="button" data-open-search aria-label="Search the site"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="search-label">Search</span><span class="kbd" aria-hidden="true">/</span></button>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><svg class="theme-icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="theme-icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+      <a class="btn btn--primary btn--sm header-cta" href="hire-llm-experts.html">Get expert help</a>
+      <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile">
+    <ul><li><a href="models.html">Models</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="tools.html">Tools</a></li>
+<li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="contact.html">Contact</a></li>
+<li class="mobile-cta"><a class="btn btn--primary btn--block" href="hire-llm-experts.html">Get expert help</a></li>
+</ul>
+  </nav>
+</header>
+<main id="main">
+<nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li>
+<li aria-current="page">Guides</li>
+</ol>
+</nav>
+<header class="page-head wrap"><h1>Learn how large language models work</h1><p class="lede">14 in-depth guides, about 33K words in all, written in plain English and checked against primary sources. Start with the fundamentals or jump to what you're building.</p>
+<div class="page-meta"><span>Updated October 10, 2026</span><span><a href="glossary.html">Glossary</a></span><span><a href="videos.html">Videos</a></span></div>
+</header>
+<section class="section" aria-labelledby="cat-fundamentals"><div class="wrap"><div class="section-head"><div><h2 id="cat-fundamentals">Fundamentals</h2>
+</div>
+</div>
+<div class="cardlist"><a class="card" href="context-windows-explained.html"><span class="card__kicker">Fundamentals</span><span class="card__title">Context windows explained</span><span class="card__desc">A context window is the token budget a model can read and write in one request. This guide converts tokens to words and pages, compares current limits and explains the cost, quality and memory trade-offs of long prompts.</span><span class="card__foot"><span>Beginner</span><span>11 min read</span></span></a><a class="card" href="how-llms-work.html"><span class="card__kicker">Fundamentals</span><span class="card__title">How large language models work, step by step</span><span class="card__desc">Follow one sentence through a large language model, from tokens and embeddings through self-attention, logits and sampling, with small worked examples at each step. Then see how training, scaling and
+mixture-of-experts shape what models can do, and why they hallucinate.</span><span class="card__foot"><span>Intermediate</span><span>11 min read</span></span></a><a class="card" href="what-is-a-large-language-model.html"><span class="card__kicker">Fundamentals</span><span class="card__title">What is a large language model?</span><span class="card__desc">A large language model is a neural network trained on enormous amounts of text to predict what comes next, which turns out to be enough to draft, summarize, translate and write code. This guide explains what LLMs are, how they&#x27;re trained, the kinds you&#x27;ll meet, the major families as of October 2026 and the limits to plan around.</span><span class="card__foot"><span>Beginner</span><span>10 min read</span></span></a></div>
+</div>
+</section>
+<section class="section" aria-labelledby="cat-choosing-buying"><div class="wrap"><div class="section-head"><div><h2 id="cat-choosing-buying">Choosing &amp; buying</h2>
+</div>
+</div>
+<div class="cardlist"><a class="card" href="how-to-choose-an-llm.html"><span class="card__kicker">Choosing &amp; buying</span><span class="card__title">How to choose an LLM for your project</span><span class="card__desc">A practical framework for choosing a large language model: define the job, weigh ten criteria in a scoring matrix, and run a quick evaluation on your own data. Includes starting points for five common use cases as of October 2026 and a procurement checklist.</span><span class="card__foot"><span>Intermediate</span><span>10 min read</span></span></a><a class="card" href="llm-api-pricing-explained.html"><span class="card__kicker">Choosing &amp; buying</span><span class="card__title">LLM API pricing explained</span><span class="card__desc">LLM APIs bill per token, but output, reasoning, caching, batching and long-context tiers can change a bill several-fold. This guide explains
+each pricing component, shows real prices as of October 2026 and works through three cost examples step by step.</span><span class="card__foot"><span>Beginner</span><span>11 min read</span></span></a><a class="card" href="open-source-vs-closed-llms.html"><span class="card__kicker">Choosing &amp; buying</span><span class="card__title">Open-source vs closed LLMs: how to decide</span><span class="card__desc">Open-weight models let you run an LLM on your own infrastructure, but &#x27;open&#x27; covers licenses ranging from Apache 2.0 to custom terms with user caps and naming rules. This guide compares open and closed models on quality, cost, control and risk, works through a total cost of ownership example and shows when a hybrid setup wins.</span><span class="card__foot"><span>Intermediate</span><span>9 min read</span></span></a></div>
+</div>
+</section>
+<section class="section" aria-labelledby="cat-building"><div class="wrap"><div class="section-head"><div><h2 id="cat-building">Building</h2>
+</div>
+</div>
+<div class="cardlist"><a class="card" href="ai-agents-explained.html"><span class="card__kicker">Building</span><span class="card__title">AI agents explained</span><span class="card__desc">How AI agents work under the hood: a language model calling tools in a loop with memory, the planning patterns they use, and where the Model Context Protocol fits as of October 2026. Covers frameworks, evaluation, cost, security and the tasks agents handle well today.</span><span class="card__foot"><span>Intermediate</span><span>11 min read</span></span></a><a class="card" href="fine-tuning-vs-rag-vs-prompting.html"><span class="card__kicker">Building</span><span class="card__title">Fine-tuning vs RAG vs prompting: which should you use?</span><span class="card__desc">Prompting changes the instructions, RAG changes the knowledge a model can see and fine-tuning changes its behavior. This guide gives a decision
+tree, a cost and risk comparison, fine-tuning methods, managed options as of October 2026 and worked examples.</span><span class="card__foot"><span>Intermediate</span><span>9 min read</span></span></a><a class="card" href="prompt-engineering-guide.html"><span class="card__kicker">Building</span><span class="card__title">Prompt engineering: a practical guide with examples</span><span class="card__desc">A practical guide to writing prompts that work: the five parts of a prompt, core principles, eight techniques with before-and-after examples, and how reasoning models change the rules. Includes a testing workflow and a reusable template.</span><span class="card__foot"><span>Beginner</span><span>11 min read</span></span></a><a class="card" href="rag-explained.html"><span class="card__kicker">Building</span><span class="card__title">Retrieval-augmented generation (RAG) explained</span><span class="card__desc">A
+practical guide to retrieval-augmented generation, covering each stage of the pipeline from parsing and chunking to hybrid search, reranking and cited answers. It also explains how to evaluate RAG quality, when long context or fine-tuning fits better and how to secure the system.</span><span class="card__foot"><span>Intermediate</span><span>10 min read</span></span></a></div>
+</div>
+</section>
+<section class="section" aria-labelledby="cat-running-deploying"><div class="wrap"><div class="section-head"><div><h2 id="cat-running-deploying">Running &amp; deploying</h2>
+</div>
+</div>
+<div class="cardlist"><a class="card" href="run-llms-locally.html"><span class="card__kicker">Running &amp; deploying</span><span class="card__title">How to run LLMs locally</span><span class="card__desc">A practical guide to running open-weight language models on your own computer, from memory math and quantization formats to tools and model picks. It includes an Ollama quick start, hardware tiers as of October 2026, performance tips and fixes for common errors.</span><span class="card__foot"><span>Intermediate</span><span>11 min read</span></span></a></div>
+</div>
+</section>
+<section class="section" aria-labelledby="cat-safety-quality"><div class="wrap"><div class="section-head"><div><h2 id="cat-safety-quality">Safety &amp; quality</h2>
+</div>
+</div>
+<div class="cardlist"><a class="card" href="llm-benchmarks-explained.html"><span class="card__kicker">Safety &amp; quality</span><span class="card__title">LLM benchmarks explained</span><span class="card__desc">What the major LLM benchmarks test, which ones still separate frontier models as of October 2026, and why arena rankings and launch charts need a skeptical read. Includes a method for building your own evaluation with golden sets, rubrics and cost metrics.</span><span class="card__foot"><span>Intermediate</span><span>9 min read</span></span></a><a class="card" href="llm-hallucinations.html"><span class="card__kicker">Safety &amp; quality</span><span class="card__title">LLM hallucinations: why they happen and how to reduce them</span><span class="card__desc">Hallucinations are fluent, confident outputs that are false or unsupported by the sources a model was given. This guide explains
+why they happen, what published measurements show, and how to reduce, catch and measure them in real applications.</span><span class="card__foot"><span>Beginner</span><span>10 min read</span></span></a><a class="card" href="llm-security-and-privacy.html"><span class="card__kicker">Safety &amp; quality</span><span class="card__title">LLM security and privacy: a practical guide</span><span class="card__desc">How LLM applications get attacked and how they leak data, from prompt injection to over-privileged agents, with defenses that work in layers. Covers the OWASP Top 10 for LLM applications, vendor data policies, compliance basics and a pre-launch checklist.</span><span class="card__foot"><span>Intermediate</span><span>11 min read</span></span></a></div>
+</div>
+</section>
+<div class="wrap"><aside class="ad-slot" data-ad="guides-hub" aria-label="Sponsored message"><span class="ad-label">From LLModel</span><div class="ad-fill"><div class="house"><div><strong>The LLM Brief</strong><span>One short email a week: new models, price changes and one tool worth trying.</span></div>
+<a class="btn btn--ghost btn--sm" href="newsletter.html">Subscribe free</a></div>
+</div>
+</aside>
+<section class="lead-band" aria-labelledby="lead-default-guides">
+  <div>
+    <h2 id="lead-default-guides">Building with LLMs? Get a vendor-neutral plan.</h2>
+    <p>Tell us what you&#x27;re building. Within 2 business days you get a model shortlist, an architecture outline and a cost estimate, plus optional introductions to vetted implementation partners.</p>
+    <ul><li>Free and vendor-neutral: no model provider pays for placement.</li>
+<li>Your details go only to partners you agree to.</li>
+</ul>
+  </div>
+  <form class="mini-form" action="hire-llm-experts.html" method="get">
+    <label for="need-default-guides">What do you need help with?</label>
+    <select id="need-default-guides" name="need"><option value="choose-model">Choose the right model</option>
+<option value="chatbot">Build a chatbot or assistant</option>
+<option value="rag">Answer questions over our documents (RAG)</option>
+<option value="agents">Automate work with AI agents</option>
+<option value="self-host">Fine-tune or self-host a model</option>
+<option value="cut-costs">Cut our LLM costs</option>
+<option value="security">Security, privacy or compliance review</option>
+<option value="not-sure">Not sure yet</option>
+</select>
+    <input type="hidden" name="from" value="guides">
+    <button class="btn btn--yellow btn--block" type="submit">Start my free plan</button>
+    <p class="fine">Takes about 2 minutes. No sales calls unless you ask for one.</p>
+  </form>
+</section>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+      <p>The independent field guide to large language models. Model data checked against provider documentation; last full check October 10, 2026.</p>
+    </div>
+    <div><h2>Explore</h2>
+<ul><li><a href="models.html">Model directory</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare models</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="search.html">Search</a></li>
+</ul>
+</div>
+<div><h2>Tools</h2>
+<ul><li><a href="llm-cost-calculator.html">Cost calculator</a></li>
+<li><a href="token-counter.html">Token counter</a></li>
+<li><a href="vram-calculator.html">GPU and VRAM calculator</a></li>
+<li><a href="llm-picker.html">Which LLM should I use?</a></li>
+<li><a href="context-window-visualizer.html">Context window visualizer</a></li>
+<li><a href="prompt-builder.html">Prompt builder</a></li>
+<li><a href="self-host-vs-api-calculator.html">Self-host vs API calculator</a></li>
+</ul>
+</div>
+<div><h2>Learn</h2>
+<ul><li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+</ul>
+</div>
+<div><h2>Work with us</h2>
+<ul><li><a href="hire-llm-experts.html">Get expert help</a></li>
+<li><a href="list-your-product.html">List your product</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</div>
+<div><h2>About</h2>
+<ul><li><a href="about.html">About LLModel</a></li>
+<li><a href="editorial-policy.html">Editorial policy</a></li>
+<li><a href="privacy.html">Privacy policy</a></li>
+<li><a href="terms.html">Terms of use</a></li>
+<li><a href="disclaimer.html">Disclaimer</a></li>
+<li><a href="trademark-copyright.html">Trademark and copyright</a></li>
+<li><a href="sitemap.html">Site map</a></li>
+<li><button class="linklike" type="button" data-privacy-choices>Privacy and cookie choices</button></li>
+</ul>
+</div>
+  </div>
+  <div class="wrap footer-legal">
+    <p>&copy; 2026 LLModel.com. Independent: not affiliated with, endorsed by or sponsored by any model provider. Model and company names are trademarks of their respective owners and are used only to identify products. See <a href="trademark-copyright.html">trademark and copyright</a>.</p>
+    <p>Prices and specifications change often. Always confirm on the provider's own pricing page before you buy.</p>
+  </div>
+</footer>
+<div class="palette" id="palette" hidden role="dialog" aria-modal="true" aria-label="Search LLModel">
+  <div class="palette__box">
+    <label class="visually-hidden" for="palette-input">Search models, tools, guides and terms</label>
+    <input class="palette__input" id="palette-input" type="search" placeholder="Search models, tools, guides, terms" autocomplete="off" spellcheck="false" aria-controls="palette-list">
+    <ul class="palette__list" id="palette-list" role="listbox"></ul>
+    <div class="palette__foot"><span><span class="kbd">&uarr;</span> <span class="kbd">&darr;</span> to move</span><span><span class="kbd">Enter</span> to open</span><span><span class="kbd">Esc</span> to close</span></div>
+  </div>
+</div>
+<script src="assets/js/config.js?v=caa5324cbb"></script>
+
+<script src="assets/js/app.js?v=4b39d7c1bd" defer></script>
+
+</body>
+</html>
