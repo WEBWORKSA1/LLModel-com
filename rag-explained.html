@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RAG Explained: How Retrieval-Augmented Generation Works | LLModel.com</title>
+<meta name="description" content="RAG explained: how retrieval-augmented generation works, with chunking, embeddings, hybrid search, reranking, evaluation and security for LLM apps.">
+<link rel="canonical" href="https://llmodel.com/rag-explained.html">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="google-adsense-account" content="ca-pub-6620975821265271">
+<meta name="theme-color" content="#f4f6fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12101e" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="LLModel.com">
+<meta property="og:title" content="RAG Explained: How Retrieval-Augmented Generation Works">
+<meta property="og:description" content="RAG explained: how retrieval-augmented generation works, with chunking, embeddings, hybrid search, reranking, evaluation and security for LLM apps.">
+<meta property="og:url" content="https://llmodel.com/rag-explained.html">
+<meta property="og:image" content="https://llmodel.com/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="LLModel: the independent field guide to large language models">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="alternate" type="text/plain" href="llms.txt" title="llms.txt">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Martian+Mono:wght@400..500&family=Newsreader:ital,opsz,wght@0,6..72,400..650;1,6..72,400&display=swap">
+<link rel="stylesheet" href="assets/css/style.css?v=dae4813595">
+<script>(function(){var d=document.documentElement,t=null;try{t=localStorage.getItem('llm-theme')}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}d.setAttribute('data-theme',t)})();</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6620975821265271" crossorigin="anonymous"></script>
+<script type="application/ld+json">{
+ "@type": "Organization",
+ "@id": "https://llmodel.com/#org",
+ "name": "LLModel.com",
+ "url": "https://llmodel.com/",
+ "logo": "https://llmodel.com/assets/img/icon-512.png",
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://llmodel.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Guides",
+   "item": "https://llmodel.com/guides.html"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "Retrieval-augmented generation (RAG) explained"
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "Article",
+ "headline": "RAG Explained: How Retrieval-Augmented Generation Works",
+ "description": "RAG explained: how retrieval-augmented generation works, with chunking, embeddings, hybrid search, reranking, evaluation and security for LLM apps.",
+ "datePublished": "2026-10-10",
+ "dateModified": "2026-10-10",
+ "inLanguage": "en",
+ "mainEntityOfPage": "https://llmodel.com/rag-explained.html",
+ "image": "https://llmodel.com/assets/img/og-image.png",
+ "author": {
+  "@type": "Organization",
+  "name": "LLModel editorial team",
+  "url": "https://llmodel.com/about.html"
+ },
+ "publisher": {
+  "@id": "https://llmodel.com/#org"
+ },
+ "keywords": "rag, retrieval-augmented generation, what is rag, rag pipeline, hybrid search reranking, rag evaluation",
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is RAG in simple terms?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Retrieval-augmented generation is a pattern where an application searches your documents for passages relevant to a question, pastes the best ones into the prompt and asks the language model to answer using only those passages, ideally with citations. The model supplies language skills and reasoning, while the search step supplies current, private and verifiable facts that were never part of its training data."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Is RAG better than fine-tuning?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "They solve different problems. RAG is better for knowledge: facts that change, large document collections, citations and per-user permissions. Fine-tuning is better for behavior: a consistent tone, a strict output format or a specialized task the base model handles poorly. Many production systems combine them, using a fine-tuned or well-prompted model that answers from retrieved passages."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Do I need a vector database for RAG?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Not necessarily. Small collections can be searched in memory, and if you already run PostgreSQL, the pgvector extension adds vector search alongside your existing data. Search engines such as Elasticsearch and OpenSearch combine keyword and vector search. Dedicated vector databases such as Qdrant, Milvus or Pinecone make sense at large scale or when you need built-in hybrid search and multi-tenancy."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What chunk size should I use for RAG?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "A common starting point is 300 to 800 tokens per chunk with 10 to 15 percent overlap, split along headings and paragraphs rather than at fixed character counts. Prefix each chunk with its document title and section heading. Then test two or three sizes against a labeled set of real questions, because the best size depends on your documents and query style."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Do long context windows make RAG obsolete?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "No, but they shrink the cases where RAG is required. If your corpus is small, changes rarely and has no permission boundaries, sending it all with prompt caching can be simpler. For large or changing collections, RAG remains cheaper per query, faster and easier to cite, and models can still overlook facts buried in the middle of very long inputs."
+   }
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+
+</head>
+<body class="page-rag-explained">
+<a class="skip" href="#main">Skip to content</a>
+<div class="partner-bar"><a href="https://web.works/contact" target="_blank" rel="noopener"><span>Contact, if you are interested in this website / domain name / sponsorship / advertisement / partnership</span></a></div>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+    <nav class="nav" aria-label="Main"><a href="models.html">Models</a><a href="compare.html">Compare</a><a href="leaderboard.html">Rankings</a><a href="tools.html">Tools</a><a href="guides.html" aria-current="page">Learn</a><a href="videos.html">Videos</a></nav>
+    <div class="header-actions">
+      <button class="search-btn" type="button" data-open-search aria-label="Search the site"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="search-label">Search</span><span class="kbd" aria-hidden="true">/</span></button>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><svg class="theme-icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="theme-icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+      <a class="btn btn--primary btn--sm header-cta" href="hire-llm-experts.html">Get expert help</a>
+      <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile">
+    <ul><li><a href="models.html">Models</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="tools.html">Tools</a></li>
+<li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="contact.html">Contact</a></li>
+<li class="mobile-cta"><a class="btn btn--primary btn--block" href="hire-llm-experts.html">Get expert help</a></li>
+</ul>
+  </nav>
+</header>
+<main id="main">
+<nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li>
+<li><a href="guides.html">Guides</a></li>
+<li aria-current="page">Retrieval-augmented generation (RAG) explained</li>
+</ol>
+</nav>
+<div class="read-progress" id="read-progress" aria-hidden="true"></div>
+<header class="page-head wrap"><h1>Retrieval-augmented generation (RAG) explained</h1><p class="lede">A practical guide to retrieval-augmented generation, covering each stage of the pipeline from parsing and chunking to hybrid search, reranking and cited answers. It also explains how to evaluate RAG quality, when long context or fine-tuning fits better and how to secure the system.</p>
+<div class="page-meta"><span>Building</span><span>Intermediate</span><span>10 min read</span><span>Updated October 10, 2026</span></div>
+</header>
+<div class="wrap article">
+  <nav class="article__toc toc" aria-label="On this page"><p class="toc-title">On this page</p>
+<ol><li><a href="#what-rag-is">What RAG is and why it exists</a></li>
+<li><a href="#the-rag-pipeline">The RAG pipeline, step by step</a></li>
+<li><a href="#chunking-strategies">Chunking strategies and trade-offs</a></li>
+<li><a href="#retrieval-components">Retrieval: embeddings, vector stores, hybrid search and reranking</a></li>
+<li><a href="#evaluating-rag">How to evaluate a RAG system</a></li>
+<li><a href="#rag-vs-long-context-vs-fine-tuning">RAG vs long context vs fine-tuning</a></li>
+<li><a href="#rag-security">Security: permissions and prompt injection</a></li>
+<li><a href="#reference-architecture">A reference architecture</a></li>
+<li><a href="#common-mistakes">Common mistakes and how to fix them</a></li>
+<li><a href="#next-steps">Next steps</a></li>
+</ol>
+</nav>
+  <article class="prose" id="article">
+    <div class="takeaways"><h2>Key takeaways</h2>
+<ul><li>RAG retrieves relevant passages from your own documents at question time and asks the model to answer from them with citations, so answers stay current without retraining.</li>
+<li>Most RAG failures are retrieval failures, so invest first in parsing, chunking, hybrid search and reranking.</li>
+<li>Hybrid search (BM25 plus vectors, merged with reciprocal rank fusion) followed by a reranker is the highest-leverage upgrade over basic vector search.</li>
+<li>Measure retrieval recall and answer faithfulness separately on a labeled set of real questions, and rerun the set on every change.</li>
+<li>Enforce document permissions inside the retrieval query and treat every retrieved passage as untrusted input that may carry prompt injection.</li>
+</ul>
+</div>
+    <p>Retrieval-augmented generation (RAG) lets a language model answer from your documents instead of from memory alone. This guide walks through the full pipeline, the choices that matter most at each stage, how to measure quality, how RAG compares with long context and fine-tuning, and the security controls a production system needs.</p>
+
+<h2 id="what-rag-is">What RAG is and why it exists</h2>
+<p>A <a href="glossary-fundamentals.html#large-language-model">language model</a> knows only what was in its training data, frozen at a cutoff date, and it knows nothing about your private files. Ask about last week's pricing change or an internal policy and it will either decline or produce a confident guess. That second failure is a <a href="glossary-fundamentals.html#hallucination">hallucination</a>.</p>
+<p><a href="glossary-building-apps.html#rag">RAG</a> fixes this by adding a search step. Before the model answers, your application retrieves the most relevant passages from a knowledge base and places them in the prompt with an instruction to answer from those passages and cite them. The term comes from a 2020 research paper by Patrick Lewis and colleagues, and the pattern is now a standard way to connect LLMs to company knowledge.</p>
+<p>RAG addresses four problems at once:</p>
+<ul>
+<li><strong>Freshness.</strong> Update a document and the next answer reflects it, with no retraining.</li>
+<li><strong>Private knowledge.</strong> The model can use content it never saw in training.</li>
+<li><strong>Verifiability.</strong> Answers can cite their sources, which <a href="glossary-building-apps.html#grounding">grounds</a> them in text users can check.</li>
+<li><strong>Access control.</strong> Retrieval can respect who is allowed to see which document.</li>
+</ul>
+<p>RAG does not make a model smarter, and it cannot help if the right passage is never retrieved. Most RAG quality problems are search problems.</p>
+
+<h2 id="the-rag-pipeline">The RAG pipeline, step by step</h2>
+<p>A RAG system has an offline indexing path that prepares documents and an online query path that runs for every question.</p>
+<ol>
+<li><strong>Ingest.</strong> Connectors pull content from file shares, wikis, ticketing systems, databases and websites. Record the source URL, owner, last-modified date and access permissions for every document, and schedule syncs so edits and deletions propagate.</li>
+<li><strong>Parse.</strong> Convert each file to clean text while keeping structure: headings, lists, tables and page numbers. PDFs are the hardest case. Scanned pages need OCR, and complex layouts need a document-conversion tool such as Docling or Apache Tika rather than raw text extraction.</li>
+<li><strong>Chunk.</strong> Split documents into passages small enough to retrieve precisely but large enough to make sense alone.</li>
+<li><strong>Embed.</strong> An <a href="glossary-fundamentals.html#embedding">embedding</a> model turns each chunk into a vector, a list of numbers positioned so that passages with similar meaning sit close together.</li>
+<li><strong>Index.</strong> Store vectors, chunk text and metadata in a <a href="glossary-building-apps.html#vector-database">vector database</a> or search engine, usually alongside a keyword index for exact terms.</li>
+<li><strong>Retrieve.</strong> At query time, embed the question, apply metadata and permission filters and fetch the top candidates, commonly 20 to 100.</li>
+<li><strong>Rerank.</strong> A slower, more accurate model rescores the candidates and keeps the best 5 to 10.</li>
+<li><strong>Generate with citations.</strong> Put the passages in the prompt with numbered source labels. Instruct the model to answer only from them, cite each claim and say when the sources do not contain the answer. Before showing the response, check that every cited source ID exists.</li>
+</ol>
+
+<aside class="ad-slot" data-ad="in-article" aria-label="Sponsored message"><span class="ad-label">From LLModel</span><div class="ad-fill"><div class="house"><div><strong>Prompt Efficiency Challenge</strong><span>Season 1 is open: solve five tasks for the fewest dollars. $500 in prizes.</span></div>
+<a class="btn btn--ghost btn--sm" href="contests.html">Read the brief</a></div>
+</div>
+</aside>
+<h2 id="chunking-strategies">Chunking strategies and trade-offs</h2>
+<p><a href="glossary-building-apps.html#chunking">Chunking</a> decides what the retriever can find. Chunks that are too small lose context ("the limit is 30 days," with no hint of which limit), while chunks that are too large blur the embedding and waste prompt space.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Strategy</th><th>How it works</th><th>Strengths</th><th>Weaknesses</th></tr>
+</thead>
+<tbody>
+<tr><td>Fixed-size with overlap</td><td>Windows of N tokens overlapping by 10-20 percent</td><td>Simple, predictable, fast</td><td>Cuts through sentences, tables and sections</td></tr>
+<tr><td>Recursive, structure-aware</td><td>Split on headings, then paragraphs, then sentences, until under a size limit</td><td>Keeps logical units together; a strong default</td><td>Uneven sizes; depends on clean parsing</td></tr>
+<tr><td>Format-specific</td><td>Markdown by heading, code by function, slides by page, tables by row groups with headers repeated</td><td>Highest fidelity for structured content</td><td>Custom code per format</td></tr>
+<tr><td>Semantic</td><td>Start a new chunk where similarity between neighboring sentences drops</td><td>Topic-coherent chunks</td><td>More compute at ingest; inconsistent gains; harder to debug</td></tr>
+<tr><td>Parent-child (small-to-big)</td><td>Match on small chunks, then send the larger parent section to the model</td><td>Precise matching with full context</td><td>More storage and prompt tokens</td></tr>
+<tr><td>Contextual headers</td><td>Prepend the document title, heading path or a short LLM-written summary to each chunk before embedding</td><td>Fixes orphaned chunks; measurable recall gains</td><td>Extra cost and time at ingest</td></tr>
+</tbody>
+</table>
+</div>
+<p>A reasonable starting point is structure-aware chunks of roughly 300-800 tokens with 10-15 percent overlap, each prefixed with its document title and section heading. Then tune against an evaluation set rather than intuition. Anthropic reported that prepending generated context to each chunk before embedding cut top-20 retrieval failures by 35 percent in its tests, and by 49 percent when combined with contextual keyword search. The <a href="token-counter.html">token counter</a> helps you check chunk sizes.</p>
+
+<h2 id="retrieval-components">Retrieval: embeddings, vector stores, hybrid search and reranking</h2>
+<h3 id="embedding-models-and-vector-databases">Embedding models and vector databases</h3>
+<p>Choose the embedding model carefully, because changing it later means re-embedding everything. Compare candidates on a sample of your own queries, and check language coverage, maximum input length and vector size, which drives storage cost. Many current models can output shortened vectors (Matryoshka-style), trading a little accuracy for much smaller indexes. The options below were current as of October 2026.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Category</th><th>Examples</th><th>When to choose</th></tr>
+</thead>
+<tbody>
+<tr><td>Hosted embedding APIs</td><td>OpenAI text-embedding-3-small and -large; Cohere Embed v4 and v5; Voyage AI's voyage-4 family, including voyage-code-4; Google's Gemini Embedding 2</td><td>Fastest start with no GPUs; your text is sent to the provider</td></tr>
+<tr><td>Open-weight embedding models</td><td>Qwen3-Embedding (0.6B, 4B, 8B); BGE-M3 (dense, sparse and multi-vector in one model); EmbeddingGemma; nomic-embed-text</td><td>Data stays in-house; runs on your own hardware, including through Ollama</td></tr>
+<tr><td>Vector search in an existing database</td><td>pgvector for PostgreSQL; vector fields in Elasticsearch and OpenSearch</td><td>You want one system with joins, transactions, backups and familiar operations</td></tr>
+<tr><td>Dedicated vector databases</td><td>Qdrant, Milvus, Weaviate, Chroma and LanceDB (open source); Pinecone (managed service)</td><td>Large scale, high query volume, built-in hybrid search and multi-tenancy</td></tr>
+</tbody>
+</table>
+</div>
+<p>Most of these use approximate nearest-neighbor indexes such as HNSW, which give up a sliver of recall for large speed gains. Store the embedding model name and version with every vector so incompatible vectors never mix in one index.</p>
+
+<h3 id="hybrid-search">Hybrid search: BM25 plus vectors</h3>
+<p>Vector search matches meaning, so "how do I get my money back" finds a passage titled "Refund policy." It is weaker on exact strings such as product codes, error messages, names and rare acronyms. BM25, the classic keyword-ranking algorithm, has the opposite profile. Hybrid search runs both and merges the results.</p>
+<p>The usual merge method is reciprocal rank fusion (RRF). Each document scores the sum of 1 / (k + rank) across the result lists, where k is a smoothing constant that Elasticsearch sets to 60 by default. A chunk ranked first by keywords and third by vectors scores 1/61 + 1/63, about 0.0323, beating a chunk ranked second in only one list (1/62, about 0.0161). Because RRF uses ranks rather than raw scores, you never have to reconcile two incompatible scoring scales.</p>
+
+<h3 id="reranking">Reranking</h3>
+<p>Embedding search compares a precomputed document vector with a query vector. A reranker, usually a cross-encoder, reads the query and each candidate together and scores relevance directly, which is more accurate but too slow to run over a whole corpus.</p>
+<p>The standard pattern retrieves 50 to 100 hybrid candidates and reranks them down to the best 5 to 10. Options include Cohere's rerank-v4.0 models (pro and fast), Voyage AI's rerankers and open-weight models such as Qwen3-Reranker and the BGE reranker family. In Anthropic's tests, adding reranking on top of contextual embeddings and keyword search raised the reduction in retrieval failures to 67 percent.</p>
+
+<figure class="video-figure"><div class="video" data-yt="T-D1OfcDW1M"><button class="video__btn" type="button" aria-label="Play video: What is Retrieval-Augmented Generation (RAG)?"><img src="https://i.ytimg.com/vi/T-D1OfcDW1M/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="video__play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></button></div>
+<figcaption>Watch: What is Retrieval-Augmented Generation (RAG)? (IBM Technology). A short whiteboard explanation of retrieval-augmented generation, where the system fetches relevant documents and hands them to the model alongside the question. It is a good first introduction for product managers and developers meeting RAG for the first time.</figcaption></figure>
+<h2 id="evaluating-rag">How to evaluate a RAG system</h2>
+<p>Evaluate retrieval and generation separately, or you will not know which half to fix. Start with 50 to 200 real questions, each labeled with the passages that answer it and a reference answer.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Metric</th><th>Question it answers</th><th>How to measure</th></tr>
+</thead>
+<tbody>
+<tr><td>Retrieval recall@k</td><td>Did the right passage appear in the top k?</td><td>Compare retrieved chunk IDs with labeled ones; no LLM needed</td></tr>
+<tr><td>Ranking quality (MRR, nDCG)</td><td>How high did relevant passages rank?</td><td>Standard information-retrieval formulas over the same labels</td></tr>
+<tr><td>Faithfulness</td><td>Is every claim in the answer supported by the retrieved context?</td><td>An <a href="glossary-evaluation.html#llm-as-a-judge">LLM judge</a> checks each claim against the passages</td></tr>
+<tr><td>Answer relevance</td><td>Does the answer address the question asked?</td><td>LLM judge or human rating</td></tr>
+<tr><td>Citation accuracy</td><td>Do cited sources support the sentences that cite them?</td><td>Spot checks plus automated claim-to-source matching</td></tr>
+</tbody>
+</table>
+</div>
+<p>Open-source frameworks automate much of this <a href="glossary-evaluation.html#evaluation">evaluation</a>. Ragas provides context precision, context recall, faithfulness and response relevancy metrics. TruLens popularized the "RAG triad" of context relevance, groundedness and answer relevance, while DeepEval, Arize Phoenix and promptfoo add test runners, tracing and regression checks. Calibrate any LLM judge against a few dozen human ratings before trusting it, and rerun the suite whenever you change chunking, embeddings, prompts or models.</p>
+
+<h2 id="rag-vs-long-context-vs-fine-tuning">RAG vs long context vs fine-tuning</h2>
+<p>Several frontier models now accept around 1 million tokens, so you can sometimes paste a whole knowledge base into the prompt. Fine-tuning is a third option. Each solves a different problem.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Approach</th><th>Best for</th><th>Limits</th></tr>
+</thead>
+<tbody>
+<tr><td>RAG</td><td>Large or changing knowledge bases, citations, per-user permissions</td><td>Engineering effort; quality capped by retrieval</td></tr>
+<tr><td>Long context</td><td>One-off analysis of a few documents; small corpora (under roughly 200K tokens) that rarely change</td><td>Cost and latency on every query; facts buried mid-context get missed</td></tr>
+<tr><td>Fine-tuning</td><td>Consistent style, format and domain behavior</td><td>Unreliable for teaching facts; no citations; stale once trained</td></tr>
+</tbody>
+</table>
+</div>
+<p>Cost makes the trade-off concrete. At an example rate of $2 per million input tokens, sending a 200,000-token corpus with every question costs $0.40 per query, or $12,000 for 30,000 queries a month. <a href="glossary-business-pricing.html#prompt-caching">Prompt caching</a> at an example cached rate of $0.10 per million cuts that to about $600 plus cache writes. Retrieving 8,000 tokens of context instead costs $0.016 per query, or $480 a month, and answers arrive faster.</p>
+<p>Accuracy matters too. The 2023 "Lost in the Middle" study found that models use information at the start and end of a long input more reliably than information in the middle. See <a href="context-windows-explained.html">context windows explained</a> for more, and <a href="fine-tuning-vs-rag-vs-prompting.html">fine-tuning vs RAG vs prompting</a> for a full decision guide.</p>
+
+<aside class="ad-slot" data-ad="in-article-2" aria-label="Sponsored message"><span class="ad-label">From LLModel</span><div class="ad-fill"><div class="house"><div><strong>Building with LLMs?</strong><span>Tell us what you&#x27;re building and get a vendor-neutral stack plan within 2 business days.</span></div>
+<a class="btn btn--ghost btn--sm" href="hire-llm-experts.html">Get my stack plan</a></div>
+</div>
+</aside>
+<h2 id="rag-security">Security: permissions and prompt injection</h2>
+<p>RAG connects a model to sensitive data. The OWASP Top 10 for LLM Applications (2025 edition) lists the two biggest resulting risks: prompt injection (LLM01) and vector and embedding weaknesses (LLM08).</p>
+<h3 id="document-level-permissions">Document-level permissions</h3>
+<p>The model must never see a passage the user is not allowed to read. Copy access-control lists into each chunk's metadata during ingestion, filter on the authenticated user's identity and groups inside the retrieval query and sync permission changes as fast as content changes. Never rely on the system prompt to withhold restricted text; once it is in the context window, assume it can leak. Use separate indexes or namespaces per customer in multi-tenant products, and protect stored embeddings as carefully as the text they came from.</p>
+<h3 id="prompt-injection-in-retrieved-content">Prompt injection in retrieved content</h3>
+<p>Any retrieved document can contain text that reads like instructions, such as a hidden line in a web page or PDF telling the model to ignore its rules. This is indirect <a href="glossary-safety-governance.html#prompt-injection">prompt injection</a>, and no filter stops it completely, so limit the damage:</p>
+<ul>
+<li>Wrap retrieved passages in clear delimiters and tell the model they are reference data, not instructions.</li>
+<li>Grant the least privilege possible; a RAG chatbot rarely needs tools that send email or change records.</li>
+<li>Require human approval for consequential actions and validate outputs with deterministic code.</li>
+<li>Strip or flag hidden text during parsing, and control which sources can enter the index.</li>
+<li>Do not auto-render model-generated links or images, a known channel for leaking data.</li>
+</ul>
+<p>For broader controls, read the <a href="llm-security-and-privacy.html">LLM security and privacy guide</a>.</p>
+
+<h2 id="reference-architecture">A reference architecture</h2>
+<p>This design suits most internal knowledge assistants. It has two paths that share one index, plus a feedback loop.</p>
+<p><strong>Indexing path.</strong> Connectors detect new, changed and deleted documents and place them on a queue. A parsing service converts each file to structured text, and a chunker emits passages with metadata: source URL, title, heading path, timestamps and access groups. An enrichment step adds contextual headers, and an embedding service writes vectors and text to a versioned store that supports both vector and BM25 search, so a bad build can be rolled back.</p>
+<p><strong>Query path.</strong> The API authenticates the user and resolves their groups. A rewrite step turns follow-ups such as "what about Canada?" into standalone queries. Hybrid retrieval runs with a permission filter, fuses about 50 candidates with RRF and passes them to a reranker that keeps the top 8.</p>
+<p>A context builder orders the passages, enforces a token budget and assigns source numbers. The LLM answers with inline citations, a validator confirms the cited IDs exist and <a href="glossary-safety-governance.html#guardrails">guardrails</a> screen the output before it streams to the user with clickable sources.</p>
+<p><strong>Feedback loop.</strong> Log queries, retrieved IDs, scores, answers and user ratings under your data-retention policy. Add failed questions to the evaluation set, and rerun the suite before every change to chunking, models or prompts.</p>
+
+<h2 id="common-mistakes">Common mistakes and how to fix them</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>Failure</th><th>Symptom</th><th>Fix</th></tr>
+</thead>
+<tbody>
+<tr><td>Poor parsing</td><td>Garbled tables, merged columns, missing scanned pages</td><td>Layout-aware parsing and OCR; inspect parsed output by hand</td></tr>
+<tr><td>Orphaned chunks</td><td>Right fact, wrong product or year</td><td>Add titles, heading paths or contextual summaries to chunks</td></tr>
+<tr><td>Vector-only search</td><td>Misses part numbers, error codes and names</td><td>Add BM25 and fuse with RRF</td></tr>
+<tr><td>Too much context</td><td>Slow, costly answers that overlook the key passage</td><td>Rerank and send fewer, better chunks</td></tr>
+<tr><td>Stale index</td><td>Answers cite deleted or outdated documents</td><td>Incremental sync with delete handling; show document dates</td></tr>
+<tr><td>Ungrounded answers</td><td>Model fills gaps from memory</td><td>Instruct it to answer only from sources and admit gaps; track faithfulness</td></tr>
+<tr><td>No evaluation set</td><td>Quality regresses quietly after changes</td><td>Build a labeled set from real queries and run it automatically</td></tr>
+</tbody>
+</table>
+</div>
+<div class="checklist"><ul>
+<li>Parsed output spot-checked for tables, headings and scanned pages</li>
+<li>Chunks carry title, section, date and permission metadata</li>
+<li>Hybrid retrieval plus reranking, tuned on labeled queries</li>
+<li>Recall@k and faithfulness tracked on every change</li>
+<li>Permission filters enforced in the retrieval query, not the prompt</li>
+<li>Retrieved text treated as untrusted input</li>
+</ul>
+</div>
+
+<h2 id="next-steps">Next steps</h2>
+<p>Estimate per-query cost for your retrieval budget with the <a href="llm-cost-calculator.html">LLM cost calculator</a>, and see how much text fits in different prompt sizes with the <a href="context-window-visualizer.html">context window visualizer</a>. Then read <a href="fine-tuning-vs-rag-vs-prompting.html">fine-tuning vs RAG vs prompting</a> to confirm RAG is the right tool for your problem. If you are building a production knowledge assistant and want an experienced reviewer, you can <a href="hire-llm-experts.html">hire an LLM expert</a>.</p>
+    <section class="sources" aria-labelledby="sources"><h2 id="sources">Sources</h2>
+<ol><li><a href="https://arxiv.org/abs/2005.11401" target="_blank" rel="noopener">Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks (Lewis et al., 2020)</a></li>
+<li><a href="https://arxiv.org/abs/2307.03172" target="_blank" rel="noopener">Lost in the Middle: How Language Models Use Long Contexts (Liu et al., 2023)</a></li>
+<li><a href="https://www.anthropic.com/news/contextual-retrieval" target="_blank" rel="noopener">Introducing Contextual Retrieval (Anthropic, September 2024)</a></li>
+<li><a href="https://genai.owasp.org/llmrisk/llm01-prompt-injection/" target="_blank" rel="noopener">OWASP Top 10 for LLM Applications 2025: LLM01 Prompt Injection</a></li>
+<li><a href="https://www.elastic.co/docs/reference/elasticsearch/rest-apis/reciprocal-rank-fusion" target="_blank" rel="noopener">Reciprocal rank fusion (Elasticsearch reference)</a></li>
+<li><a href="https://qdrant.tech/documentation/concepts/hybrid-queries/" target="_blank" rel="noopener">Hybrid and multi-stage queries (Qdrant documentation)</a></li>
+<li><a href="https://github.com/pgvector/pgvector" target="_blank" rel="noopener">pgvector: open-source vector similarity search for Postgres</a></li>
+<li><a href="https://docs.ragas.io/en/stable/concepts/metrics/available_metrics/" target="_blank" rel="noopener">Ragas documentation: available metrics</a></li>
+<li><a href="https://developers.openai.com/api/docs/guides/embeddings" target="_blank" rel="noopener">Vector embeddings guide (OpenAI API documentation)</a></li>
+<li><a href="https://huggingface.co/Qwen/Qwen3-Embedding-8B" target="_blank" rel="noopener">Qwen3-Embedding model card (Qwen, Hugging Face)</a></li>
+</ol>
+      <p class="small muted">Written by the LLModel editorial team and checked against the sources above on October 10, 2026. Found an error? <a href="contact.html?topic=correction">Send a correction</a>.</p>
+</section>
+    <div class="share" aria-label="Share this guide"><span class="muted">Share:</span><button type="button" data-copy-link>Copy link</button><a href="https://www.linkedin.com/sharing/share-offsite/?url=https://llmodel.com/rag-explained.html" target="_blank" rel="noopener">LinkedIn</a><a href="https://twitter.com/intent/tweet?url=https://llmodel.com/rag-explained.html&amp;text=Retrieval-augmented generation (RAG) explained" target="_blank" rel="noopener">X</a><a href="https://news.ycombinator.com/submitlink?u=https://llmodel.com/rag-explained.html&amp;t=Retrieval-augmented generation (RAG) explained" target="_blank" rel="noopener">Hacker News</a><a href="https://www.reddit.com/submit?url=https://llmodel.com/rag-explained.html&amp;title=Retrieval-augmented generation (RAG) explained" target="_blank" rel="noopener">Reddit</a></div>
+  </article>
+  <aside class="article__side" aria-label="Related"><div class="panel"><h2 class="h3">Try the tools</h2>
+<ul style="margin:.5rem 0 0;padding-left:1.1rem"><li><a href="llm-cost-calculator.html">LLM API cost calculator</a></li>
+<li><a href="token-counter.html">Token counter</a></li>
+<li><a href="context-window-visualizer.html">Context window visualizer</a></li>
+</ul>
+</div>
+<div class="panel"><h2 class="h3">Need hands-on help?</h2>
+<p class="small muted" style="margin-top:.4rem">Get a vendor-neutral plan for your project within 2 business days.</p>
+<a class="btn btn--primary btn--block" style="margin-top:.8rem" href="hire-llm-experts.html?from=guide-rag-explained">Get expert help</a></div>
+<div class="panel newsletter-box">
+
+  <p class="muted" style="margin-top:.4rem">One short email a week: model releases, price changes and one tool worth trying. Free, and you can unsubscribe anytime.</p>
+  <form class="form" data-form="newsletter" data-subject="Newsletter signup" novalidate style="margin-top:1rem">
+    <div class="inline-form">
+      <label class="visually-hidden" for="nl-side-email">Email address</label>
+      <input class="input" type="email" id="nl-side-email" name="email" required autocomplete="email" placeholder="Your work email">
+      <button class="btn btn--primary" type="submit">Subscribe</button>
+    </div>
+    <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <div class="form-status" role="status" aria-live="polite"></div>
+  </form>
+  <p class="fine" style="margin-top:.6rem">We send one email a week and never sell your address. See the <a href="privacy.html">privacy policy</a>.</p>
+</div>
+</aside>
+</div>
+<div class="wrap wrap--read" style="margin-top:3rem"><section class="faq-wrap" aria-labelledby="faq"><h2 class="h2" id="faq" style="margin-bottom:1rem">Frequently asked questions</h2>
+<div class="faq"><details><summary>What is RAG in simple terms?</summary><div class="faq__a"><p>Retrieval-augmented generation is a pattern where an application searches your documents for passages relevant to a question, pastes the best ones into the prompt and asks the language model to answer using only those passages, ideally with citations. The model supplies language skills and reasoning, while the search step supplies current, private and verifiable facts that were never part of its training data.</p>
+</div>
+</details>
+<details><summary>Is RAG better than fine-tuning?</summary><div class="faq__a"><p>They solve different problems. RAG is better for knowledge: facts that change, large document collections, citations and per-user permissions. Fine-tuning is better for behavior: a consistent tone, a strict output format or a specialized task the base model handles poorly. Many production systems combine them, using a fine-tuned or well-prompted model that answers from retrieved passages.</p>
+</div>
+</details>
+<details><summary>Do I need a vector database for RAG?</summary><div class="faq__a"><p>Not necessarily. Small collections can be searched in memory, and if you already run PostgreSQL, the pgvector extension adds vector search alongside your existing data. Search engines such as Elasticsearch and OpenSearch combine keyword and vector search. Dedicated vector databases such as Qdrant, Milvus or Pinecone make sense at large scale or when you need built-in hybrid search and multi-tenancy.</p>
+</div>
+</details>
+<details><summary>What chunk size should I use for RAG?</summary><div class="faq__a"><p>A common starting point is 300 to 800 tokens per chunk with 10 to 15 percent overlap, split along headings and paragraphs rather than at fixed character counts. Prefix each chunk with its document title and section heading. Then test two or three sizes against a labeled set of real questions, because the best size depends on your documents and query style.</p>
+</div>
+</details>
+<details><summary>Do long context windows make RAG obsolete?</summary><div class="faq__a"><p>No, but they shrink the cases where RAG is required. If your corpus is small, changes rarely and has no permission boundaries, sending it all with prompt caching can be simpler. For large or changing collections, RAG remains cheaper per query, faster and easier to cite, and models can still overlook facts buried in the middle of very long inputs.</p>
+</div>
+</details>
+</div>
+</section>
+</div>
+
+<section class="wrap" aria-labelledby="related" style="margin-top:3rem"><h2 class="h2" id="related" style="margin-bottom:1rem">Keep reading</h2>
+<div class="cardlist"><a class="card" href="fine-tuning-vs-rag-vs-prompting.html"><span class="card__kicker">Building</span><span class="card__title">Fine-tuning vs RAG vs prompting: which should you use?</span><span class="card__desc">Prompting changes the instructions, RAG changes the knowledge a model can see and fine-tuning changes its behavior. This guide gives a decision tree, a cost and risk comparison, fine-tuning methods, managed options as of October 2026 and worked examples.</span><span class="card__foot"><span>Intermediate</span><span>9 min read</span></span></a><a class="card" href="context-windows-explained.html"><span class="card__kicker">Fundamentals</span><span class="card__title">Context windows explained</span><span class="card__desc">A context window is the token budget a model can read and write in one request. This guide converts tokens to words and pages, compares current
+limits and explains the cost, quality and memory trade-offs of long prompts.</span><span class="card__foot"><span>Beginner</span><span>11 min read</span></span></a><a class="card" href="llm-hallucinations.html"><span class="card__kicker">Safety &amp; quality</span><span class="card__title">LLM hallucinations: why they happen and how to reduce them</span><span class="card__desc">Hallucinations are fluent, confident outputs that are false or unsupported by the sources a model was given. This guide explains why they happen, what published measurements show, and how to reduce, catch and measure them in real applications.</span><span class="card__foot"><span>Beginner</span><span>10 min read</span></span></a></div>
+</section>
+<div class="wrap"><section class="lead-band" aria-labelledby="lead-build-guide-rag-explained">
+  <div>
+    <h2 id="lead-build-guide-rag-explained">Need hands-on help building it?</h2>
+    <p>RAG, agents, fine-tuning or a production chatbot: describe the project and we&#x27;ll suggest an approach and, if you want, partners who build it.</p>
+    <ul><li>Free and vendor-neutral: no model provider pays for placement.</li>
+<li>Your details go only to partners you agree to.</li>
+</ul>
+  </div>
+  <form class="mini-form" action="hire-llm-experts.html" method="get">
+    <label for="need-build-guide-rag-explained">What do you need help with?</label>
+    <select id="need-build-guide-rag-explained" name="need"><option value="choose-model">Choose the right model</option>
+<option value="chatbot">Build a chatbot or assistant</option>
+<option value="rag">Answer questions over our documents (RAG)</option>
+<option value="agents">Automate work with AI agents</option>
+<option value="self-host">Fine-tune or self-host a model</option>
+<option value="cut-costs">Cut our LLM costs</option>
+<option value="security">Security, privacy or compliance review</option>
+<option value="not-sure">Not sure yet</option>
+</select>
+    <input type="hidden" name="from" value="guide-rag-explained">
+    <button class="btn btn--yellow btn--block" type="submit">Start my free plan</button>
+    <p class="fine">Takes about 2 minutes. No sales calls unless you ask for one.</p>
+  </form>
+</section>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+      <p>The independent field guide to large language models. Model data checked against provider documentation; last full check October 10, 2026.</p>
+    </div>
+    <div><h2>Explore</h2>
+<ul><li><a href="models.html">Model directory</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare models</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="search.html">Search</a></li>
+</ul>
+</div>
+<div><h2>Tools</h2>
+<ul><li><a href="llm-cost-calculator.html">Cost calculator</a></li>
+<li><a href="token-counter.html">Token counter</a></li>
+<li><a href="vram-calculator.html">GPU and VRAM calculator</a></li>
+<li><a href="llm-picker.html">Which LLM should I use?</a></li>
+<li><a href="context-window-visualizer.html">Context window visualizer</a></li>
+<li><a href="prompt-builder.html">Prompt builder</a></li>
+<li><a href="self-host-vs-api-calculator.html">Self-host vs API calculator</a></li>
+</ul>
+</div>
+<div><h2>Learn</h2>
+<ul><li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+</ul>
+</div>
+<div><h2>Work with us</h2>
+<ul><li><a href="hire-llm-experts.html">Get expert help</a></li>
+<li><a href="list-your-product.html">List your product</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</div>
+<div><h2>About</h2>
+<ul><li><a href="about.html">About LLModel</a></li>
+<li><a href="editorial-policy.html">Editorial policy</a></li>
+<li><a href="privacy.html">Privacy policy</a></li>
+<li><a href="terms.html">Terms of use</a></li>
+<li><a href="disclaimer.html">Disclaimer</a></li>
+<li><a href="trademark-copyright.html">Trademark and copyright</a></li>
+<li><a href="sitemap.html">Site map</a></li>
+<li><button class="linklike" type="button" data-privacy-choices>Privacy and cookie choices</button></li>
+</ul>
+</div>
+  </div>
+  <div class="wrap footer-legal">
+    <p>&copy; 2026 LLModel.com. Independent: not affiliated with, endorsed by or sponsored by any model provider. Model and company names are trademarks of their respective owners and are used only to identify products. See <a href="trademark-copyright.html">trademark and copyright</a>.</p>
+    <p>Prices and specifications change often. Always confirm on the provider's own pricing page before you buy.</p>
+  </div>
+</footer>
+<div class="palette" id="palette" hidden role="dialog" aria-modal="true" aria-label="Search LLModel">
+  <div class="palette__box">
+    <label class="visually-hidden" for="palette-input">Search models, tools, guides and terms</label>
+    <input class="palette__input" id="palette-input" type="search" placeholder="Search models, tools, guides, terms" autocomplete="off" spellcheck="false" aria-controls="palette-list">
+    <ul class="palette__list" id="palette-list" role="listbox"></ul>
+    <div class="palette__foot"><span><span class="kbd">&uarr;</span> <span class="kbd">&darr;</span> to move</span><span><span class="kbd">Enter</span> to open</span><span><span class="kbd">Esc</span> to close</span></div>
+  </div>
+</div>
+<script src="assets/js/config.js?v=caa5324cbb"></script>
+
+<script src="assets/js/app.js?v=4b39d7c1bd" defer></script>
+<script src="assets/js/article.js?v=0235be8880" defer></script>
+</body>
+</html>
