@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How Do LLMs Work? Tokens, Attention and Sampling Explained | LLModel.com</title>
+<meta name="description" content="How LLMs work, step by step: follow one sentence through tokenization, embeddings, self-attention, logits and sampling, then see how models are trained.">
+<link rel="canonical" href="https://llmodel.com/how-llms-work.html">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="google-adsense-account" content="ca-pub-6620975821265271">
+<meta name="theme-color" content="#f4f6fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12101e" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="LLModel.com">
+<meta property="og:title" content="How Do LLMs Work? Tokens, Attention and Sampling Explained">
+<meta property="og:description" content="How LLMs work, step by step: follow one sentence through tokenization, embeddings, self-attention, logits and sampling, then see how models are trained.">
+<meta property="og:url" content="https://llmodel.com/how-llms-work.html">
+<meta property="og:image" content="https://llmodel.com/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="LLModel: the independent field guide to large language models">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="alternate" type="text/plain" href="llms.txt" title="llms.txt">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Martian+Mono:wght@400..500&family=Newsreader:ital,opsz,wght@0,6..72,400..650;1,6..72,400&display=swap">
+<link rel="stylesheet" href="assets/css/style.css?v=dae4813595">
+<script>(function(){var d=document.documentElement,t=null;try{t=localStorage.getItem('llm-theme')}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}d.setAttribute('data-theme',t)})();</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6620975821265271" crossorigin="anonymous"></script>
+<script type="application/ld+json">{
+ "@type": "Organization",
+ "@id": "https://llmodel.com/#org",
+ "name": "LLModel.com",
+ "url": "https://llmodel.com/",
+ "logo": "https://llmodel.com/assets/img/icon-512.png",
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://llmodel.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Guides",
+   "item": "https://llmodel.com/guides.html"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "How large language models work, step by step"
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "Article",
+ "headline": "How Do LLMs Work? Tokens, Attention and Sampling Explained",
+ "description": "How LLMs work, step by step: follow one sentence through tokenization, embeddings, self-attention, logits and sampling, then see how models are trained.",
+ "datePublished": "2026-10-10",
+ "dateModified": "2026-10-10",
+ "inLanguage": "en",
+ "mainEntityOfPage": "https://llmodel.com/how-llms-work.html",
+ "image": "https://llmodel.com/assets/img/og-image.png",
+ "author": {
+  "@type": "Organization",
+  "name": "LLModel editorial team",
+  "url": "https://llmodel.com/about.html"
+ },
+ "publisher": {
+  "@id": "https://llmodel.com/#org"
+ },
+ "keywords": "how llms work, how do large language models work, transformer self-attention explained, llm tokenization, temperature and top-p, kv cache",
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "Do LLMs predict words or tokens?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "They predict tokens. A token can be a whole common word, part of a rarer word, a punctuation mark or a few characters of code. In English, a token averages about four characters, so 100 tokens is roughly 75 words. At each step the model outputs a probability for every token in its vocabulary and then picks one, which is why pricing and context limits are measured in tokens rather than words."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What does temperature do in an LLM?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Temperature divides the model's raw scores, called logits, by a number before they are converted to probabilities. Values below 1 sharpen the distribution so the top choice dominates, which gives more consistent output. Values above 1 flatten it so less likely tokens are picked more often, which adds variety but also errors. Temperature changes randomness only, so it can't make a model know more or reason better."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is the KV cache in a transformer?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The KV cache stores the attention keys and values already computed for earlier tokens. Without it, every new output token would require recomputing those values for the entire conversation. With it, each step only processes the newest token and reads the rest from memory. The cost is memory: the cache grows with every token, which is why long contexts need more GPU memory and why providers price long and cached prompts separately."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Why do LLMs give different answers to the same question?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Most applications sample the next token from a probability distribution instead of always taking the top choice, so two runs can diverge at the first uncertain token and then drift further apart. Even at temperature 0, differences in batching and floating-point arithmetic on servers can change results slightly. For consistent output, lower the temperature, constrain the format with structured outputs and test prompts across several runs."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Is a model with more parameters always better?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Not always. More parameters generally mean more capacity, and scaling research shows loss improves predictably with size, data and compute. But data quality, post-training and inference-time reasoning matter as much. Mixture-of-experts models also blur the comparison, since only a small fraction of their parameters is active for each token. A newer, smaller model often beats an older, larger one, so compare models on your own tasks."
+   }
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+
+</head>
+<body class="page-how-llms-work">
+<a class="skip" href="#main">Skip to content</a>
+<div class="partner-bar"><a href="https://web.works/contact" target="_blank" rel="noopener"><span>Contact, if you are interested in this website / domain name / sponsorship / advertisement / partnership</span></a></div>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+    <nav class="nav" aria-label="Main"><a href="models.html">Models</a><a href="compare.html">Compare</a><a href="leaderboard.html">Rankings</a><a href="tools.html">Tools</a><a href="guides.html" aria-current="page">Learn</a><a href="videos.html">Videos</a></nav>
+    <div class="header-actions">
+      <button class="search-btn" type="button" data-open-search aria-label="Search the site"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="search-label">Search</span><span class="kbd" aria-hidden="true">/</span></button>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><svg class="theme-icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="theme-icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+      <a class="btn btn--primary btn--sm header-cta" href="hire-llm-experts.html">Get expert help</a>
+      <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile">
+    <ul><li><a href="models.html">Models</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="tools.html">Tools</a></li>
+<li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="contact.html">Contact</a></li>
+<li class="mobile-cta"><a class="btn btn--primary btn--block" href="hire-llm-experts.html">Get expert help</a></li>
+</ul>
+  </nav>
+</header>
+<main id="main">
+<nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li>
+<li><a href="guides.html">Guides</a></li>
+<li aria-current="page">How large language models work, step by step</li>
+</ol>
+</nav>
+<div class="read-progress" id="read-progress" aria-hidden="true"></div>
+<header class="page-head wrap"><h1>How large language models work, step by step</h1><p class="lede">Follow one sentence through a large language model, from tokens and embeddings through self-attention, logits and sampling, with small worked examples at each step. Then see how training, scaling and mixture-of-experts shape what models can do, and why they hallucinate.</p>
+<div class="page-meta"><span>Fundamentals</span><span>Intermediate</span><span>11 min read</span><span>Updated October 10, 2026</span></div>
+</header>
+<div class="wrap article">
+  <nav class="article__toc toc" aria-label="On this page"><p class="toc-title">On this page</p>
+<ol><li><a href="#the-pipeline-at-a-glance">The pipeline at a glance</a></li>
+<li><a href="#tokens-and-embeddings">From text to vectors: tokens and embeddings</a></li>
+<li><a href="#transformer-layers-and-self-attention">Transformer layers and self-attention</a></li>
+<li><a href="#logits-probabilities-and-sampling">Logits, probabilities and sampling</a></li>
+<li><a href="#generation-loop-and-kv-cache">The generation loop and the KV cache</a></li>
+<li><a href="#how-the-model-learned">How the model learned to do this</a></li>
+<li><a href="#why-scale-matters">Why scale matters: scaling laws and mixture-of-experts</a></li>
+<li><a href="#what-this-explains-about-behavior">What the mechanics explain about behavior</a></li>
+<li><a href="#common-mistakes">Common mistakes</a></li>
+<li><a href="#next-steps">Next steps</a></li>
+</ol>
+</nav>
+  <article class="prose" id="article">
+    <div class="takeaways"><h2>Key takeaways</h2>
+<ul><li>An LLM turns text into tokens, tokens into vectors, and vectors into a probability for every possible next token, then repeats that loop once per output token.</li>
+<li>Self-attention lets each token weigh the tokens before it; in the worked example, the token &#x27;bank&#x27; puts almost 59% of its attention on &#x27;river&#x27;.</li>
+<li>Temperature reshapes the probability distribution and top-p trims its tail; both control randomness, not knowledge.</li>
+<li>The KV cache makes generation fast but costs memory, about 128 KiB per token for a typical mid-sized model, which is why long contexts are expensive to serve.</li>
+<li>Pretraining teaches prediction, fine-tuning and preference training teach helpfulness, and reinforcement learning on checkable problems teaches reasoning.</li>
+<li>Hallucinations and prompt sensitivity follow directly from sampling fluent tokens from learned probabilities, so grounding and testing are the practical remedies.</li>
+</ul>
+</div>
+    <p>Large language models can seem to think, but every reply comes from one mechanical loop repeated once per token. This guide follows a single short sentence through that loop, from raw text to the next word, with small worked numbers at each step. Then it covers how the model learned its behavior, why scale matters, and what the mechanics explain about hallucinations and prompt sensitivity.</p>
+
+<h2 id="the-pipeline-at-a-glance">The pipeline at a glance</h2>
+<p>Our running example: you send a model the text "She sat on the river bank and", and it must produce the next word. Here's what happens before that word appears.</p>
+<ol>
+<li>A tokenizer splits the text into tokens and maps each one to an integer ID.</li>
+<li>Each ID is swapped for an embedding, a long list of numbers.</li>
+<li>The vectors pass through a stack of transformer layers, where self-attention lets each token gather context from the tokens before it.</li>
+<li>The final vector becomes a raw score, or logit, for every token in the vocabulary.</li>
+<li>The scores become probabilities, and a sampling rule picks one token.</li>
+<li>That token is appended to the input, and the loop repeats until the reply is done.</li>
+</ol>
+<p>Steps 1 through 5 are one forward pass. A 500-word answer needs several hundred of them, one per token, which is why replies stream out piece by piece.</p>
+
+<h2 id="tokens-and-embeddings">From text to vectors: tokens and embeddings</h2>
+<h3 id="tokenization">Tokenization</h3>
+<p>Models don't see letters or words; they see <a href="glossary-fundamentals.html#token">tokens</a>. Before training, a tokenizer is built with a method such as <a href="glossary-fundamentals.html#byte-pair-encoding">byte-pair encoding</a>: it starts from individual bytes and repeatedly merges the most frequent neighboring pairs until it reaches a fixed vocabulary, typically on the order of 100,000 to a few hundred thousand entries.</p>
+<p>Common words become single tokens, usually including the space in front of them. With a typical modern tokenizer, our sentence most likely becomes seven tokens: "She", " sat", " on", " the", " river", " bank" and " and". A rarer word such as "riverbank" might be split into pieces, and numbers or code often break in ways that look arbitrary.</p>
+<p>Each token's ID is just a row number in the vocabulary. <a href="glossary-fundamentals.html#tokenization">Tokenization</a> also explains everyday quirks: you pay per token, and many non-English languages need more tokens per word.</p>
+<h3 id="embeddings">Embeddings</h3>
+<p>Each token ID selects a row from an embedding table, a learned list of numbers that represents the token. Vectors range from a few hundred numbers in tiny models to more than 10,000 in the largest published ones. Training places tokens that are used in similar ways near each other, so " river" ends up closer to " stream" than to " invoice".</p>
+<p>Attention has no built-in sense of word order, so position must be added. Most current open models use rotary position embedding (RoPE), which rotates each token's query and key vectors by an amount that depends on its position.</p>
+
+<aside class="ad-slot" data-ad="in-article" aria-label="Sponsored message"><span class="ad-label">From LLModel</span><div class="ad-fill"><div class="house"><div><strong>The LLM Brief</strong><span>One short email a week: new models, price changes and one tool worth trying.</span></div>
+<a class="btn btn--ghost btn--sm" href="newsletter.html">Subscribe free</a></div>
+</div>
+</aside>
+<h2 id="transformer-layers-and-self-attention">Transformer layers and self-attention</h2>
+<p>The embeddings now pass through a stack of identical <a href="glossary-architecture.html#transformer">transformer</a> layers: 24 in OpenAI's gpt-oss-20b and 36 in gpt-oss-120b, for example. Each layer has two main parts. Self-attention lets every token pull in information from earlier tokens, and a feed-forward network then processes each token's vector on its own; the feed-forward parts hold most of the parameters and appear to store much of the model's factual knowledge.</p>
+<h3 id="attention-intuition">The intuition behind attention</h3>
+<p>Take the token " bank". On its own it's ambiguous: it could be the edge of a river or a place that holds money. <a href="glossary-architecture.html#attention">Attention</a> lets " bank" look back over the sentence and decide which earlier tokens matter for interpreting it.</p>
+<p>For each token, the layer computes three vectors from its current state. The query describes what this token is looking for, the key advertises what each token offers, and the value is the content a token passes along when it's selected. Comparing one token's query with every key produces relevance scores, and those scores decide how much of each value gets blended in.</p>
+<h3 id="attention-worked-example">A small worked example</h3>
+<p>Real query and key vectors typically have 64 to 128 dimensions per head, but two are enough to see the arithmetic. Suppose the query for " bank" is [1.0, 2.0] and each token's key is as shown below. Each score is the dot product of the query with a key, divided by the square root of the vector size (here √2, about 1.41) to keep values in a stable range, and a softmax then turns the scores into weights that sum to 100%.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Token</th><th>Key</th><th>Query · key</th><th>Scaled score</th><th>Attention weight</th></tr>
+</thead>
+<tbody>
+<tr><td>She</td><td>[0.5, 0.0]</td><td>0.5</td><td>0.35</td><td>4.9%</td></tr>
+<tr><td>sat</td><td>[0.2, 0.4]</td><td>1.0</td><td>0.71</td><td>7.0%</td></tr>
+<tr><td>on</td><td>[0.1, 0.1]</td><td>0.3</td><td>0.21</td><td>4.3%</td></tr>
+<tr><td>the</td><td>[0.0, 0.2]</td><td>0.4</td><td>0.28</td><td>4.6%</td></tr>
+<tr><td>river</td><td>[1.0, 1.5]</td><td>4.0</td><td>2.83</td><td>58.8%</td></tr>
+<tr><td>bank</td><td>[0.5, 1.0]</td><td>2.5</td><td>1.77</td><td>20.3%</td></tr>
+</tbody>
+</table>
+</div>
+<p>Nearly 59% of the weight lands on " river". The new vector for " bank" is the weighted sum of all six value vectors, so it's dominated by information from " river", and later layers see a " bank" that leans toward the riverside meaning. Nobody programmed that rule; training adjusted the query and key projections until useful patterns like this one emerged.</p>
+<h3 id="heads-masks-and-depth">Heads, masks and depth</h3>
+<p>Each layer runs many attention heads in parallel, so one head can track grammar while another follows references. A causal mask stops each token from attending to later ones, which lets training score every position at once. After the final layer, the vector at " and" carries what the model needs to predict the next token.</p>
+
+<h2 id="logits-probabilities-and-sampling">Logits, probabilities and sampling</h2>
+<h3 id="from-logits-to-probabilities">From logits to probabilities</h3>
+<p>The model then multiplies that final vector by an output matrix, producing one raw score, or <a href="glossary-inference-deployment.html#logits">logit</a>, for every token in the vocabulary. A softmax converts the scores into probabilities by exponentiating each one and dividing by the total, so higher scores get disproportionately more weight.</p>
+<p>Pretend the vocabulary had only five candidates. Here's the distribution for the next token at three temperatures.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Candidate token</th><th>Logit</th><th>Temperature 1.0</th><th>Temperature 0.5</th><th>Temperature 1.5</th></tr>
+</thead>
+<tbody>
+<tr><td>" watched"</td><td>5.0</td><td>51.3%</td><td>75.9%</td><td>40.8%</td></tr>
+<tr><td>" read"</td><td>4.2</td><td>23.0%</td><td>15.3%</td><td>23.9%</td></tr>
+<tr><td>" listened"</td><td>3.8</td><td>15.4%</td><td>6.9%</td><td>18.3%</td></tr>
+<tr><td>" fished"</td><td>3.1</td><td>7.7%</td><td>1.7%</td><td>11.5%</td></tr>
+<tr><td>" cried"</td><td>2.0</td><td>2.6%</td><td>0.2%</td><td>5.5%</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="temperature">Temperature</h3>
+<p><a href="glossary-inference-deployment.html#temperature">Temperature</a> divides every logit by a number before the softmax. Below 1 it sharpens the distribution: at 0.5, " watched" climbs from 51% to 76%. Above 1 it flattens it, and at 1.5 the long shot " cried" more than doubles to 5.5%. A temperature near 0 approximates greedy decoding, which always takes the top token.</p>
+<h3 id="top-p">Top-p</h3>
+<p><a href="glossary-inference-deployment.html#top-p">Top-p</a>, or nucleus sampling, trims the unlikely tail instead of reshaping the whole curve. It keeps the smallest set of top tokens whose probabilities add up to at least p, rescales them, and samples from that set. With p set to 0.8, the first three candidates cover 89.8%, so " fished" and " cried" are dropped, and the survivors become 57.1%, 25.7% and 17.2%.</p>
+<p>In practice, adjust one of these settings at a time. Low temperatures suit extraction and classification, where you want the same answer every run, while moderate values suit drafting and brainstorming.</p>
+
+<figure class="video-figure"><div class="video" data-yt="7xTGNNLPyMI"><button class="video__btn" type="button" aria-label="Play video: Deep Dive into LLMs like ChatGPT"><img src="https://i.ytimg.com/vi/7xTGNNLPyMI/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="video__play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></button></div>
+<figcaption>Watch: Deep Dive into LLMs like ChatGPT (Andrej Karpathy). A multi-hour walkthrough of the full pipeline behind assistants like ChatGPT, from gathering web text and tokenizing it to pretraining, supervised fine-tuning and reinforcement learning. It rewards technical readers and curious builders who want a durable picture of how modern models are made and why they behave as they do.</figcaption></figure>
+<h2 id="generation-loop-and-kv-cache">The generation loop and the KV cache</h2>
+<p>Suppose the sampler picks " watched". The model appends it to the input and runs again, now predicting the token after "and watched". This repeats until the model emits a special end-of-sequence token or hits the output limit you set.</p>
+<p>Generation has two phases with different costs. In prefill, the model processes your whole prompt in parallel, which determines the time to the first token. In decode, it produces one token per step, and that sequential loop sets the output speed you see as tokens per second.</p>
+<h3 id="why-the-kv-cache-exists">Why the KV cache exists</h3>
+<p>Without a shortcut, each step would recompute keys and values for every earlier token. The <a href="glossary-inference-deployment.html#kv-cache">KV cache</a> stores those keys and values for every layer, so each step computes them only for the newest token and reads the rest from memory.</p>
+<p>The cache trades compute for memory. In a configuration shared by several 7B-to-8B open models, with 32 layers and 8 key-value heads of 128 dimensions each, stored at 16-bit precision, every token needs 2 × 32 × 8 × 128 × 2 bytes, or 128 KiB. A single 128K-token conversation therefore needs 16 GiB of cache on top of the model's weights.</p>
+<p>That's why long contexts are expensive to serve and why labs keep shrinking the cache. DeepSeek's model card for V4.1-Flash, for example, reports a global KV cache of about 890 bytes per token, roughly a quarter of its predecessor's.</p>
+<p>Providers extend the idea across requests with <a href="glossary-business-pricing.html#prompt-caching">prompt caching</a>: when calls share a long prefix, such as a system prompt, repeat reads are billed at a steep discount. As of October 2026, cached input on Claude Opus 5.5 and GPT-6.1 Sol costs 5% of the normal input price.</p>
+
+<h2 id="how-the-model-learned">How the model learned to do this</h2>
+<p>Everything above happens at inference time with fixed parameters. The parameters themselves come from training stages that run the same forward pass but add a feedback signal.</p>
+<h3 id="pretraining-objective">Pretraining: predict the next token</h3>
+<p>During <a href="glossary-training.html#pretraining">pretraining</a>, the model reads trillions of tokens and predicts the next one at every position. The loss is the negative logarithm of the probability it gave the correct token: assigning 25% costs about 1.39, while 90% costs only 0.11. Backpropagation then nudges every parameter to lower the average loss across trillions of these predictions.</p>
+<p>Average loss is often reported as <a href="glossary-evaluation.html#perplexity">perplexity</a>, the exponential of the loss. A loss of 1.39 corresponds to a perplexity of 4, as uncertain as choosing among four equally likely options.</p>
+<h3 id="supervised-fine-tuning">Supervised fine-tuning</h3>
+<p>A pretrained base model continues text but doesn't reliably follow instructions. Supervised fine-tuning, also called <a href="glossary-training.html#instruction-tuning">instruction tuning</a>, trains it on curated prompt-and-response examples with the same next-token loss, usually counting only the response tokens. This is where it learns chat formatting, when to decline and how to call tools.</p>
+<h3 id="rlhf-and-dpo">Preference training: RLHF and DPO</h3>
+<p>Next comes learning from comparisons. In <a href="glossary-training.html#rlhf">RLHF</a>, people rank alternative responses, a separate reward model learns to predict those rankings, and reinforcement learning pushes the LLM toward higher-reward answers while a penalty keeps it close to its starting point. OpenAI's 2022 InstructGPT work used this recipe, and evaluators preferred its tuned 1.3B model over the 175B GPT-3.</p>
+<p><a href="glossary-training.html#dpo">Direct preference optimization (DPO)</a>, introduced in 2023, reaches a similar goal more simply. It skips the separate reward model and the reinforcement learning loop, training directly on preferred and rejected pairs with a classification-style loss. Many open-weight models use DPO or a variant because it's cheaper and more stable to run.</p>
+<h3 id="reinforcement-learning-for-reasoning">Reinforcement learning for reasoning</h3>
+<p><a href="glossary-fundamentals.html#reasoning-model">Reasoning models</a> add large-scale reinforcement learning on tasks whose answers can be checked automatically, such as math problems with known solutions or code with unit tests. DeepSeek's R1 paper, published in January 2025, reported that this kind of training, without human-written reasoning examples, produced behaviors such as self-reflection and verification. The model learns that spending tokens on intermediate steps raises its chance of reward, and that's the visible thinking you see in reasoning models.</p>
+
+<aside class="ad-slot" data-ad="in-article-2" aria-label="Sponsored message"><span class="ad-label">From LLModel</span><div class="ad-fill"><div class="house"><div><strong>Price your workload</strong><span>Compare the monthly bill for your token volume across every priced model.</span></div>
+<a class="btn btn--ghost btn--sm" href="llm-cost-calculator.html">Open the calculator</a></div>
+</div>
+</aside>
+<h2 id="why-scale-matters">Why scale matters: scaling laws and mixture-of-experts</h2>
+<h3 id="scaling-laws">Scaling laws</h3>
+<p>In 2020, Kaplan and colleagues at OpenAI showed that a language model's loss falls along a smooth power law as you increase parameters, training data and compute. These <a href="glossary-training.html#scaling-laws">scaling laws</a> are why labs commit huge budgets with some confidence: they can forecast a large model's loss from small pilot runs.</p>
+<p>In 2022, DeepMind's Chinchilla paper refined the recipe: for a fixed compute budget, parameters and training tokens should grow together, with data doubling whenever model size doubles. Its 70B model, trained on about four times as much data as the 280B Gopher for the same compute, outperformed it.</p>
+<p>Current practice goes further, training smaller models on far more data than that recipe suggests, because a model that's cheap to run matters more than one that's cheapest to train. Reasoning models add a second axis: more compute at inference time, through longer thinking, also improves results on hard problems.</p>
+<h3 id="mixture-of-experts">Mixture-of-experts</h3>
+<p><a href="glossary-architecture.html#mixture-of-experts">Mixture-of-experts</a> (MoE) models gain capacity without a matching increase in compute per token. Each MoE layer replaces one feed-forward network with many smaller expert networks plus a router that sends each token to only a few of them. Sparse expert layers were scaled up for language models in a 2017 paper by Shazeer and colleagues, and they now underpin most of the largest open-weight models.</p>
+<p>OpenAI's gpt-oss-120b shows the trade-off: it has 117 billion parameters and 128 experts per layer, but each token passes through only 4 experts, so about 5.1 billion parameters, roughly 4% of the total, do the work. Compute per token resembles a 5B dense model, yet all 117B parameters must sit in memory.</p>
+<p>MoE saves compute, not memory, and the gap can be extreme. Moonshot lists its open-weight Kimi K3 at 2.8 trillion total parameters with 104 billion active.</p>
+
+<h2 id="what-this-explains-about-behavior">What the mechanics explain about behavior</h2>
+<p>Once you know the pipeline, many puzzling behaviors become predictable. Each one below has a mechanical cause and a practical response.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Behavior</th><th>Mechanical cause</th><th>What to do</th></tr>
+</thead>
+<tbody>
+<tr><td>Confident wrong answers</td><td>The model always samples a fluent next token, and training rewards guessing over abstaining</td><td>Supply sources, allow "I don't know", verify key facts</td></tr>
+<tr><td>Different answers to the same prompt</td><td>Sampling picks from a distribution, and server batching adds small numeric differences</td><td>Lower the temperature, use structured outputs, test several runs</td></tr>
+<tr><td>Small wording changes flip results</td><td>Different tokens produce different attention patterns, and each sampled token conditions the rest</td><td>Test prompt variants on a fixed evaluation set and version your prompts</td></tr>
+<tr><td>Trouble counting letters or doing exact math</td><td>The model sees tokens, not characters, and digits split unpredictably</td><td>Route the work to code execution or a calculator tool</td></tr>
+</tbody>
+</table>
+</div>
+<p><a href="glossary-fundamentals.html#hallucination">Hallucinations</a> about rare facts follow from the mechanics: facts that appear in few training documents leave a weak imprint, so the model can blend plausible fragments into a fluent but false answer. A 2025 paper by Kalai and colleagues adds that common training and evaluation methods reward confident guessing over abstaining, much as a multiple-choice exam rewards a guess over a blank.</p>
+<p>Sensitivity to wording has the same root: each sampled token becomes input for the next step, so one unlucky early choice can steer an entire answer. That's also why asking a model to work through a problem before answering, known as <a href="glossary-prompting.html#chain-of-thought">chain-of-thought</a>, often helps: it gives the final tokens more relevant context to attend to.</p>
+
+<h2 id="common-mistakes">Common mistakes</h2>
+<p>These misconceptions about the mechanics lead to bad design decisions. Each one has a simple correction.</p>
+<ul>
+<li><strong>Expecting temperature 0 to guarantee identical output.</strong> It narrows the choice but doesn't remove variation from batching and hardware.</li>
+<li><strong>Assuming the model remembers earlier conversations.</strong> The model keeps nothing between calls; apps resend history or saved notes in the prompt, and anything outside the context window is invisible.</li>
+<li><strong>Equating size with freshness.</strong> A bigger model isn't more current, because its knowledge still stops at the training cutoff.</li>
+<li><strong>Sizing hardware by active parameters.</strong> An MoE model with 5B active parameters may still need memory for 117B.</li>
+<li><strong>Reading attention weights as explanations.</strong> They show where information flowed in one layer, not why the model answered as it did.</li>
+</ul>
+
+<h2 id="next-steps">Next steps</h2>
+<p>To see how these mechanics translate into limits and cost, read <a href="context-windows-explained.html">context windows explained</a> and try the <a href="token-counter.html">token counter</a> on your own prompts. To turn the behavior insights into better results, the <a href="prompt-engineering-guide.html">prompt engineering guide</a> covers concrete techniques. If you're designing a production system and want an experienced reviewer, you can <a href="hire-llm-experts.html">get expert help</a>.</p>
+    <section class="sources" aria-labelledby="sources"><h2 id="sources">Sources</h2>
+<ol><li><a href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noopener">Attention Is All You Need (Vaswani et al., 2017)</a></li>
+<li><a href="https://arxiv.org/abs/2001.08361" target="_blank" rel="noopener">Scaling Laws for Neural Language Models (Kaplan et al., 2020)</a></li>
+<li><a href="https://arxiv.org/abs/2203.15556" target="_blank" rel="noopener">Training Compute-Optimal Large Language Models (Hoffmann et al., 2022)</a></li>
+<li><a href="https://arxiv.org/abs/2203.02155" target="_blank" rel="noopener">Training language models to follow instructions with human feedback (Ouyang et al., 2022)</a></li>
+<li><a href="https://arxiv.org/abs/2305.18290" target="_blank" rel="noopener">Direct Preference Optimization (Rafailov et al., 2023)</a></li>
+<li><a href="https://arxiv.org/abs/2501.12948" target="_blank" rel="noopener">DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning (DeepSeek-AI, 2025)</a></li>
+<li><a href="https://arxiv.org/abs/1904.09751" target="_blank" rel="noopener">The Curious Case of Neural Text Degeneration (Holtzman et al., 2019)</a></li>
+<li><a href="https://arxiv.org/abs/1701.06538" target="_blank" rel="noopener">Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer (Shazeer et al., 2017)</a></li>
+<li><a href="https://openai.com/index/introducing-gpt-oss/" target="_blank" rel="noopener">Introducing gpt-oss (OpenAI, 2025)</a></li>
+<li><a href="https://arxiv.org/abs/2509.04664" target="_blank" rel="noopener">Why Language Models Hallucinate (Kalai et al., 2025)</a></li>
+</ol>
+      <p class="small muted">Written by the LLModel editorial team and checked against the sources above on October 10, 2026. Found an error? <a href="contact.html?topic=correction">Send a correction</a>.</p>
+</section>
+    <div class="share" aria-label="Share this guide"><span class="muted">Share:</span><button type="button" data-copy-link>Copy link</button><a href="https://www.linkedin.com/sharing/share-offsite/?url=https://llmodel.com/how-llms-work.html" target="_blank" rel="noopener">LinkedIn</a><a href="https://twitter.com/intent/tweet?url=https://llmodel.com/how-llms-work.html&amp;text=How large language models work, step by step" target="_blank" rel="noopener">X</a><a href="https://news.ycombinator.com/submitlink?u=https://llmodel.com/how-llms-work.html&amp;t=How large language models work, step by step" target="_blank" rel="noopener">Hacker News</a><a href="https://www.reddit.com/submit?url=https://llmodel.com/how-llms-work.html&amp;title=How large language models work, step by step" target="_blank" rel="noopener">Reddit</a></div>
+  </article>
+  <aside class="article__side" aria-label="Related"><div class="panel"><h2 class="h3">Try the tools</h2>
+<ul style="margin:.5rem 0 0;padding-left:1.1rem"><li><a href="token-counter.html">Token counter</a></li>
+<li><a href="context-window-visualizer.html">Context window visualizer</a></li>
+<li><a href="vram-calculator.html">GPU and VRAM calculator</a></li>
+</ul>
+</div>
+<div class="panel"><h2 class="h3">Need hands-on help?</h2>
+<p class="small muted" style="margin-top:.4rem">Get a vendor-neutral plan for your project within 2 business days.</p>
+<a class="btn btn--primary btn--block" style="margin-top:.8rem" href="hire-llm-experts.html?from=guide-how-llms-work">Get expert help</a></div>
+<div class="panel newsletter-box">
+
+  <p class="muted" style="margin-top:.4rem">One short email a week: model releases, price changes and one tool worth trying. Free, and you can unsubscribe anytime.</p>
+  <form class="form" data-form="newsletter" data-subject="Newsletter signup" novalidate style="margin-top:1rem">
+    <div class="inline-form">
+      <label class="visually-hidden" for="nl-side-email">Email address</label>
+      <input class="input" type="email" id="nl-side-email" name="email" required autocomplete="email" placeholder="Your work email">
+      <button class="btn btn--primary" type="submit">Subscribe</button>
+    </div>
+    <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <div class="form-status" role="status" aria-live="polite"></div>
+  </form>
+  <p class="fine" style="margin-top:.6rem">We send one email a week and never sell your address. See the <a href="privacy.html">privacy policy</a>.</p>
+</div>
+</aside>
+</div>
+<div class="wrap wrap--read" style="margin-top:3rem"><section class="faq-wrap" aria-labelledby="faq"><h2 class="h2" id="faq" style="margin-bottom:1rem">Frequently asked questions</h2>
+<div class="faq"><details><summary>Do LLMs predict words or tokens?</summary><div class="faq__a"><p>They predict tokens. A token can be a whole common word, part of a rarer word, a punctuation mark or a few characters of code. In English, a token averages about four characters, so 100 tokens is roughly 75 words. At each step the model outputs a probability for every token in its vocabulary and then picks one, which is why pricing and context limits are measured in tokens rather than words.</p>
+</div>
+</details>
+<details><summary>What does temperature do in an LLM?</summary><div class="faq__a"><p>Temperature divides the model&#x27;s raw scores, called logits, by a number before they are converted to probabilities. Values below 1 sharpen the distribution so the top choice dominates, which gives more consistent output. Values above 1 flatten it so less likely tokens are picked more often, which adds variety but also errors. Temperature changes randomness only, so it can&#x27;t make a model know more or reason better.</p>
+</div>
+</details>
+<details><summary>What is the KV cache in a transformer?</summary><div class="faq__a"><p>The KV cache stores the attention keys and values already computed for earlier tokens. Without it, every new output token would require recomputing those values for the entire conversation. With it, each step only processes the newest token and reads the rest from memory. The cost is memory: the cache grows with every token, which is why long contexts need more GPU memory and why providers price long and cached prompts separately.</p>
+</div>
+</details>
+<details><summary>Why do LLMs give different answers to the same question?</summary><div class="faq__a"><p>Most applications sample the next token from a probability distribution instead of always taking the top choice, so two runs can diverge at the first uncertain token and then drift further apart. Even at temperature 0, differences in batching and floating-point arithmetic on servers can change results slightly. For consistent output, lower the temperature, constrain the format with structured outputs and test prompts across several runs.</p>
+</div>
+</details>
+<details><summary>Is a model with more parameters always better?</summary><div class="faq__a"><p>Not always. More parameters generally mean more capacity, and scaling research shows loss improves predictably with size, data and compute. But data quality, post-training and inference-time reasoning matter as much. Mixture-of-experts models also blur the comparison, since only a small fraction of their parameters is active for each token. A newer, smaller model often beats an older, larger one, so compare models on your own tasks.</p>
+</div>
+</details>
+</div>
+</section>
+</div>
+<section class="wrap" aria-labelledby="more-videos" style="margin-top:3rem"><h2 class="h2" id="more-videos" style="margin-bottom:1rem">More videos on this topic</h2>
+<div class="grid grid--3"><article class="video-card" id="v-wjZofJX0v4M"><div class="video" data-yt="wjZofJX0v4M"><button class="video__btn" type="button" aria-label="Play video: Transformers, the tech behind LLMs | Deep Learning Chapter 5"><img src="https://i.ytimg.com/vi/wjZofJX0v4M/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="video__play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></button></div>
+<h3>Transformers, the tech behind LLMs | Deep Learning Chapter 5</h3>
+<div class="vc-meta"><span>3Blue1Brown</span><span>27:14</span><span>Intermediate</span><a href="https://www.youtube.com/watch?v=wjZofJX0v4M" target="_blank" rel="noopener">Watch on YouTube</a></div>
+<p class="muted small">A visual walkthrough of how a GPT-style transformer turns text into tokens, embeddings and finally a probability distribution over the next token. It is a strong fit for readers who want the architecture explained with geometric intuition before meeting the math.</p>
+</article>
+<article class="video-card" id="v-eMlx5fFNoYc"><div class="video" data-yt="eMlx5fFNoYc"><button class="video__btn" type="button" aria-label="Play video: Attention in transformers, step-by-step | Deep Learning Chapter 6"><img src="https://i.ytimg.com/vi/eMlx5fFNoYc/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="video__play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></button></div>
+<h3>Attention in transformers, step-by-step | Deep Learning Chapter 6</h3>
+<div class="vc-meta"><span>3Blue1Brown</span><span>26:09</span><span>Intermediate</span><a href="https://www.youtube.com/watch?v=eMlx5fFNoYc" target="_blank" rel="noopener">Watch on YouTube</a></div>
+<p class="muted small">Builds up the attention mechanism piece by piece using queries, keys and values, then adds masking and multiple heads. It is aimed at readers comfortable with basic linear algebra who want to see what attention actually computes.</p>
+</article>
+<article class="video-card" id="v-zxQyTK8quyY"><div class="video" data-yt="zxQyTK8quyY"><button class="video__btn" type="button" aria-label="Play video: Transformer Neural Networks, ChatGPT&#x27;s foundation, Clearly Explained!!!"><img src="https://i.ytimg.com/vi/zxQyTK8quyY/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="video__play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></button></div>
+<h3>Transformer Neural Networks, ChatGPT&#x27;s foundation, Clearly Explained!!!</h3>
+<div class="vc-meta"><span>StatQuest with Josh Starmer</span><span>Intermediate</span><a href="https://www.youtube.com/watch?v=zxQyTK8quyY" target="_blank" rel="noopener">Watch on YouTube</a></div>
+<p class="muted small">Josh Starmer&#x27;s patient, step-by-step walkthrough of the original encoder-decoder transformer, tracked through a small translation example. It is a good second pass for learners who found faster explanations hard to follow.</p>
+</article>
+</div>
+</section>
+<section class="wrap" aria-labelledby="related" style="margin-top:3rem"><h2 class="h2" id="related" style="margin-bottom:1rem">Keep reading</h2>
+<div class="cardlist"><a class="card" href="what-is-a-large-language-model.html"><span class="card__kicker">Fundamentals</span><span class="card__title">What is a large language model?</span><span class="card__desc">A large language model is a neural network trained on enormous amounts of text to predict what comes next, which turns out to be enough to draft, summarize, translate and write code. This guide explains what LLMs are, how they&#x27;re trained, the kinds you&#x27;ll meet, the major families as of October 2026 and the limits to plan around.</span><span class="card__foot"><span>Beginner</span><span>10 min read</span></span></a><a class="card" href="context-windows-explained.html"><span class="card__kicker">Fundamentals</span><span class="card__title">Context windows explained</span><span class="card__desc">A context window is the token budget a model can read and write in one request.
+This guide converts tokens to words and pages, compares current limits and explains the cost, quality and memory trade-offs of long prompts.</span><span class="card__foot"><span>Beginner</span><span>11 min read</span></span></a><a class="card" href="prompt-engineering-guide.html"><span class="card__kicker">Building</span><span class="card__title">Prompt engineering: a practical guide with examples</span><span class="card__desc">A practical guide to writing prompts that work: the five parts of a prompt, core principles, eight techniques with before-and-after examples, and how reasoning models change the rules. Includes a testing workflow and a reusable template.</span><span class="card__foot"><span>Beginner</span><span>11 min read</span></span></a></div>
+</section>
+<div class="wrap"><section class="lead-band" aria-labelledby="lead-choose-guide-how-llms-work">
+  <div>
+    <h2 id="lead-choose-guide-how-llms-work">Still choosing a model?</h2>
+    <p>Send us your use case and constraints. We&#x27;ll come back with a shortlist and an evaluation plan you can run on your own data.</p>
+    <ul><li>Free and vendor-neutral: no model provider pays for placement.</li>
+<li>Your details go only to partners you agree to.</li>
+</ul>
+  </div>
+  <form class="mini-form" action="hire-llm-experts.html" method="get">
+    <label for="need-choose-guide-how-llms-work">What do you need help with?</label>
+    <select id="need-choose-guide-how-llms-work" name="need"><option value="choose-model">Choose the right model</option>
+<option value="chatbot">Build a chatbot or assistant</option>
+<option value="rag">Answer questions over our documents (RAG)</option>
+<option value="agents">Automate work with AI agents</option>
+<option value="self-host">Fine-tune or self-host a model</option>
+<option value="cut-costs">Cut our LLM costs</option>
+<option value="security">Security, privacy or compliance review</option>
+<option value="not-sure">Not sure yet</option>
+</select>
+    <input type="hidden" name="from" value="guide-how-llms-work">
+    <button class="btn btn--yellow btn--block" type="submit">Start my free plan</button>
+    <p class="fine">Takes about 2 minutes. No sales calls unless you ask for one.</p>
+  </form>
+</section>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+      <p>The independent field guide to large language models. Model data checked against provider documentation; last full check October 10, 2026.</p>
+    </div>
+    <div><h2>Explore</h2>
+<ul><li><a href="models.html">Model directory</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare models</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="search.html">Search</a></li>
+</ul>
+</div>
+<div><h2>Tools</h2>
+<ul><li><a href="llm-cost-calculator.html">Cost calculator</a></li>
+<li><a href="token-counter.html">Token counter</a></li>
+<li><a href="vram-calculator.html">GPU and VRAM calculator</a></li>
+<li><a href="llm-picker.html">Which LLM should I use?</a></li>
+<li><a href="context-window-visualizer.html">Context window visualizer</a></li>
+<li><a href="prompt-builder.html">Prompt builder</a></li>
+<li><a href="self-host-vs-api-calculator.html">Self-host vs API calculator</a></li>
+</ul>
+</div>
+<div><h2>Learn</h2>
+<ul><li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+</ul>
+</div>
+<div><h2>Work with us</h2>
+<ul><li><a href="hire-llm-experts.html">Get expert help</a></li>
+<li><a href="list-your-product.html">List your product</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</div>
+<div><h2>About</h2>
+<ul><li><a href="about.html">About LLModel</a></li>
+<li><a href="editorial-policy.html">Editorial policy</a></li>
+<li><a href="privacy.html">Privacy policy</a></li>
+<li><a href="terms.html">Terms of use</a></li>
+<li><a href="disclaimer.html">Disclaimer</a></li>
+<li><a href="trademark-copyright.html">Trademark and copyright</a></li>
+<li><a href="sitemap.html">Site map</a></li>
+<li><button class="linklike" type="button" data-privacy-choices>Privacy and cookie choices</button></li>
+</ul>
+</div>
+  </div>
+  <div class="wrap footer-legal">
+    <p>&copy; 2026 LLModel.com. Independent: not affiliated with, endorsed by or sponsored by any model provider. Model and company names are trademarks of their respective owners and are used only to identify products. See <a href="trademark-copyright.html">trademark and copyright</a>.</p>
+    <p>Prices and specifications change often. Always confirm on the provider's own pricing page before you buy.</p>
+  </div>
+</footer>
+<div class="palette" id="palette" hidden role="dialog" aria-modal="true" aria-label="Search LLModel">
+  <div class="palette__box">
+    <label class="visually-hidden" for="palette-input">Search models, tools, guides and terms</label>
+    <input class="palette__input" id="palette-input" type="search" placeholder="Search models, tools, guides, terms" autocomplete="off" spellcheck="false" aria-controls="palette-list">
+    <ul class="palette__list" id="palette-list" role="listbox"></ul>
+    <div class="palette__foot"><span><span class="kbd">&uarr;</span> <span class="kbd">&darr;</span> to move</span><span><span class="kbd">Enter</span> to open</span><span><span class="kbd">Esc</span> to close</span></div>
+  </div>
+</div>
+<script src="assets/js/config.js?v=caa5324cbb"></script>
+
+<script src="assets/js/app.js?v=4b39d7c1bd" defer></script>
+<script src="assets/js/article.js?v=0235be8880" defer></script>
+</body>
+</html>
