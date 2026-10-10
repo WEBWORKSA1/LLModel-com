@@ -1,0 +1,363 @@
+{
+  "category": "Fundamentals",
+  "updated": "2026-10-10",
+  "terms": [
+    {
+      "slug": "agi",
+      "term": "Artificial general intelligence (AGI)",
+      "aka": [
+        "AGI"
+      ],
+      "category": "Fundamentals",
+      "short": "A hypothetical AI that can match or exceed people across most cognitive tasks, not just narrow ones.",
+      "definition": "Artificial general intelligence describes an AI system able to learn and perform most intellectual tasks a capable person can, adapting to new problems without being specially built for each. There is no agreed test or definition: some researchers frame it in terms of economically valuable work, others in terms of flexible learning or autonomy. Several AI labs state AGI as their goal, and predictions about its arrival vary wildly. For practical purposes, treat AGI claims in marketing with caution and judge models by measured performance on the tasks you care about.",
+      "related": [
+        "frontier-model",
+        "emergent-abilities",
+        "alignment"
+      ]
+    },
+    {
+      "slug": "autoregressive-model",
+      "term": "Autoregressive model",
+      "aka": [
+        "autoregressive generation",
+        "next-token prediction"
+      ],
+      "category": "Fundamentals",
+      "short": "A model that generates output one token at a time, each conditioned on everything before it.",
+      "definition": "An autoregressive model produces a sequence step by step: it predicts a probability distribution for the next token, one token is chosen, that token is appended to the input, and the loop repeats. Nearly all of today's LLMs work this way. The design is simple and powerful but has two practical consequences. Generation is inherently sequential, so a 1,000-token answer needs about 1,000 forward passes, which is why output speed is limited and techniques like speculative decoding exist. And early mistakes can't be revised; the model can only continue from what it has already written.",
+      "related": [
+        "decoder-only",
+        "inference",
+        "speculative-decoding",
+        "diffusion-language-model"
+      ]
+    },
+    {
+      "slug": "base-model",
+      "term": "Base model",
+      "aka": [
+        "pretrained model"
+      ],
+      "category": "Fundamentals",
+      "short": "A model straight out of pretraining that continues text but hasn't been tuned to follow instructions.",
+      "definition": "A base model is the raw result of pretraining: it has absorbed patterns from vast amounts of text and is excellent at continuing whatever you give it, but it hasn't been taught to act as an assistant. Ask a base model a question and it may answer, write more questions or continue in the style of a forum thread. Developers use base models as the starting point for their own fine-tuning, for research, and for tasks like text completion or synthetic data generation. Most people interact with chat or instruct versions, which are the same base model after instruction tuning and preference training.",
+      "related": [
+        "pretraining",
+        "chat-model",
+        "instruction-tuning"
+      ]
+    },
+    {
+      "slug": "byte-pair-encoding",
+      "term": "Byte-pair encoding (BPE)",
+      "aka": [
+        "BPE"
+      ],
+      "category": "Fundamentals",
+      "short": "A subword tokenization method that builds a vocabulary by repeatedly merging the most frequent adjacent symbol pairs.",
+      "definition": "Byte-pair encoding is the most widely used way to build an LLM tokenizer. Training starts with individual characters or bytes, counts which adjacent pairs appear most often in a large text sample, merges the top pair into a new symbol, and repeats until the vocabulary reaches a target size. Frequent words like 'the' end up as single tokens, while rare words are assembled from smaller pieces instead of being marked unknown. Byte-level BPE goes further by working on raw bytes, so it can represent any language, emoji or odd string. The technique began as a 1990s compression algorithm and was adapted for neural machine translation in 2015 before becoming standard for LLMs.",
+      "related": [
+        "tokenization",
+        "token",
+        "special-tokens"
+      ]
+    },
+    {
+      "slug": "chat-model",
+      "term": "Chat model",
+      "aka": [
+        "instruct model",
+        "instruction-tuned model",
+        "assistant model"
+      ],
+      "category": "Fundamentals",
+      "short": "A base model further trained to follow instructions and hold a conversation in turns.",
+      "definition": "A chat model, also called an instruct model, starts as a base model and then goes through post-training: supervised fine-tuning on example conversations, followed by preference training such as RLHF or DPO. The result answers questions directly, follows formatting instructions, declines some harmful requests and keeps track of who said what across turns using a chat template. Open-weights releases often come in pairs, a base checkpoint and a version labeled Instruct or Chat, so you can choose a raw model for your own fine-tuning or a ready-to-use assistant. For almost all application work, you want the chat version.",
+      "related": [
+        "base-model",
+        "instruction-tuning",
+        "rlhf",
+        "prompt-template"
+      ]
+    },
+    {
+      "slug": "context-window",
+      "term": "Context window",
+      "aka": [
+        "context length",
+        "context size"
+      ],
+      "category": "Fundamentals",
+      "short": "The maximum number of tokens a model can consider at once, covering both input and output.",
+      "definition": "The context window is the model's working memory for a single request: everything it can see at once, including the system prompt, conversation history, retrieved documents, tool results and the answer it is writing. Anything outside the window is invisible to the model. Sizes are quoted in tokens; as of October 2026, several frontier models accept a million tokens or more, while many smaller open models top out between 32,000 and 128,000. A bigger window is not free: each extra token adds cost and latency, and models often use information in the middle of very long inputs less reliably than material near the start or end.",
+      "related": [
+        "token",
+        "long-context",
+        "kv-cache",
+        "lost-in-the-middle"
+      ]
+    },
+    {
+      "slug": "embedding",
+      "term": "Embedding",
+      "aka": [
+        "vector embedding",
+        "embedding vector"
+      ],
+      "category": "Fundamentals",
+      "short": "A list of numbers that represents the meaning of a token, sentence or document as a point in space.",
+      "definition": "An embedding is a fixed-length vector of numbers, often hundreds or thousands of dimensions long, that encodes meaning so that similar items sit close together. Inside an LLM, every token is first converted to an embedding before the transformer layers process it. Separately, dedicated embedding models turn whole sentences or documents into vectors for search: 'How do I reset my password?' and 'forgot login credentials' land near each other even though they share no words. You compare embeddings with a similarity measure such as cosine similarity, which is the core operation behind semantic search and retrieval-augmented generation.",
+      "related": [
+        "embedding-model",
+        "vector-database",
+        "cosine-similarity",
+        "semantic-search"
+      ]
+    },
+    {
+      "slug": "emergent-abilities",
+      "term": "Emergent abilities",
+      "aka": [
+        "emergence"
+      ],
+      "category": "Fundamentals",
+      "short": "Skills that seem to appear suddenly once models pass a certain scale, rather than improving gradually.",
+      "definition": "Emergent abilities are capabilities that small models lack but larger models display, such as multi-step arithmetic or following novel instructions from a few examples. A widely cited 2022 study documented many tasks where performance jumped sharply past a certain scale. Later work argued that many of these jumps reflect the metric, not the model: scoring answers as all-or-nothing hides steady underlying improvement that smoother metrics reveal. The practical lesson is that capabilities can be hard to predict from smaller versions of a model, which is one reason labs evaluate each new model directly.",
+      "related": [
+        "scaling-laws",
+        "benchmark",
+        "in-context-learning"
+      ]
+    },
+    {
+      "slug": "foundation-model",
+      "term": "Foundation model",
+      "aka": [
+        "general-purpose AI model"
+      ],
+      "category": "Fundamentals",
+      "short": "A large model trained on broad data that can be adapted to many downstream tasks.",
+      "definition": "A foundation model is a large model pretrained on broad, mostly unlabeled data and meant to serve as a base for many applications rather than one task. Stanford researchers popularized the term in 2021 to describe how a single model, such as an LLM, can be adapted through prompting, fine-tuning or retrieval to write code, answer support tickets or classify documents. The concept matters for governance too: the EU AI Act's rules for general-purpose AI models target this category. LLMs are the best-known foundation models, but the term also covers image, audio and multimodal models.",
+      "related": [
+        "base-model",
+        "pretraining",
+        "fine-tuning",
+        "eu-ai-act"
+      ]
+    },
+    {
+      "slug": "frontier-model",
+      "term": "Frontier model",
+      "aka": [
+        "frontier AI"
+      ],
+      "category": "Fundamentals",
+      "short": "One of the most capable models available at a given time, usually from a well-funded lab.",
+      "definition": "A frontier model sits at the leading edge of capability when it is released, typically trained with enormous compute by a small number of well-resourced labs. The label is relative: today's frontier becomes mid-tier within a year or two as newer models and cheaper competitors catch up. Regulators use related ideas to decide who faces extra obligations. Under the EU AI Act, for example, a general-purpose model trained with more than 10^25 floating-point operations is presumed to carry systemic risk. For buyers, frontier models offer the best quality on hard tasks but usually the highest price per token.",
+      "related": [
+        "foundation-model",
+        "scaling-laws",
+        "eu-ai-act",
+        "flops"
+      ]
+    },
+    {
+      "slug": "hallucination",
+      "term": "Hallucination",
+      "aka": [
+        "confabulation",
+        "fabrication"
+      ],
+      "category": "Fundamentals",
+      "short": "When a model states something false or unsupported with the same confidence as a fact.",
+      "definition": "A hallucination is output that sounds plausible but is wrong or made up: a citation to a paper that doesn't exist, an API function that was never written, or a confident summary that contradicts its source. It happens because a language model generates statistically likely text rather than looking facts up, and training rarely rewards saying 'I don't know.' You can reduce hallucinations by grounding answers in retrieved documents, asking for citations you can check, lowering temperature for factual tasks and letting the model abstain. You cannot eliminate them, so high-stakes outputs need verification by a person or an automated check.",
+      "related": [
+        "grounding",
+        "rag",
+        "citations"
+      ]
+    },
+    {
+      "slug": "knowledge-cutoff",
+      "term": "Knowledge cutoff",
+      "aka": [
+        "training cutoff",
+        "training data cutoff"
+      ],
+      "category": "Fundamentals",
+      "short": "The date after which a model's training data stops, so it knows little about later events.",
+      "definition": "The knowledge cutoff is the point in time where a model's training data ends. Ask about anything after it, such as a new library release, a recent price change or this week's news, and the model will either say it doesn't know or, worse, guess. Cutoffs usually trail a model's public release by several months, and coverage thins out in the final months before the cutoff because less had been written about them yet. To work with current information, give the model fresh context through retrieval, web search or tool calls, and include today's date in the prompt when timing matters.",
+      "related": [
+        "rag",
+        "grounding",
+        "pretraining"
+      ]
+    },
+    {
+      "slug": "large-language-model",
+      "term": "Large language model (LLM)",
+      "aka": [
+        "LLM",
+        "language model"
+      ],
+      "category": "Fundamentals",
+      "short": "A neural network trained on huge amounts of text to predict and generate language.",
+      "definition": "A large language model is a neural network, almost always a transformer, trained on vast amounts of text to predict the next token in a sequence. Repeating that one prediction step lets it draft emails, answer questions, write code and summarize documents. Large refers to the parameter count, which ranges from a few billion to a trillion or more, and to the compute spent on training. An LLM has no built-in database of facts; what it knows is stored implicitly in its weights, which is why it can sound confident while being wrong. Most products you use pair a pretrained model with further tuning so it follows instructions.",
+      "related": [
+        "transformer",
+        "token",
+        "foundation-model",
+        "pretraining"
+      ]
+    },
+    {
+      "slug": "long-context",
+      "term": "Long context",
+      "aka": [
+        "long-context model",
+        "long-context window"
+      ],
+      "category": "Fundamentals",
+      "short": "The ability to process very long inputs, from hundreds of thousands to millions of tokens.",
+      "definition": "Long context refers to models and techniques that handle very large inputs in one request, such as an entire codebase, a stack of contracts or hours of transcripts. It relies on architectural work like extended position encodings, efficient attention kernels and compressed KV caches. Long context can replace a retrieval pipeline for small or one-off document sets, but it has trade-offs: cost and latency grow with every token, and accuracy can slip on facts buried mid-document. A common pattern is to retrieve the most relevant material first and use long context for the parts that need full detail.",
+      "related": [
+        "context-window",
+        "needle-in-a-haystack",
+        "lost-in-the-middle",
+        "rag"
+      ]
+    },
+    {
+      "slug": "multimodal",
+      "term": "Multimodal",
+      "aka": [
+        "multimodal model",
+        "multimodal LLM",
+        "vision-language model"
+      ],
+      "category": "Fundamentals",
+      "short": "Able to take in or produce more than one kind of data, such as text, images and audio.",
+      "definition": "A multimodal model handles several input or output types instead of text alone. The most common form is a vision-language model that accepts images alongside text, so you can ask it to read a chart, transcribe a receipt or describe a screenshot. Others accept audio or video, and some can generate images or speech as well as text. Under the hood, non-text inputs are usually converted into embeddings the language model can attend to, much like extra tokens, and a single image can consume hundreds or thousands of tokens. Check a model's documentation for which modalities it supports in each direction, since input and output support often differ.",
+      "related": [
+        "large-language-model",
+        "computer-use",
+        "embedding"
+      ]
+    },
+    {
+      "slug": "open-weights",
+      "term": "Open weights",
+      "aka": [
+        "open-weight model",
+        "open model"
+      ],
+      "category": "Fundamentals",
+      "short": "A model whose trained parameters are published for anyone to download and run.",
+      "definition": "An open-weights model is one whose trained parameters you can download, run on your own hardware and usually fine-tune. That differs from open source in the full sense: the training data and code may stay private, and the license may restrict some uses, so check it before building a product. Open weights give you control over privacy, cost and customization, and you can't lose access if a provider retires a model. In exchange you take on hosting, scaling and safety work yourself. The quality gap between the strongest open-weights and closed models has narrowed considerably since 2023, though it varies by task.",
+      "related": [
+        "license",
+        "open-source-ai-definition",
+        "self-hosting"
+      ]
+    },
+    {
+      "slug": "parameters",
+      "term": "Parameters",
+      "aka": [
+        "weights",
+        "parameter count"
+      ],
+      "category": "Fundamentals",
+      "short": "The learned numbers inside a model; their count is the usual measure of model size.",
+      "definition": "Parameters are the numerical values, mostly weights in matrix multiplications, that a model adjusts during training and then uses to compute its outputs. A model described as 8B has about eight billion of them. Parameter count drives memory needs: at 16-bit precision each parameter takes two bytes, so an 8B model needs roughly 16 GB just to hold its weights, before any working memory. More parameters generally mean more capacity, but training data, architecture and post-training matter as much, and a mixture-of-experts model may use only a fraction of its total parameters for each token.",
+      "related": [
+        "vram",
+        "scaling-laws",
+        "quantization",
+        "mixture-of-experts"
+      ]
+    },
+    {
+      "slug": "reasoning-model",
+      "term": "Reasoning model",
+      "aka": [
+        "thinking model",
+        "large reasoning model"
+      ],
+      "category": "Fundamentals",
+      "short": "An LLM trained to work through a problem in intermediate steps before giving its final answer.",
+      "definition": "A reasoning model generates a stretch of intermediate thinking, sometimes hidden and sometimes summarized, before producing its answer. It is trained largely with reinforcement learning on problems whose answers can be checked, such as math and code, so it learns to plan, test ideas and backtrack. This makes it markedly better on multi-step tasks, at the price of more output tokens, higher cost and longer waits. Many APIs let you control how much the model thinks through a setting such as reasoning effort or a thinking budget. For simple lookups or rewriting, a standard model is usually faster and cheaper.",
+      "related": [
+        "chain-of-thought",
+        "test-time-compute",
+        "rlvr",
+        "grpo"
+      ]
+    },
+    {
+      "slug": "small-language-model",
+      "term": "Small language model (SLM)",
+      "aka": [
+        "SLM",
+        "compact model"
+      ],
+      "category": "Fundamentals",
+      "short": "A language model small enough to run cheaply or on a single device, often under about 10B parameters.",
+      "definition": "A small language model is a compact LLM, typically from a few hundred million to roughly ten billion parameters, built to run on a laptop, phone or a single modest GPU. SLMs trade breadth of knowledge for speed, privacy and low cost. They are often trained with distillation from larger models and heavy data filtering, which lets them punch above their size on focused tasks. They work well for classification, extraction, routing and on-device assistants, especially after fine-tuning on your own data. For open-ended reasoning or broad world knowledge, larger models still usually win.",
+      "related": [
+        "on-device-ai",
+        "distillation",
+        "quantization",
+        "model-routing"
+      ]
+    },
+    {
+      "slug": "special-tokens",
+      "term": "Special tokens",
+      "aka": [
+        "control tokens",
+        "reserved tokens"
+      ],
+      "category": "Fundamentals",
+      "short": "Reserved tokens that mark structure, such as the start of a message or the end of output.",
+      "definition": "Special tokens are vocabulary entries that carry structure rather than text. Typical examples mark the beginning and end of a sequence, separate the system, user and assistant turns in a chat, or signal a tool call. When a model emits its end-of-sequence token, generation stops. You rarely type these yourself because chat APIs and prompt templates insert them automatically, but they matter when you run open models locally: using the wrong chat template, or letting user text masquerade as a special token, can degrade answers or open a path for prompt injection.",
+      "related": [
+        "tokenization",
+        "prompt-template",
+        "chat-model",
+        "prompt-injection"
+      ]
+    },
+    {
+      "slug": "token",
+      "term": "Token",
+      "aka": [],
+      "category": "Fundamentals",
+      "short": "The basic unit of text a language model reads and writes, often a word or word fragment.",
+      "definition": "A token is the chunk of text a model actually processes: a whole word, part of a word, a punctuation mark or a byte. A tokenizer splits your input into tokens before the model sees it and turns the model's output tokens back into text. In English, one token averages roughly four characters, or about three-quarters of a word, so a 1,500-word article is around 2,000 tokens. Tokens matter in practice because providers bill per token, context windows are measured in tokens, and generation speed is quoted in tokens per second. Code, non-English text and unusual strings often use more tokens per word.",
+      "related": [
+        "tokenization",
+        "context-window",
+        "cost-per-token",
+        "byte-pair-encoding"
+      ]
+    },
+    {
+      "slug": "tokenization",
+      "term": "Tokenization",
+      "aka": [
+        "tokenizer"
+      ],
+      "category": "Fundamentals",
+      "short": "Splitting text into the tokens a model uses, and mapping each one to an ID number.",
+      "definition": "Tokenization is the step that converts raw text into a list of integer IDs drawn from a fixed vocabulary, and back again. Most modern LLMs use subword schemes such as byte-pair encoding, so common words map to a single token while rare words break into pieces: a long technical term might become four or five tokens. Vocabularies typically hold from about 32,000 to over 200,000 entries. Each model family ships its own tokenizer, so the same paragraph can produce noticeably different token counts, and therefore different costs, across providers. Tokenization also explains some odd failures, like miscounting the letters in a word the model never sees letter by letter.",
+      "related": [
+        "token",
+        "byte-pair-encoding",
+        "special-tokens"
+      ]
+    }
+  ]
+}

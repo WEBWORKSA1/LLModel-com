@@ -1,0 +1,165 @@
+<!--meta
+{
+  "slug": "how-llms-work",
+  "title": "How Do LLMs Work? Tokens, Attention and Sampling Explained",
+  "h1": "How large language models work, step by step",
+  "description": "How LLMs work, step by step: follow one sentence through tokenization, embeddings, self-attention, logits and sampling, then see how models are trained.",
+  "category": "Fundamentals",
+  "level": "Intermediate",
+  "updated": "2026-10-10",
+  "keywords": ["how llms work", "how do large language models work", "transformer self-attention explained", "llm tokenization", "temperature and top-p", "kv cache"],
+  "summary": "Follow one sentence through a large language model, from tokens and embeddings through self-attention, logits and sampling, with small worked examples at each step. Then see how training, scaling and mixture-of-experts shape what models can do, and why they hallucinate.",
+  "key_takeaways": [
+    "An LLM turns text into tokens, tokens into vectors, and vectors into a probability for every possible next token, then repeats that loop once per output token.",
+    "Self-attention lets each token weigh the tokens before it; in the worked example, the token 'bank' puts almost 59% of its attention on 'river'.",
+    "Temperature reshapes the probability distribution and top-p trims its tail; both control randomness, not knowledge.",
+    "The KV cache makes generation fast but costs memory, about 128 KiB per token for a typical mid-sized model, which is why long contexts are expensive to serve.",
+    "Pretraining teaches prediction, fine-tuning and preference training teach helpfulness, and reinforcement learning on checkable problems teaches reasoning.",
+    "Hallucinations and prompt sensitivity follow directly from sampling fluent tokens from learned probabilities, so grounding and testing are the practical remedies."
+  ],
+  "faq": [
+    {"q": "Do LLMs predict words or tokens?", "a": "They predict tokens. A token can be a whole common word, part of a rarer word, a punctuation mark or a few characters of code. In English, a token averages about four characters, so 100 tokens is roughly 75 words. At each step the model outputs a probability for every token in its vocabulary and then picks one, which is why pricing and context limits are measured in tokens rather than words."},
+    {"q": "What does temperature do in an LLM?", "a": "Temperature divides the model's raw scores, called logits, by a number before they are converted to probabilities. Values below 1 sharpen the distribution so the top choice dominates, which gives more consistent output. Values above 1 flatten it so less likely tokens are picked more often, which adds variety but also errors. Temperature changes randomness only, so it can't make a model know more or reason better."},
+    {"q": "What is the KV cache in a transformer?", "a": "The KV cache stores the attention keys and values already computed for earlier tokens. Without it, every new output token would require recomputing those values for the entire conversation. With it, each step only processes the newest token and reads the rest from memory. The cost is memory: the cache grows with every token, which is why long contexts need more GPU memory and why providers price long and cached prompts separately."},
+    {"q": "Why do LLMs give different answers to the same question?", "a": "Most applications sample the next token from a probability distribution instead of always taking the top choice, so two runs can diverge at the first uncertain token and then drift further apart. Even at temperature 0, differences in batching and floating-point arithmetic on servers can change results slightly. For consistent output, lower the temperature, constrain the format with structured outputs and test prompts across several runs."},
+    {"q": "Is a model with more parameters always better?", "a": "Not always. More parameters generally mean more capacity, and scaling research shows loss improves predictably with size, data and compute. But data quality, post-training and inference-time reasoning matter as much. Mixture-of-experts models also blur the comparison, since only a small fraction of their parameters is active for each token. A newer, smaller model often beats an older, larger one, so compare models on your own tasks."}
+  ],
+  "sources": [
+    {"title": "Attention Is All You Need (Vaswani et al., 2017)", "url": "https://arxiv.org/abs/1706.03762"},
+    {"title": "Scaling Laws for Neural Language Models (Kaplan et al., 2020)", "url": "https://arxiv.org/abs/2001.08361"},
+    {"title": "Training Compute-Optimal Large Language Models (Hoffmann et al., 2022)", "url": "https://arxiv.org/abs/2203.15556"},
+    {"title": "Training language models to follow instructions with human feedback (Ouyang et al., 2022)", "url": "https://arxiv.org/abs/2203.02155"},
+    {"title": "Direct Preference Optimization (Rafailov et al., 2023)", "url": "https://arxiv.org/abs/2305.18290"},
+    {"title": "DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning (DeepSeek-AI, 2025)", "url": "https://arxiv.org/abs/2501.12948"},
+    {"title": "The Curious Case of Neural Text Degeneration (Holtzman et al., 2019)", "url": "https://arxiv.org/abs/1904.09751"},
+    {"title": "Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer (Shazeer et al., 2017)", "url": "https://arxiv.org/abs/1701.06538"},
+    {"title": "Introducing gpt-oss (OpenAI, 2025)", "url": "https://openai.com/index/introducing-gpt-oss/"},
+    {"title": "Why Language Models Hallucinate (Kalai et al., 2025)", "url": "https://arxiv.org/abs/2509.04664"}
+  ],
+  "related_tools": ["token-counter", "context-window-visualizer", "vram-calculator"],
+  "related_guides": ["what-is-a-large-language-model", "context-windows-explained", "prompt-engineering-guide", "llm-hallucinations"]
+}
+-->
+<p>Large language models can seem to think, but every reply comes from one mechanical loop repeated once per token. This guide follows a single short sentence through that loop, from raw text to the next word, with small worked numbers at each step. Then it covers how the model learned its behavior, why scale matters, and what the mechanics explain about hallucinations and prompt sensitivity.</p>
+
+<h2 id="the-pipeline-at-a-glance">The pipeline at a glance</h2>
+<p>Our running example: you send a model the text "She sat on the river bank and", and it must produce the next word. Here's what happens before that word appears.</p>
+<ol>
+<li>A tokenizer splits the text into tokens and maps each one to an integer ID.</li>
+<li>Each ID is swapped for an embedding, a long list of numbers.</li>
+<li>The vectors pass through a stack of transformer layers, where self-attention lets each token gather context from the tokens before it.</li>
+<li>The final vector becomes a raw score, or logit, for every token in the vocabulary.</li>
+<li>The scores become probabilities, and a sampling rule picks one token.</li>
+<li>That token is appended to the input, and the loop repeats until the reply is done.</li>
+</ol>
+<p>Steps 1 through 5 are one forward pass. A 500-word answer needs several hundred of them, one per token, which is why replies stream out piece by piece.</p>
+
+<h2 id="tokens-and-embeddings">From text to vectors: tokens and embeddings</h2>
+<h3 id="tokenization">Tokenization</h3>
+<p>Models don't see letters or words; they see <a href="glossary.html#token">tokens</a>. Before training, a tokenizer is built with a method such as <a href="glossary.html#byte-pair-encoding">byte-pair encoding</a>: it starts from individual bytes and repeatedly merges the most frequent neighboring pairs until it reaches a fixed vocabulary, typically on the order of 100,000 to a few hundred thousand entries.</p>
+<p>Common words become single tokens, usually including the space in front of them. With a typical modern tokenizer, our sentence most likely becomes seven tokens: "She", " sat", " on", " the", " river", " bank" and " and". A rarer word such as "riverbank" might be split into pieces, and numbers or code often break in ways that look arbitrary.</p>
+<p>Each token's ID is just a row number in the vocabulary. <a href="glossary.html#tokenization">Tokenization</a> also explains everyday quirks: you pay per token, and many non-English languages need more tokens per word.</p>
+<h3 id="embeddings">Embeddings</h3>
+<p>Each token ID selects a row from an embedding table, a learned list of numbers that represents the token. Vectors range from a few hundred numbers in tiny models to more than 10,000 in the largest published ones. Training places tokens that are used in similar ways near each other, so " river" ends up closer to " stream" than to " invoice".</p>
+<p>Attention has no built-in sense of word order, so position must be added. Most current open models use rotary position embedding (RoPE), which rotates each token's query and key vectors by an amount that depends on its position.</p>
+
+<h2 id="transformer-layers-and-self-attention">Transformer layers and self-attention</h2>
+<p>The embeddings now pass through a stack of identical <a href="glossary.html#transformer">transformer</a> layers: 24 in OpenAI's gpt-oss-20b and 36 in gpt-oss-120b, for example. Each layer has two main parts. Self-attention lets every token pull in information from earlier tokens, and a feed-forward network then processes each token's vector on its own; the feed-forward parts hold most of the parameters and appear to store much of the model's factual knowledge.</p>
+<h3 id="attention-intuition">The intuition behind attention</h3>
+<p>Take the token " bank". On its own it's ambiguous: it could be the edge of a river or a place that holds money. <a href="glossary.html#attention">Attention</a> lets " bank" look back over the sentence and decide which earlier tokens matter for interpreting it.</p>
+<p>For each token, the layer computes three vectors from its current state. The query describes what this token is looking for, the key advertises what each token offers, and the value is the content a token passes along when it's selected. Comparing one token's query with every key produces relevance scores, and those scores decide how much of each value gets blended in.</p>
+<h3 id="attention-worked-example">A small worked example</h3>
+<p>Real query and key vectors typically have 64 to 128 dimensions per head, but two are enough to see the arithmetic. Suppose the query for " bank" is [1.0, 2.0] and each token's key is as shown below. Each score is the dot product of the query with a key, divided by the square root of the vector size (here √2, about 1.41) to keep values in a stable range, and a softmax then turns the scores into weights that sum to 100%.</p>
+<table>
+<thead><tr><th>Token</th><th>Key</th><th>Query · key</th><th>Scaled score</th><th>Attention weight</th></tr></thead>
+<tbody>
+<tr><td>She</td><td>[0.5, 0.0]</td><td>0.5</td><td>0.35</td><td>4.9%</td></tr>
+<tr><td>sat</td><td>[0.2, 0.4]</td><td>1.0</td><td>0.71</td><td>7.0%</td></tr>
+<tr><td>on</td><td>[0.1, 0.1]</td><td>0.3</td><td>0.21</td><td>4.3%</td></tr>
+<tr><td>the</td><td>[0.0, 0.2]</td><td>0.4</td><td>0.28</td><td>4.6%</td></tr>
+<tr><td>river</td><td>[1.0, 1.5]</td><td>4.0</td><td>2.83</td><td>58.8%</td></tr>
+<tr><td>bank</td><td>[0.5, 1.0]</td><td>2.5</td><td>1.77</td><td>20.3%</td></tr>
+</tbody>
+</table>
+<p>Nearly 59% of the weight lands on " river". The new vector for " bank" is the weighted sum of all six value vectors, so it's dominated by information from " river", and later layers see a " bank" that leans toward the riverside meaning. Nobody programmed that rule; training adjusted the query and key projections until useful patterns like this one emerged.</p>
+<h3 id="heads-masks-and-depth">Heads, masks and depth</h3>
+<p>Each layer runs many attention heads in parallel, so one head can track grammar while another follows references. A causal mask stops each token from attending to later ones, which lets training score every position at once. After the final layer, the vector at " and" carries what the model needs to predict the next token.</p>
+
+<h2 id="logits-probabilities-and-sampling">Logits, probabilities and sampling</h2>
+<h3 id="from-logits-to-probabilities">From logits to probabilities</h3>
+<p>The model then multiplies that final vector by an output matrix, producing one raw score, or <a href="glossary.html#logits">logit</a>, for every token in the vocabulary. A softmax converts the scores into probabilities by exponentiating each one and dividing by the total, so higher scores get disproportionately more weight.</p>
+<p>Pretend the vocabulary had only five candidates. Here's the distribution for the next token at three temperatures.</p>
+<table>
+<thead><tr><th>Candidate token</th><th>Logit</th><th>Temperature 1.0</th><th>Temperature 0.5</th><th>Temperature 1.5</th></tr></thead>
+<tbody>
+<tr><td>" watched"</td><td>5.0</td><td>51.3%</td><td>75.9%</td><td>40.8%</td></tr>
+<tr><td>" read"</td><td>4.2</td><td>23.0%</td><td>15.3%</td><td>23.9%</td></tr>
+<tr><td>" listened"</td><td>3.8</td><td>15.4%</td><td>6.9%</td><td>18.3%</td></tr>
+<tr><td>" fished"</td><td>3.1</td><td>7.7%</td><td>1.7%</td><td>11.5%</td></tr>
+<tr><td>" cried"</td><td>2.0</td><td>2.6%</td><td>0.2%</td><td>5.5%</td></tr>
+</tbody>
+</table>
+<h3 id="temperature">Temperature</h3>
+<p><a href="glossary.html#temperature">Temperature</a> divides every logit by a number before the softmax. Below 1 it sharpens the distribution: at 0.5, " watched" climbs from 51% to 76%. Above 1 it flattens it, and at 1.5 the long shot " cried" more than doubles to 5.5%. A temperature near 0 approximates greedy decoding, which always takes the top token.</p>
+<h3 id="top-p">Top-p</h3>
+<p><a href="glossary.html#top-p">Top-p</a>, or nucleus sampling, trims the unlikely tail instead of reshaping the whole curve. It keeps the smallest set of top tokens whose probabilities add up to at least p, rescales them, and samples from that set. With p set to 0.8, the first three candidates cover 89.8%, so " fished" and " cried" are dropped, and the survivors become 57.1%, 25.7% and 17.2%.</p>
+<p>In practice, adjust one of these settings at a time. Low temperatures suit extraction and classification, where you want the same answer every run, while moderate values suit drafting and brainstorming.</p>
+
+<h2 id="generation-loop-and-kv-cache">The generation loop and the KV cache</h2>
+<p>Suppose the sampler picks " watched". The model appends it to the input and runs again, now predicting the token after "and watched". This repeats until the model emits a special end-of-sequence token or hits the output limit you set.</p>
+<p>Generation has two phases with different costs. In prefill, the model processes your whole prompt in parallel, which determines the time to the first token. In decode, it produces one token per step, and that sequential loop sets the output speed you see as tokens per second.</p>
+<h3 id="why-the-kv-cache-exists">Why the KV cache exists</h3>
+<p>Without a shortcut, each step would recompute keys and values for every earlier token. The <a href="glossary.html#kv-cache">KV cache</a> stores those keys and values for every layer, so each step computes them only for the newest token and reads the rest from memory.</p>
+<p>The cache trades compute for memory. In a configuration shared by several 7B-to-8B open models, with 32 layers and 8 key-value heads of 128 dimensions each, stored at 16-bit precision, every token needs 2 × 32 × 8 × 128 × 2 bytes, or 128 KiB. A single 128K-token conversation therefore needs 16 GiB of cache on top of the model's weights.</p>
+<p>That's why long contexts are expensive to serve and why labs keep shrinking the cache. DeepSeek's model card for V4.1-Flash, for example, reports a global KV cache of about 890 bytes per token, roughly a quarter of its predecessor's.</p>
+<p>Providers extend the idea across requests with <a href="glossary.html#prompt-caching">prompt caching</a>: when calls share a long prefix, such as a system prompt, repeat reads are billed at a steep discount. As of October 2026, cached input on Claude Opus 5.5 and GPT-6.1 Sol costs 5% of the normal input price.</p>
+
+<h2 id="how-the-model-learned">How the model learned to do this</h2>
+<p>Everything above happens at inference time with fixed parameters. The parameters themselves come from training stages that run the same forward pass but add a feedback signal.</p>
+<h3 id="pretraining-objective">Pretraining: predict the next token</h3>
+<p>During <a href="glossary.html#pretraining">pretraining</a>, the model reads trillions of tokens and predicts the next one at every position. The loss is the negative logarithm of the probability it gave the correct token: assigning 25% costs about 1.39, while 90% costs only 0.11. Backpropagation then nudges every parameter to lower the average loss across trillions of these predictions.</p>
+<p>Average loss is often reported as <a href="glossary.html#perplexity">perplexity</a>, the exponential of the loss. A loss of 1.39 corresponds to a perplexity of 4, as uncertain as choosing among four equally likely options.</p>
+<h3 id="supervised-fine-tuning">Supervised fine-tuning</h3>
+<p>A pretrained base model continues text but doesn't reliably follow instructions. Supervised fine-tuning, also called <a href="glossary.html#instruction-tuning">instruction tuning</a>, trains it on curated prompt-and-response examples with the same next-token loss, usually counting only the response tokens. This is where it learns chat formatting, when to decline and how to call tools.</p>
+<h3 id="rlhf-and-dpo">Preference training: RLHF and DPO</h3>
+<p>Next comes learning from comparisons. In <a href="glossary.html#rlhf">RLHF</a>, people rank alternative responses, a separate reward model learns to predict those rankings, and reinforcement learning pushes the LLM toward higher-reward answers while a penalty keeps it close to its starting point. OpenAI's 2022 InstructGPT work used this recipe, and evaluators preferred its tuned 1.3B model over the 175B GPT-3.</p>
+<p><a href="glossary.html#dpo">Direct preference optimization (DPO)</a>, introduced in 2023, reaches a similar goal more simply. It skips the separate reward model and the reinforcement learning loop, training directly on preferred and rejected pairs with a classification-style loss. Many open-weight models use DPO or a variant because it's cheaper and more stable to run.</p>
+<h3 id="reinforcement-learning-for-reasoning">Reinforcement learning for reasoning</h3>
+<p><a href="glossary.html#reasoning-model">Reasoning models</a> add large-scale reinforcement learning on tasks whose answers can be checked automatically, such as math problems with known solutions or code with unit tests. DeepSeek's R1 paper, published in January 2025, reported that this kind of training, without human-written reasoning examples, produced behaviors such as self-reflection and verification. The model learns that spending tokens on intermediate steps raises its chance of reward, and that's the visible thinking you see in reasoning models.</p>
+
+<h2 id="why-scale-matters">Why scale matters: scaling laws and mixture-of-experts</h2>
+<h3 id="scaling-laws">Scaling laws</h3>
+<p>In 2020, Kaplan and colleagues at OpenAI showed that a language model's loss falls along a smooth power law as you increase parameters, training data and compute. These <a href="glossary.html#scaling-laws">scaling laws</a> are why labs commit huge budgets with some confidence: they can forecast a large model's loss from small pilot runs.</p>
+<p>In 2022, DeepMind's Chinchilla paper refined the recipe: for a fixed compute budget, parameters and training tokens should grow together, with data doubling whenever model size doubles. Its 70B model, trained on about four times as much data as the 280B Gopher for the same compute, outperformed it.</p>
+<p>Current practice goes further, training smaller models on far more data than that recipe suggests, because a model that's cheap to run matters more than one that's cheapest to train. Reasoning models add a second axis: more compute at inference time, through longer thinking, also improves results on hard problems.</p>
+<h3 id="mixture-of-experts">Mixture-of-experts</h3>
+<p><a href="glossary.html#mixture-of-experts">Mixture-of-experts</a> (MoE) models gain capacity without a matching increase in compute per token. Each MoE layer replaces one feed-forward network with many smaller expert networks plus a router that sends each token to only a few of them. Sparse expert layers were scaled up for language models in a 2017 paper by Shazeer and colleagues, and they now underpin most of the largest open-weight models.</p>
+<p>OpenAI's gpt-oss-120b shows the trade-off: it has 117 billion parameters and 128 experts per layer, but each token passes through only 4 experts, so about 5.1 billion parameters, roughly 4% of the total, do the work. Compute per token resembles a 5B dense model, yet all 117B parameters must sit in memory.</p>
+<p>MoE saves compute, not memory, and the gap can be extreme. Moonshot lists its open-weight Kimi K3 at 2.8 trillion total parameters with 104 billion active.</p>
+
+<h2 id="what-this-explains-about-behavior">What the mechanics explain about behavior</h2>
+<p>Once you know the pipeline, many puzzling behaviors become predictable. Each one below has a mechanical cause and a practical response.</p>
+<table>
+<thead><tr><th>Behavior</th><th>Mechanical cause</th><th>What to do</th></tr></thead>
+<tbody>
+<tr><td>Confident wrong answers</td><td>The model always samples a fluent next token, and training rewards guessing over abstaining</td><td>Supply sources, allow "I don't know", verify key facts</td></tr>
+<tr><td>Different answers to the same prompt</td><td>Sampling picks from a distribution, and server batching adds small numeric differences</td><td>Lower the temperature, use structured outputs, test several runs</td></tr>
+<tr><td>Small wording changes flip results</td><td>Different tokens produce different attention patterns, and each sampled token conditions the rest</td><td>Test prompt variants on a fixed evaluation set and version your prompts</td></tr>
+<tr><td>Trouble counting letters or doing exact math</td><td>The model sees tokens, not characters, and digits split unpredictably</td><td>Route the work to code execution or a calculator tool</td></tr>
+</tbody>
+</table>
+<p><a href="glossary.html#hallucination">Hallucinations</a> about rare facts follow from the mechanics: facts that appear in few training documents leave a weak imprint, so the model can blend plausible fragments into a fluent but false answer. A 2025 paper by Kalai and colleagues adds that common training and evaluation methods reward confident guessing over abstaining, much as a multiple-choice exam rewards a guess over a blank.</p>
+<p>Sensitivity to wording has the same root: each sampled token becomes input for the next step, so one unlucky early choice can steer an entire answer. That's also why asking a model to work through a problem before answering, known as <a href="glossary.html#chain-of-thought">chain-of-thought</a>, often helps: it gives the final tokens more relevant context to attend to.</p>
+
+<h2 id="common-mistakes">Common mistakes</h2>
+<p>These misconceptions about the mechanics lead to bad design decisions. Each one has a simple correction.</p>
+<ul>
+<li><strong>Expecting temperature 0 to guarantee identical output.</strong> It narrows the choice but doesn't remove variation from batching and hardware.</li>
+<li><strong>Assuming the model remembers earlier conversations.</strong> The model keeps nothing between calls; apps resend history or saved notes in the prompt, and anything outside the context window is invisible.</li>
+<li><strong>Equating size with freshness.</strong> A bigger model isn't more current, because its knowledge still stops at the training cutoff.</li>
+<li><strong>Sizing hardware by active parameters.</strong> An MoE model with 5B active parameters may still need memory for 117B.</li>
+<li><strong>Reading attention weights as explanations.</strong> They show where information flowed in one layer, not why the model answered as it did.</li>
+</ul>
+
+<h2 id="next-steps">Next steps</h2>
+<p>To see how these mechanics translate into limits and cost, read <a href="context-windows-explained.html">context windows explained</a> and try the <a href="token-counter.html">token counter</a> on your own prompts. To turn the behavior insights into better results, the <a href="prompt-engineering-guide.html">prompt engineering guide</a> covers concrete techniques. If you're designing a production system and want an experienced reviewer, you can <a href="hire-llm-experts.html">get expert help</a>.</p>
