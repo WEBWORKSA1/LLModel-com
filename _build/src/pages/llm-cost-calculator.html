@@ -1,0 +1,91 @@
+<!--meta
+{
+  "slug": "llm-cost-calculator",
+  "title": "LLM API Cost Calculator: Compare Monthly Costs Across 50+ Models",
+  "h1": "LLM API cost calculator",
+  "lede": "Enter your tokens per request and request volume. The calculator prices the workload on every model with a published rate and ranks them by monthly bill, with caching and batch discounts if you use them.",
+  "head_meta": ["Prices checked October 10, 2026", "Runs in your browser"],
+  "description": "Free LLM API pricing calculator: estimate monthly cost for GPT, Claude, Gemini, Grok, DeepSeek, Qwen, Llama and more from tokens per request, volume, caching and batch discounts.",
+  "section": "tools",
+  "crumbs": [["Home", "index.html"], ["Tools", "tools.html"], ["Cost calculator", null]],
+  "data": ["models"],
+  "scripts": ["tools/cost.js"],
+  "priority": 0.9,
+  "faq": [
+    {"q": "How do I estimate tokens per request?", "a": "Count everything you send: system prompt, conversation history, retrieved documents and the user's message. For English text, 1,000 tokens is roughly 750 words. Paste a real prompt into the token counter to measure it, and remember that output tokens include any reasoning tokens the model generates."},
+    {"q": "Why is output priced higher than input?", "a": "Output tokens are generated one at a time, each needing a full pass through the model, while input tokens are processed in parallel. Providers price output at several times the input rate to reflect that cost."},
+    {"q": "What is cached input?", "a": "When you resend the same prompt prefix, such as a long system prompt or document, many providers bill the repeated part at a discounted cached-input rate. The slider applies each model's published cached price to the share of input you expect to repeat."},
+    {"q": "Does this include taxes, long-prompt surcharges or regional pricing?", "a": "No. It uses standard list prices. Some providers charge more for prompts above a size threshold, for priority processing or for regional data handling; the model pages note these where they apply."}
+  ]
+}
+-->
+<div class="wrap">
+  <div class="tool">
+    <div class="tool__in">
+      <h2 class="tool-h">Your workload</h2>
+      <div class="field"><span class="label">Start from a preset</span>
+        <div class="seg" id="cc-presets" role="group" aria-label="Workload presets">
+          <button type="button" data-preset="chatbot" aria-pressed="true">Chatbot</button>
+          <button type="button" data-preset="rag" aria-pressed="false">Document Q&amp;A</button>
+          <button type="button" data-preset="summaries" aria-pressed="false">Summaries</button>
+          <button type="button" data-preset="coding" aria-pressed="false">Coding agent</button>
+          <button type="button" data-preset="classify" aria-pressed="false">Classification</button>
+        </div>
+      </div>
+      <div class="field"><label for="cc-in">Input tokens per request</label><input class="input" type="number" id="cc-in" min="0" step="100" value="2000" inputmode="numeric"><p class="hint">System prompt, history, documents and the question. About 750 words is 1,000 tokens.</p></div>
+      <div class="field"><label for="cc-out">Output tokens per request</label><input class="input" type="number" id="cc-out" min="0" step="50" value="400" inputmode="numeric"><p class="hint">Include reasoning tokens if you use a thinking mode.</p></div>
+      <div class="form-row">
+        <div class="field"><label for="cc-req">Requests per day</label><input class="input" type="number" id="cc-req" min="0" step="10" value="1000" inputmode="numeric"></div>
+        <div class="field"><label for="cc-days">Days per month</label><input class="input" type="number" id="cc-days" min="1" max="31" step="1" value="30" inputmode="numeric"></div>
+      </div>
+      <div class="field"><label for="cc-cache">Input served from cache</label><div class="range-row"><input type="range" id="cc-cache" min="0" max="90" step="5" value="0"><output for="cc-cache" id="cc-cache-out">0%</output></div><p class="hint">Uses each model's published cached-input price; models without one pay the normal rate.</p></div>
+      <label class="check"><input type="checkbox" id="cc-batch"> Apply a 50% batch discount to every model. Several major providers offer about half price for asynchronous batch jobs, but not all do.</label>
+      <div class="field"><span class="label">Models</span>
+        <div class="seg" id="cc-weights" role="group" aria-label="Filter by weights">
+          <button type="button" data-w="" aria-pressed="true">All</button>
+          <button type="button" data-w="closed" aria-pressed="false">Closed</button>
+          <button type="button" data-w="open" aria-pressed="false">Open-weight</button>
+        </div>
+        <label class="check" style="margin-top:.5rem"><input type="checkbox" id="cc-legacy"> Include legacy models</label>
+      </div>
+    </div>
+    <div class="tool__out">
+      <div class="out-grid" id="cc-summary" aria-live="polite"></div>
+      <h2 class="h3" style="margin:1.5rem 0 .75rem" id="cc-pinned-h" hidden>Your models</h2>
+      <ul class="bars" id="cc-pinned"></ul>
+      <h2 class="h3" style="margin:1.5rem 0 .75rem">Monthly cost by model</h2>
+      <ul class="bars" id="cc-bars"></ul>
+      <div class="legend"><span><i style="background:var(--v3)"></i>Closed model</span><span><i style="background:var(--v6)"></i>Open-weight model</span><span class="muted">Bar length uses a square-root scale so cheap models stay visible.</span></div>
+      <div class="tool-actions">
+        <button type="button" class="btn btn--ghost btn--sm" id="cc-link">Copy link to these inputs</button>
+        <button type="button" class="btn btn--ghost btn--sm" id="cc-csv">Download CSV</button>
+        <button type="button" class="btn btn--ghost btn--sm" id="cc-all">Show all models</button>
+      </div>
+      <div class="notice" id="cc-cta" style="margin-top:1.25rem"></div>
+    </div>
+  </div>
+  {{ad:tool-result}}
+</div>
+
+<section class="section" aria-labelledby="how-h">
+  <div class="wrap wrap--read prose">
+    <h2 id="how-h">How the calculator works</h2>
+    <p>For each model, the cost of one request is the input tokens times the input price plus the output tokens times the output price, divided by one million because prices are quoted per million tokens. Cached input replaces part of the input price with the cheaper cached rate. The monthly bill multiplies that by requests per day and days per month.</p>
+    <pre><code>cost per request = (input &times; (1 &minus; cache share) &times; input price
+                    + input &times; cache share &times; cached price
+                    + output &times; output price) &divide; 1,000,000
+monthly cost     = cost per request &times; requests per day &times; days</code></pre>
+    <h3 id="example">A worked example</h3>
+    <p>A support bot handles 1,000 conversations a day. Each request sends 2,000 input tokens and gets 400 back. On a model priced at $2 per million input tokens and $10 per million output tokens, one request costs (2,000 &times; $2 + 400 &times; $10) &divide; 1,000,000 = $0.008. Over 30 days that's 30,000 requests, or $240 a month. The same workload on a model at $0.10 and $0.50 costs $12.</p>
+    <h3 id="cut">Five ways to cut the bill</h3>
+    <ul>
+      <li><strong>Route by difficulty.</strong> Send routine requests to an efficient model and escalate only the hard ones.</li>
+      <li><strong>Cache the stable part of your prompt.</strong> Put system instructions and shared documents first so providers can cache them.</li>
+      <li><strong>Trim the context.</strong> Retrieve the three most relevant passages instead of sending the whole manual.</li>
+      <li><strong>Batch what can wait.</strong> Overnight summaries and evaluations rarely need real-time answers.</li>
+      <li><strong>Cap output.</strong> Ask for concise, structured answers and set a maximum token limit.</li>
+    </ul>
+    <p>The full picture, including reasoning tokens and long-prompt surcharges, is in <a href="llm-api-pricing-explained.html">LLM API pricing explained</a>. If you're paying for GPUs instead of tokens, try the <a href="self-host-vs-api-calculator.html">self-host vs API calculator</a>.</p>
+  </div>
+</section>
+<div class="wrap">{{lead:costs,cut-costs}}</div>

@@ -1,0 +1,32 @@
+<!--meta
+{
+  "slug": "models",
+  "title": "LLM Directory: 55 Large Language Models Compared on Price, Context and License",
+  "h1": "LLM directory",
+  "lede": "Every model we track, from frontier APIs to open-weight models you can run yourself. Filter by provider, license, tier, inputs and context, sort by price, and tick up to four to compare.",
+  "head_meta": ["Prices are list rates per 1M tokens in US dollars", "Checked October 10, 2026", "<a href=\"editorial-policy.html#data\">How we verify data</a>"],
+  "description": "Compare 55 large language models from 17 providers: per-token prices, context windows, open or closed weights, inputs and release dates. Filter, sort and compare side by side.",
+  "section": "models",
+  "crumbs": [["Home", "index.html"], ["Models", null]],
+  "scripts": ["pages/directory.js"],
+  "priority": 0.9,
+  "faq": [
+    {"q": "How many LLMs are there?", "a": "Thousands of language models exist if you count every fine-tune on Hugging Face. This directory tracks the models most teams actually evaluate: current and recent releases from the major API providers and the leading open-weight labs, with prices and specs checked against each provider's documentation."},
+    {"q": "What does blended price mean?", "a": "Blended price combines input and output rates into one number using a three-to-one ratio of input to output tokens, which is typical of chat and retrieval apps. It's a quick way to compare models; use the cost calculator for your real token mix."},
+    {"q": "What do the tiers mean?", "a": "Tiers group models by how their providers position them and how they place on public benchmarks: frontier for the most capable models, advanced for strong mid-priced models, efficient for fast, low-cost models and compact for small models that run on modest hardware. Tiers are our editorial grouping, not our own test results."},
+    {"q": "Why do some models show no price?", "a": "Some open-weight models aren't sold per token by a major host, and some new or preview models don't have a confirmed list price yet. We only show prices we could confirm on an official pricing page."}
+  ]
+}
+-->
+<div class="wrap">
+  <h2 class="visually-hidden">Shortlists</h2>
+  <div style="margin-bottom:1.25rem"><span class="small muted" style="margin-right:.5rem">Start from a job:</span>{{hub_pills}}</div>
+  {{directory}}
+  <div class="cmp-bar" id="cmp-bar" hidden>
+    <span id="cmp-text">0 selected</span>
+    <span class="btn-row"><button type="button" class="btn btn--ghost btn--sm" id="cmp-clear">Clear</button><a class="btn btn--yellow btn--sm" id="cmp-go" href="compare.html">Compare selected</a></span>
+  </div>
+  <p class="small muted" style="margin-top:1rem">List prices for the standard tier, before caching or batch discounts. Some providers charge more above a prompt-length threshold; the model page has the details. Tiers are our editorial grouping; see <a href="editorial-policy.html#rankings">how we rank</a>.</p>
+  {{ad:content}}
+</div>
+<div class="wrap">{{lead:choose,choose-model}}</div>
