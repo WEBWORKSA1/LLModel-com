@@ -1,0 +1,525 @@
+{
+  "updated": "2026-10-10",
+  "events": [
+    {
+      "date": "2017-06-12",
+      "title": "Transformer architecture introduced",
+      "org": "Google",
+      "type": "research",
+      "note": "Vaswani et al. replaced recurrence with self-attention, enabling highly parallel training; nearly every later LLM builds on this architecture.",
+      "url": "https://arxiv.org/abs/1706.03762"
+    },
+    {
+      "date": "2017-06-12",
+      "title": "RL from human preferences",
+      "org": "OpenAI / DeepMind",
+      "type": "research",
+      "note": "Showed agents could learn complex goals from human comparisons of their behavior, the preference-learning idea later adapted to fine-tune language models with RLHF.",
+      "url": "https://arxiv.org/abs/1706.03741"
+    },
+    {
+      "date": "2018-06-11",
+      "title": "GPT-1 introduced",
+      "org": "OpenAI",
+      "type": "research",
+      "note": "OpenAI paired a Transformer with unsupervised pre-training on unlabeled text followed by task-specific fine-tuning, the basic recipe that later GPT models scaled up.",
+      "url": "https://openai.com/index/language-unsupervised/"
+    },
+    {
+      "date": "2018-10-11",
+      "title": "BERT released",
+      "org": "Google",
+      "type": "research",
+      "note": "Bidirectional pre-training with masked-word prediction set new state-of-the-art results on eleven NLP tasks, popularizing fine-tuned encoder models for language understanding.",
+      "url": "https://arxiv.org/abs/1810.04805"
+    },
+    {
+      "date": "2019-02-14",
+      "title": "GPT-2 announced with staged release",
+      "org": "OpenAI",
+      "type": "model",
+      "note": "OpenAI's 1.5B-parameter model wrote fluent passages of text, and the company held back the full weights over misuse concerns, releasing larger versions in stages.",
+      "url": "https://openai.com/index/better-language-models/"
+    },
+    {
+      "date": "2019-10-23",
+      "title": "T5 text-to-text framework",
+      "org": "Google",
+      "type": "research",
+      "note": "T5 cast every NLP task as text in, text out, systematically compared pre-training choices, and released the C4 web corpus with its models.",
+      "url": "https://arxiv.org/abs/1910.10683"
+    },
+    {
+      "date": "2020-01-23",
+      "title": "Neural scaling laws published",
+      "org": "OpenAI",
+      "type": "research",
+      "note": "Kaplan et al. found language-model loss falls predictably as a power law in parameters, data and compute, giving labs a basis for planning larger training runs.",
+      "url": "https://arxiv.org/abs/2001.08361"
+    },
+    {
+      "date": "2020-05-22",
+      "title": "Retrieval-augmented generation (RAG)",
+      "org": "Facebook AI Research (Meta)",
+      "type": "research",
+      "note": "Paired a text generator with a neural retriever over a document index, an approach now widely used to ground chatbots in current or private documents.",
+      "url": "https://arxiv.org/abs/2005.11401"
+    },
+    {
+      "date": "2020-05-28",
+      "title": "GPT-3 introduced",
+      "org": "OpenAI",
+      "type": "model",
+      "note": "At 175B parameters, GPT-3 could perform many tasks from a few examples in the prompt, popularizing in-context learning as an alternative to fine-tuning.",
+      "url": "https://arxiv.org/abs/2005.14165"
+    },
+    {
+      "date": "2021-01-11",
+      "title": "Switch Transformers scale sparse MoE",
+      "org": "Google",
+      "type": "research",
+      "note": "Routing each token to a single expert let Google train trillion-parameter sparse models efficiently, an early proof point for the mixture-of-experts designs common in later LLMs.",
+      "url": "https://arxiv.org/abs/2101.03961"
+    },
+    {
+      "date": "2021-06-17",
+      "title": "LoRA fine-tuning method",
+      "org": "Microsoft",
+      "type": "research",
+      "note": "Freezing pretrained weights and training small low-rank update matrices cut trainable parameters by 10,000x on GPT-3, making custom fine-tunes far cheaper.",
+      "url": "https://arxiv.org/abs/2106.09685"
+    },
+    {
+      "date": "2022-01-28",
+      "title": "Chain-of-thought prompting",
+      "org": "Google",
+      "type": "research",
+      "note": "Wei et al. showed that prompting large models to write out intermediate steps markedly improved arithmetic, commonsense and symbolic reasoning, an idea later built into reasoning models.",
+      "url": "https://arxiv.org/abs/2201.11903"
+    },
+    {
+      "date": "2022-03-04",
+      "title": "InstructGPT applies RLHF to LLMs",
+      "org": "OpenAI",
+      "type": "research",
+      "note": "Fine-tuning GPT-3 on human demonstrations and preference rankings produced a 1.3B model that labelers preferred over the 175B original, a method ChatGPT later adopted.",
+      "url": "https://arxiv.org/abs/2203.02155"
+    },
+    {
+      "date": "2022-03-29",
+      "title": "Chinchilla compute-optimal scaling",
+      "org": "DeepMind",
+      "type": "research",
+      "note": "DeepMind found large models were significantly undertrained; its 70B Chinchilla, trained on more data, outperformed far larger models and influenced how labs balance size against data.",
+      "url": "https://arxiv.org/abs/2203.15556"
+    },
+    {
+      "date": "2022-07-12",
+      "title": "BLOOM open multilingual model",
+      "org": "BigScience / Hugging Face",
+      "type": "open-weights",
+      "note": "Built by the BigScience research collaboration, the 176B-parameter model covered 46 natural and 13 programming languages and was openly released under a Responsible AI License.",
+      "url": "https://huggingface.co/blog/bloom"
+    },
+    {
+      "date": "2022-11-30",
+      "title": "ChatGPT launched",
+      "org": "OpenAI",
+      "type": "product",
+      "note": "A free research preview of a GPT-3.5-based assistant tuned with RLHF brought conversational AI to a mass audience; rival assistants from Google and Anthropic followed within months.",
+      "url": "https://openai.com/index/chatgpt/"
+    },
+    {
+      "date": "2022-12-15",
+      "title": "Constitutional AI",
+      "org": "Anthropic",
+      "type": "research",
+      "note": "Anthropic trained a harmless assistant using AI feedback guided by a written set of principles, reducing reliance on human labels for safety training.",
+      "url": "https://arxiv.org/abs/2212.08073"
+    },
+    {
+      "date": "2023-01-23",
+      "title": "Microsoft expands OpenAI partnership",
+      "org": "Microsoft / OpenAI",
+      "type": "policy",
+      "note": "A third phase of the partnership brought a multiyear, multibillion-dollar investment and more Azure supercomputing, showing how closely frontier labs depend on hyperscale cloud compute.",
+      "url": "https://blogs.microsoft.com/blog/2023/01/23/microsoftandopenaiextendpartnership/"
+    },
+    {
+      "date": "2023-02-06",
+      "title": "Google announces Bard",
+      "org": "Google",
+      "type": "product",
+      "note": "Google opened its experimental Bard chatbot to trusted testers ahead of a public release and previewed AI features for Search; Bard was later renamed Gemini.",
+      "url": "https://blog.google/technology/ai/bard-google-ai-search-updates/"
+    },
+    {
+      "date": "2023-02-24",
+      "title": "Meta releases LLaMA",
+      "org": "Meta",
+      "type": "open-weights",
+      "note": "Meta shared 7B to 65B models with approved researchers under a noncommercial license and reported that its 13B version outperformed 175B GPT-3 on most benchmarks.",
+      "url": "https://ai.meta.com/blog/large-language-model-llama-meta-ai/"
+    },
+    {
+      "date": "2023-03-14",
+      "title": "GPT-4 released",
+      "org": "OpenAI",
+      "type": "model",
+      "note": "OpenAI's multimodal model accepted images and text and scored around the top 10% on a simulated bar exam, versus the bottom 10% for GPT-3.5.",
+      "url": "https://openai.com/index/gpt-4-research/"
+    },
+    {
+      "date": "2023-03-14",
+      "title": "Anthropic launches Claude",
+      "org": "Anthropic",
+      "type": "product",
+      "note": "After a closed alpha with partners such as Notion and Quora, Anthropic opened its Claude assistant more widely through a chat interface and API.",
+      "url": "https://www.anthropic.com/news/introducing-claude"
+    },
+    {
+      "date": "2023-05-29",
+      "title": "Direct Preference Optimization (DPO)",
+      "org": "Stanford University",
+      "type": "research",
+      "note": "Researchers showed models can be aligned to human preferences with a simple classification-style loss, skipping the separate reward model and RL loop that RLHF requires.",
+      "url": "https://arxiv.org/abs/2305.18290"
+    },
+    {
+      "date": "2023-07-18",
+      "title": "Llama 2 released for commercial use",
+      "org": "Meta",
+      "type": "open-weights",
+      "note": "Meta, with Microsoft as a launch partner, made Llama 2 weights free for research and commercial use, giving companies a capable model they could self-host.",
+      "url": "https://ai.meta.com/blog/llama-2/"
+    },
+    {
+      "date": "2023-09-27",
+      "title": "Mistral 7B released",
+      "org": "Mistral AI",
+      "type": "open-weights",
+      "note": "A 7.3B-parameter Apache 2.0 model that Mistral reported beat Llama 2 13B on all its benchmarks, showing small open models could outperform larger ones.",
+      "url": "https://mistral.ai/news/announcing-mistral-7b"
+    },
+    {
+      "date": "2023-11-01",
+      "title": "Bletchley Declaration on AI safety",
+      "org": "AI Safety Summit (UK)",
+      "type": "policy",
+      "note": "At the first AI Safety Summit, 28 countries and the EU, including the US and China, agreed that frontier AI risks require international cooperation.",
+      "url": "https://www.gov.uk/government/publications/ai-safety-summit-2023-the-bletchley-declaration/the-bletchley-declaration-by-countries-attending-the-ai-safety-summit-1-2-november-2023"
+    },
+    {
+      "date": "2023-12-06",
+      "title": "Gemini 1.0 launched",
+      "org": "Google DeepMind",
+      "type": "model",
+      "note": "Google's first Gemini models came in Ultra, Pro and Nano sizes and were built from the start to handle text, images, audio, code and video.",
+      "url": "https://blog.google/technology/ai/google-gemini-ai/"
+    },
+    {
+      "date": "2023-12-11",
+      "title": "Mixtral 8x7B released",
+      "org": "Mistral AI",
+      "type": "open-weights",
+      "note": "A sparse mixture-of-experts model using about 12.9B of its 46.7B parameters per token, bringing MoE efficiency to an openly licensed Apache 2.0 model.",
+      "url": "https://mistral.ai/news/mixtral-of-experts"
+    },
+    {
+      "date": "2023-12-12",
+      "title": "Phi-2 small language model",
+      "org": "Microsoft",
+      "type": "model",
+      "note": "Microsoft's 2.7B-parameter model matched or beat models up to 25 times its size on complex benchmarks, strengthening the case for small language models.",
+      "url": "https://www.microsoft.com/en-us/research/blog/phi-2-the-surprising-power-of-small-language-models/"
+    },
+    {
+      "date": "2024-02-15",
+      "title": "Gemini 1.5 previews 1M-token context",
+      "org": "Google DeepMind",
+      "type": "model",
+      "note": "Gemini 1.5 Pro neared Gemini 1.0 Ultra's performance and let selected developers test a 1M-token context window, about eight times its standard 128K limit.",
+      "url": "https://blog.google/technology/ai/google-gemini-next-generation-model-february-2024/"
+    },
+    {
+      "date": "2024-03-04",
+      "title": "Claude 3 model family",
+      "org": "Anthropic",
+      "type": "model",
+      "note": "Anthropic introduced Haiku, Sonnet and Opus as a three-tier family with 200K-token context, giving developers a clear speed, cost and capability trade-off.",
+      "url": "https://www.anthropic.com/news/claude-3-family"
+    },
+    {
+      "date": "2024-03-17",
+      "title": "Grok-1 weights released",
+      "org": "xAI",
+      "type": "open-weights",
+      "note": "xAI published Grok-1's raw 314B-parameter mixture-of-experts base checkpoint under Apache 2.0, giving researchers a very large, permissively licensed model to study and adapt.",
+      "url": "https://x.ai/news/grok-os"
+    },
+    {
+      "date": "2024-05-13",
+      "title": "GPT-4o released",
+      "org": "OpenAI",
+      "type": "model",
+      "note": "OpenAI's omni model took any mix of text, audio, image and video input and could reply to speech in about the time a person takes in conversation.",
+      "url": "https://openai.com/index/hello-gpt-4o/"
+    },
+    {
+      "date": "2024-07-23",
+      "title": "Llama 3.1 405B released",
+      "org": "Meta",
+      "type": "open-weights",
+      "note": "Meta's 405B-parameter model with 128K context was the largest Llama yet, and Meta presented it as the first openly available model on par with leading frontier systems.",
+      "url": "https://ai.meta.com/blog/meta-llama-3-1/"
+    },
+    {
+      "date": "2024-08-01",
+      "title": "EU AI Act enters into force",
+      "org": "European Union",
+      "type": "policy",
+      "note": "The EU's risk-based AI law took effect, with bans, general-purpose model duties and high-risk requirements set to phase in over the following years.",
+      "url": "https://commission.europa.eu/news-and-media/news/ai-act-enters-force-2024-08-01_en"
+    },
+    {
+      "date": "2024-09-12",
+      "title": "OpenAI o1-preview",
+      "org": "OpenAI",
+      "type": "model",
+      "note": "The first of OpenAI's o-series reasoning models spent extra time thinking before answering, showing that inference-time reasoning could lift math, science and coding results.",
+      "url": "https://openai.com/index/introducing-openai-o1-preview/"
+    },
+    {
+      "date": "2024-10-22",
+      "title": "Claude computer use beta",
+      "org": "Anthropic",
+      "type": "product",
+      "note": "An upgraded Claude 3.5 Sonnet could operate a computer by viewing screenshots, moving the cursor, clicking and typing, an early public step toward computer-using agents.",
+      "url": "https://www.anthropic.com/news/3-5-models-and-computer-use"
+    },
+    {
+      "date": "2024-11-25",
+      "title": "Model Context Protocol released",
+      "org": "Anthropic",
+      "type": "product",
+      "note": "Anthropic open-sourced a protocol for linking AI assistants to tools and data, letting developers build a connector once and reuse it across compatible apps.",
+      "url": "https://www.anthropic.com/news/model-context-protocol"
+    },
+    {
+      "date": "2024-12-26",
+      "title": "DeepSeek-V3 released",
+      "org": "DeepSeek",
+      "type": "open-weights",
+      "note": "DeepSeek's 671B-parameter MoE model (37B active) reported results comparable to leading closed models from a full training run of 2.788M H800 GPU hours.",
+      "url": "https://api-docs.deepseek.com/news/news1226"
+    },
+    {
+      "date": "2025-01-20",
+      "title": "DeepSeek-R1 released",
+      "org": "DeepSeek",
+      "type": "open-weights",
+      "note": "DeepSeek's MIT-licensed model, trained largely with reinforcement learning, reported reasoning performance on par with OpenAI o1 and arrived with six smaller distilled versions.",
+      "url": "https://api-docs.deepseek.com/news/news250120"
+    },
+    {
+      "date": "2025-02-02",
+      "title": "EU AI Act bans take effect",
+      "org": "European Union",
+      "type": "policy",
+      "note": "Prohibitions on unacceptable-risk practices such as social scoring began applying, along with AI literacy duties, the Act's first binding obligations.",
+      "url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai"
+    },
+    {
+      "date": "2025-02-24",
+      "title": "Claude 3.7 Sonnet and Claude Code",
+      "org": "Anthropic",
+      "type": "model",
+      "note": "Anthropic's first hybrid reasoning model let users switch on extended thinking, and debuted alongside Claude Code, a terminal tool for delegating coding tasks.",
+      "url": "https://www.anthropic.com/news/claude-3-7-sonnet"
+    },
+    {
+      "date": "2025-03-25",
+      "title": "Gemini 2.5 Pro introduced",
+      "org": "Google DeepMind",
+      "type": "model",
+      "note": "Google's reasoning-focused Pro model debuted at the top of the LMArena leaderboard and led several math, science and coding benchmarks.",
+      "url": "https://blog.google/technology/google-deepmind/gemini-model-thinking-updates-march-2025/"
+    },
+    {
+      "date": "2025-04-05",
+      "title": "Llama 4 Scout and Maverick",
+      "org": "Meta",
+      "type": "open-weights",
+      "note": "Meta's first mixture-of-experts Llamas were natively multimodal, with Scout advertising a 10M-token context window; the larger Behemoth was previewed but not released.",
+      "url": "https://ai.meta.com/blog/llama-4-multimodal-intelligence/"
+    },
+    {
+      "date": "2025-04-29",
+      "title": "Qwen3 family released",
+      "org": "Alibaba (Qwen)",
+      "type": "open-weights",
+      "note": "Alibaba released eight Apache 2.0 models, from 0.6B dense to a 235B mixture-of-experts flagship, each able to switch between step-by-step thinking and fast replies.",
+      "url": "https://qwenlm.github.io/blog/qwen3/"
+    },
+    {
+      "date": "2025-05-22",
+      "title": "Claude Opus 4 and Sonnet 4",
+      "org": "Anthropic",
+      "type": "model",
+      "note": "Anthropic pitched Opus 4 as the world's best coding model, citing 72.5% on SWE-bench, and made Claude Code generally available with beta IDE extensions.",
+      "url": "https://www.anthropic.com/news/claude-4"
+    },
+    {
+      "date": "2025-07",
+      "title": "Kimi K2 open weights",
+      "org": "Moonshot AI",
+      "type": "open-weights",
+      "note": "Moonshot AI released a 1-trillion-parameter mixture-of-experts model with 32B active parameters under a modified MIT license, aimed at agentic tasks such as tool use.",
+      "url": "https://huggingface.co/moonshotai/Kimi-K2-Instruct"
+    },
+    {
+      "date": "2025-07-09",
+      "title": "Grok 4 released",
+      "org": "xAI",
+      "type": "model",
+      "note": "Trained with large-scale reinforcement learning on xAI's Colossus cluster, Grok 4 shipped with native tool use and a multi-agent Heavy tier aimed at hard reasoning tasks.",
+      "url": "https://x.ai/news/grok-4"
+    },
+    {
+      "date": "2025-08-02",
+      "title": "EU AI Act rules for general-purpose AI apply",
+      "org": "European Union",
+      "type": "policy",
+      "note": "Obligations for providers of general-purpose AI models, including LLMs, began applying, with stricter duties for the most capable models deemed to pose systemic risk.",
+      "url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai"
+    },
+    {
+      "date": "2025-08-05",
+      "title": "OpenAI releases gpt-oss",
+      "org": "OpenAI",
+      "type": "open-weights",
+      "note": "OpenAI's first open-weight language models since GPT-2: Apache 2.0 reasoning models sized to run on a single 80 GB GPU (120b) or within 16 GB of memory (20b).",
+      "url": "https://openai.com/index/introducing-gpt-oss/"
+    },
+    {
+      "date": "2025-08-07",
+      "title": "GPT-5 released",
+      "org": "OpenAI",
+      "type": "model",
+      "note": "GPT-5 combined a fast model and a deeper reasoning model behind an automatic router and reached ChatGPT's free tier, putting reasoning in front of mainstream users.",
+      "url": "https://openai.com/index/introducing-gpt-5/"
+    },
+    {
+      "date": "2025-11-18",
+      "title": "Gemini 3 Pro released",
+      "org": "Google DeepMind",
+      "type": "model",
+      "note": "Google's new flagship topped LMArena with a 1501 Elo score and launched alongside Antigravity, an agentic development platform, across Search, the Gemini app and developer tools.",
+      "url": "https://blog.google/products/gemini/gemini-3/"
+    },
+    {
+      "date": "2025-12-02",
+      "title": "Mistral 3 family released",
+      "org": "Mistral AI",
+      "type": "open-weights",
+      "note": "Mistral Large 3, a 675B-parameter MoE with 41B active, and three small Ministral 3 models arrived under Apache 2.0, all with image understanding.",
+      "url": "https://mistral.ai/news/mistral-3"
+    },
+    {
+      "date": "2026-02-05",
+      "title": "Claude Opus 4.6 released",
+      "org": "Anthropic",
+      "type": "model",
+      "note": "Anthropic's first Opus-class model with a 1M-token context window (in beta) added 128K-token outputs and agent teams in Claude Code for longer autonomous work.",
+      "url": "https://www.anthropic.com/news/claude-opus-4-6"
+    },
+    {
+      "date": "2026-03-05",
+      "title": "GPT-5.4 released",
+      "org": "OpenAI",
+      "type": "model",
+      "note": "GPT-5.4 merged GPT-5.3-Codex's coding strengths with built-in computer use, scoring 75.0% on OSWorld-Verified against a human baseline of 72.4% cited by OpenAI.",
+      "url": "https://openai.com/index/introducing-gpt-5-4/"
+    },
+    {
+      "date": "2026-04-02",
+      "title": "Gemma 4 open models",
+      "org": "Google DeepMind",
+      "type": "open-weights",
+      "note": "Google DeepMind's open models, from phone-scale E2B to a 31B dense model and a 26B mixture-of-experts, shipped under Apache 2.0 rather than earlier Gemma's custom terms.",
+      "url": "https://deepmind.google/models/gemma/gemma-4/"
+    },
+    {
+      "date": "2026-04-07",
+      "title": "Claude Mythos Preview and Project Glasswing",
+      "org": "Anthropic",
+      "type": "model",
+      "note": "Anthropic withheld Claude Mythos Preview from general release over its skill at finding and exploiting software flaws, limiting it to defensive partners such as AWS, Apple and Microsoft.",
+      "url": "https://www.anthropic.com/glasswing"
+    },
+    {
+      "date": "2026-04-23",
+      "title": "GPT-5.5 released",
+      "org": "OpenAI",
+      "type": "model",
+      "note": "OpenAI positioned GPT-5.5 for long, multi-step computer work, reporting leading scores on agentic benchmarks such as Terminal-Bench 2.0 (82.7%) and OSWorld-Verified (78.7%).",
+      "url": "https://openai.com/index/introducing-gpt-5-5/"
+    },
+    {
+      "date": "2026-04-24",
+      "title": "DeepSeek V4 preview released",
+      "org": "DeepSeek",
+      "type": "open-weights",
+      "note": "DeepSeek open-sourced a 1.6-trillion-parameter Pro model and a 284B Flash model, both with 1M-token context, making million-token windows the default across its services.",
+      "url": "https://api-docs.deepseek.com/news/news260424"
+    },
+    {
+      "date": "2026-05-19",
+      "title": "Gemini 3.5 Flash released",
+      "org": "Google DeepMind",
+      "type": "model",
+      "note": "Unveiled at Google I/O, Gemini 3.5 Flash opened Google's 3.5 generation and was generally available in the Gemini API on day one; a larger 3.5 Pro was promised later.",
+      "url": "https://ai.google.dev/gemini-api/docs/changelog"
+    },
+    {
+      "date": "2026-06-09",
+      "title": "Claude Fable 5 and Mythos 5 released",
+      "org": "Anthropic",
+      "type": "model",
+      "note": "Anthropic made a Mythos-class model generally available as Fable 5, routing some cyber, bio and distillation queries to Opus 4.8, while the less-restricted Mythos 5 went to vetted partners.",
+      "url": "https://www.anthropic.com/news/claude-fable-5-mythos-5"
+    },
+    {
+      "date": "2026-07-27",
+      "title": "EU AI Act high-risk deadlines delayed",
+      "org": "European Union",
+      "type": "policy",
+      "note": "The Digital Omnibus amendments pushed high-risk AI obligations to December 2027 and August 2028, days before the Act's general application date of August 2, 2026.",
+      "url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai"
+    },
+    {
+      "date": "2026-08",
+      "title": "Qwen3.8 open weights released",
+      "org": "Alibaba (Qwen)",
+      "type": "open-weights",
+      "note": "Alibaba's Qwen3.8 open-weight releases included a 27B Apache 2.0 model and a 2.4-trillion-parameter mixture-of-experts flagship (95B active) under a separate custom license.",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B"
+    },
+    {
+      "date": "2026-09-03",
+      "title": "GPT-6 Astra released",
+      "org": "OpenAI",
+      "type": "model",
+      "note": "OpenAI opened its GPT-6 generation with Astra, which it said met its 'Critical' cybersecurity threshold, so it shipped with safeguards that refuse advanced cyber tasks such as proof-of-concept exploits.",
+      "url": "https://openai.com/index/gpt-6-astra/"
+    },
+    {
+      "date": "2026-10-07",
+      "title": "GPT-6 rolls out in ChatGPT",
+      "org": "OpenAI",
+      "type": "product",
+      "note": "OpenAI began rolling GPT-6 out across ChatGPT, including the free tier, and added Intelligent UI, which can answer with charts, forms and small interactive tools as well as text.",
+      "url": "https://openai.com/index/gpt-6-for-everyone/"
+    }
+  ]
+}
