@@ -1,0 +1,68 @@
+<!--meta
+{
+  "slug": "compare",
+  "title": "Compare LLMs Side by Side: Prices, Context Windows and Specs",
+  "h1": "Compare LLMs side by side",
+  "lede": "Pick two to four models and see prices, context limits, licenses and capabilities in one table, with the monthly bill for three real workloads. Share the link when you're done.",
+  "head_meta": ["Data checked October 10, 2026", "Best value in each row is highlighted"],
+  "description": "Free LLM comparison tool: put up to four large language models side by side on price per token, context window, license, inputs, reasoning and monthly cost.",
+  "section": "compare",
+  "crumbs": [["Home", "index.html"], ["Compare", null]],
+  "data": ["models"],
+  "scripts": ["pages/compare.js"],
+  "priority": 0.9,
+  "faq": [
+    {"q": "How do I compare two LLMs fairly?", "a": "Compare them on the same tasks, with the same prompts, and measure what matters for your use: correct answers, latency and cost per correct answer. Specs and list prices narrow the field; a small test set from your own work decides it."},
+    {"q": "Why is the cheaper model sometimes more expensive in practice?", "a": "A model that needs more retries, longer prompts or more reasoning tokens to reach the same quality can cost more per finished task even with a lower list price. Measure cost per successful result, not cost per token."},
+    {"q": "Can I share a comparison?", "a": "Yes. The page address updates as you pick models, so you can copy the link and send it to your team. It opens with the same models selected."}
+  ]
+}
+-->
+<div class="wrap">
+  <div class="tool tool--stack">
+    <div class="tool__in">
+      <h2 class="tool-h">Choose models</h2>
+      <div class="grid grid--4" id="cmp-selects" style="gap:.75rem"></div>
+      <div class="btn-row">
+        <button type="button" class="btn btn--ghost btn--sm" id="cmp-share">Copy link to this comparison</button>
+        <a class="btn btn--ghost btn--sm" id="cmp-full" href="#" hidden>Read the full write-up</a>
+        <a class="btn btn--ghost btn--sm" id="cmp-calc" href="llm-cost-calculator.html">Price these in the calculator</a>
+      </div>
+      <noscript><p class="notice">The comparison tool needs JavaScript. You can still read the ready-made comparisons below.</p></noscript>
+    </div>
+    <div class="tool__out">
+      <div id="cmp-out" aria-live="polite"><p class="empty">Pick at least two models to compare.</p></div>
+    </div>
+  </div>
+  {{ad:compare-mid}}
+</div>
+
+<section class="section" aria-labelledby="popular-h">
+  <div class="wrap grid grid--sidebar">
+    <div>
+      <h2 class="h2" id="popular-h" style="margin-bottom:1rem">Popular comparisons</h2>
+      {{compare_popular}}
+    </div>
+    <div class="aside-box">
+      <h2 class="h3">Comparing for a real project?</h2>
+      <p class="small muted" style="margin-top:.4rem">Send us your use case and the models you're weighing. We'll suggest an evaluation plan you can run on your own data.</p>
+      <a class="btn btn--primary btn--block" style="margin-top:.8rem" href="hire-llm-experts.html?need=choose-model&amp;from=compare">Get a second opinion</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="how-h">
+  <div class="wrap wrap--read prose">
+    <h2 id="how-h">How to read a comparison</h2>
+    <p>Specs tell you what a model can accept and what it costs at list price. They don't tell you how well it does your job. Use this table to rule models out (too expensive, too little context, wrong license, no image input), then test the two or three that remain.</p>
+    <h3 id="prices">Prices</h3>
+    <p>Input and output tokens are billed separately, and output usually costs several times more. Cached input, which providers charge when you resend the same prompt prefix, can be far cheaper than normal input. Batch processing often halves the bill for work that can wait. The workload rows below the specs apply list prices to three common token mixes so you can see the gap in dollars, not just per million tokens.</p>
+    <h3 id="limits">Context and output limits</h3>
+    <p>The context window caps how much text you can send in one request, including conversation history and documents. Max output caps one response. A model with a huge window but a small output limit can read a book and still need several calls to write a long report.</p>
+    <h3 id="license">Weights and license</h3>
+    <p>Closed models run only on the provider's servers or their cloud partners. Open-weight models can also run on your own hardware, which matters for data residency and steady high volumes. Read the license before you build a product on an open model: some cap revenue or restrict serving the model to others. Our guide to <a href="open-source-vs-closed-llms.html">open-source vs closed LLMs</a> explains the trade-offs.</p>
+    <h3 id="test">Then test</h3>
+    <p>Run 20 to 50 representative tasks through each finalist with identical prompts. Score the answers, note latency, and divide each model's bill by its number of correct answers. That cost per correct answer is the number to decide on. <a href="llm-benchmarks-explained.html">How to read LLM benchmarks</a> covers building a small evaluation set.</p>
+  </div>
+</section>
+<div class="wrap">{{lead:choose,choose-model}}</div>
