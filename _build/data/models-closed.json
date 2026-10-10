@@ -1,0 +1,1455 @@
+{
+  "models": [
+    {
+      "slug": "claude-fable-5-1",
+      "name": "Claude Fable 5.1",
+      "provider": "anthropic",
+      "family": "Claude 5",
+      "released": "2026-09-01",
+      "status": "current",
+      "weights": "closed",
+      "license": "Proprietary",
+      "params_total_b": null,
+      "params_active_b": null,
+      "architecture": "unknown",
+      "context": 1000000,
+      "max_output": 128000,
+      "price_in": 10,
+      "price_out": 50,
+      "price_cached_in": 0.25,
+      "price_note": "Standard rates; the full 1M-token window is billed at the same rate. Batch API 50% off. Cache writes cost $12.50 (5-minute) or $20 (1-hour) per 1M tokens. US-only inference adds 1.1x.",
+      "modalities_in": [
+        "text",
+        "image",
+        "pdf"
+      ],
+      "modalities_out": [
+        "text"
+      ],
+      "reasoning": true,
+      "tool_use": true,
+      "tier": "frontier",
+      "best_for": [
+        "reasoning",
+        "agents",
+        "coding",
+        "research",
+        "long documents"
+      ],
+      "summary": "Claude Fable 5.1 is the highest-priced model in Anthropic's current lineup, intended for demanding reasoning and long-horizon agentic work. Anthropic describes Fable 5.1 and Claude Mythos 5.1 as the same model with different levels of safeguards, and Mythos 5.1 is limited to organizations in Anthropic's verification programs. It reads text, images and PDFs across a 1M-token context window.",
+      "strengths": [
+        "1M-token context window and 128K-token output limit",
+        "Adaptive thinking is always on, with high effort by default",
+        "Cache reads cost $0.25 per million tokens, a quarter of Claude Fable 5's rate"
+      ],
+      "considerations": [
+        "$10 input and $50 output per million tokens, and Anthropic rates its latency as slower than the other current Claude models",
+        "Safeguards redirect some cybersecurity and life-sciences requests, such as exploit development, to Opus models"
+      ],
+      "access": [
+        "API",
+        "Claude apps",
+        "Amazon Bedrock",
+        "Google Vertex AI",
+        "Microsoft Azure AI Foundry",
+        "Claude Platform on AWS"
+      ],
+      "url": "https://platform.claude.com/docs/en/models/fable-5-1/overview",
+      "pricing_url": "https://platform.claude.com/docs/en/about-claude/pricing",
+      "sources": [
+        "https://platform.claude.com/docs/en/models/overview.md",
+        "https://platform.claude.com/docs/en/models/fable-5-1/overview",
+        "https://platform.claude.com/docs/en/about-claude/pricing",
+        "https://www.anthropic.com/claude-fable-and-mythos-5-1",
+        "https://platform.claude.com/docs/en/build-with-claude/pdf-support",
+        "https://docs.perplexity.ai/docs/agent-api/models.md"
+      ],
+      "verified": "2026-10-10"
+    },
+    {
+      "slug": "claude-opus-5-5",
+      "name": "Claude Opus 5.5",
+      "provider": "anthropic",
+      "family": "Claude 5",
+      "released": "2026-09-22",
+      "status": "current",
+      "weights": "closed",
+      "license": "Proprietary",
+      "params_total_b": null,
+      "params_active_b": null,
+      "architecture": "unknown",
+      "context": 1000000,
+      "max_output": 128000,
+      "price_in": 4,
+      "price_out": 20,
+      "price_cached_in": 0.2,
+      "price_note": "Standard rates; no surcharge across the 1M-token window. Batch API 50% off. Fast mode (research preview, Claude API only) costs $8 input / $40 output. US-only inference adds 1.1x.",
+      "modalities_in": [
+        "text",
+        "image",
+        "pdf"
+      ],
+      "modalities_out": [
+        "text"
+      ],
+      "reasoning": true,
+      "tool_use": true,
+      "tier": "frontier",
+      "best_for": [
+        "coding",
+        "agents",
+        "reasoning",
+        "long documents",
+        "enterprise"
+      ],
+      "summary": "Claude Opus 5.5 is the model Anthropic recommends as the starting point for most workloads, built for long-running agentic coding and knowledge work. Released September 22, 2026, it succeeds Claude Opus 5 at a lower per-token price and keeps a 1M-token context window.",
+      "strengths": [
+        "Anthropic's recommended default for most workloads",
+        "1M-token context with no long-context surcharge",
+        "Up to 128K output tokens, or 300K on the Message Batches API beta"
+      ],
+      "considerations": [
+        "Thinking is always on and cannot be disabled",
+        "Forced tool use returns an error, a breaking change from Claude Opus 5"
+      ],
+      "access": [
+        "API",
+        "Claude apps",
+        "Amazon Bedrock",
+        "Google Vertex AI",
+        "Microsoft Azure AI Foundry",
+        "Claude Platform on AWS",
+        "OpenRouter"
+      ],
+      "url": "https://platform.claude.com/docs/en/models/opus-5-5/overview",
+      "pricing_url": "https://platform.claude.com/docs/en/about-claude/pricing",
+      "sources": [
+        "https://platform.claude.com/docs/en/models/overview.md",
+        "https://platform.claude.com/docs/en/models/opus-5-5/overview",
+        "https://platform.claude.com/docs/en/about-claude/pricing",
+        "https://platform.claude.com/docs/en/build-with-claude/pdf-support",
+        "https://openrouter.ai/anthropic/claude-opus-5.5"
+      ],
+      "verified": "2026-10-10"
+    },
+    {
+      "slug": "claude-sonnet-5-5",
+      "name": "Claude Sonnet 5.5",
+      "provider": "anthropic",
+      "family": "Claude 5",
+      "released": "2026-09-28",
+      "status": "current",
+      "weights": "closed",
+      "license": "Proprietary",
+      "params_total_b": null,
+      "params_active_b": null,
+      "architecture": "unknown",
+      "context": 1000000,
+      "max_output": 128000,
+      "price_in": 2,
+      "price_out": 10,
+      "price_cached_in": 0.1,
+      "price_note": "Standard rates; no surcharge across the 1M-token window. Batch API 50% off. US-only inference adds 1.1x.",
+      "modalities_in": [
+        "text",
+        "image",
+        "pdf"
+      ],
+      "modalities_out": [
+        "text"
+      ],
+      "reasoning": true,
+      "tool_use": true,
+      "tier": "advanced",
+      "best_for": [
+        "coding",
+        "agents",
+        "chat",
+        "writing"
+      ],
+      "summary": "Claude Sonnet 5.5 is Anthropic's mid-tier model, which the company describes as its balance of speed and intelligence. Released September 28, 2026, it pairs a 1M-token context window with adaptive thinking that defaults to high effort.",
+      "strengths": [
+        "Half the per-token price of Claude Opus 5.5",
+        "1M-token context window and 128K-token output limit",
+        "Up-front thinking can be switched off with the between_tools setting"
+      ],
+      "considerations": [
+        "Non-default temperature, top_p or top_k values return a 400 error",
+        "Forced tool use returns an error"
+      ],
+      "access": [
+        "API",
+        "Claude apps",
+        "Amazon Bedrock",
+        "Google Vertex AI",
+        "Microsoft Azure AI Foundry",
+        "Claude Platform on AWS",
+        "OpenRouter"
+      ],
+      "url": "https://platform.claude.com/docs/en/models/sonnet-5-5/overview",
+      "pricing_url": "https://platform.claude.com/docs/en/about-claude/pricing",
+      "sources": [
+        "https://platform.claude.com/docs/en/models/overview.md",
+        "https://platform.claude.com/docs/en/models/sonnet-5-5/overview",
+        "https://platform.claude.com/docs/en/about-claude/pricing",
+        "https://platform.claude.com/docs/en/build-with-claude/pdf-support",
+        "https://computeprices.com/models/claude-sonnet-5-5"
+      ],
+      "verified": "2026-10-10"
+    },
+    {
+      "slug": "claude-haiku-5-5",
+      "name": "Claude Haiku 5.5",
+      "provider": "anthropic",
+      "family": "Claude 5",
+      "released": "2026-10-07",
+      "status": "current",
+      "weights": "closed",
+      "license": "Proprietary",
+      "params_total_b": null,
+      "params_active_b": null,
+      "architecture": "unknown",
+      "context": 1000000,
+      "max_output": 128000,
+      "price_in": 0.1,
+      "price_out": 0.5,
+      "price_cached_in": 0.01,
+      "price_note": "Rates for prompts up to 100K tokens. A prompt over 100K tokens is billed at $0.50 input, $2.50 output and $0.05 cache read for the whole request. Batch API 50% off. US-only inference adds 1.1x.",
+      "modalities_in": [
+        "text",
+        "image",
+        "pdf"
+      ],
+      "modalities_out": [
+        "text"
+      ],
+      "reasoning": true,
+      "tool_use": true,
+      "tier": "efficient",
+      "best_for": [
+        "high volume",
+        "low latency",
+        "data extraction",
+        "customer support",
+        "agents"
+      ],
+      "summary": "Claude Haiku 5.5 is the lowest-priced model in Anthropic's current lineup, aimed at high-volume, latency-sensitive tasks such as classification, extraction, routing and sub-agent work. Released October 7, 2026, it has the same 1M-token context window as the larger Claude 5.5 models, with prices that rise for long prompts.",
+      "strengths": [
+        "$0.10 input and $0.50 output per million tokens for prompts up to 100K tokens",
+        "1M-token context window and 128K-token output limit",
+        "Adaptive thinking with adjustable effort"
+      ],
+      "considerations": [
+        "Prompts over 100K tokens cost five times the base rates",
+        "Its newer tokenizer counts about 30% more tokens than Claude Haiku 4.5 for the same text"
+      ],
+      "access": [
+        "API",
+        "Claude apps",
+        "Amazon Bedrock",
+        "Google Vertex AI",
+        "Microsoft Azure AI Foundry",
+        "Claude Platform on AWS"
+      ],
+      "url": "https://platform.claude.com/docs/en/models/haiku-5-5/overview",
+      "pricing_url": "https://platform.claude.com/docs/en/about-claude/pricing",
+      "sources": [
+        "https://platform.claude.com/docs/en/models/overview.md",
+        "https://platform.claude.com/docs/en/models/haiku-5-5/overview",
+        "https://platform.claude.com/docs/en/about-claude/pricing",
+        "https://platform.claude.com/docs/en/build-with-claude/pdf-support",
+        "https://docs.perplexity.ai/docs/agent-api/models.md"
+      ],
+      "verified": "2026-10-10"
+    },
+    {
+      "slug": "claude-opus-5",
+      "name": "Claude Opus 5",
+      "provider": "anthropic",
+      "family": "Claude 5",
+      "released": "2026-07-24",
+      "status": "legacy",
+      "weights": "closed",
+      "license": "Proprietary",
+      "params_total_b": null,
+      "params_active_b": null,
+      "architecture": "unknown",
+      "context": 1000000,
+      "max_output": 128000,
+      "price_in": 5,
+      "price_out": 25,
+      "price_cached_in": 0.5,
+      "price_note": "Standard rates; no surcharge across the 1M-token window. Batch API 50% off. Fast mode (Claude API only) costs $10 input / $50 output.",
+      "modalities_in": [
+        "text",
+        "image",
+        "pdf"
+      ],
+      "modalities_out": [
+        "text"
+      ],
+      "reasoning": true,
+      "tool_use": true,
+      "tier": "frontier",
+      "best_for": [
+        "coding",
+        "agents",
+        "reasoning",
+        "long documents"
+      ],
+      "summary": "Claude Opus 5 was Anthropic's top Opus model from its July 24, 2026 release until Claude Opus 5.5 arrived in September. Anthropic still offers it as a legacy model with a 1M-token context window and suggests migrating to Opus 5.5.",
+      "strengths": [
+        "1M-token context window and 128K-token output limit",
+        "Adaptive thinking with high effort by default",
+        "Anthropic commits to keeping it available until at least July 24, 2027"
+      ],
+      "considerations": [
+        "Costs more per token than Claude Opus 5.5 ($5/$25 vs $4/$20)",
+        "Anthropic recommends moving to Claude Opus 5.5"
+      ],
+      "access": [
+        "API",
+        "Amazon Bedrock",
+        "Google Vertex AI",
+        "Microsoft Azure AI Foundry",
+        "Claude Platform on AWS"
+      ],
+      "url": "https://platform.claude.com/docs/en/models/opus-5/overview",
+      "pricing_url": "https://platform.claude.com/docs/en/about-claude/pricing",
+      "sources": [
+        "https://platform.claude.com/docs/en/models/overview.md",
+        "https://platform.claude.com/docs/en/models/opus-5/overview",
+        "https://platform.claude.com/docs/en/about-claude/pricing",
+        "https://platform.claude.com/docs/en/build-with-claude/pdf-support"
+      ],
+      "verified": "2026-10-10"
+    },
+    {
+      "slug": "gpt-6-astra",
+      "name": "GPT-6 Astra",
+      "provider": "openai",
+      "family": "GPT-6",
+      "released": "2026-09-03",
+      "status": "current",
+      "weights": "closed",
+      "license": "Proprietary",
+      "params_total_b": null,
+      "params_active_b": null,
+      "architecture": "unknown",
+      "context": 1050000,
+      "max_output": 128000,
+      "price_in": 10,
+      "price_out": 50,
+      "price_cached_in": 1,
+      "price_note": "Standard rates for prompts up to 272K input tokens; a larger prompt costs $20 input, $2 cached and $75 output for the whole request. Batch and Flex 50% off; Fast mode 2x. Regional-processing endpoints add 10%.",
+      "modalities_in": [
+        "text",
+        "image"
+      ],
+      "modalities_out": [
+        "text"
+      ],
+      "reasoning": true,
+      "tool_use": true,
+      "tier": "frontier",
+      "best_for": [
+        "reasoning",
+        "coding",
+        "agents",
+        "research",
+        "long documents"
+      ],
+      "summary": "GPT-6 Astra is the model OpenAI labels the highest-intelligence option in its GPT-6 family, aimed at complex reasoning, coding, computer use, research and document work. It launched on September 3, 2026 with a 1.05M-token context window and reasoning effort settings from low to max. OpenAI's safety overview says it is the first model to reach the Critical cybersecurity level in its Preparedness Framework.",
+      "strengths": [
+        "1.05M-token context window and 128K-token output limit",
+        "Reasoning effort from low to max",
+        "Responses API tools include web search, code interpreter, computer use and MCP"
+      ],
+      "considerations": [
+        "$10 input and $50 output per million tokens, five times GPT-6.1 Sol",
+        "No 'none' reasoning setting for low-latency calls"
+      ],
+      "access": [
+        "API",
+        "ChatGPT",
+        "OpenRouter"
+      ],
+      "url": "https://developers.openai.com/api/docs/models/gpt-6-astra",
+      "pricing_url": "https://developers.openai.com/api/docs/pricing",
+      "sources": [
+        "https://developers.openai.com/api/docs/models/gpt-6-astra.md",
+        "https://developers.openai.com/api/docs/pricing?no_head=1",
+        "https://openai.com/index/safety-overview-gpt-6-astra/",
+        "https://developers.openai.com/api/docs/guides/latest-model/gpt-6-astra.md",
+        "https://developers.openai.com/api/docs/models.md",
+        "https://openrouter.ai/~openai",
+        "https://www.llmreference.com/provider/openai-api/gpt-6-astra",
+        "https://docs.apiyi.com/en/news/gpt-6-astra-launch",
+        "https://www.lindy.ai/blog/gpt-6"
+      ],
+      "verified": "2026-10-10"
+    },
+    {
+      "slug": "gpt-6-1-sol",
+      "name": "GPT-6.1 Sol",
+      "provider": "openai",
+      "family": "GPT-6",
+      "released": "2026-09-29",
+      "status": "current",
+      "weights": "closed",
+      "license": "Proprietary",
+      "params_total_b": null,
+      "params_active_b": null,
+      "architecture": "unknown",
+      "context": 1050000,
+      "max_output": 128000,
+      "price_in": 2,
+      "price_out": 10,
+      "price_cached_in": 0.1,
+      "price_note": "Standard rates for prompts up to 272K input tokens; a larger prompt costs $4 input, $0.20 cached and $15 output. Batch and Flex 50% off; Fast mode 2x; Ultrafast 6x. Regional processing adds 10%.",
+      "modalities_in": [
+        "text",
+        "image"
+      ],
+      "modalities_out": [
+        "text"
+      ],
+      "reasoning": true,
+      "tool_use": true,
+      "tier": "advanced",
+      "best_for": [
+        "coding",
+        "agents",
+        "reasoning",
+        "enterprise"
+      ],
+      "summary": "GPT-6.1 Sol is an update to GPT-6 Sol that OpenAI says comes close to GPT-6 Astra on coding, computer use and professional work at one-fifth of Astra's standard token prices. Released September 29, 2026, it shares the family's 1.05M-token context window and 128K-token output limit.",
+      "strengths": [
+        "$2 input and $10 output per million tokens, with cached input at $0.10",
+        "1.05M-token context window",
+        "Optional Fast and Ultrafast service tiers for quicker responses"
+      ],
+      "considerations": [
+        "Tool calling requires the Responses API; Chat Completions works without tools",
+        "No 'none' reasoning setting, unlike GPT-6 Sol and GPT-6 Luna"
+      ],
+      "access": [
+        "API",
+        "ChatGPT",
+        "Codex",
+        "OpenRouter"
+      ],
+      "url": "https://developers.openai.com/api/docs/models/gpt-6.1-sol",
+      "pricing_url": "https://developers.openai.com/api/docs/pricing",
+      "sources": [
+        "https://developers.openai.com/api/docs/models/gpt-6.1-sol.md",
+        "https://developers.openai.com/api/docs/pricing?no_head=1",
+        "https://openai.com/index/introducing-gpt-6-1-sol/",
+        "https://www.nocode.mba/ai-release-tracker/providers/openai",
+        "https://openrouter.ai/~openai",
+        "https://docs.perplexity.ai/docs/agent-api/models.md"
+      ],
+      "verified": "2026-10-10"
+    },
+    {
+      "slug": "gpt-6-luna",
+      "name": "GPT-6 Luna",
+      "provider": "openai",
+      "family": "GPT-6",
+      "released": "2026-09-22",
+      "status": "current",
+      "weights": "closed",
+      "license": "Proprietary",
+      "params_total_b": null,
+      "params_active_b": null,
+      "architecture": "unknown",
+      "context": 1050000,
+      "max_output": 128000,
+      "price_in": 0.1,
+      "price_out": 0.5,
+      "price_cached_in": 0.01,
+      "price_note": "Standard rates for prompts up to 272K input tokens; a larger prompt costs $0.20 input, $0.02 cached and $0.75 output. Batch and Flex 50% off; Fast mode 2x. Regional processing adds 10%.",
+      "modalities_in": [
+        "text",
+        "image"
+      ],
+      "modalities_out": [
+        "text"
+      ],
+      "reasoning": true,
+      "tool_use": true,
+      "tier": "efficient",
+      "best_for": [
+        "high volume",
+        "low latency",
+        "data extraction",
+        "customer support"
+      ],
+      "summary": "GPT-6 Luna is the lowest-cost model in OpenAI's GPT-6 family, built for focused, high-volume tasks. Released September 22, 2026, it keeps the family's 1.05M-token context window and supports reasoning effort from none to max.",
+      "strengths": [
+        "$0.10 input and $0.50 output per million tokens",
+        "Reasoning can be set to none for quick, low-cost calls",
+        "1.05M-token context window and 128K-token output limit"
+      ],
+      "considerations": [
+        "Chat Completions supports function calling only with reasoning effort set to none",
+        "Prompts over 272K input tokens cost 2x input and 1.5x output"
+      ],
+      "access": [
+        "API",
+        "ChatGPT",
+        "Codex",
+        "OpenRouter"
+      ],
+      "url": "https://developers.openai.com/api/docs/models/gpt-6-luna",
+      "pricing_url": "https://developers.openai.com/api/docs/pricing",
+      "sources": [
+        "https://developers.openai.com/api/docs/models/gpt-6-luna.md",
+        "https://developers.openai.com/api/docs/pricing?no_head=1",
+        "https://openai.com/index/introducing-gpt-6-sol-and-luna/",
+        "https://www.nocode.mba/ai-release-tracker/providers/openai",
+        "https://openrouter.ai/~openai",
+        "https://docs.perplexity.ai/docs/agent-api/models.md"
+      ],
+      "verified": "2026-10-10"
+    },
+    {
+      "slug": "gpt-5-6-sol",
+      "name": "GPT-5.6 Sol",
+      "provider": "openai",
+      "family": "GPT-5",
+      "released": "2026-07",
+      "status": "legacy",
+      "weights": "closed",
+      "license": "Proprietary",
+      "params_total_b": null,
+      "params_active_b": null,
+      "architecture": "unknown",
+      "context": 1050000,
+      "max_output": 128000,
+      "price_in": 4,
+      "price_out": 20,
+      "price_cached_in": 0.4,
+      "price_note": "Promotional standard rates from OpenAI's model page, which OpenAI says run at least through 2026-11-21. Prompts over 272K input tokens cost 2x input and 1.5x output. Cache writes cost 1.25x input. OpenRouter listed a different rate ($2/$10) at verification time.",
+      "modalities_in": [
+        "text",
+        "image"
+      ],
+      "modalities_out": [
+        "text"
+      ],
+      "reasoning": true,
+      "tool_use": true,
+      "tier": "frontier",
+      "best_for": [
+        "coding",
+        "agents",
+        "reasoning",
+        "enterprise"
+      ],
+      "summary": "GPT-5.6 Sol was OpenAI's flagship for complex professional work before the GPT-6 family launched in September 2026. It remains available in the API with a 1.05M-token context window and reasoning effort from none to max.",
+      "strengths": [
+        "1.05M-token context window and 128K-token output limit",
+        "Reasoning effort from none to max",
+        "Full Responses API tool support, including computer use"
+      ],
+      "considerations": [
+        "Twice the per-token price of GPT-6.1 Sol",
+        "Knowledge cutoff of February 16, 2026"
+      ],
+      "access": [
+        "API",
+        "OpenRouter"
+      ],
+      "url": "https://developers.openai.com/api/docs/models/gpt-5.6-sol",
+      "pricing_url": "https://developers.openai.com/api/docs/pricing",
+      "sources": [
+        "https://developers.openai.com/api/docs/models/gpt-5.6-sol.md",
+        "https://developers.openai.com/api/docs/pricing?no_head=1",
+        "https://openai.com/index/introducing-gpt-6-sol-and-luna/",
+        "https://openrouter.ai/~openai",
+        "https://docs.perplexity.ai/docs/agent-api/models.md"
+      ],
+      "verified": "2026-10-10"
+    },
+    {
+      "slug": "gpt-5-5",
+      "name": "GPT-5.5",
+      "provider": "openai",
+      "family": "GPT-5",
+      "released": "2026-04-23",
+      "status": "legacy",
+      "weights": "closed",
+      "license": "Proprietary",
+      "params_total_b": null,
+      "params_active_b": null,
+      "architecture": "unknown",
+      "context": 1050000,
+      "max_output": 128000,
+      "price_in": 5,
+      "price_out": 30,
+      "price_cached_in": 0.5,
+      "price_note": "Prompts over 272K input tokens cost 2x input and 1.5x output for the session. Regional processing adds 10%.",
+      "modalities_in": [
+        "text",
+        "image"
+      ],
+      "modalities_out": [
+        "text"
+      ],
+      "reasoning": true,
+      "tool_use": true,
+      "tier": "frontier",
+      "best_for": [
+        "coding",
+        "agents",
+        "writing",
+        "reasoning"
+      ],
+      "summary": "GPT-5.5 is the OpenAI model for coding and professional work released on April 23, 2026, and it is still offered as a pinned snapshot in the API. It has a 1.05M-token context window and reasoning effort from none to xhigh.",
+      "strengths": [
+        "1.05M-token context window and 128K-token output limit",
+        "Pinned snapshot (gpt-5.5-2026-04-23) for consistent behavior",
+        "Reasoning can be switched off with the none setting"
+      ],
+      "considerations": [
+        "$5 input and $30 output per million tokens, more than GPT-6.1 Sol",
+        "Knowledge cutoff of December 1, 2025"
+      ],
+      "access": [
+        "API",
+        "OpenRouter"
+      ],
+      "url": "https://developers.openai.com/api/docs/models/gpt-5.5",
+      "pricing_url": "https://developers.openai.com/api/docs/pricing",
+      "sources": [
+        "https://developers.openai.com/api/docs/models/gpt-5.5.md",
+        "https://developers.openai.com/api/docs/deprecations",
+        "https://openrouter.ai/~openai",
+        "https://docs.perplexity.ai/docs/agent-api/models.md"
+      ],
+      "verified": "2026-10-10"
+    },
+    {
+      "slug": "gemini-3-1-pro",
+      "name": "Gemini 3.1 Pro",
+      "provider": "google",
+      "family": "Gemini 3",
+      "released": "2026-02-19",
+      "status": "preview",
+      "weights": "closed",
+      "license": "Proprietary",
+      "params_total_b": null,
+      "params_active_b": null,
+      "architecture": "unknown",
+      "context": 1048576,
+      "max_output": 65536,
+      "price_in": 2,
+      "price_out": 12,
+      "price_cached_in": 0.2,
+      "price_note": "Paid-tier rates for prompts up to 200K tokens; a larger prompt costs $4 input, $18 output and $0.40 caching. No free tier. Batch and Flex 50% off; Priority costs more. Cache storage $4.50 per 1M tokens per hour.",
+      "modalities_in": [
+        "text",
+        "image",
+        "video",
+        "audio",
+        "pdf"
+      ],
+      "modalities_out": [
+        "text"
+      ],
+      "reasoning": true,
+      "tool_use": true,
+      "tier": "frontier",
+      "best_for": [
+        "reasoning",
+        "coding",
+        "multimodal",
+        "long documents",
+        "research"
+      ],
+      "summary": "Gemini 3.1 Pro is Google's newest Pro-tier Gemini model and is still offered as a preview. Launched on February 19, 2026, it handles text, images, video, audio and PDFs, and Google says it is tuned for software engineering behavior and usability.",
+      "strengths": [
+        "1,048,576-token input limit and 65,536-token output limit",
+        "Accepts text, image, video, audio and PDF input",
+        "Supports search grounding, code execution and URL context"
+      ],
+      "considerations": [
+        "Still a preview model, with no stable version listed as of October 2026",
+        "No free tier, and prompts over 200K tokens cost more"
+      ],
+      "access": [
+        "API",
+        "Google Vertex AI"
+      ],
+      "url": "https://ai.google.dev/gemini-api/docs/models/gemini-3.1-pro-preview",
+      "pricing_url": "https://ai.google.dev/gemini-api/docs/pricing",
+      "sources": [
+        "https://ai.google.dev/gemini-api/docs/models",
+        "https://ai.google.dev/gemini-api/docs/models/gemini-3.1-pro-preview",
+        "https://ai.google.dev/gemini-api/docs/pricing",
+        "https://ai.google.dev/gemini-api/docs/changelog",
+        "https://docs.perplexity.ai/docs/agent-api/models.md"
+      ],
+      "verified": "2026-10-10"
+    },
+    {
+      "slug": "gemini-3-8-flash",
+      "name": "Gemini 3.8 Flash",
+      "provider": "google",
+      "family": "Gemini 3",
+      "released": "2026-09-02",
+      "status": "current",
+      "weights": "closed",
+      "license": "Proprietary",
+      "params_total_b": null,
+      "params_active_b": null,
+      "architecture": "unknown",
+      "context": 1048576,
+      "max_output": 65536,
+      "price_in": 0.75,
+      "price_out": 3.75,
+      "price_cached_in": 0.075,
+      "price_note": "Introductory paid-tier rates through 2026-12-31; from 2027-01-01 the rates are $1.50 input, $7.50 output and $0.15 caching. Free tier available. Batch and Flex 50% off; Priority costs more. Cache storage $0.50 per 1M tokens per hour.",
+      "modalities_in": [
+        "text",
+        "image",
+        "video",
+        "audio",
+        "pdf"
+      ],
+      "modalities_out": [
+        "text"
+      ],
+      "reasoning": true,
+      "tool_use": true,
+      "tier": "advanced",
+      "best_for": [
+        "coding",
+        "agents",
+        "multimodal",
+        "long documents",
+        "high volume"
+      ],
+      "summary": "Gemini 3.8 Flash is Google's newest Flash text model, generally available since September 2, 2026, and described by Google as its most intelligent Flash model. It is aimed at long-horizon software engineering, autonomous agents and enterprise workflows, and accepts text, images, video, audio and PDFs.",
+      "strengths": [
+        "1,048,576-token input limit and 65,536-token output limit",
+        "Thinking levels of low, medium and high",
+        "Google Search and Maps grounding, code execution and file search"
+      ],
+      "considerations": [
+        "Introductory pricing ends December 31, 2026, after which rates double",
+        "The minimal thinking level is not supported"
+      ],
+      "access": [
+        "API",
+        "Google Vertex AI",
+        "OpenRouter"
+      ],
+      "url": "https://ai.google.dev/gemini-api/docs/models/gemini-3.8-flash",
+      "pricing_url": "https://ai.google.dev/gemini-api/docs/pricing",
+      "sources": [
+        "https://ai.google.dev/gemini-api/docs/models",
+        "https://ai.google.dev/gemini-api/docs/models/gemini-3.8-flash",
+        "https://ai.google.dev/gemini-api/docs/pricing",
+        "https://ai.google.dev/gemini-api/docs/pricing.md",
+        "https://ai.google.dev/gemini-api/docs/changelog",
+        "https://openrouter.ai/google/gemini-3.8-flash"
+      ],
+      "verified": "2026-10-10"
+    },
+    {
+      "slug": "gemini-3-6-flash",
+      "name": "Gemini 3.6 Flash",
+      "provider": "google",
+      "family": "Gemini 3",
+      "released": "2026-07-21",
+      "status": "current",
+      "weights": "closed",
+      "license": "Proprietary",
+      "params_total_b": null,
+      "params_active_b": null,
+      "architecture": "unknown",
+      "context": 1048576,
+      "max_output": 65536,
+      "price_in": 0.75,
+      "price_out": 3.75,
+      "price_cached_in": 0.075,
+      "price_note": "Introductory paid-tier rates through 2026-12-31; from 2027-01-01 the rates are $1.50 input, $7.50 output and $0.15 caching. Free tier available. Batch and Flex 50% off; Priority costs more.",
+      "modalities_in": [
+        "text",
+        "image",
+        "video",
+        "audio",
+        "pdf"
+      ],
+      "modalities_out": [
+        "text"
+      ],
+      "reasoning": true,
+      "tool_use": true,
+      "tier": "advanced",
+      "best_for": [
+        "coding",
+        "agents",
+        "multimodal",
+        "high volume"
+      ],
+      "summary": "Gemini 3.6 Flash is a Flash model Google made generally available on July 21, 2026, aimed at code generation, agentic execution and spatial reasoning. Google still lists it as stable, and since October 8, 2026 it receives requests sent to the deprecated Gemini 3.5 Flash.",
+      "strengths": [
+        "Accepts text, image, video, audio and PDF input",
+        "1,048,576-token input limit and 65,536-token output limit",
+        "Computer use available in preview"
+      ],
+      "considerations": [
+        "Priced the same as the newer Gemini 3.8 Flash",
+        "Introductory pricing ends December 31, 2026, after which rates double"
+      ],
+      "access": [
+        "API",
+        "Google Vertex AI",
+        "OpenRouter"
+      ],
+      "url": "https://ai.google.dev/gemini-api/docs/models/gemini-3.6-flash",
+      "pricing_url": "https://ai.google.dev/gemini-api/docs/pricing",
+      "sources": [
+        "https://ai.google.dev/gemini-api/docs/models",
+        "https://ai.google.dev/gemini-api/docs/models/gemini-3.6-flash",
+        "https://ai.google.dev/gemini-api/docs/pricing",
+        "https://ai.google.dev/gemini-api/docs/pricing.md",
+        "https://ai.google.dev/gemini-api/docs/changelog",
+        "https://openrouter.ai/google/gemini-3.6-flash"
+      ],
+      "verified": "2026-10-10"
+    },
+    {
+      "slug": "gemini-3-5-flash-lite",
+      "name": "Gemini 3.5 Flash-Lite",
+      "provider": "google",
+      "family": "Gemini 3",
+      "released": "2026-07-21",
+      "status": "current",
+      "weights": "closed",
+      "license": "Proprietary",
+      "params_total_b": null,
+      "params_active_b": null,
+      "architecture": "unknown",
+      "context": 1048576,
+      "max_output": 65536,
+      "price_in": 0.3,
+      "price_out": 2.5,
+      "price_cached_in": 0.03,
+      "price_note": "Paid-tier rates; one input price covers text, image, video and audio. Free tier available. Batch and Flex: $0.15 input, $1.25 output. Cache storage $1.00 per 1M tokens per hour.",
+      "modalities_in": [
+        "text",
+        "image",
+        "video",
+        "audio",
+        "pdf"
+      ],
+      "modalities_out": [
+        "text"
+      ],
+      "reasoning": true,
+      "tool_use": true,
+      "tier": "efficient",
+      "best_for": [
+        "high volume",
+        "low latency",
+        "data extraction",
+        "multimodal"
+      ],
+      "summary": "Gemini 3.5 Flash-Lite is a low-latency, lower-cost Gemini model that Google targets at high-throughput work such as sub-agent tasks and document parsing. It became generally available on July 21, 2026 and supports thinking, function calling and multimodal input.",
+      "strengths": [
+        "$0.30 input and $2.50 output per million tokens across all input types",
+        "Accepts text, image, video, audio and PDF input",
+        "Free tier on the Gemini API"
+      ],
+      "considerations": [
+        "Output costs more than Gemini 3.1 Flash-Lite ($2.50 vs $1.50 per million tokens)",
+        "65,536-token output limit"
+      ],
+      "access": [
+        "API",
+        "Google Vertex AI",
+        "OpenRouter"
+      ],
+      "url": "https://ai.google.dev/gemini-api/docs/models/gemini-3.5-flash-lite",
+      "pricing_url": "https://ai.google.dev/gemini-api/docs/pricing",
+      "sources": [
+        "https://ai.google.dev/gemini-api/docs/models",
+        "https://ai.google.dev/gemini-api/docs/models/gemini-3.5-flash-lite",
+        "https://ai.google.dev/gemini-api/docs/pricing",
+        "https://ai.google.dev/gemini-api/docs/changelog",
+        "https://openrouter.ai/google/gemini-3.5-flash-lite"
+      ],
+      "verified": "2026-10-10"
+    },
+    {
+      "slug": "gemini-3-1-flash-lite",
+      "name": "Gemini 3.1 Flash-Lite",
+      "provider": "google",
+      "family": "Gemini 3",
+      "released": "2026-05-07",
+      "status": "current",
+      "weights": "closed",
+      "license": "Proprietary",
+      "params_total_b": null,
+      "params_active_b": null,
+      "architecture": "unknown",
+      "context": 1048576,
+      "max_output": 65536,
+      "price_in": 0.25,
+      "price_out": 1.5,
+      "price_cached_in": 0.025,
+      "price_note": "Paid-tier rates for text, image and video input; audio input costs $0.50 (caching $0.05). Free tier available. Batch and Flex 50% off. Cache storage $1.00 per 1M tokens per hour.",
+      "modalities_in": [
+        "text",
+        "image",
+        "video",
+        "audio",
+        "pdf"
+      ],
+      "modalities_out": [
+        "text"
+      ],
+      "reasoning": true,
+      "tool_use": true,
+      "tier": "efficient",
+      "best_for": [
+        "high volume",
+        "low latency",
+        "data extraction",
+        "customer support"
+      ],
+      "summary": "Gemini 3.1 Flash-Lite is the lowest-priced Gemini 3 text model on the Gemini API, built for high-frequency, lightweight tasks such as high-volume agent steps and simple data extraction. It became generally available on May 7, 2026.",
+      "strengths": [
+        "$0.25 input and $1.50 output per million tokens",
+        "Accepts text, image, video, audio and PDF input",
+        "Free tier plus Batch and Flex discounts"
+      ],
+      "considerations": [
+        "Audio input costs twice the text rate",
+        "No computer-use support, unlike Gemini 3.5 Flash-Lite"
+      ],
+      "access": [
+        "API",
+        "Google Vertex AI"
+      ],
+      "url": "https://ai.google.dev/gemini-api/docs/models/gemini-3.1-flash-lite",
+      "pricing_url": "https://ai.google.dev/gemini-api/docs/pricing",
+      "sources": [
+        "https://ai.google.dev/gemini-api/docs/models",
+        "https://ai.google.dev/gemini-api/docs/models/gemini-3.1-flash-lite",
+        "https://ai.google.dev/gemini-api/docs/pricing",
+        "https://ai.google.dev/gemini-api/docs/changelog",
+        "https://docs.perplexity.ai/docs/agent-api/models.md"
+      ],
+      "verified": "2026-10-10"
+    },
+    {
+      "slug": "grok-4-7",
+      "name": "Grok 4.7",
+      "provider": "xai",
+      "family": "Grok 4",
+      "released": "2026-09-21",
+      "status": "current",
+      "weights": "closed",
+      "license": "Proprietary",
+      "params_total_b": null,
+      "params_active_b": null,
+      "architecture": "unknown",
+      "context": 500000,
+      "max_output": null,
+      "price_in": 2,
+      "price_out": 6,
+      "price_cached_in": 0.5,
+      "price_note": "Rates for prompts under 200K tokens; at 200K or more, all tokens cost $4 input, $1 cached and $12 output. US regional endpoint adds 10%; Priority processing 2x. max_output is null because xAI states no fixed text output limit.",
+      "modalities_in": [
+        "text",
+        "image"
+      ],
+      "modalities_out": [
+        "text"
+      ],
+      "reasoning": true,
+      "tool_use": true,
+      "tier": "frontier",
+      "best_for": [
+        "coding",
+        "agents",
+        "reasoning",
+        "research"
+      ],
+      "summary": "Grok 4.7 is the flagship model on the xAI API, released September 21, 2026 for coding, agentic tasks and knowledge work. It accepts text and images within a 500K-token context window and offers reasoning effort from low to xhigh.",
+      "strengths": [
+        "$2 input and $6 output per million tokens below 200K tokens",
+        "Built-in web search, X search and code execution tools",
+        "Reasoning effort from low to xhigh"
+      ],
+      "considerations": [
+        "Rates double for prompts of 200K tokens or more",
+        "No Batch API support; the faster Grok 4.7 Fast variant is limited to Cursor and Grok Build"
+      ],
+      "access": [
+        "API",
+        "OpenRouter",
+        "Cursor"
+      ],
+      "url": "https://docs.x.ai/developers/models/grok-4.7",
+      "pricing_url": "https://docs.x.ai/developers/pricing",
+      "sources": [
+        "https://docs.x.ai/docs/models",
+        "https://docs.x.ai/docs/models/grok-4.7",
+        "https://docs.x.ai/developers/grok-4-7",
+        "https://docs.x.ai/developers/pricing",
+        "https://docs.x.ai/developers/release-notes",
+        "https://x.ai/news/grok-4-7",
+        "https://openrouter.ai/x-ai/grok-4.7"
+      ],
+      "verified": "2026-10-10"
+    },
+    {
+      "slug": "grok-4-6",
+      "name": "Grok 4.6",
+      "provider": "xai",
+      "family": "Grok 4",
+      "released": "2026-08-12",
+      "status": "legacy",
+      "weights": "closed",
+      "license": "Proprietary",
+      "params_total_b": null,
+      "params_active_b": null,
+      "architecture": "unknown",
+      "context": 500000,
+      "max_output": null,
+      "price_in": 2,
+      "price_out": 6,
+      "price_cached_in": 0.5,
+      "price_note": "Rates for prompts under 200K tokens; at 200K or more, $4 input, $1 cached and $12 output. Max output is not stated by xAI.",
+      "modalities_in": [
+        "text",
+        "image"
+      ],
+      "modalities_out": [
+        "text"
+      ],
+      "reasoning": true,
+      "tool_use": true,
+      "tier": "frontier",
+      "best_for": [
+        "coding",
+        "agents",
+        "enterprise"
+      ],
+      "summary": "Grok 4.6 was the flagship on the xAI API from its August 12, 2026 launch until Grok 4.7 succeeded it at the same price in September. xAI announced its availability on Amazon Bedrock, Google Cloud's agent platform, Microsoft Foundry and GitHub Copilot.",
+      "strengths": [
+        "Offered on several major cloud platforms",
+        "500K-token context window",
+        "Reasoning effort from low to xhigh"
+      ],
+      "considerations": [
+        "Same price as the newer Grok 4.7",
+        "No Batch API support"
+      ],
+      "access": [
+        "API",
+        "Amazon Bedrock",
+        "Google Vertex AI",
+        "Microsoft Azure AI Foundry",
+        "GitHub Copilot"
+      ],
+      "url": "https://docs.x.ai/developers/models/grok-4.6",
+      "pricing_url": "https://docs.x.ai/developers/pricing",
+      "sources": [
+        "https://docs.x.ai/developers/models/grok-4.6",
+        "https://docs.x.ai/developers/pricing",
+        "https://docs.x.ai/developers/release-notes",
+        "https://x.ai/news",
+        "https://docs.perplexity.ai/docs/agent-api/models.md"
+      ],
+      "verified": "2026-10-10"
+    },
+    {
+      "slug": "grok-4-3",
+      "name": "Grok 4.3",
+      "provider": "xai",
+      "family": "Grok 4",
+      "released": "2026-04",
+      "status": "current",
+      "weights": "closed",
+      "license": "Proprietary",
+      "params_total_b": null,
+      "params_active_b": null,
+      "architecture": "unknown",
+      "context": 1000000,
+      "max_output": null,
+      "price_in": 1.25,
+      "price_out": 2.5,
+      "price_cached_in": 0.2,
+      "price_note": "Rates for prompts under 200K tokens; at 200K or more, $2.50 input, $0.40 cached and $5 output. Batch API 20% off. Max output is not stated by xAI.",
+      "modalities_in": [
+        "text",
+        "image"
+      ],
+      "modalities_out": [
+        "text"
+      ],
+      "reasoning": true,
+      "tool_use": true,
+      "tier": "efficient",
+      "best_for": [
+        "high volume",
+        "agents",
+        "long documents",
+        "data extraction"
+      ],
+      "summary": "Grok 4.3 is a lower-cost xAI model with a 1M-token context window and configurable reasoning that defaults to low effort. xAI points users of the Grok 4 Fast and Grok 4.1 Fast models, retired on May 15, 2026, to Grok 4.3 as their replacement.",
+      "strengths": [
+        "$1.25 input and $2.50 output per million tokens",
+        "1M-token context window",
+        "Batch API support at a 20% discount"
+      ],
+      "considerations": [
+        "Rates double for prompts of 200K tokens or more",
+        "Default reasoning effort is low, so harder tasks may need a higher setting"
+      ],
+      "access": [
+        "API",
+        "OpenRouter"
+      ],
+      "url": "https://docs.x.ai/developers/models/grok-4.3",
+      "pricing_url": "https://docs.x.ai/developers/pricing",
+      "sources": [
+        "https://docs.x.ai/developers/models/grok-4.3",
+        "https://docs.x.ai/developers/pricing",
+        "https://docs.x.ai/developers/migration/may-15-retirement",
+        "https://openrouter.ai/x-ai/grok-4.3",
+        "https://docs.perplexity.ai/docs/agent-api/models.md"
+      ],
+      "verified": "2026-10-10"
+    },
+    {
+      "slug": "grok-build-0-1",
+      "name": "Grok Build 0.1",
+      "provider": "xai",
+      "family": "Grok Build",
+      "released": "2026-05",
+      "status": "preview",
+      "weights": "closed",
+      "license": "Proprietary",
+      "params_total_b": null,
+      "params_active_b": null,
+      "architecture": "unknown",
+      "context": 256000,
+      "max_output": null,
+      "price_in": 1,
+      "price_out": 2,
+      "price_cached_in": 0.2,
+      "price_note": "Rates for prompts under 200K tokens; at 200K or more, $2 input, $0.40 cached and $4 output. No Batch API. Max output is not stated by xAI.",
+      "modalities_in": [
+        "text",
+        "image"
+      ],
+      "modalities_out": [
+        "text"
+      ],
+      "reasoning": true,
+      "tool_use": true,
+      "tier": "efficient",
+      "best_for": [
+        "coding",
+        "agents",
+        "low latency"
+      ],
+      "summary": "Grok Build 0.1 is xAI's coding model, trained for agentic software engineering and used inside its Grok Build coding agent. It entered early access in May 2026 and opened to the public API as a beta later that month, with a 256K-token context window.",
+      "strengths": [
+        "$1 input and $2 output per million tokens",
+        "Trained for agentic coding, debugging and MCP workflows",
+        "Also answers to the older grok-code-fast-1 model ID"
+      ],
+      "considerations": [
+        "Launched as a public beta",
+        "256K-token context window, smaller than other current Grok models"
+      ],
+      "access": [
+        "API",
+        "OpenRouter",
+        "Vercel AI Gateway"
+      ],
+      "url": "https://docs.x.ai/developers/models/grok-build-0.1",
+      "pricing_url": "https://docs.x.ai/developers/pricing",
+      "sources": [
+        "https://docs.x.ai/developers/models/grok-build-0.1",
+        "https://docs.x.ai/developers/pricing",
+        "https://docs.x.ai/developers/release-notes",
+        "https://x.ai/news/grok-build-0-1",
+        "https://docs.x.ai/developers/migration/may-15-retirement"
+      ],
+      "verified": "2026-10-10"
+    },
+    {
+      "slug": "nova-2-lite",
+      "name": "Amazon Nova 2 Lite",
+      "provider": "amazon",
+      "family": "Nova 2",
+      "released": "2025-12-02",
+      "status": "current",
+      "weights": "closed",
+      "license": "Proprietary",
+      "params_total_b": null,
+      "params_active_b": null,
+      "architecture": "unknown",
+      "context": 1000000,
+      "max_output": 65536,
+      "price_in": null,
+      "price_out": null,
+      "price_cached_in": null,
+      "price_note": "Prices not verified: the Nova rate tables on AWS's Bedrock pricing page did not load during verification. OpenRouter lists $0.30 input and $2.50 output per 1M tokens for this model via Amazon Bedrock.",
+      "modalities_in": [
+        "text",
+        "image",
+        "video",
+        "pdf"
+      ],
+      "modalities_out": [
+        "text"
+      ],
+      "reasoning": true,
+      "tool_use": true,
+      "tier": "efficient",
+      "best_for": [
+        "high volume",
+        "multimodal",
+        "agents",
+        "enterprise"
+      ],
+      "summary": "Amazon Nova 2 Lite is a reasoning model from Amazon for everyday workloads, available through Amazon Bedrock since December 2, 2025. It accepts text, images, video and documents in a 1M-token context, and its extended thinking is off by default with three selectable levels.",
+      "strengths": [
+        "1M-token context window and up to 65,536 output tokens",
+        "Built-in web grounding and code interpreter tools",
+        "Can be customized on Amazon Bedrock and SageMaker AI"
+      ],
+      "considerations": [
+        "Extended thinking is off unless enabled per request",
+        "Offered mainly through Amazon Bedrock rather than a standalone API"
+      ],
+      "access": [
+        "API",
+        "Amazon Bedrock",
+        "OpenRouter"
+      ],
+      "url": "https://aws.amazon.com/nova/models/",
+      "pricing_url": "https://aws.amazon.com/bedrock/pricing/",
+      "sources": [
+        "https://aws.amazon.com/nova/",
+        "https://aws.amazon.com/nova/models/",
+        "https://aws.amazon.com/blogs/aws/introducing-amazon-nova-2-lite-a-fast-cost-effective-reasoning-model/",
+        "https://docs.aws.amazon.com/nova/latest/nova2-userguide/what-is-nova-2.html",
+        "https://aws.amazon.com/bedrock/pricing/",
+        "https://openrouter.ai/amazon/nova-2-lite-v1"
+      ],
+      "verified": "2026-10-10"
+    },
+    {
+      "slug": "muse-spark-1-3",
+      "name": "Muse Spark 1.3",
+      "provider": "meta",
+      "family": "Muse Spark",
+      "released": "2026-09-02",
+      "status": "preview",
+      "weights": "closed",
+      "license": "Proprietary",
+      "params_total_b": null,
+      "params_active_b": null,
+      "architecture": "unknown",
+      "context": 1048576,
+      "max_output": null,
+      "price_in": 1.25,
+      "price_out": 4.25,
+      "price_cached_in": 0.15,
+      "price_note": "Standard tier; no long-context premium. A contributor tier (muse-spark-1.3-contributor) costs $0.10 input, $0.002 cached and $0.20 output in exchange for letting Meta train on prompts and completions. Max output is not documented.",
+      "modalities_in": [
+        "text",
+        "image",
+        "video",
+        "pdf"
+      ],
+      "modalities_out": [
+        "text"
+      ],
+      "reasoning": true,
+      "tool_use": true,
+      "tier": "advanced",
+      "best_for": [
+        "coding",
+        "agents",
+        "multimodal",
+        "long documents"
+      ],
+      "summary": "Muse Spark 1.3 is the recommended model on the Meta Model API, a developer platform Meta runs as a public preview. The Muse Spark line comes from Meta Superintelligence Labs, and version 1.3, released September 2, 2026, targets long-horizon coding and agentic work with a 1,048,576-token context window.",
+      "strengths": [
+        "$1.25 input and $4.25 output per million tokens, with no long-context premium",
+        "Accepts text, image, video and PDF input",
+        "Adjustable reasoning effort, including a max level on the standard tier"
+      ],
+      "considerations": [
+        "The Meta Model API is still in public preview",
+        "Meta says audio input is not fully supported on 1.3 and recommends Muse Spark 1.2 for audio"
+      ],
+      "access": [
+        "API",
+        "OpenRouter",
+        "Muse Code"
+      ],
+      "url": "https://dev.meta.ai/models/muse-spark/",
+      "pricing_url": "https://dev.meta.ai/docs/pricing-rate-limits",
+      "sources": [
+        "https://dev.meta.ai/models/muse-spark/",
+        "https://dev.meta.ai/docs/models",
+        "https://dev.meta.ai/docs/pricing-rate-limits",
+        "https://dev.meta.ai/products/meta-model-api/",
+        "https://research.meta.ai/blog/introducing-muse-spark-1-3",
+        "https://dev.meta.ai/resources/blog/build-with-muse-spark",
+        "https://www.llmreference.com/provider/meta-model-api/muse-spark-1.3"
+      ],
+      "verified": "2026-10-10"
+    },
+    {
+      "slug": "sonar",
+      "name": "Sonar",
+      "provider": "perplexity",
+      "family": "Sonar",
+      "released": "2025-01",
+      "status": "current",
+      "weights": "closed",
+      "license": "Proprietary",
+      "params_total_b": null,
+      "params_active_b": null,
+      "architecture": "unknown",
+      "context": null,
+      "max_output": null,
+      "price_in": 0.25,
+      "price_out": 2.5,
+      "price_cached_in": 0.0625,
+      "price_note": "Agent API rates for perplexity/sonar; tool calls such as web_search are billed separately per 1,000 calls. The legacy Sonar Chat Completions API listed sonar at $1/$1 plus per-request search fees. Context window and max output are null because Perplexity does not document them for the Agent API version.",
+      "modalities_in": [
+        "text"
+      ],
+      "modalities_out": [
+        "text"
+      ],
+      "reasoning": false,
+      "tool_use": false,
+      "tier": "efficient",
+      "best_for": [
+        "search",
+        "research",
+        "high volume"
+      ],
+      "summary": "Sonar is Perplexity's in-house model, now offered as perplexity/sonar in the Agent API alongside third-party models. Perplexity ended support for the standalone Sonar Chat Completions API on September 27, 2026, and points those users to Agent API presets.",
+      "strengths": [
+        "$0.25 input and $2.50 output per million tokens in the Agent API",
+        "Cached input billed at $0.0625 per million tokens",
+        "Built by Perplexity for lightweight, search-grounded question answering"
+      ],
+      "considerations": [
+        "The standalone Sonar API is legacy; support ended September 27, 2026",
+        "Perplexity publishes few specs for this model, such as its context window"
+      ],
+      "access": [
+        "API",
+        "OpenRouter"
+      ],
+      "url": "https://docs.perplexity.ai/docs/agent-api/models",
+      "pricing_url": "https://docs.perplexity.ai/docs/getting-started/pricing",
+      "sources": [
+        "https://docs.perplexity.ai/docs/getting-started/pricing.md",
+        "https://docs.perplexity.ai/docs/agent-api/models.md",
+        "https://docs.perplexity.ai/docs/agent-api/migrate-from-sonar/overview.md",
+        "https://docs.perplexity.ai/docs/resources/changelog.md",
+        "https://openrouter.ai/perplexity/sonar"
+      ],
+      "verified": "2026-10-10"
+    }
+  ],
+  "providers": [
+    {
+      "slug": "openai",
+      "name": "OpenAI",
+      "hq": "San Francisco, United States",
+      "founded": 2015,
+      "url": "https://openai.com",
+      "api_url": "https://developers.openai.com/api/docs",
+      "summary": "OpenAI is the San Francisco company behind ChatGPT and the GPT model families. Its current API lineup is the GPT-6 family: GPT-6 Astra for the most demanding reasoning and coding work, GPT-6.1 Sol as a lower-cost option close to Astra, and GPT-6 Luna for high-volume tasks, with several GPT-5.x models still available. Developers use the models through the Responses and Chat Completions APIs, and many are also offered in ChatGPT, Codex and third-party routers such as OpenRouter.",
+      "consumer_app": "ChatGPT",
+      "open_weights": "Yes: gpt-oss family (listed separately)"
+    },
+    {
+      "slug": "anthropic",
+      "name": "Anthropic",
+      "hq": "San Francisco, United States",
+      "founded": 2021,
+      "url": "https://www.anthropic.com",
+      "api_url": "https://platform.claude.com/docs",
+      "summary": "Anthropic is a San Francisco AI safety and research company that develops the Claude models. Its current lineup is Claude Fable 5.1, Claude Opus 5.5, Claude Sonnet 5.5 and Claude Haiku 5.5, all with 1M-token context windows, while Claude Mythos 5.1 is reserved for organizations in its verification programs. Developers can call Claude through the Claude API, Amazon Bedrock, Google Cloud, Microsoft Foundry and Claude Platform on AWS, and consumers use it in the Claude apps.",
+      "consumer_app": "Claude",
+      "open_weights": "No"
+    },
+    {
+      "slug": "google",
+      "name": "Google",
+      "hq": "Mountain View, United States",
+      "founded": 1998,
+      "url": "https://deepmind.google",
+      "api_url": "https://ai.google.dev/gemini-api/docs",
+      "summary": "Google develops the Gemini models through Google DeepMind and offers them to developers through the Gemini API, Google AI Studio and Google Cloud. As of October 2026 its stable text models are Gemini 3.8 Flash, Gemini 3.6 Flash and two Flash-Lite models for lower-cost work, while Gemini 3.1 Pro is still offered as a preview. Most current Gemini API models accept text, images, video, audio and PDFs, and the Flash and Flash-Lite models include a free tier.",
+      "consumer_app": "Gemini",
+      "open_weights": "Yes: Gemma family (listed separately)"
+    },
+    {
+      "slug": "xai",
+      "name": "xAI (SpaceXAI)",
+      "hq": null,
+      "founded": 2023,
+      "url": "https://x.ai",
+      "api_url": "https://docs.x.ai",
+      "summary": "xAI, which now brands itself SpaceXAI on its website and in its documentation, develops the Grok models used in the Grok apps and on X. Its API flagship is Grok 4.7, with Grok 4.3 as a lower-cost 1M-context model and Grok Build 0.1 for agentic coding. Developers use the xAI API directly, and some Grok models are also available through OpenRouter and major cloud platforms.",
+      "consumer_app": "Grok",
+      "open_weights": "Older models only (Grok-1 and Grok-2 on Hugging Face); current Grok 4.x models are closed"
+    },
+    {
+      "slug": "amazon",
+      "name": "Amazon (AWS)",
+      "hq": "Seattle, United States",
+      "founded": 1994,
+      "url": "https://aws.amazon.com/nova/",
+      "api_url": "https://docs.aws.amazon.com/nova/latest/nova2-userguide/what-is-nova-2.html",
+      "summary": "Amazon develops the Nova family of foundation models and serves them through Amazon Bedrock on AWS. Its current Nova text model is Nova 2 Lite, a reasoning model with a 1M-token context window, alongside the Nova 2.5 Sonic speech model and Nova Multimodal Embeddings. AWS also offers Nova Forge for building custom models from Nova and Nova Act for browser-automation agents.",
+      "consumer_app": null,
+      "open_weights": "No"
+    },
+    {
+      "slug": "meta",
+      "name": "Meta",
+      "hq": "Menlo Park, United States",
+      "founded": 2004,
+      "url": "https://ai.meta.com",
+      "api_url": "https://dev.meta.ai/docs/",
+      "summary": "Meta offers its Muse Spark models to developers through the Meta Model API, a self-serve platform in public preview that works with the OpenAI SDK. Muse Spark 1.3 is the recommended model, with earlier 1.2 and 1.1 versions still listed, and Meta says Muse Spark also powers features in Meta AI. Meta separately publishes open-weight models, such as Muse Glimmer, for local use.",
+      "consumer_app": "Meta AI",
+      "open_weights": "Yes: Llama family and Muse Glimmer; Muse Spark is API-only"
+    },
+    {
+      "slug": "perplexity",
+      "name": "Perplexity",
+      "hq": "San Francisco, United States",
+      "founded": 2022,
+      "url": "https://www.perplexity.ai",
+      "api_url": "https://docs.perplexity.ai",
+      "summary": "Perplexity runs an AI answer engine and offers developer APIs for search, embeddings and agents. Its Agent API serves Perplexity's own Sonar model next to third-party models from OpenAI, Anthropic, Google and xAI, with built-in tools such as web search. The Agent API replaced the older Sonar Chat Completions API, whose support ended on September 27, 2026.",
+      "consumer_app": "Perplexity",
+      "open_weights": "Some: smaller models such as embedding and utility models on Hugging Face; Sonar is API-only"
+    }
+  ]
+}
