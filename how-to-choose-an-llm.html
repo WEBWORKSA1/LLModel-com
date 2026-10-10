@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to Choose an LLM: A Practical Decision Framework | LLModel.com</title>
+<meta name="description" content="How to choose an LLM: weigh quality, cost, latency, privacy and lock-in, score candidates in a matrix, test on your own data and pick by use case.">
+<link rel="canonical" href="https://llmodel.com/how-to-choose-an-llm.html">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="google-adsense-account" content="ca-pub-6620975821265271">
+<meta name="theme-color" content="#f4f6fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12101e" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="LLModel.com">
+<meta property="og:title" content="How to Choose an LLM: A Practical Decision Framework">
+<meta property="og:description" content="How to choose an LLM: weigh quality, cost, latency, privacy and lock-in, score candidates in a matrix, test on your own data and pick by use case.">
+<meta property="og:url" content="https://llmodel.com/how-to-choose-an-llm.html">
+<meta property="og:image" content="https://llmodel.com/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="LLModel: the independent field guide to large language models">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="alternate" type="text/plain" href="llms.txt" title="llms.txt">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Martian+Mono:wght@400..500&family=Newsreader:ital,opsz,wght@0,6..72,400..650;1,6..72,400&display=swap">
+<link rel="stylesheet" href="assets/css/style.css?v=dae4813595">
+<script>(function(){var d=document.documentElement,t=null;try{t=localStorage.getItem('llm-theme')}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}d.setAttribute('data-theme',t)})();</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6620975821265271" crossorigin="anonymous"></script>
+<script type="application/ld+json">{
+ "@type": "Organization",
+ "@id": "https://llmodel.com/#org",
+ "name": "LLModel.com",
+ "url": "https://llmodel.com/",
+ "logo": "https://llmodel.com/assets/img/icon-512.png",
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://llmodel.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Guides",
+   "item": "https://llmodel.com/guides.html"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "How to choose an LLM for your project"
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "Article",
+ "headline": "How to Choose an LLM: A Practical Decision Framework",
+ "description": "How to choose an LLM: weigh quality, cost, latency, privacy and lock-in, score candidates in a matrix, test on your own data and pick by use case.",
+ "datePublished": "2026-10-10",
+ "dateModified": "2026-10-10",
+ "inLanguage": "en",
+ "mainEntityOfPage": "https://llmodel.com/how-to-choose-an-llm.html",
+ "image": "https://llmodel.com/assets/img/og-image.png",
+ "author": {
+  "@type": "Organization",
+  "name": "LLModel editorial team",
+  "url": "https://llmodel.com/about.html"
+ },
+ "publisher": {
+  "@id": "https://llmodel.com/#org"
+ },
+ "keywords": "how to choose an llm, best llm for business, llm comparison, llm evaluation, llm selection criteria, llm procurement",
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is the best LLM right now?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "No single model wins everything. As of October 2026, the frontier models from OpenAI, Anthropic and Google, such as GPT-6 Astra, Claude Fable 5.1, Claude Opus 5.5 and Gemini 3.1 Pro, trade leads across public benchmarks, while mid-tier models handle most production tasks at a fraction of the price. The best model is the cheapest one that meets your quality bar on your own data, so shortlist two or three and test them."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How do I compare LLMs for my use case?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Collect 50 to 200 real, anonymized examples of the task with reference answers or pass criteria. Run each candidate model with the same prompt, then score outputs with exact matching, unit tests or a rubric applied by people or a calibrated LLM judge. Record latency and token usage, compute cost per successful task, and combine the results in a weighted scoring matrix agreed on before testing."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How much does it cost to use an LLM API?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "It depends on token volume and model tier. As of October 2026, list prices run from $0.10 input and $0.50 output per million tokens for the smallest OpenAI and Anthropic models to $10 and $50 for their top models. A million requests a month at 1,000 input and 200 output tokens each costs about $200 at the low end and $20,000 at the high end, before batch or caching discounts."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Should I use one LLM or several?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Start with one model so you can learn your traffic and failure modes. Add a second when there's a clear reason: routing easy requests to a cheaper model, escalating hard ones to a stronger model, or keeping a fallback provider for outages. Each extra model needs its own prompt tuning and evaluation runs, so add routing when the savings or resilience justify that ongoing work."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Is LLM-as-a-judge reliable for evaluating models?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "It's reliable enough to scale evaluation if you calibrate it. A 2023 study by Zheng and colleagues found strong judge models agreed with human preferences more than 80% of the time, about as often as humans agree with each other. The same study found position, verbosity and self-enhancement biases, so swap answer order, use a clear rubric and check the judge against 30 to 50 human-labeled examples."
+   }
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+
+</head>
+<body class="page-how-to-choose-an-llm">
+<a class="skip" href="#main">Skip to content</a>
+<div class="partner-bar"><a href="https://web.works/contact" target="_blank" rel="noopener"><span>Contact, if you are interested in this website / domain name / sponsorship / advertisement / partnership</span></a></div>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+    <nav class="nav" aria-label="Main"><a href="models.html">Models</a><a href="compare.html">Compare</a><a href="leaderboard.html">Rankings</a><a href="tools.html">Tools</a><a href="guides.html" aria-current="page">Learn</a><a href="videos.html">Videos</a></nav>
+    <div class="header-actions">
+      <button class="search-btn" type="button" data-open-search aria-label="Search the site"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="search-label">Search</span><span class="kbd" aria-hidden="true">/</span></button>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><svg class="theme-icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="theme-icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+      <a class="btn btn--primary btn--sm header-cta" href="hire-llm-experts.html">Get expert help</a>
+      <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile">
+    <ul><li><a href="models.html">Models</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="tools.html">Tools</a></li>
+<li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="contact.html">Contact</a></li>
+<li class="mobile-cta"><a class="btn btn--primary btn--block" href="hire-llm-experts.html">Get expert help</a></li>
+</ul>
+  </nav>
+</header>
+<main id="main">
+<nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li>
+<li><a href="guides.html">Guides</a></li>
+<li aria-current="page">How to choose an LLM for your project</li>
+</ol>
+</nav>
+<div class="read-progress" id="read-progress" aria-hidden="true"></div>
+<header class="page-head wrap"><h1>How to choose an LLM for your project</h1><p class="lede">A practical framework for choosing a large language model: define the job, weigh ten criteria in a scoring matrix, and run a quick evaluation on your own data. Includes starting points for five common use cases as of October 2026 and a procurement checklist.</p>
+<div class="page-meta"><span>Choosing &amp; buying</span><span>Intermediate</span><span>10 min read</span><span>Updated October 10, 2026</span></div>
+</header>
+<div class="wrap article">
+  <nav class="article__toc toc" aria-label="On this page"><p class="toc-title">On this page</p>
+<ol><li><a href="#start-with-the-job">Start with the job, not the model</a></li>
+<li><a href="#ten-decision-criteria">The ten decision criteria</a></li>
+<li><a href="#weighted-scoring-matrix">A weighted scoring matrix</a></li>
+<li><a href="#evaluate-on-your-own-data">Run a quick evaluation on your own data</a></li>
+<li><a href="#starting-points-by-use-case">Starting points for five common use cases</a></li>
+<li><a href="#deployment-and-vendor-risk">Deployment routes and vendor risk</a></li>
+<li><a href="#procurement-checklist">Procurement checklist</a></li>
+<li><a href="#common-mistakes">Common mistakes</a></li>
+<li><a href="#next-steps">Next steps</a></li>
+</ol>
+</nav>
+  <article class="prose" id="article">
+    <div class="takeaways"><h2>Key takeaways</h2>
+<ul><li>Define the task and what a good output looks like before you compare models; &#x27;best&#x27; only means something relative to a task, budget and risk profile.</li>
+<li>Score candidates in a weighted matrix and check whether the winner changes when you shift the weights; in our example, moving 10 points from privacy to quality flips the result.</li>
+<li>A golden set of 50 to 200 real examples, scored by rules, tests or a calibrated LLM judge, predicts production performance better than public leaderboards.</li>
+<li>Compare cost per successful task, not price per token: in our worked example, a model 40 times cheaper per call costs more than twice as much per task once failures are counted.</li>
+<li>Models churn fast, so keep prompts, evaluations and integrations portable, pin versions, and re-test whenever a provider ships an update.</li>
+</ul>
+</div>
+    <p>Choosing a large language model is a business decision with a technical test attached. This guide gives you a repeatable way to make it: define the job, weigh ten criteria, score your shortlist in a matrix and test it on your own data. It closes with starting points for five common use cases as of October 2026 and a checklist for procurement.</p>
+
+<h2 id="start-with-the-job">Start with the job, not the model</h2>
+<p>Teams that start from a leaderboard tend to buy more model than they need, or the wrong kind. Start by writing a one-paragraph task brief that anyone on the project would agree with.</p>
+<ul>
+<li><strong>Input:</strong> what goes in, such as support tickets, contracts, code diffs or call transcripts, and how long a typical and a worst-case input is.</li>
+<li><strong>Output:</strong> what a good result looks like, ideally with three real examples.</li>
+<li><strong>Volume:</strong> requests per day now and in a year, and the peak hour.</li>
+<li><strong>Stakes:</strong> what a wrong answer costs, and who catches it.</li>
+<li><strong>Constraints:</strong> data that can't leave your network, required regions, budget ceilings and latency targets.</li>
+</ul>
+<p>The brief usually rules out half the market before you compare a single benchmark. A task that handles patient records on-premises and a task that drafts marketing copy shouldn't share a shortlist.</p>
+
+<h2 id="ten-decision-criteria">The ten decision criteria</h2>
+<p>These criteria cover nearly every model decision. For each one, the table gives the question to ask and how to get a real answer instead of a vendor claim.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Criterion</th><th>Question to ask</th><th>How to measure it</th></tr>
+</thead>
+<tbody>
+<tr><td>Task fit</td><td>Can it do this kind of work at all?</td><td>Pass rate on your golden set</td></tr>
+<tr><td>Quality</td><td>How often is the output usable without edits?</td><td>Rubric scores and human review</td></tr>
+<tr><td>Latency</td><td>How fast is the first token and the full answer?</td><td>Median and 95th-percentile timings from your region</td></tr>
+<tr><td>Cost</td><td>What does one successful task cost at our volume?</td><td>Logged token usage times price, plus failure costs</td></tr>
+<tr><td>Context length</td><td>Do our largest inputs fit with room to spare?</td><td>Token counts of your biggest real inputs</td></tr>
+<tr><td>Modality</td><td>Do we need images, audio, PDFs or video?</td><td>Tests with your actual files</td></tr>
+<tr><td>Privacy and compliance</td><td>Where does data go, how long is it kept, is it used for training?</td><td>Vendor terms, data processing agreement, regional options</td></tr>
+<tr><td>Deployment</td><td>Direct API, cloud marketplace or self-hosted?</td><td>Fit with your cloud, security review and procurement</td></tr>
+<tr><td>Ecosystem and tooling</td><td>Are the SDKs, tool calling, structured outputs and batch features solid?</td><td>A one-day prototype</td></tr>
+<tr><td>Vendor risk and lock-in</td><td>How often do models change, and how hard is it to switch?</td><td>Deprecation history and an estimate of switching cost</td></tr>
+</tbody>
+</table>
+</div>
+<p>A few details trip people up. <a href="glossary-inference-deployment.html#latency">Latency</a> has two parts: time to the first token, which users feel in chat, and total generation time, which dominates batch jobs. Reasoning models can add many seconds of thinking before the first visible token, and some providers sell speed at a premium; OpenAI, for example, offers a Fast mode for GPT-6 Astra at twice the standard price.</p>
+<p>Context length has a pricing wrinkle. As of October 2026, OpenAI's GPT-6 models and Google's Gemini 3.1 Pro charge more per token above a prompt-length threshold, and Claude Haiku 5.5's rates rise fivefold for prompts over 100,000 tokens. Anthropic's other current models charge the same rate across their full one-million-token window. Measure your real input sizes with the <a href="token-counter.html">token counter</a> before you assume a window or a price.</p>
+
+<aside class="ad-slot" data-ad="in-article" aria-label="Sponsored message"><span class="ad-label">From LLModel</span><div class="ad-fill"><div class="house"><div><strong>Building with LLMs?</strong><span>Tell us what you&#x27;re building and get a vendor-neutral stack plan within 2 business days.</span></div>
+<a class="btn btn--ghost btn--sm" href="hire-llm-experts.html">Get my stack plan</a></div>
+</div>
+</aside>
+<h2 id="weighted-scoring-matrix">A weighted scoring matrix</h2>
+<p>A scoring matrix turns a debate into arithmetic. Agree on weights before you see results, score each candidate from 1 to 5 per criterion, and multiply.</p>
+<p>Here's an example for an internal assistant that answers staff questions about company policies, some of which contain personal data. The candidates are a top-tier closed API model, a mid-tier closed API model and a mid-sized open-weight model hosted in your own cloud account.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Criterion</th><th>Weight</th><th>A: top-tier API</th><th>B: mid-tier API</th><th>C: self-hosted open-weight</th></tr>
+</thead>
+<tbody>
+<tr><td>Quality on golden set</td><td>30%</td><td>5</td><td>4</td><td>3</td></tr>
+<tr><td>Cost per successful task</td><td>20%</td><td>2</td><td>4</td><td>3</td></tr>
+<tr><td>Latency</td><td>10%</td><td>3</td><td>4</td><td>4</td></tr>
+<tr><td>Privacy and compliance fit</td><td>20%</td><td>3</td><td>3</td><td>5</td></tr>
+<tr><td>Context and modality</td><td>5%</td><td>5</td><td>5</td><td>4</td></tr>
+<tr><td>Ecosystem and tooling</td><td>5%</td><td>5</td><td>5</td><td>3</td></tr>
+<tr><td>Portability and lock-in risk</td><td>10%</td><td>2</td><td>2</td><td>5</td></tr>
+<tr><td><strong>Weighted total</strong></td><td>100%</td><td><strong>3.50</strong></td><td><strong>3.70</strong></td><td><strong>3.75</strong></td></tr>
+</tbody>
+</table>
+</div>
+<p>Model A wins on quality but loses on cost and lock-in, and the self-hosted model edges out the mid-tier API. Now run a sensitivity check. If the team decides privacy matters less, say because the policy documents are scrubbed of personal data, moving 10 points from privacy to quality changes the totals to 3.70 for A, 3.80 for B and 3.55 for C, and B becomes the winner.</p>
+<div class="callout tip">
+<p>When the top two candidates are within about 0.2 points, treat the result as a tie. Decide on the single criterion that matters most to the business, and record why, so the choice can be revisited when prices or models change.</p>
+</div>
+
+<h2 id="evaluate-on-your-own-data">Run a quick evaluation on your own data</h2>
+<p>Public <a href="glossary-evaluation.html#benchmark">benchmarks</a> tell you which models are generally strong, not which one handles your inputs. A focused <a href="glossary-evaluation.html#evaluation">evaluation</a> takes a few days and is the best predictor of production performance you can get.</p>
+<h3 id="build-a-golden-set">Build a golden set</h3>
+<p>Collect 50 to 200 real, anonymized inputs. Include the common cases in proportion, plus the edge cases and known failures that worry you, and write a reference answer or explicit pass criteria for each.</p>
+<p>Keep the set frozen and versioned. It becomes your regression test for every prompt change, model update and provider switch.</p>
+<h3 id="choose-a-scoring-method">Choose a scoring method</h3>
+<p>Match the scoring to the task. Extraction can be scored field by field against the reference, code can be scored by running unit tests, and classification by simple accuracy.</p>
+<p>Open-ended outputs, such as answers and drafts, need a rubric: for instance, 1 to 5 for correctness, completeness, grounding in the provided sources and tone. Have two people score the same 20 outputs first, to make sure the rubric produces consistent judgments.</p>
+<h3 id="use-llm-as-a-judge-carefully">Use LLM-as-a-judge, carefully</h3>
+<p>Scoring hundreds of outputs by hand is slow, so many teams use a strong model as the grader, an approach called <a href="glossary-evaluation.html#llm-as-a-judge">LLM-as-a-judge</a>. A 2023 study by Zheng and colleagues found that strong judges agreed with human preferences more than 80% of the time, roughly matching agreement between people.</p>
+<p>The same study documented biases toward the first answer shown, toward longer answers, and toward the judge's own outputs. Swap the order of answers in pairwise comparisons, give the judge your rubric, and prefer a judge from a different model family than the candidates. Then check its scores against 30 to 50 human-labeled examples before you trust it.</p>
+<h3 id="measure-cost-per-successful-task">Measure cost per successful task</h3>
+<p>Log the actual input, output and reasoning tokens from each API response rather than estimating them. Then fold in what failures cost you, because a cheap model that fails often isn't cheap.</p>
+<p>Here's a worked example. Each task uses 3,000 input and 500 output tokens. An upper-mid-tier model priced at $4 and $20 per million tokens costs $0.012 plus $0.010, or $0.022 per task, and fails 3% of your golden set. A budget model at $0.10 and $0.50 costs $0.0003 plus $0.00025, or $0.00055 per task, but fails 9% of the time.</p>
+<p>If each failure costs $2 of staff time to catch and fix, expected cost per task is $0.022 + (0.03 × $2) = $0.082 for the first model and $0.00055 + (0.09 × $2) = $0.18 for the second. The model that's 40 times cheaper per call is more than twice as expensive per task. The <a href="llm-cost-calculator.html">LLM cost calculator</a> handles the token side of this math at your volumes.</p>
+
+<figure class="video-figure"><div class="video" data-yt="EWvNQjAaOHw"><button class="video__btn" type="button" aria-label="Play video: How I use LLMs"><img src="https://i.ytimg.com/vi/EWvNQjAaOHw/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="video__play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></button></div>
+<figcaption>Watch: How I use LLMs (Andrej Karpathy). Karpathy shows his everyday workflow with chat assistants, from choosing between standard and reasoning models to using search, uploaded files and code tools. It is useful for working professionals who already use an assistant and want a more deliberate routine.</figcaption></figure>
+<h2 id="starting-points-by-use-case">Starting points for five common use cases</h2>
+<p>The table below describes what to shortlist by tier and traits, with example candidates as of October 2026. Model names change every few months, but the traits that matter for each job are much more stable.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Use case</th><th>Start with</th><th>Traits that matter most</th><th>Candidates to test (October 2026)</th></tr>
+</thead>
+<tbody>
+<tr><td>Customer support bot</td><td>A mid-tier or fast small model, escalating hard cases to a stronger one</td><td>Low latency, reliable <a href="glossary-building-apps.html#tool-calling">tool calling</a>, policy adherence, answers grounded in your help content</td><td>Claude Sonnet 5.5 or Haiku 5.5, GPT-6.1 Sol or GPT-6 Luna, Gemini 3.8 Flash</td></tr>
+<tr><td>Coding assistant</td><td>A top-tier model for agentic tasks; a faster mid-tier one for chat and quick edits</td><td>Results on agentic coding benchmarks, long context, tool use, speed</td><td>GPT-6 Astra or GPT-6.1 Sol, Claude Opus 5.5 or Sonnet 5.5, Gemini 3.8 Flash; Qwen3.8 or DeepSeek V4 when code can't leave your network</td></tr>
+<tr><td>Document Q&amp;A</td><td>A mid-tier model behind a retrieval pipeline</td><td>Faithfulness to sources, citations, long context, multilingual quality if needed</td><td>Claude Sonnet 5.5, GPT-6.1 Sol, Gemini 3.8 Flash; Gemma 4 31B or Qwen3.8-27B (both Apache 2.0) for private data</td></tr>
+<tr><td>Data extraction</td><td>A small, inexpensive model with schema-enforced output</td><td><a href="glossary-building-apps.html#structured-outputs">Structured outputs</a>, consistency at low temperature, <a href="glossary-business-pricing.html#batch-api">batch pricing</a></td><td>Claude Haiku 5.5, GPT-6 Luna, Gemini 3.5 Flash-Lite, small open-weight models</td></tr>
+<tr><td>Content drafting</td><td>A mid-tier model, judged by your own editors</td><td>Voice control, instruction following, factual care</td><td>Two or three mid-tier models compared blind on your briefs</td></tr>
+</tbody>
+</table>
+</div>
+<p>For support, most traffic is routine, so a fast model with good retrieval handles the bulk and a stronger model takes the escalations. For coding, the top labs trade the lead on agentic coding benchmarks from one release to the next, so trial two candidates on your own repository. For document Q&amp;A, a long context window doesn't replace <a href="rag-explained.html">retrieval-augmented generation</a> on large collections, because sending a million tokens with every question is slow and expensive.</p>
+<p>Extraction is where small models shine. Combine a schema, a low temperature and batch processing, which Anthropic and Google price at half their standard rates, and route low-confidence records to a larger model or a person. For drafting, quality is partly taste, so a blind side-by-side with the people who'll edit the output beats any benchmark.</p>
+
+<h2 id="deployment-and-vendor-risk">Deployment routes and vendor risk</h2>
+<p>The same model can often be bought three ways. The route you choose affects price, data handling and how quickly you get new features.</p>
+<ul>
+<li><strong>Direct from the provider:</strong> fastest access to new models and features, with the provider's own data terms. OpenAI, for example, offers zero data retention to eligible API customers.</li>
+<li><strong>Through a cloud marketplace:</strong> you use your existing cloud contract, identity controls and billing. Anthropic lists its Claude models on Amazon Bedrock, Google Cloud Vertex AI and Microsoft Foundry, and OpenAI lists GPT-6 Astra on Microsoft Azure and AWS Bedrock. Residency has a price: Anthropic notes that regional endpoints on Bedrock and Vertex AI cost 10% more than global ones.</li>
+<li><strong>Self-hosted open weights:</strong> maximum control over data and versions, but you own scaling, patching and evaluation. Our guide to <a href="open-source-vs-closed-llms.html">open-source vs closed LLMs</a> covers this trade-off in depth.</li>
+</ul>
+<p>Plan for churn. Google's Gemini 3.7 Flash became generally available on August 13, 2026, and was deprecated on October 8, 2026, with requests routed to Gemini 3.8 Flash. Automatic routing like that keeps applications running, but behavior can shift underneath you.</p>
+<p>Protect yourself with a thin internal interface between your application and any provider SDK, pinned model versions where providers allow it, prompts and golden sets stored in version control, and a tested fallback model. Then a switch costs a re-run of your evaluation rather than a rewrite.</p>
+
+<aside class="ad-slot" data-ad="in-article-2" aria-label="Sponsored message"><span class="ad-label">From LLModel</span><div class="ad-fill"><div class="house"><div><strong>The LLM Brief</strong><span>One short email a week: new models, price changes and one tool worth trying.</span></div>
+<a class="btn btn--ghost btn--sm" href="newsletter.html">Subscribe free</a></div>
+</div>
+</aside>
+<h2 id="procurement-checklist">Procurement checklist</h2>
+<p>Before you sign, get written answers to these questions. They apply to direct APIs and cloud marketplaces alike, and this is general guidance rather than legal advice.</p>
+<div class="checklist">
+<ul>
+<li>Is our data used for training, how long are prompts and outputs retained, and is zero retention available?</li>
+<li>Which regions process our data, and what do regional endpoints cost?</li>
+<li>Which security attestations does the provider hold, and will it sign a data processing agreement?</li>
+<li>How much notice is given before a model is deprecated, and can we pin versions?</li>
+<li>What rate limits apply at our peak volume, and what availability commitments come with them?</li>
+<li>What are the long-context, caching, batch and committed-use prices?</li>
+<li>Does the provider offer indemnity for intellectual property claims over outputs?</li>
+<li>Which acceptable use policy applies, and does it permit our use case?</li>
+<li>What obligations apply under regulations such as the EU AI Act, most of which has applied since August 2, 2026?</li>
+<li>How would we export our data, prompts and fine-tuned assets if we leave?</li>
+</ul>
+</div>
+
+<h2 id="common-mistakes">Common mistakes</h2>
+<p>These errors show up again and again in model selection. Each is cheap to avoid and expensive to discover in production.</p>
+<ul>
+<li><strong>Choosing from a leaderboard.</strong> Rankings average many tasks that aren't yours.</li>
+<li><strong>Comparing price per token.</strong> Cost per successful task, including failures and reasoning tokens, is the number that matters.</li>
+<li><strong>Testing on clean demo inputs.</strong> Real inputs are longer, messier and stranger, so build the golden set from production data.</li>
+<li><strong>Ignoring tail latency and rate limits.</strong> Averages hide the slow responses users remember.</li>
+<li><strong>Hard-wiring one provider.</strong> SDK-specific code and prompt quirks scattered through the codebase turn a model switch into a project.</li>
+<li><strong>Never re-testing.</strong> Re-run your evaluation whenever a provider updates or reroutes a model.</li>
+</ul>
+
+<h2 id="next-steps">Next steps</h2>
+<p>For a quick shortlist, the <a href="llm-picker.html">LLM picker</a> recommends models from a few questions about your use case and budget, and <a href="compare.html">side-by-side comparison</a> lines up prices, context windows and features. If self-hosting is on the table, read <a href="open-source-vs-closed-llms.html">open-source vs closed LLMs</a> next. And if you'd like someone to run the evaluation with your team, you can <a href="hire-llm-experts.html">get expert help</a>.</p>
+    <section class="sources" aria-labelledby="sources"><h2 id="sources">Sources</h2>
+<ol><li><a href="https://arxiv.org/abs/2306.05685" target="_blank" rel="noopener">Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena (Zheng et al., 2023)</a></li>
+<li><a href="https://platform.claude.com/docs/en/about-claude/models/overview" target="_blank" rel="noopener">Models overview (Claude documentation)</a></li>
+<li><a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="noopener">Pricing (Claude documentation)</a></li>
+<li><a href="https://developers.openai.com/api/docs/models" target="_blank" rel="noopener">Models (OpenAI API documentation)</a></li>
+<li><a href="https://developers.openai.com/api/docs/pricing" target="_blank" rel="noopener">Pricing (OpenAI API documentation)</a></li>
+<li><a href="https://ai.google.dev/gemini-api/docs/pricing" target="_blank" rel="noopener">Gemini Developer API pricing (Google AI for Developers)</a></li>
+<li><a href="https://ai.google.dev/gemini-api/docs/changelog" target="_blank" rel="noopener">Gemini API release notes (Google AI for Developers)</a></li>
+<li><a href="https://api-docs.deepseek.com/quick_start/pricing" target="_blank" rel="noopener">Models and pricing (DeepSeek API documentation)</a></li>
+<li><a href="https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai" target="_blank" rel="noopener">AI Act regulatory framework (European Commission)</a></li>
+</ol>
+      <p class="small muted">Written by the LLModel editorial team and checked against the sources above on October 10, 2026. Found an error? <a href="contact.html?topic=correction">Send a correction</a>.</p>
+</section>
+    <div class="share" aria-label="Share this guide"><span class="muted">Share:</span><button type="button" data-copy-link>Copy link</button><a href="https://www.linkedin.com/sharing/share-offsite/?url=https://llmodel.com/how-to-choose-an-llm.html" target="_blank" rel="noopener">LinkedIn</a><a href="https://twitter.com/intent/tweet?url=https://llmodel.com/how-to-choose-an-llm.html&amp;text=How to choose an LLM for your project" target="_blank" rel="noopener">X</a><a href="https://news.ycombinator.com/submitlink?u=https://llmodel.com/how-to-choose-an-llm.html&amp;t=How to choose an LLM for your project" target="_blank" rel="noopener">Hacker News</a><a href="https://www.reddit.com/submit?url=https://llmodel.com/how-to-choose-an-llm.html&amp;title=How to choose an LLM for your project" target="_blank" rel="noopener">Reddit</a></div>
+  </article>
+  <aside class="article__side" aria-label="Related"><div class="panel"><h2 class="h3">Try the tools</h2>
+<ul style="margin:.5rem 0 0;padding-left:1.1rem"><li><a href="llm-picker.html">Which LLM should I use?</a></li>
+<li><a href="llm-cost-calculator.html">LLM API cost calculator</a></li>
+<li><a href="self-host-vs-api-calculator.html">Self-host vs API calculator</a></li>
+<li><a href="token-counter.html">Token counter</a></li>
+</ul>
+</div>
+<div class="panel"><h2 class="h3">Need hands-on help?</h2>
+<p class="small muted" style="margin-top:.4rem">Get a vendor-neutral plan for your project within 2 business days.</p>
+<a class="btn btn--primary btn--block" style="margin-top:.8rem" href="hire-llm-experts.html?from=guide-how-to-choose-an-llm">Get expert help</a></div>
+<div class="panel newsletter-box">
+
+  <p class="muted" style="margin-top:.4rem">One short email a week: model releases, price changes and one tool worth trying. Free, and you can unsubscribe anytime.</p>
+  <form class="form" data-form="newsletter" data-subject="Newsletter signup" novalidate style="margin-top:1rem">
+    <div class="inline-form">
+      <label class="visually-hidden" for="nl-side-email">Email address</label>
+      <input class="input" type="email" id="nl-side-email" name="email" required autocomplete="email" placeholder="Your work email">
+      <button class="btn btn--primary" type="submit">Subscribe</button>
+    </div>
+    <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <div class="form-status" role="status" aria-live="polite"></div>
+  </form>
+  <p class="fine" style="margin-top:.6rem">We send one email a week and never sell your address. See the <a href="privacy.html">privacy policy</a>.</p>
+</div>
+</aside>
+</div>
+<div class="wrap wrap--read" style="margin-top:3rem"><section class="faq-wrap" aria-labelledby="faq"><h2 class="h2" id="faq" style="margin-bottom:1rem">Frequently asked questions</h2>
+<div class="faq"><details><summary>What is the best LLM right now?</summary><div class="faq__a"><p>No single model wins everything. As of October 2026, the frontier models from OpenAI, Anthropic and Google, such as GPT-6 Astra, Claude Fable 5.1, Claude Opus 5.5 and Gemini 3.1 Pro, trade leads across public benchmarks, while mid-tier models handle most production tasks at a fraction of the price. The best model is the cheapest one that meets your quality bar on your own data, so shortlist two or three and test them.</p>
+</div>
+</details>
+<details><summary>How do I compare LLMs for my use case?</summary><div class="faq__a"><p>Collect 50 to 200 real, anonymized examples of the task with reference answers or pass criteria. Run each candidate model with the same prompt, then score outputs with exact matching, unit tests or a rubric applied by people or a calibrated LLM judge. Record latency and token usage, compute cost per successful task, and combine the results in a weighted scoring matrix agreed on before testing.</p>
+</div>
+</details>
+<details><summary>How much does it cost to use an LLM API?</summary><div class="faq__a"><p>It depends on token volume and model tier. As of October 2026, list prices run from $0.10 input and $0.50 output per million tokens for the smallest OpenAI and Anthropic models to $10 and $50 for their top models. A million requests a month at 1,000 input and 200 output tokens each costs about $200 at the low end and $20,000 at the high end, before batch or caching discounts.</p>
+</div>
+</details>
+<details><summary>Should I use one LLM or several?</summary><div class="faq__a"><p>Start with one model so you can learn your traffic and failure modes. Add a second when there&#x27;s a clear reason: routing easy requests to a cheaper model, escalating hard ones to a stronger model, or keeping a fallback provider for outages. Each extra model needs its own prompt tuning and evaluation runs, so add routing when the savings or resilience justify that ongoing work.</p>
+</div>
+</details>
+<details><summary>Is LLM-as-a-judge reliable for evaluating models?</summary><div class="faq__a"><p>It&#x27;s reliable enough to scale evaluation if you calibrate it. A 2023 study by Zheng and colleagues found strong judge models agreed with human preferences more than 80% of the time, about as often as humans agree with each other. The same study found position, verbosity and self-enhancement biases, so swap answer order, use a clear rubric and check the judge against 30 to 50 human-labeled examples.</p>
+</div>
+</details>
+</div>
+</section>
+</div>
+
+<section class="wrap" aria-labelledby="related" style="margin-top:3rem"><h2 class="h2" id="related" style="margin-bottom:1rem">Keep reading</h2>
+<div class="cardlist"><a class="card" href="open-source-vs-closed-llms.html"><span class="card__kicker">Choosing &amp; buying</span><span class="card__title">Open-source vs closed LLMs: how to decide</span><span class="card__desc">Open-weight models let you run an LLM on your own infrastructure, but &#x27;open&#x27; covers licenses ranging from Apache 2.0 to custom terms with user caps and naming rules. This guide compares open and closed models on quality, cost, control and risk, works through a total cost of ownership example and shows when a hybrid setup wins.</span><span class="card__foot"><span>Intermediate</span><span>9 min read</span></span></a><a class="card" href="llm-benchmarks-explained.html"><span class="card__kicker">Safety &amp; quality</span><span class="card__title">LLM benchmarks explained</span><span class="card__desc">What the major LLM benchmarks test, which ones still
+separate frontier models as of October 2026, and why arena rankings and launch charts need a skeptical read. Includes a method for building your own evaluation with golden sets, rubrics and cost metrics.</span><span class="card__foot"><span>Intermediate</span><span>9 min read</span></span></a><a class="card" href="llm-api-pricing-explained.html"><span class="card__kicker">Choosing &amp; buying</span><span class="card__title">LLM API pricing explained</span><span class="card__desc">LLM APIs bill per token, but output, reasoning, caching, batching and long-context tiers can change a bill several-fold. This guide explains each pricing component, shows real prices as of October 2026 and works through three cost examples step by step.</span><span class="card__foot"><span>Beginner</span><span>11 min read</span></span></a></div>
+</section>
+<div class="wrap"><section class="lead-band" aria-labelledby="lead-choose-guide-how-to-choose-an-llm">
+  <div>
+    <h2 id="lead-choose-guide-how-to-choose-an-llm">Still choosing a model?</h2>
+    <p>Send us your use case and constraints. We&#x27;ll come back with a shortlist and an evaluation plan you can run on your own data.</p>
+    <ul><li>Free and vendor-neutral: no model provider pays for placement.</li>
+<li>Your details go only to partners you agree to.</li>
+</ul>
+  </div>
+  <form class="mini-form" action="hire-llm-experts.html" method="get">
+    <label for="need-choose-guide-how-to-choose-an-llm">What do you need help with?</label>
+    <select id="need-choose-guide-how-to-choose-an-llm" name="need"><option value="choose-model">Choose the right model</option>
+<option value="chatbot">Build a chatbot or assistant</option>
+<option value="rag">Answer questions over our documents (RAG)</option>
+<option value="agents">Automate work with AI agents</option>
+<option value="self-host">Fine-tune or self-host a model</option>
+<option value="cut-costs">Cut our LLM costs</option>
+<option value="security">Security, privacy or compliance review</option>
+<option value="not-sure">Not sure yet</option>
+</select>
+    <input type="hidden" name="from" value="guide-how-to-choose-an-llm">
+    <button class="btn btn--yellow btn--block" type="submit">Start my free plan</button>
+    <p class="fine">Takes about 2 minutes. No sales calls unless you ask for one.</p>
+  </form>
+</section>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+      <p>The independent field guide to large language models. Model data checked against provider documentation; last full check October 10, 2026.</p>
+    </div>
+    <div><h2>Explore</h2>
+<ul><li><a href="models.html">Model directory</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare models</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="search.html">Search</a></li>
+</ul>
+</div>
+<div><h2>Tools</h2>
+<ul><li><a href="llm-cost-calculator.html">Cost calculator</a></li>
+<li><a href="token-counter.html">Token counter</a></li>
+<li><a href="vram-calculator.html">GPU and VRAM calculator</a></li>
+<li><a href="llm-picker.html">Which LLM should I use?</a></li>
+<li><a href="context-window-visualizer.html">Context window visualizer</a></li>
+<li><a href="prompt-builder.html">Prompt builder</a></li>
+<li><a href="self-host-vs-api-calculator.html">Self-host vs API calculator</a></li>
+</ul>
+</div>
+<div><h2>Learn</h2>
+<ul><li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+</ul>
+</div>
+<div><h2>Work with us</h2>
+<ul><li><a href="hire-llm-experts.html">Get expert help</a></li>
+<li><a href="list-your-product.html">List your product</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</div>
+<div><h2>About</h2>
+<ul><li><a href="about.html">About LLModel</a></li>
+<li><a href="editorial-policy.html">Editorial policy</a></li>
+<li><a href="privacy.html">Privacy policy</a></li>
+<li><a href="terms.html">Terms of use</a></li>
+<li><a href="disclaimer.html">Disclaimer</a></li>
+<li><a href="trademark-copyright.html">Trademark and copyright</a></li>
+<li><a href="sitemap.html">Site map</a></li>
+<li><button class="linklike" type="button" data-privacy-choices>Privacy and cookie choices</button></li>
+</ul>
+</div>
+  </div>
+  <div class="wrap footer-legal">
+    <p>&copy; 2026 LLModel.com. Independent: not affiliated with, endorsed by or sponsored by any model provider. Model and company names are trademarks of their respective owners and are used only to identify products. See <a href="trademark-copyright.html">trademark and copyright</a>.</p>
+    <p>Prices and specifications change often. Always confirm on the provider's own pricing page before you buy.</p>
+  </div>
+</footer>
+<div class="palette" id="palette" hidden role="dialog" aria-modal="true" aria-label="Search LLModel">
+  <div class="palette__box">
+    <label class="visually-hidden" for="palette-input">Search models, tools, guides and terms</label>
+    <input class="palette__input" id="palette-input" type="search" placeholder="Search models, tools, guides, terms" autocomplete="off" spellcheck="false" aria-controls="palette-list">
+    <ul class="palette__list" id="palette-list" role="listbox"></ul>
+    <div class="palette__foot"><span><span class="kbd">&uarr;</span> <span class="kbd">&darr;</span> to move</span><span><span class="kbd">Enter</span> to open</span><span><span class="kbd">Esc</span> to close</span></div>
+  </div>
+</div>
+<script src="assets/js/config.js?v=caa5324cbb"></script>
+
+<script src="assets/js/app.js?v=4b39d7c1bd" defer></script>
+<script src="assets/js/article.js?v=0235be8880" defer></script>
+</body>
+</html>

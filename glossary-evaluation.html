@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Evaluation and Benchmarks Terms: LLM Glossary (14 Definitions) | LLModel.com</title>
+<meta name="description" content="Plain-English definitions of 14 evaluation and benchmarks terms for large language models, including benchmarks, MMLU, SWE-bench and LLM-as-a-judge.">
+<link rel="canonical" href="https://llmodel.com/glossary-evaluation.html">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="google-adsense-account" content="ca-pub-6620975821265271">
+<meta name="theme-color" content="#f4f6fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12101e" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="LLModel.com">
+<meta property="og:title" content="Evaluation and Benchmarks Terms: LLM Glossary (14 Definitions)">
+<meta property="og:description" content="Plain-English definitions of 14 evaluation and benchmarks terms for large language models, including benchmarks, MMLU, SWE-bench and LLM-as-a-judge.">
+<meta property="og:url" content="https://llmodel.com/glossary-evaluation.html">
+<meta property="og:image" content="https://llmodel.com/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="LLModel: the independent field guide to large language models">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="alternate" type="text/plain" href="llms.txt" title="llms.txt">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Martian+Mono:wght@400..500&family=Newsreader:ital,opsz,wght@0,6..72,400..650;1,6..72,400&display=swap">
+<link rel="stylesheet" href="assets/css/style.css?v=dae4813595">
+<script>(function(){var d=document.documentElement,t=null;try{t=localStorage.getItem('llm-theme')}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}d.setAttribute('data-theme',t)})();</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6620975821265271" crossorigin="anonymous"></script>
+<script type="application/ld+json">{
+ "@type": "Organization",
+ "@id": "https://llmodel.com/#org",
+ "name": "LLModel.com",
+ "url": "https://llmodel.com/",
+ "logo": "https://llmodel.com/assets/img/icon-512.png",
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://llmodel.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Glossary",
+   "item": "https://llmodel.com/glossary.html"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "Evaluation and benchmarks"
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "DefinedTermSet",
+ "name": "LLM glossary: evaluation and benchmarks",
+ "url": "https://llmodel.com/glossary-evaluation.html",
+ "hasDefinedTerm": [
+  {
+   "@type": "DefinedTerm",
+   "name": "Benchmark",
+   "description": "A standardized test set and scoring method used to compare models on a specific skill.",
+   "url": "https://llmodel.com/glossary-evaluation.html#benchmark"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Benchmark contamination",
+   "description": "When benchmark questions or answers appear in a model's training data, inflating its scores.",
+   "url": "https://llmodel.com/glossary-evaluation.html#benchmark-contamination"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Elo rating (arena leaderboards)",
+   "description": "A rating system from chess, adapted by crowdsourced leaderboards that rank models from head-to-head votes.",
+   "url": "https://llmodel.com/glossary-evaluation.html#elo-rating"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Eval set",
+   "description": "A curated set of test inputs, with expected outputs or grading criteria, used to measure an LLM application.",
+   "url": "https://llmodel.com/glossary-evaluation.html#eval-set"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Evaluation (evals)",
+   "description": "Systematically measuring how well a model or LLM application performs on the tasks you care about.",
+   "url": "https://llmodel.com/glossary-evaluation.html#evaluation"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "GPQA",
+   "description": "A hard multiple-choice science benchmark written by PhD-level experts and designed to resist web search.",
+   "url": "https://llmodel.com/glossary-evaluation.html#gpqa"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "HumanEval",
+   "description": "An OpenAI coding benchmark of 164 Python problems, each checked by running unit tests.",
+   "url": "https://llmodel.com/glossary-evaluation.html#humaneval"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "LLM-as-a-judge",
+   "description": "Using a language model to grade or compare other models' outputs against a rubric.",
+   "url": "https://llmodel.com/glossary-evaluation.html#llm-as-a-judge"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Lost in the middle",
+   "description": "The tendency of models to use information at the start or end of a long input better than the middle.",
+   "url": "https://llmodel.com/glossary-evaluation.html#lost-in-the-middle"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "MMLU",
+   "description": "A widely cited multiple-choice benchmark covering 57 subjects, from math and law to medicine.",
+   "url": "https://llmodel.com/glossary-evaluation.html#mmlu"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Needle in a haystack",
+   "description": "A long-context test that hides one fact in a long document and asks the model to find it.",
+   "url": "https://llmodel.com/glossary-evaluation.html#needle-in-a-haystack"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "pass@k",
+   "description": "The probability that at least one of k generated attempts at a problem is correct.",
+   "url": "https://llmodel.com/glossary-evaluation.html#pass-at-k"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Perplexity",
+   "description": "A measure of how well a model predicts text; lower means the model is less surprised.",
+   "url": "https://llmodel.com/glossary-evaluation.html#perplexity"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "SWE-bench",
+   "description": "A benchmark that tests whether a model or agent can resolve real GitHub issues in Python projects.",
+   "url": "https://llmodel.com/glossary-evaluation.html#swe-bench"
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+
+</head>
+<body class="page-glossary-evaluation">
+<a class="skip" href="#main">Skip to content</a>
+<div class="partner-bar"><a href="https://web.works/contact" target="_blank" rel="noopener"><span>Contact, if you are interested in this website / domain name / sponsorship / advertisement / partnership</span></a></div>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+    <nav class="nav" aria-label="Main"><a href="models.html">Models</a><a href="compare.html">Compare</a><a href="leaderboard.html">Rankings</a><a href="tools.html">Tools</a><a href="guides.html" aria-current="page">Learn</a><a href="videos.html">Videos</a></nav>
+    <div class="header-actions">
+      <button class="search-btn" type="button" data-open-search aria-label="Search the site"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="search-label">Search</span><span class="kbd" aria-hidden="true">/</span></button>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><svg class="theme-icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="theme-icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+      <a class="btn btn--primary btn--sm header-cta" href="hire-llm-experts.html">Get expert help</a>
+      <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile">
+    <ul><li><a href="models.html">Models</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="tools.html">Tools</a></li>
+<li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="contact.html">Contact</a></li>
+<li class="mobile-cta"><a class="btn btn--primary btn--block" href="hire-llm-experts.html">Get expert help</a></li>
+</ul>
+  </nav>
+</header>
+<main id="main">
+<nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li aria-current="page">Evaluation and benchmarks</li>
+</ol>
+</nav>
+<header class="page-head wrap"><h1>LLM glossary: evaluation and benchmarks</h1><p class="lede">Measuring models: benchmarks such as MMLU, GPQA and SWE-bench, arena Elo ratings, contamination, LLM-as-a-judge and long-context tests. 14 terms, each with a short definition, a fuller explanation and links to related terms.</p>
+<div class="page-meta"><span>Updated October 10, 2026</span><span><a href="glossary.html">All 169 terms</a></span></div>
+</header>
+<div class="wrap">
+<nav class="pill-nav" aria-label="Other glossary topics"><a href="glossary-fundamentals.html">Fundamentals</a><a href="glossary-architecture.html">Model architecture</a><a href="glossary-training.html">Training</a><a href="glossary-inference-deployment.html">Inference and deployment</a><a href="glossary-prompting.html">Prompting</a><a href="glossary-building-apps.html">Building LLM apps</a><a href="glossary-safety-governance.html">Safety and governance</a><a href="glossary-business-pricing.html">Business and pricing</a></nav>
+<div class="filters" style="margin-top:1.5rem"><div class="filters__top"><label class="visually-hidden" for="gl-q">Filter terms</label><input class="input" id="gl-q" type="search" placeholder="Filter 14 terms" autocomplete="off"></div>
+<p class="result-count" id="gl-count" aria-live="polite">14 terms</p>
+</div>
+<aside class="ad-slot" data-ad="glossary-top" aria-label="Sponsored message"><span class="ad-label">From LLModel</span><div class="ad-fill"><div class="house"><div><strong>Building with LLMs?</strong><span>Tell us what you&#x27;re building and get a vendor-neutral stack plan within 2 business days.</span></div>
+<a class="btn btn--ghost btn--sm" href="hire-llm-experts.html">Get my stack plan</a></div>
+</div>
+</aside>
+<div id="gl-list"><div class="terms"><article class="term" id="benchmark" data-cat="Evaluation" data-text="benchmark llm benchmark benchmark suite"><h3>Benchmark <span class="aka">LLM benchmark, benchmark suite</span><a class="anchor" href="#benchmark" aria-label="Link to Benchmark">#</a></h3>
+<p class="short">A standardized test set and scoring method used to compare models on a specific skill.</p>
+<p class="def">A benchmark is a fixed collection of tasks with an agreed way of scoring them, so different models can be compared on equal terms. Examples include MMLU for broad knowledge, GPQA for expert science questions, HumanEval for short coding problems and SWE-bench for fixing real software issues. Benchmarks are useful for tracking progress and shortlisting models, but read results critically. Popular tests saturate as top models approach perfect scores, test questions can leak into training data, small changes in prompting or scoring can swing results by several points, and no benchmark exactly matches your workload. Check who ran an evaluation, and with what settings, before comparing numbers.</p>
+<div class="rel tags"><a class="tag" href="#evaluation">Evaluation (evals)</a><a class="tag" href="#benchmark-contamination">Benchmark contamination</a><a class="tag" href="#mmlu">MMLU</a><a class="tag" href="#swe-bench">SWE-bench</a></div>
+</article>
+<article class="term" id="benchmark-contamination" data-cat="Evaluation" data-text="benchmark contamination data contamination test set leakage"><h3>Benchmark contamination <span class="aka">data contamination, test set leakage</span><a class="anchor" href="#benchmark-contamination" aria-label="Link to Benchmark contamination">#</a></h3>
+<p class="short">When benchmark questions or answers appear in a model&#x27;s training data, inflating its scores.</p>
+<p class="def">Benchmark contamination happens when test items, or close copies of them, end up in a model&#x27;s training data, so a high score partly reflects memory rather than skill. Because LLMs train on vast web scrapes, and popular benchmarks are discussed and reposted online, some leakage is hard to avoid. Warning signs include near-verbatim recall of test questions and much lower accuracy on freshly written look-alike questions. Defenses include canary strings that let model builders filter benchmark files out of training data, private held-out test sets, and benchmarks such as LiveCodeBench that keep adding problems published after models&#x27; training cutoffs. For your own evaluations, keep test data out of anything you fine-tune on.</p>
+<div class="rel tags"><a class="tag" href="#benchmark">Benchmark</a><a class="tag" href="glossary-training.html#overfitting">Overfitting</a><a class="tag" href="#eval-set">Eval set</a><a class="tag" href="glossary-fundamentals.html#knowledge-cutoff">Knowledge cutoff</a></div>
+</article>
+<article class="term" id="elo-rating" data-cat="Evaluation" data-text="elo rating (arena leaderboards) arena score elo score"><h3>Elo rating (arena leaderboards) <span class="aka">arena score, Elo score</span><a class="anchor" href="#elo-rating" aria-label="Link to Elo rating (arena leaderboards)">#</a></h3>
+<p class="short">A rating system from chess, adapted by crowdsourced leaderboards that rank models from head-to-head votes.</p>
+<p class="def">Elo is a rating system invented for chess in which points flow from loser to winner after each match, more so after an upset. LLM leaderboards borrowed the idea: a user submits a prompt, sees answers from two anonymous models side by side and votes for the better one, and many thousands of such votes produce a ranking. The best-known example launched in 2023 as Chatbot Arena, from UC Berkeley researchers, and now fits a closely related Bradley-Terry model to all votes at once. A 100-point gap implies the higher-rated model wins about 64 percent of votes. Arena ratings capture real preferences but also reward style, formatting and length, and reflect typical public prompts rather than your use case.</p>
+<div class="rel tags"><a class="tag" href="#benchmark">Benchmark</a><a class="tag" href="#llm-as-a-judge">LLM-as-a-judge</a><a class="tag" href="#evaluation">Evaluation (evals)</a></div>
+</article>
+<article class="term" id="eval-set" data-cat="Evaluation" data-text="eval set golden dataset evaluation dataset test set"><h3>Eval set <span class="aka">golden dataset, evaluation dataset, test set</span><a class="anchor" href="#eval-set" aria-label="Link to Eval set">#</a></h3>
+<p class="short">A curated set of test inputs, with expected outputs or grading criteria, used to measure an LLM application.</p>
+<p class="def">An eval set, sometimes called a golden dataset, is the collection of examples you score every model, prompt or pipeline change against. Good sets mirror real traffic: common requests, known hard cases, past failures, adversarial inputs and cases where the right answer is to decline. Each item pairs an input with a reference answer or a grading rubric. A few dozen well-chosen examples catch obvious regressions, while a few hundred give enough statistical confidence to compare close alternatives. Version the set, add every production failure you fix, and never reuse it for fine-tuning or as few-shot examples, or your scores will stop meaning anything.</p>
+<div class="rel tags"><a class="tag" href="#evaluation">Evaluation (evals)</a><a class="tag" href="#llm-as-a-judge">LLM-as-a-judge</a><a class="tag" href="#benchmark-contamination">Benchmark contamination</a></div>
+</article>
+<article class="term" id="evaluation" data-cat="Evaluation" data-text="evaluation (evals) evals llm evaluation model evaluation"><h3>Evaluation (evals) <span class="aka">evals, LLM evaluation, model evaluation</span><a class="anchor" href="#evaluation" aria-label="Link to Evaluation (evals)">#</a></h3>
+<p class="short">Systematically measuring how well a model or LLM application performs on the tasks you care about.</p>
+<p class="def">Evaluation, often shortened to evals, is how you find out whether a model, prompt or pipeline change actually made things better. A practical eval has three parts: representative inputs, a way to score outputs, and a threshold or comparison that drives a decision. Scoring can use exact checks, such as whether the JSON parses or the code passes its tests, similarity to a reference answer, an LLM judge applying a rubric, or human review for subtle cases. Run offline evals before every change, and add online signals such as user ratings, task completion and escalation rates once you are in production. Public benchmarks help you shortlist models but don&#x27;t replace testing on your own data.</p>
+<div class="rel tags"><a class="tag" href="#eval-set">Eval set</a><a class="tag" href="#benchmark">Benchmark</a><a class="tag" href="#llm-as-a-judge">LLM-as-a-judge</a><a class="tag" href="glossary-safety-governance.html#red-teaming">Red teaming</a></div>
+</article>
+<article class="term" id="gpqa" data-cat="Evaluation" data-text="gpqa gpqa diamond graduate-level google-proof q&amp;a"><h3>GPQA <span class="aka">GPQA Diamond, Graduate-Level Google-Proof Q&amp;A</span><a class="anchor" href="#gpqa" aria-label="Link to GPQA">#</a></h3>
+<p class="short">A hard multiple-choice science benchmark written by PhD-level experts and designed to resist web search.</p>
+<p class="def">GPQA, short for Graduate-Level Google-Proof Q&amp;A, was published in November 2023. Its 448 multiple-choice questions in biology, physics and chemistry were written and validated by domain experts. In the original study, people with or pursuing PhDs in the relevant field scored about 65 percent, while skilled non-experts reached only 34 percent despite unrestricted web access, which is what Google-proof means. Most model reports cite GPQA Diamond, a 198-question subset where expert validators answered correctly and most non-experts did not. Leading models have since passed the expert baseline, so it separates top models less than it once did, but it remains a common test of scientific reasoning.</p>
+<div class="rel tags"><a class="tag" href="#benchmark">Benchmark</a><a class="tag" href="#mmlu">MMLU</a><a class="tag" href="glossary-fundamentals.html#reasoning-model">Reasoning model</a></div>
+</article>
+<article class="term" id="humaneval" data-cat="Evaluation" data-text="humaneval"><h3>HumanEval <a class="anchor" href="#humaneval" aria-label="Link to HumanEval">#</a></h3>
+<p class="short">An OpenAI coding benchmark of 164 Python problems, each checked by running unit tests.</p>
+<p class="def">HumanEval was introduced in OpenAI&#x27;s 2021 paper on Codex, the model behind the original GitHub Copilot. It contains 164 hand-written Python programming problems; each provides a function signature and a docstring describing the task, and the model&#x27;s completion is run against unit tests it never sees. Results are reported as pass@k, a metric the paper popularized. HumanEval&#x27;s lasting contribution was making code evaluation execution-based instead of relying on text similarity. Today it is largely saturated, with leading models solving nearly every problem, and its short, self-contained functions look little like real software work. Benchmarks built from actual repositories, such as SWE-bench, are now more informative.</p>
+<div class="rel tags"><a class="tag" href="#pass-at-k">pass@k</a><a class="tag" href="#swe-bench">SWE-bench</a><a class="tag" href="#benchmark">Benchmark</a></div>
+</article>
+<article class="term" id="llm-as-a-judge" data-cat="Evaluation" data-text="llm-as-a-judge llm judge model-graded evaluation ai judge"><h3>LLM-as-a-judge <span class="aka">LLM judge, model-graded evaluation, AI judge</span><a class="anchor" href="#llm-as-a-judge" aria-label="Link to LLM-as-a-judge">#</a></h3>
+<p class="short">Using a language model to grade or compare other models&#x27; outputs against a rubric.</p>
+<p class="def">LLM-as-a-judge uses a capable model to score outputs, either rating one answer against a rubric or picking the better of two. It is far cheaper and faster than human review, which makes large-scale evaluation of open-ended work such as summaries, support replies and essays practical. A 2023 study that introduced the MT-Bench benchmark found that strong judges agreed with human preferences over 80 percent of the time, about as often as humans agree with each other. Judges have known biases: favoring the first answer shown, preferring longer answers and rating their own model family more highly. Swap answer order, write specific rubrics and check a sample of judgments against human labels before trusting the scores.</p>
+<div class="rel tags"><a class="tag" href="#evaluation">Evaluation (evals)</a><a class="tag" href="#eval-set">Eval set</a><a class="tag" href="#elo-rating">Elo rating (arena leaderboards)</a></div>
+</article>
+<article class="term" id="lost-in-the-middle" data-cat="Evaluation" data-text="lost in the middle"><h3>Lost in the middle <a class="anchor" href="#lost-in-the-middle" aria-label="Link to Lost in the middle">#</a></h3>
+<p class="short">The tendency of models to use information at the start or end of a long input better than the middle.</p>
+<p class="def">Lost in the middle names a finding from a 2023 study led by Stanford researchers: when the passage needed to answer a question sat in the middle of a long input, accuracy dropped noticeably compared with placing it near the beginning or end, producing a U-shaped curve. The experiments covered multi-document question answering and key-value lookup. Long-context models have improved since, but where and how information is placed still affects results, especially in cluttered inputs. Practical responses include retrieving fewer but better passages, putting the most relevant material and key instructions near the start or end, and restating the question after long documents.</p>
+<div class="rel tags"><a class="tag" href="glossary-fundamentals.html#long-context">Long context</a><a class="tag" href="#needle-in-a-haystack">Needle in a haystack</a><a class="tag" href="glossary-prompting.html#context-engineering">Context engineering</a><a class="tag" href="glossary-building-apps.html#rag">Retrieval-augmented generation (RAG)</a></div>
+</article>
+<article class="term" id="mmlu" data-cat="Evaluation" data-text="mmlu massive multitask language understanding"><h3>MMLU <span class="aka">Massive Multitask Language Understanding</span><a class="anchor" href="#mmlu" aria-label="Link to MMLU">#</a></h3>
+<p class="short">A widely cited multiple-choice benchmark covering 57 subjects, from math and law to medicine.</p>
+<p class="def">MMLU, released in 2020 by Dan Hendrycks and colleagues, tests a model with roughly 16,000 four-option multiple-choice questions across 57 subjects, including elementary math, US history, computer science, law and medicine, at levels from high school to professional. For several years it was the headline number in model announcements. Frontier models now score around 90 percent or more, close to the practical ceiling, since audits have found errors in a share of its questions, so it no longer separates top models well. Harder successors such as MMLU-Pro, which uses ten answer options and more reasoning-heavy questions, have taken over much of that role. Treat MMLU as a basic knowledge check, not a ranking tool.</p>
+<div class="rel tags"><a class="tag" href="#benchmark">Benchmark</a><a class="tag" href="#gpqa">GPQA</a><a class="tag" href="#benchmark-contamination">Benchmark contamination</a></div>
+</article>
+<article class="term" id="needle-in-a-haystack" data-cat="Evaluation" data-text="needle in a haystack niah needle test"><h3>Needle in a haystack <span class="aka">NIAH, needle test</span><a class="anchor" href="#needle-in-a-haystack" aria-label="Link to Needle in a haystack">#</a></h3>
+<p class="short">A long-context test that hides one fact in a long document and asks the model to find it.</p>
+<p class="def">The needle-in-a-haystack test, popularized in late 2023, places a single out-of-place sentence, the needle, at different depths within long filler text, the haystack, and asks the model to retrieve it. Results are drawn as a grid of context length against needle position, so weak spots stand out. It quickly became a standard check on whether a model can actually use the context window it advertises. Most frontier models now pass simple versions almost perfectly, which exposes the test&#x27;s limits: finding one literal match is far easier than connecting several facts or reasoning over a whole input. Harder suites such as NVIDIA&#x27;s RULER add multiple needles, tracing and aggregation tasks.</p>
+<div class="rel tags"><a class="tag" href="glossary-fundamentals.html#long-context">Long context</a><a class="tag" href="#lost-in-the-middle">Lost in the middle</a><a class="tag" href="glossary-fundamentals.html#context-window">Context window</a><a class="tag" href="#benchmark">Benchmark</a></div>
+</article>
+<article class="term" id="pass-at-k" data-cat="Evaluation" data-text="pass@k pass at k pass@1"><h3>pass@k <span class="aka">pass at k, pass@1</span><a class="anchor" href="#pass-at-k" aria-label="Link to pass@k">#</a></h3>
+<p class="short">The probability that at least one of k generated attempts at a problem is correct.</p>
+<p class="def">pass@k measures how often at least one of k sampled solutions to a problem passes its tests, and it is the standard metric for coding benchmarks. pass@1 reflects single-attempt reliability, while pass@10 tells you what to expect if you can generate ten attempts and check them automatically. The gap can be large. If a model solves a problem 30 percent of the time per independent attempt, pass@1 is 0.30 but pass@5 is about 0.83, because 1 minus 0.7 to the fifth power is roughly 0.83. To reduce noise, evaluators usually draw more than k samples and use an unbiased estimator. When comparing models, make sure the k and sampling settings match.</p>
+<div class="rel tags"><a class="tag" href="#humaneval">HumanEval</a><a class="tag" href="#swe-bench">SWE-bench</a><a class="tag" href="glossary-prompting.html#self-consistency">Self-consistency</a><a class="tag" href="#benchmark">Benchmark</a></div>
+</article>
+<article class="term" id="perplexity" data-cat="Evaluation" data-text="perplexity ppl"><h3>Perplexity <span class="aka">PPL</span><a class="anchor" href="#perplexity" aria-label="Link to Perplexity">#</a></h3>
+<p class="short">A measure of how well a model predicts text; lower means the model is less surprised.</p>
+<p class="def">Perplexity measures how well a language model predicts a sample of text. Formally, it is the exponential of the average cross-entropy loss per token. Intuitively, a perplexity of 10 means the model is, on average, as uncertain as if it were choosing among 10 equally likely tokens at each step, so lower is better. It is cheap to compute and useful for tracking pretraining, comparing a quantized model against its original, and spotting text that is unusual for a model. Perplexity is only comparable between models that share a tokenizer and are scored on the same text, and it says little about helpfulness or reasoning. It is unrelated to the AI search company of the same name.</p>
+<div class="rel tags"><a class="tag" href="glossary-training.html#cross-entropy-loss">Cross-entropy loss</a><a class="tag" href="glossary-inference-deployment.html#quantization">Quantization</a><a class="tag" href="glossary-inference-deployment.html#logprobs">Logprobs</a><a class="tag" href="#evaluation">Evaluation (evals)</a></div>
+</article>
+<article class="term" id="swe-bench" data-cat="Evaluation" data-text="swe-bench swe-bench verified"><h3>SWE-bench <span class="aka">SWE-bench Verified</span><a class="anchor" href="#swe-bench" aria-label="Link to SWE-bench">#</a></h3>
+<p class="short">A benchmark that tests whether a model or agent can resolve real GitHub issues in Python projects.</p>
+<p class="def">SWE-bench, published by Princeton researchers in 2023, contains 2,294 tasks drawn from real GitHub issues and the pull requests that resolved them, across 12 popular Python repositories. The system under test gets the codebase and the issue text and must produce a patch, which counts only if the project&#x27;s tests, including those added by the original fix, pass. In August 2024, OpenAI released SWE-bench Verified, a 500-task subset that experienced Python developers screened to remove unclear issues and unfair tests. It became a headline measure for coding agents. Scores depend heavily on the agent scaffold around the model, so compare like with like, and remember that public repositories carry contamination risk.</p>
+<div class="rel tags"><a class="tag" href="#benchmark">Benchmark</a><a class="tag" href="#humaneval">HumanEval</a><a class="tag" href="glossary-building-apps.html#ai-agent">AI agent</a><a class="tag" href="#benchmark-contamination">Benchmark contamination</a></div>
+</article>
+</div>
+</div>
+<p class="empty" id="gl-empty" hidden>No terms on this page match that filter. Try a shorter word, or filter <a href="glossary.html">all 169 terms</a>.</p>
+<section class="lead-band" aria-labelledby="lead-default-glossary">
+  <div>
+    <h2 id="lead-default-glossary">Building with LLMs? Get a vendor-neutral plan.</h2>
+    <p>Tell us what you&#x27;re building. Within 2 business days you get a model shortlist, an architecture outline and a cost estimate, plus optional introductions to vetted implementation partners.</p>
+    <ul><li>Free and vendor-neutral: no model provider pays for placement.</li>
+<li>Your details go only to partners you agree to.</li>
+</ul>
+  </div>
+  <form class="mini-form" action="hire-llm-experts.html" method="get">
+    <label for="need-default-glossary">What do you need help with?</label>
+    <select id="need-default-glossary" name="need"><option value="choose-model">Choose the right model</option>
+<option value="chatbot">Build a chatbot or assistant</option>
+<option value="rag">Answer questions over our documents (RAG)</option>
+<option value="agents">Automate work with AI agents</option>
+<option value="self-host">Fine-tune or self-host a model</option>
+<option value="cut-costs">Cut our LLM costs</option>
+<option value="security">Security, privacy or compliance review</option>
+<option value="not-sure">Not sure yet</option>
+</select>
+    <input type="hidden" name="from" value="glossary">
+    <button class="btn btn--yellow btn--block" type="submit">Start my free plan</button>
+    <p class="fine">Takes about 2 minutes. No sales calls unless you ask for one.</p>
+  </form>
+</section>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+      <p>The independent field guide to large language models. Model data checked against provider documentation; last full check October 10, 2026.</p>
+    </div>
+    <div><h2>Explore</h2>
+<ul><li><a href="models.html">Model directory</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare models</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="search.html">Search</a></li>
+</ul>
+</div>
+<div><h2>Tools</h2>
+<ul><li><a href="llm-cost-calculator.html">Cost calculator</a></li>
+<li><a href="token-counter.html">Token counter</a></li>
+<li><a href="vram-calculator.html">GPU and VRAM calculator</a></li>
+<li><a href="llm-picker.html">Which LLM should I use?</a></li>
+<li><a href="context-window-visualizer.html">Context window visualizer</a></li>
+<li><a href="prompt-builder.html">Prompt builder</a></li>
+<li><a href="self-host-vs-api-calculator.html">Self-host vs API calculator</a></li>
+</ul>
+</div>
+<div><h2>Learn</h2>
+<ul><li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+</ul>
+</div>
+<div><h2>Work with us</h2>
+<ul><li><a href="hire-llm-experts.html">Get expert help</a></li>
+<li><a href="list-your-product.html">List your product</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</div>
+<div><h2>About</h2>
+<ul><li><a href="about.html">About LLModel</a></li>
+<li><a href="editorial-policy.html">Editorial policy</a></li>
+<li><a href="privacy.html">Privacy policy</a></li>
+<li><a href="terms.html">Terms of use</a></li>
+<li><a href="disclaimer.html">Disclaimer</a></li>
+<li><a href="trademark-copyright.html">Trademark and copyright</a></li>
+<li><a href="sitemap.html">Site map</a></li>
+<li><button class="linklike" type="button" data-privacy-choices>Privacy and cookie choices</button></li>
+</ul>
+</div>
+  </div>
+  <div class="wrap footer-legal">
+    <p>&copy; 2026 LLModel.com. Independent: not affiliated with, endorsed by or sponsored by any model provider. Model and company names are trademarks of their respective owners and are used only to identify products. See <a href="trademark-copyright.html">trademark and copyright</a>.</p>
+    <p>Prices and specifications change often. Always confirm on the provider's own pricing page before you buy.</p>
+  </div>
+</footer>
+<div class="palette" id="palette" hidden role="dialog" aria-modal="true" aria-label="Search LLModel">
+  <div class="palette__box">
+    <label class="visually-hidden" for="palette-input">Search models, tools, guides and terms</label>
+    <input class="palette__input" id="palette-input" type="search" placeholder="Search models, tools, guides, terms" autocomplete="off" spellcheck="false" aria-controls="palette-list">
+    <ul class="palette__list" id="palette-list" role="listbox"></ul>
+    <div class="palette__foot"><span><span class="kbd">&uarr;</span> <span class="kbd">&darr;</span> to move</span><span><span class="kbd">Enter</span> to open</span><span><span class="kbd">Esc</span> to close</span></div>
+  </div>
+</div>
+<script src="assets/js/config.js?v=caa5324cbb"></script>
+
+<script src="assets/js/app.js?v=4b39d7c1bd" defer></script>
+<script src="assets/js/pages/glossary.js?v=a99c13579b" defer></script>
+</body>
+</html>
