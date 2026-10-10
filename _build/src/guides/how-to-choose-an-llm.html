@@ -1,0 +1,165 @@
+<!--meta
+{
+  "slug": "how-to-choose-an-llm",
+  "title": "How to Choose an LLM: A Practical Decision Framework",
+  "h1": "How to choose an LLM for your project",
+  "description": "How to choose an LLM: weigh quality, cost, latency, privacy and lock-in, score candidates in a matrix, test on your own data and pick by use case.",
+  "category": "Choosing & buying",
+  "level": "Intermediate",
+  "updated": "2026-10-10",
+  "keywords": ["how to choose an llm", "best llm for business", "llm comparison", "llm evaluation", "llm selection criteria", "llm procurement"],
+  "summary": "A practical framework for choosing a large language model: define the job, weigh ten criteria in a scoring matrix, and run a quick evaluation on your own data. Includes starting points for five common use cases as of October 2026 and a procurement checklist.",
+  "key_takeaways": [
+    "Define the task and what a good output looks like before you compare models; 'best' only means something relative to a task, budget and risk profile.",
+    "Score candidates in a weighted matrix and check whether the winner changes when you shift the weights; in our example, moving 10 points from privacy to quality flips the result.",
+    "A golden set of 50 to 200 real examples, scored by rules, tests or a calibrated LLM judge, predicts production performance better than public leaderboards.",
+    "Compare cost per successful task, not price per token: in our worked example, a model 40 times cheaper per call costs more than twice as much per task once failures are counted.",
+    "Models churn fast, so keep prompts, evaluations and integrations portable, pin versions, and re-test whenever a provider ships an update."
+  ],
+  "faq": [
+    {"q": "What is the best LLM right now?", "a": "No single model wins everything. As of October 2026, the frontier models from OpenAI, Anthropic and Google, such as GPT-6 Astra, Claude Fable 5.1, Claude Opus 5.5 and Gemini 3.1 Pro, trade leads across public benchmarks, while mid-tier models handle most production tasks at a fraction of the price. The best model is the cheapest one that meets your quality bar on your own data, so shortlist two or three and test them."},
+    {"q": "How do I compare LLMs for my use case?", "a": "Collect 50 to 200 real, anonymized examples of the task with reference answers or pass criteria. Run each candidate model with the same prompt, then score outputs with exact matching, unit tests or a rubric applied by people or a calibrated LLM judge. Record latency and token usage, compute cost per successful task, and combine the results in a weighted scoring matrix agreed on before testing."},
+    {"q": "How much does it cost to use an LLM API?", "a": "It depends on token volume and model tier. As of October 2026, list prices run from $0.10 input and $0.50 output per million tokens for the smallest OpenAI and Anthropic models to $10 and $50 for their top models. A million requests a month at 1,000 input and 200 output tokens each costs about $200 at the low end and $20,000 at the high end, before batch or caching discounts."},
+    {"q": "Should I use one LLM or several?", "a": "Start with one model so you can learn your traffic and failure modes. Add a second when there's a clear reason: routing easy requests to a cheaper model, escalating hard ones to a stronger model, or keeping a fallback provider for outages. Each extra model needs its own prompt tuning and evaluation runs, so add routing when the savings or resilience justify that ongoing work."},
+    {"q": "Is LLM-as-a-judge reliable for evaluating models?", "a": "It's reliable enough to scale evaluation if you calibrate it. A 2023 study by Zheng and colleagues found strong judge models agreed with human preferences more than 80% of the time, about as often as humans agree with each other. The same study found position, verbosity and self-enhancement biases, so swap answer order, use a clear rubric and check the judge against 30 to 50 human-labeled examples."}
+  ],
+  "sources": [
+    {"title": "Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena (Zheng et al., 2023)", "url": "https://arxiv.org/abs/2306.05685"},
+    {"title": "Models overview (Claude documentation)", "url": "https://platform.claude.com/docs/en/about-claude/models/overview"},
+    {"title": "Pricing (Claude documentation)", "url": "https://platform.claude.com/docs/en/about-claude/pricing"},
+    {"title": "Models (OpenAI API documentation)", "url": "https://developers.openai.com/api/docs/models"},
+    {"title": "Pricing (OpenAI API documentation)", "url": "https://developers.openai.com/api/docs/pricing"},
+    {"title": "Gemini Developer API pricing (Google AI for Developers)", "url": "https://ai.google.dev/gemini-api/docs/pricing"},
+    {"title": "Gemini API release notes (Google AI for Developers)", "url": "https://ai.google.dev/gemini-api/docs/changelog"},
+    {"title": "Models and pricing (DeepSeek API documentation)", "url": "https://api-docs.deepseek.com/quick_start/pricing"},
+    {"title": "AI Act regulatory framework (European Commission)", "url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai"}
+  ],
+  "related_tools": ["llm-picker", "llm-cost-calculator", "self-host-vs-api-calculator", "token-counter"],
+  "related_guides": ["open-source-vs-closed-llms", "llm-benchmarks-explained", "llm-api-pricing-explained", "llm-security-and-privacy"]
+}
+-->
+<p>Choosing a large language model is a business decision with a technical test attached. This guide gives you a repeatable way to make it: define the job, weigh ten criteria, score your shortlist in a matrix and test it on your own data. It closes with starting points for five common use cases as of October 2026 and a checklist for procurement.</p>
+
+<h2 id="start-with-the-job">Start with the job, not the model</h2>
+<p>Teams that start from a leaderboard tend to buy more model than they need, or the wrong kind. Start by writing a one-paragraph task brief that anyone on the project would agree with.</p>
+<ul>
+<li><strong>Input:</strong> what goes in, such as support tickets, contracts, code diffs or call transcripts, and how long a typical and a worst-case input is.</li>
+<li><strong>Output:</strong> what a good result looks like, ideally with three real examples.</li>
+<li><strong>Volume:</strong> requests per day now and in a year, and the peak hour.</li>
+<li><strong>Stakes:</strong> what a wrong answer costs, and who catches it.</li>
+<li><strong>Constraints:</strong> data that can't leave your network, required regions, budget ceilings and latency targets.</li>
+</ul>
+<p>The brief usually rules out half the market before you compare a single benchmark. A task that handles patient records on-premises and a task that drafts marketing copy shouldn't share a shortlist.</p>
+
+<h2 id="ten-decision-criteria">The ten decision criteria</h2>
+<p>These criteria cover nearly every model decision. For each one, the table gives the question to ask and how to get a real answer instead of a vendor claim.</p>
+<table>
+<thead><tr><th>Criterion</th><th>Question to ask</th><th>How to measure it</th></tr></thead>
+<tbody>
+<tr><td>Task fit</td><td>Can it do this kind of work at all?</td><td>Pass rate on your golden set</td></tr>
+<tr><td>Quality</td><td>How often is the output usable without edits?</td><td>Rubric scores and human review</td></tr>
+<tr><td>Latency</td><td>How fast is the first token and the full answer?</td><td>Median and 95th-percentile timings from your region</td></tr>
+<tr><td>Cost</td><td>What does one successful task cost at our volume?</td><td>Logged token usage times price, plus failure costs</td></tr>
+<tr><td>Context length</td><td>Do our largest inputs fit with room to spare?</td><td>Token counts of your biggest real inputs</td></tr>
+<tr><td>Modality</td><td>Do we need images, audio, PDFs or video?</td><td>Tests with your actual files</td></tr>
+<tr><td>Privacy and compliance</td><td>Where does data go, how long is it kept, is it used for training?</td><td>Vendor terms, data processing agreement, regional options</td></tr>
+<tr><td>Deployment</td><td>Direct API, cloud marketplace or self-hosted?</td><td>Fit with your cloud, security review and procurement</td></tr>
+<tr><td>Ecosystem and tooling</td><td>Are the SDKs, tool calling, structured outputs and batch features solid?</td><td>A one-day prototype</td></tr>
+<tr><td>Vendor risk and lock-in</td><td>How often do models change, and how hard is it to switch?</td><td>Deprecation history and an estimate of switching cost</td></tr>
+</tbody>
+</table>
+<p>A few details trip people up. <a href="glossary.html#latency">Latency</a> has two parts: time to the first token, which users feel in chat, and total generation time, which dominates batch jobs. Reasoning models can add many seconds of thinking before the first visible token, and some providers sell speed at a premium; OpenAI, for example, offers a Fast mode for GPT-6 Astra at twice the standard price.</p>
+<p>Context length has a pricing wrinkle. As of October 2026, OpenAI's GPT-6 models and Google's Gemini 3.1 Pro charge more per token above a prompt-length threshold, and Claude Haiku 5.5's rates rise fivefold for prompts over 100,000 tokens. Anthropic's other current models charge the same rate across their full one-million-token window. Measure your real input sizes with the <a href="token-counter.html">token counter</a> before you assume a window or a price.</p>
+
+<h2 id="weighted-scoring-matrix">A weighted scoring matrix</h2>
+<p>A scoring matrix turns a debate into arithmetic. Agree on weights before you see results, score each candidate from 1 to 5 per criterion, and multiply.</p>
+<p>Here's an example for an internal assistant that answers staff questions about company policies, some of which contain personal data. The candidates are a top-tier closed API model, a mid-tier closed API model and a mid-sized open-weight model hosted in your own cloud account.</p>
+<table>
+<thead><tr><th>Criterion</th><th>Weight</th><th>A: top-tier API</th><th>B: mid-tier API</th><th>C: self-hosted open-weight</th></tr></thead>
+<tbody>
+<tr><td>Quality on golden set</td><td>30%</td><td>5</td><td>4</td><td>3</td></tr>
+<tr><td>Cost per successful task</td><td>20%</td><td>2</td><td>4</td><td>3</td></tr>
+<tr><td>Latency</td><td>10%</td><td>3</td><td>4</td><td>4</td></tr>
+<tr><td>Privacy and compliance fit</td><td>20%</td><td>3</td><td>3</td><td>5</td></tr>
+<tr><td>Context and modality</td><td>5%</td><td>5</td><td>5</td><td>4</td></tr>
+<tr><td>Ecosystem and tooling</td><td>5%</td><td>5</td><td>5</td><td>3</td></tr>
+<tr><td>Portability and lock-in risk</td><td>10%</td><td>2</td><td>2</td><td>5</td></tr>
+<tr><td><strong>Weighted total</strong></td><td>100%</td><td><strong>3.50</strong></td><td><strong>3.70</strong></td><td><strong>3.75</strong></td></tr>
+</tbody>
+</table>
+<p>Model A wins on quality but loses on cost and lock-in, and the self-hosted model edges out the mid-tier API. Now run a sensitivity check. If the team decides privacy matters less, say because the policy documents are scrubbed of personal data, moving 10 points from privacy to quality changes the totals to 3.70 for A, 3.80 for B and 3.55 for C, and B becomes the winner.</p>
+<div class="callout tip">
+<p>When the top two candidates are within about 0.2 points, treat the result as a tie. Decide on the single criterion that matters most to the business, and record why, so the choice can be revisited when prices or models change.</p>
+</div>
+
+<h2 id="evaluate-on-your-own-data">Run a quick evaluation on your own data</h2>
+<p>Public <a href="glossary.html#benchmark">benchmarks</a> tell you which models are generally strong, not which one handles your inputs. A focused <a href="glossary.html#evaluation">evaluation</a> takes a few days and is the best predictor of production performance you can get.</p>
+<h3 id="build-a-golden-set">Build a golden set</h3>
+<p>Collect 50 to 200 real, anonymized inputs. Include the common cases in proportion, plus the edge cases and known failures that worry you, and write a reference answer or explicit pass criteria for each.</p>
+<p>Keep the set frozen and versioned. It becomes your regression test for every prompt change, model update and provider switch.</p>
+<h3 id="choose-a-scoring-method">Choose a scoring method</h3>
+<p>Match the scoring to the task. Extraction can be scored field by field against the reference, code can be scored by running unit tests, and classification by simple accuracy.</p>
+<p>Open-ended outputs, such as answers and drafts, need a rubric: for instance, 1 to 5 for correctness, completeness, grounding in the provided sources and tone. Have two people score the same 20 outputs first, to make sure the rubric produces consistent judgments.</p>
+<h3 id="use-llm-as-a-judge-carefully">Use LLM-as-a-judge, carefully</h3>
+<p>Scoring hundreds of outputs by hand is slow, so many teams use a strong model as the grader, an approach called <a href="glossary.html#llm-as-a-judge">LLM-as-a-judge</a>. A 2023 study by Zheng and colleagues found that strong judges agreed with human preferences more than 80% of the time, roughly matching agreement between people.</p>
+<p>The same study documented biases toward the first answer shown, toward longer answers, and toward the judge's own outputs. Swap the order of answers in pairwise comparisons, give the judge your rubric, and prefer a judge from a different model family than the candidates. Then check its scores against 30 to 50 human-labeled examples before you trust it.</p>
+<h3 id="measure-cost-per-successful-task">Measure cost per successful task</h3>
+<p>Log the actual input, output and reasoning tokens from each API response rather than estimating them. Then fold in what failures cost you, because a cheap model that fails often isn't cheap.</p>
+<p>Here's a worked example. Each task uses 3,000 input and 500 output tokens. An upper-mid-tier model priced at $4 and $20 per million tokens costs $0.012 plus $0.010, or $0.022 per task, and fails 3% of your golden set. A budget model at $0.10 and $0.50 costs $0.0003 plus $0.00025, or $0.00055 per task, but fails 9% of the time.</p>
+<p>If each failure costs $2 of staff time to catch and fix, expected cost per task is $0.022 + (0.03 × $2) = $0.082 for the first model and $0.00055 + (0.09 × $2) = $0.18 for the second. The model that's 40 times cheaper per call is more than twice as expensive per task. The <a href="llm-cost-calculator.html">LLM cost calculator</a> handles the token side of this math at your volumes.</p>
+
+<h2 id="starting-points-by-use-case">Starting points for five common use cases</h2>
+<p>The table below describes what to shortlist by tier and traits, with example candidates as of October 2026. Model names change every few months, but the traits that matter for each job are much more stable.</p>
+<table>
+<thead><tr><th>Use case</th><th>Start with</th><th>Traits that matter most</th><th>Candidates to test (October 2026)</th></tr></thead>
+<tbody>
+<tr><td>Customer support bot</td><td>A mid-tier or fast small model, escalating hard cases to a stronger one</td><td>Low latency, reliable <a href="glossary.html#tool-calling">tool calling</a>, policy adherence, answers grounded in your help content</td><td>Claude Sonnet 5.5 or Haiku 5.5, GPT-6.1 Sol or GPT-6 Luna, Gemini 3.8 Flash</td></tr>
+<tr><td>Coding assistant</td><td>A top-tier model for agentic tasks; a faster mid-tier one for chat and quick edits</td><td>Results on agentic coding benchmarks, long context, tool use, speed</td><td>GPT-6 Astra or GPT-6.1 Sol, Claude Opus 5.5 or Sonnet 5.5, Gemini 3.8 Flash; Qwen3.8 or DeepSeek V4 when code can't leave your network</td></tr>
+<tr><td>Document Q&amp;A</td><td>A mid-tier model behind a retrieval pipeline</td><td>Faithfulness to sources, citations, long context, multilingual quality if needed</td><td>Claude Sonnet 5.5, GPT-6.1 Sol, Gemini 3.8 Flash; Gemma 4 31B or Qwen3.8-27B (both Apache 2.0) for private data</td></tr>
+<tr><td>Data extraction</td><td>A small, inexpensive model with schema-enforced output</td><td><a href="glossary.html#structured-outputs">Structured outputs</a>, consistency at low temperature, <a href="glossary.html#batch-api">batch pricing</a></td><td>Claude Haiku 5.5, GPT-6 Luna, Gemini 3.5 Flash-Lite, small open-weight models</td></tr>
+<tr><td>Content drafting</td><td>A mid-tier model, judged by your own editors</td><td>Voice control, instruction following, factual care</td><td>Two or three mid-tier models compared blind on your briefs</td></tr>
+</tbody>
+</table>
+<p>For support, most traffic is routine, so a fast model with good retrieval handles the bulk and a stronger model takes the escalations. For coding, the top labs trade the lead on agentic coding benchmarks from one release to the next, so trial two candidates on your own repository. For document Q&amp;A, a long context window doesn't replace <a href="rag-explained.html">retrieval-augmented generation</a> on large collections, because sending a million tokens with every question is slow and expensive.</p>
+<p>Extraction is where small models shine. Combine a schema, a low temperature and batch processing, which Anthropic and Google price at half their standard rates, and route low-confidence records to a larger model or a person. For drafting, quality is partly taste, so a blind side-by-side with the people who'll edit the output beats any benchmark.</p>
+
+<h2 id="deployment-and-vendor-risk">Deployment routes and vendor risk</h2>
+<p>The same model can often be bought three ways. The route you choose affects price, data handling and how quickly you get new features.</p>
+<ul>
+<li><strong>Direct from the provider:</strong> fastest access to new models and features, with the provider's own data terms. OpenAI, for example, offers zero data retention to eligible API customers.</li>
+<li><strong>Through a cloud marketplace:</strong> you use your existing cloud contract, identity controls and billing. Anthropic lists its Claude models on Amazon Bedrock, Google Cloud Vertex AI and Microsoft Foundry, and OpenAI lists GPT-6 Astra on Microsoft Azure and AWS Bedrock. Residency has a price: Anthropic notes that regional endpoints on Bedrock and Vertex AI cost 10% more than global ones.</li>
+<li><strong>Self-hosted open weights:</strong> maximum control over data and versions, but you own scaling, patching and evaluation. Our guide to <a href="open-source-vs-closed-llms.html">open-source vs closed LLMs</a> covers this trade-off in depth.</li>
+</ul>
+<p>Plan for churn. Google's Gemini 3.7 Flash became generally available on August 13, 2026, and was deprecated on October 8, 2026, with requests routed to Gemini 3.8 Flash. Automatic routing like that keeps applications running, but behavior can shift underneath you.</p>
+<p>Protect yourself with a thin internal interface between your application and any provider SDK, pinned model versions where providers allow it, prompts and golden sets stored in version control, and a tested fallback model. Then a switch costs a re-run of your evaluation rather than a rewrite.</p>
+
+<h2 id="procurement-checklist">Procurement checklist</h2>
+<p>Before you sign, get written answers to these questions. They apply to direct APIs and cloud marketplaces alike, and this is general guidance rather than legal advice.</p>
+<div class="checklist">
+<ul>
+<li>Is our data used for training, how long are prompts and outputs retained, and is zero retention available?</li>
+<li>Which regions process our data, and what do regional endpoints cost?</li>
+<li>Which security attestations does the provider hold, and will it sign a data processing agreement?</li>
+<li>How much notice is given before a model is deprecated, and can we pin versions?</li>
+<li>What rate limits apply at our peak volume, and what availability commitments come with them?</li>
+<li>What are the long-context, caching, batch and committed-use prices?</li>
+<li>Does the provider offer indemnity for intellectual property claims over outputs?</li>
+<li>Which acceptable use policy applies, and does it permit our use case?</li>
+<li>What obligations apply under regulations such as the EU AI Act, most of which has applied since August 2, 2026?</li>
+<li>How would we export our data, prompts and fine-tuned assets if we leave?</li>
+</ul>
+</div>
+
+<h2 id="common-mistakes">Common mistakes</h2>
+<p>These errors show up again and again in model selection. Each is cheap to avoid and expensive to discover in production.</p>
+<ul>
+<li><strong>Choosing from a leaderboard.</strong> Rankings average many tasks that aren't yours.</li>
+<li><strong>Comparing price per token.</strong> Cost per successful task, including failures and reasoning tokens, is the number that matters.</li>
+<li><strong>Testing on clean demo inputs.</strong> Real inputs are longer, messier and stranger, so build the golden set from production data.</li>
+<li><strong>Ignoring tail latency and rate limits.</strong> Averages hide the slow responses users remember.</li>
+<li><strong>Hard-wiring one provider.</strong> SDK-specific code and prompt quirks scattered through the codebase turn a model switch into a project.</li>
+<li><strong>Never re-testing.</strong> Re-run your evaluation whenever a provider updates or reroutes a model.</li>
+</ul>
+
+<h2 id="next-steps">Next steps</h2>
+<p>For a quick shortlist, the <a href="llm-picker.html">LLM picker</a> recommends models from a few questions about your use case and budget, and <a href="compare.html">side-by-side comparison</a> lines up prices, context windows and features. If self-hosting is on the table, read <a href="open-source-vs-closed-llms.html">open-source vs closed LLMs</a> next. And if you'd like someone to run the evaluation with your team, you can <a href="hire-llm-experts.html">get expert help</a>.</p>
