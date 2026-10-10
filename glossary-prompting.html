@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prompting Terms: LLM Glossary (11 Definitions) | LLModel.com</title>
+<meta name="description" content="Plain-English definitions of 11 prompting terms for large language models, including system prompts, few-shot prompting, chain-of-thought and context engineering.">
+<link rel="canonical" href="https://llmodel.com/glossary-prompting.html">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="google-adsense-account" content="ca-pub-6620975821265271">
+<meta name="theme-color" content="#f4f6fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12101e" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="LLModel.com">
+<meta property="og:title" content="Prompting Terms: LLM Glossary (11 Definitions)">
+<meta property="og:description" content="Plain-English definitions of 11 prompting terms for large language models, including system prompts, few-shot prompting, chain-of-thought and context engineering.">
+<meta property="og:url" content="https://llmodel.com/glossary-prompting.html">
+<meta property="og:image" content="https://llmodel.com/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="LLModel: the independent field guide to large language models">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="alternate" type="text/plain" href="llms.txt" title="llms.txt">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Martian+Mono:wght@400..500&family=Newsreader:ital,opsz,wght@0,6..72,400..650;1,6..72,400&display=swap">
+<link rel="stylesheet" href="assets/css/style.css?v=dae4813595">
+<script>(function(){var d=document.documentElement,t=null;try{t=localStorage.getItem('llm-theme')}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}d.setAttribute('data-theme',t)})();</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6620975821265271" crossorigin="anonymous"></script>
+<script type="application/ld+json">{
+ "@type": "Organization",
+ "@id": "https://llmodel.com/#org",
+ "name": "LLModel.com",
+ "url": "https://llmodel.com/",
+ "logo": "https://llmodel.com/assets/img/icon-512.png",
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://llmodel.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Glossary",
+   "item": "https://llmodel.com/glossary.html"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "Prompting"
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "DefinedTermSet",
+ "name": "LLM glossary: prompting",
+ "url": "https://llmodel.com/glossary-prompting.html",
+ "hasDefinedTerm": [
+  {
+   "@type": "DefinedTerm",
+   "name": "Chain-of-thought prompting (CoT)",
+   "description": "Getting a model to write out intermediate reasoning steps before giving its final answer.",
+   "url": "https://llmodel.com/glossary-prompting.html#chain-of-thought"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Context engineering",
+   "description": "Deciding what information goes into a model's context window, in what form and order, at each step.",
+   "url": "https://llmodel.com/glossary-prompting.html#context-engineering"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Few-shot prompting",
+   "description": "Including a few worked examples in the prompt so the model copies the pattern.",
+   "url": "https://llmodel.com/glossary-prompting.html#few-shot-prompting"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "In-context learning (ICL)",
+   "description": "A model's ability to pick up a new task from instructions or examples in the prompt, without retraining.",
+   "url": "https://llmodel.com/glossary-prompting.html#in-context-learning"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Prompt chaining",
+   "description": "Breaking a task into a sequence of prompts where each step's output feeds the next.",
+   "url": "https://llmodel.com/glossary-prompting.html#prompt-chaining"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Prompt engineering",
+   "description": "Designing and testing the instructions and context you give a model to get reliable results.",
+   "url": "https://llmodel.com/glossary-prompting.html#prompt-engineering"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Prompt template",
+   "description": "A reusable prompt with placeholders, or the model-specific format that wraps chat messages.",
+   "url": "https://llmodel.com/glossary-prompting.html#prompt-template"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Role prompting",
+   "description": "Telling a model to adopt a role or persona, such as an experienced editor, to shape its responses.",
+   "url": "https://llmodel.com/glossary-prompting.html#role-prompting"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Self-consistency",
+   "description": "Sampling several independent answers and picking the most common one to improve accuracy.",
+   "url": "https://llmodel.com/glossary-prompting.html#self-consistency"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "System prompt",
+   "description": "Standing instructions, set by the developer, that shape a model's behavior for an entire conversation.",
+   "url": "https://llmodel.com/glossary-prompting.html#system-prompt"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Tree of thoughts (ToT)",
+   "description": "A technique where a model explores and evaluates multiple branching lines of reasoning, backtracking as needed.",
+   "url": "https://llmodel.com/glossary-prompting.html#tree-of-thoughts"
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+
+</head>
+<body class="page-glossary-prompting">
+<a class="skip" href="#main">Skip to content</a>
+<div class="partner-bar"><a href="https://web.works/contact" target="_blank" rel="noopener"><span>Contact, if you are interested in this website / domain name / sponsorship / advertisement / partnership</span></a></div>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+    <nav class="nav" aria-label="Main"><a href="models.html">Models</a><a href="compare.html">Compare</a><a href="leaderboard.html">Rankings</a><a href="tools.html">Tools</a><a href="guides.html" aria-current="page">Learn</a><a href="videos.html">Videos</a></nav>
+    <div class="header-actions">
+      <button class="search-btn" type="button" data-open-search aria-label="Search the site"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="search-label">Search</span><span class="kbd" aria-hidden="true">/</span></button>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><svg class="theme-icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="theme-icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+      <a class="btn btn--primary btn--sm header-cta" href="hire-llm-experts.html">Get expert help</a>
+      <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile">
+    <ul><li><a href="models.html">Models</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="tools.html">Tools</a></li>
+<li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="contact.html">Contact</a></li>
+<li class="mobile-cta"><a class="btn btn--primary btn--block" href="hire-llm-experts.html">Get expert help</a></li>
+</ul>
+  </nav>
+</header>
+<main id="main">
+<nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li aria-current="page">Prompting</li>
+</ol>
+</nav>
+<header class="page-head wrap"><h1>LLM glossary: prompting</h1><p class="lede">Techniques for instructing a model: system prompts, few-shot examples, chain-of-thought, prompt chaining and context engineering. 11 terms, each with a short definition, a fuller explanation and links to related terms.</p>
+<div class="page-meta"><span>Updated October 10, 2026</span><span><a href="glossary.html">All 169 terms</a></span></div>
+</header>
+<div class="wrap">
+<nav class="pill-nav" aria-label="Other glossary topics"><a href="glossary-fundamentals.html">Fundamentals</a><a href="glossary-architecture.html">Model architecture</a><a href="glossary-training.html">Training</a><a href="glossary-inference-deployment.html">Inference and deployment</a><a href="glossary-building-apps.html">Building LLM apps</a><a href="glossary-evaluation.html">Evaluation and benchmarks</a><a href="glossary-safety-governance.html">Safety and governance</a><a href="glossary-business-pricing.html">Business and pricing</a></nav>
+<div class="filters" style="margin-top:1.5rem"><div class="filters__top"><label class="visually-hidden" for="gl-q">Filter terms</label><input class="input" id="gl-q" type="search" placeholder="Filter 11 terms" autocomplete="off"></div>
+<p class="result-count" id="gl-count" aria-live="polite">11 terms</p>
+</div>
+<aside class="ad-slot" data-ad="glossary-top" aria-label="Sponsored message"><span class="ad-label">From LLModel</span><div class="ad-fill"><div class="house"><div><strong>Keep LLModel independent</strong><span>Reader support pays for data checks, new tools and contest prizes.</span></div>
+<a class="btn btn--ghost btn--sm" href="support.html">Support the site</a></div>
+</div>
+</aside>
+<div id="gl-list"><div class="terms"><article class="term" id="chain-of-thought" data-cat="Prompting" data-text="chain-of-thought prompting (cot) cot chain of thought step-by-step reasoning"><h3>Chain-of-thought prompting (CoT) <span class="aka">CoT, chain of thought, step-by-step reasoning</span><a class="anchor" href="#chain-of-thought" aria-label="Link to Chain-of-thought prompting (CoT)">#</a></h3>
+<p class="short">Getting a model to write out intermediate reasoning steps before giving its final answer.</p>
+<p class="def">Chain-of-thought prompting asks a model to reason step by step before answering, either by showing worked examples or with a simple instruction to think it through. A 2022 Google paper showed this markedly improved large models&#x27; accuracy on arithmetic and logic word problems, because each written step gives the model more computation and a scaffold to build on. Reasoning models now produce this kind of thinking on their own, so explicitly asking for it matters less with them. Two cautions: the written steps are not always a faithful account of how the model reached its answer, and longer reasoning means more output tokens and higher latency.</p>
+<div class="rel tags"><a class="tag" href="glossary-fundamentals.html#reasoning-model">Reasoning model</a><a class="tag" href="#self-consistency">Self-consistency</a><a class="tag" href="#tree-of-thoughts">Tree of thoughts (ToT)</a><a class="tag" href="#few-shot-prompting">Few-shot prompting</a></div>
+</article>
+<article class="term" id="context-engineering" data-cat="Prompting" data-text="context engineering"><h3>Context engineering <a class="anchor" href="#context-engineering" aria-label="Link to Context engineering">#</a></h3>
+<p class="short">Deciding what information goes into a model&#x27;s context window, in what form and order, at each step.</p>
+<p class="def">Context engineering is the discipline of assembling the full input a model sees on each call: instructions, retrieved documents, tool definitions, conversation history, memory and intermediate results. The term gained popularity in 2025 as agents made it clear that wording a single prompt is only part of the job. Good context engineering keeps inputs relevant and compact, summarizes or drops stale history, retrieves facts only when needed, and orders material so the most important parts stand out. It matters because irrelevant or contradictory context degrades answers, and every extra token adds cost and latency, even in models with huge context windows.</p>
+<div class="rel tags"><a class="tag" href="#prompt-engineering">Prompt engineering</a><a class="tag" href="glossary-fundamentals.html#context-window">Context window</a><a class="tag" href="glossary-building-apps.html#rag">Retrieval-augmented generation (RAG)</a><a class="tag" href="glossary-building-apps.html#agent-memory">Agent memory</a></div>
+</article>
+<article class="term" id="few-shot-prompting" data-cat="Prompting" data-text="few-shot prompting few-shot learning multi-shot prompting k-shot prompting"><h3>Few-shot prompting <span class="aka">few-shot learning, multi-shot prompting, k-shot prompting</span><a class="anchor" href="#few-shot-prompting" aria-label="Link to Few-shot prompting">#</a></h3>
+<p class="short">Including a few worked examples in the prompt so the model copies the pattern.</p>
+<p class="def">Few-shot prompting shows the model a handful of input-output examples before the real input. To classify support emails, you might include three emails each labeled billing, bug or feature request, then the new email. The model infers the task and format from the examples, with no training involved. Zero-shot prompting gives instructions only, and one-shot gives a single example. The GPT-3 paper in 2020 made the technique famous. Choose examples that are varied and representative, because models imitate surface features such as length and wording, and keep the format identical across examples. Modern instruction-tuned models often need fewer examples than older ones.</p>
+<div class="rel tags"><a class="tag" href="#in-context-learning">In-context learning (ICL)</a><a class="tag" href="#prompt-engineering">Prompt engineering</a><a class="tag" href="#chain-of-thought">Chain-of-thought prompting (CoT)</a></div>
+</article>
+<article class="term" id="in-context-learning" data-cat="Prompting" data-text="in-context learning (icl) icl"><h3>In-context learning (ICL) <span class="aka">ICL</span><a class="anchor" href="#in-context-learning" aria-label="Link to In-context learning (ICL)">#</a></h3>
+<p class="short">A model&#x27;s ability to pick up a new task from instructions or examples in the prompt, without retraining.</p>
+<p class="def">In-context learning is the ability of a large model to perform a task it was never explicitly trained on, just by reading instructions or examples in its prompt. Give it a few examples of converting product descriptions into a particular JSON format and it will convert the next one, even though none of its weights changed. The effect lasts only for that request; nothing is learned permanently. It was a defining discovery of the GPT-3 era and is what makes prompting a practical alternative to fine-tuning for many tasks. Long context windows extend it to hundreds of examples, sometimes called many-shot in-context learning.</p>
+<div class="rel tags"><a class="tag" href="#few-shot-prompting">Few-shot prompting</a><a class="tag" href="glossary-training.html#fine-tuning">Fine-tuning</a><a class="tag" href="glossary-fundamentals.html#context-window">Context window</a><a class="tag" href="glossary-fundamentals.html#emergent-abilities">Emergent abilities</a></div>
+</article>
+<article class="term" id="prompt-chaining" data-cat="Prompting" data-text="prompt chaining chained prompts llm chain"><h3>Prompt chaining <span class="aka">chained prompts, LLM chain</span><a class="anchor" href="#prompt-chaining" aria-label="Link to Prompt chaining">#</a></h3>
+<p class="short">Breaking a task into a sequence of prompts where each step&#x27;s output feeds the next.</p>
+<p class="def">Prompt chaining splits a complex job into smaller model calls run in sequence. To turn a sales-call transcript into a CRM update, one call might extract facts, a second classify the deal stage, and a third draft a follow-up email using both results. Each step gets a focused prompt, so it is easier to test, debug and improve on its own, and you can insert code checks between steps or use a cheaper model for simple ones. The costs are added latency and the risk that an early error propagates. Chains with a fixed order are the simplest form of agentic workflow and often more reliable than a free-roaming agent.</p>
+<div class="rel tags"><a class="tag" href="glossary-building-apps.html#agentic-workflow">Agentic workflow</a><a class="tag" href="#prompt-template">Prompt template</a><a class="tag" href="glossary-building-apps.html#structured-outputs">Structured outputs</a><a class="tag" href="glossary-building-apps.html#ai-agent">AI agent</a></div>
+</article>
+<article class="term" id="prompt-engineering" data-cat="Prompting" data-text="prompt engineering prompt design prompting"><h3>Prompt engineering <span class="aka">prompt design, prompting</span><a class="anchor" href="#prompt-engineering" aria-label="Link to Prompt engineering">#</a></h3>
+<p class="short">Designing and testing the instructions and context you give a model to get reliable results.</p>
+<p class="def">Prompt engineering is the practice of writing, structuring and iterating on model inputs until the outputs are consistently good. Effective prompts state the task plainly, supply the context the model can&#x27;t know, give an example or two of the desired output, specify the format and say what to do when information is missing. Compare &#x27;summarize this&#x27; with &#x27;summarize this support ticket in three bullets for an engineer, quoting any error codes exactly&#x27;. The engineering part is measurement: keep a set of test inputs, change one thing at a time and compare results. Prompts that work well on one model often need adjusting for another.</p>
+<div class="rel tags"><a class="tag" href="#system-prompt">System prompt</a><a class="tag" href="#few-shot-prompting">Few-shot prompting</a><a class="tag" href="#context-engineering">Context engineering</a><a class="tag" href="#prompt-template">Prompt template</a></div>
+</article>
+<article class="term" id="prompt-template" data-cat="Prompting" data-text="prompt template prompt templating templated prompt"><h3>Prompt template <span class="aka">prompt templating, templated prompt</span><a class="anchor" href="#prompt-template" aria-label="Link to Prompt template">#</a></h3>
+<p class="short">A reusable prompt with placeholders, or the model-specific format that wraps chat messages.</p>
+<p class="def">A prompt template is a reusable prompt with slots filled at run time, for example &#x27;Summarize the following {document_type} for a {audience} in {n} bullets.&#x27; Templates let you version, test and reuse prompts like code instead of rebuilding strings by hand. The related chat template is the model-specific format that converts a list of system, user and assistant messages into one token sequence, complete with special tokens marking each turn. Hosted APIs apply chat templates automatically, but when you run open models yourself a mismatched chat template is a common cause of rambling or strangely formatted answers, so use the template shipped with the model.</p>
+<div class="rel tags"><a class="tag" href="#prompt-engineering">Prompt engineering</a><a class="tag" href="glossary-fundamentals.html#special-tokens">Special tokens</a><a class="tag" href="glossary-fundamentals.html#chat-model">Chat model</a><a class="tag" href="#prompt-chaining">Prompt chaining</a></div>
+</article>
+<article class="term" id="role-prompting" data-cat="Prompting" data-text="role prompting persona prompting role-play prompting"><h3>Role prompting <span class="aka">persona prompting, role-play prompting</span><a class="anchor" href="#role-prompting" aria-label="Link to Role prompting">#</a></h3>
+<p class="short">Telling a model to adopt a role or persona, such as an experienced editor, to shape its responses.</p>
+<p class="def">Role prompting assigns the model an identity, for example &#x27;You are a senior security reviewer&#x27; or &#x27;You are a patient math tutor for 12-year-olds.&#x27; A role compactly signals the expected vocabulary, depth, tone and priorities, and it is commonly placed in the system prompt. Its effect on factual accuracy is limited and inconsistent across studies: calling a model an expert does not give it knowledge it lacks. Roles work best combined with concrete instructions about audience, format and criteria. &#x27;Act as a lawyer&#x27; alone adds little; &#x27;review this lease for clauses about early termination and list them with section numbers&#x27; does much more.</p>
+<div class="rel tags"><a class="tag" href="#system-prompt">System prompt</a><a class="tag" href="#prompt-engineering">Prompt engineering</a><a class="tag" href="glossary-safety-governance.html#sycophancy">Sycophancy</a></div>
+</article>
+<article class="term" id="self-consistency" data-cat="Prompting" data-text="self-consistency majority voting"><h3>Self-consistency <span class="aka">majority voting</span><a class="anchor" href="#self-consistency" aria-label="Link to Self-consistency">#</a></h3>
+<p class="short">Sampling several independent answers and picking the most common one to improve accuracy.</p>
+<p class="def">Self-consistency, proposed by Google researchers in 2022, improves reasoning accuracy by asking the same question several times at a nonzero temperature, letting each attempt reason its own way, and then taking a majority vote over the final answers. If five of eight attempts at a math problem reach 42, you answer 42. The idea is that correct reasoning paths tend to converge while errors scatter. It works best when answers are short and comparable, like numbers or labels, and it multiplies cost by the number of samples. A related method, best-of-n, uses a scoring model or verifier to pick the strongest attempt instead of voting.</p>
+<div class="rel tags"><a class="tag" href="#chain-of-thought">Chain-of-thought prompting (CoT)</a><a class="tag" href="glossary-inference-deployment.html#test-time-compute">Test-time compute</a><a class="tag" href="#tree-of-thoughts">Tree of thoughts (ToT)</a><a class="tag" href="glossary-inference-deployment.html#temperature">Temperature</a></div>
+</article>
+<article class="term" id="system-prompt" data-cat="Prompting" data-text="system prompt system message developer message system instructions"><h3>System prompt <span class="aka">system message, developer message, system instructions</span><a class="anchor" href="#system-prompt" aria-label="Link to System prompt">#</a></h3>
+<p class="short">Standing instructions, set by the developer, that shape a model&#x27;s behavior for an entire conversation.</p>
+<p class="def">A system prompt is the set of instructions placed at the start of a conversation, separate from user messages, that defines the model&#x27;s role, rules, tone and output format. A customer-support bot&#x27;s system prompt might name the product, list topics it may discuss, require a friendly tone and tell it to hand off billing disputes to a person. Models are trained to give system instructions more weight than user messages, but that priority is not a security boundary: determined users can sometimes extract or override them. Keep secrets such as API keys out of system prompts, and enforce critical rules in your application code as well.</p>
+<div class="rel tags"><a class="tag" href="#prompt-engineering">Prompt engineering</a><a class="tag" href="glossary-safety-governance.html#prompt-injection">Prompt injection</a><a class="tag" href="glossary-safety-governance.html#guardrails">Guardrails</a><a class="tag" href="#role-prompting">Role prompting</a></div>
+</article>
+<article class="term" id="tree-of-thoughts" data-cat="Prompting" data-text="tree of thoughts (tot) tot"><h3>Tree of thoughts (ToT) <span class="aka">ToT</span><a class="anchor" href="#tree-of-thoughts" aria-label="Link to Tree of thoughts (ToT)">#</a></h3>
+<p class="short">A technique where a model explores and evaluates multiple branching lines of reasoning, backtracking as needed.</p>
+<p class="def">Tree of thoughts, introduced in a 2023 paper, extends chain-of-thought from a single line of reasoning into a search. At each step the model proposes several possible next thoughts, evaluates how promising each one looks, and a search procedure expands the best branches while abandoning dead ends. On the Game of 24, a puzzle that requires combining four numbers to reach 24, the paper reported GPT-4 solving 4 percent of problems with chain-of-thought and 74 percent with tree of thoughts. The method needs many model calls and custom orchestration code, so it is mainly used for puzzles and research; reasoning models now perform similar exploration internally.</p>
+<div class="rel tags"><a class="tag" href="#chain-of-thought">Chain-of-thought prompting (CoT)</a><a class="tag" href="#self-consistency">Self-consistency</a><a class="tag" href="glossary-fundamentals.html#reasoning-model">Reasoning model</a><a class="tag" href="glossary-inference-deployment.html#test-time-compute">Test-time compute</a></div>
+</article>
+</div>
+</div>
+<p class="empty" id="gl-empty" hidden>No terms on this page match that filter. Try a shorter word, or filter <a href="glossary.html">all 169 terms</a>.</p>
+<section class="lead-band" aria-labelledby="lead-default-glossary">
+  <div>
+    <h2 id="lead-default-glossary">Building with LLMs? Get a vendor-neutral plan.</h2>
+    <p>Tell us what you&#x27;re building. Within 2 business days you get a model shortlist, an architecture outline and a cost estimate, plus optional introductions to vetted implementation partners.</p>
+    <ul><li>Free and vendor-neutral: no model provider pays for placement.</li>
+<li>Your details go only to partners you agree to.</li>
+</ul>
+  </div>
+  <form class="mini-form" action="hire-llm-experts.html" method="get">
+    <label for="need-default-glossary">What do you need help with?</label>
+    <select id="need-default-glossary" name="need"><option value="choose-model">Choose the right model</option>
+<option value="chatbot">Build a chatbot or assistant</option>
+<option value="rag">Answer questions over our documents (RAG)</option>
+<option value="agents">Automate work with AI agents</option>
+<option value="self-host">Fine-tune or self-host a model</option>
+<option value="cut-costs">Cut our LLM costs</option>
+<option value="security">Security, privacy or compliance review</option>
+<option value="not-sure">Not sure yet</option>
+</select>
+    <input type="hidden" name="from" value="glossary">
+    <button class="btn btn--yellow btn--block" type="submit">Start my free plan</button>
+    <p class="fine">Takes about 2 minutes. No sales calls unless you ask for one.</p>
+  </form>
+</section>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+      <p>The independent field guide to large language models. Model data checked against provider documentation; last full check October 10, 2026.</p>
+    </div>
+    <div><h2>Explore</h2>
+<ul><li><a href="models.html">Model directory</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare models</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="search.html">Search</a></li>
+</ul>
+</div>
+<div><h2>Tools</h2>
+<ul><li><a href="llm-cost-calculator.html">Cost calculator</a></li>
+<li><a href="token-counter.html">Token counter</a></li>
+<li><a href="vram-calculator.html">GPU and VRAM calculator</a></li>
+<li><a href="llm-picker.html">Which LLM should I use?</a></li>
+<li><a href="context-window-visualizer.html">Context window visualizer</a></li>
+<li><a href="prompt-builder.html">Prompt builder</a></li>
+<li><a href="self-host-vs-api-calculator.html">Self-host vs API calculator</a></li>
+</ul>
+</div>
+<div><h2>Learn</h2>
+<ul><li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+</ul>
+</div>
+<div><h2>Work with us</h2>
+<ul><li><a href="hire-llm-experts.html">Get expert help</a></li>
+<li><a href="list-your-product.html">List your product</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</div>
+<div><h2>About</h2>
+<ul><li><a href="about.html">About LLModel</a></li>
+<li><a href="editorial-policy.html">Editorial policy</a></li>
+<li><a href="privacy.html">Privacy policy</a></li>
+<li><a href="terms.html">Terms of use</a></li>
+<li><a href="disclaimer.html">Disclaimer</a></li>
+<li><a href="trademark-copyright.html">Trademark and copyright</a></li>
+<li><a href="sitemap.html">Site map</a></li>
+<li><button class="linklike" type="button" data-privacy-choices>Privacy and cookie choices</button></li>
+</ul>
+</div>
+  </div>
+  <div class="wrap footer-legal">
+    <p>&copy; 2026 LLModel.com. Independent: not affiliated with, endorsed by or sponsored by any model provider. Model and company names are trademarks of their respective owners and are used only to identify products. See <a href="trademark-copyright.html">trademark and copyright</a>.</p>
+    <p>Prices and specifications change often. Always confirm on the provider's own pricing page before you buy.</p>
+  </div>
+</footer>
+<div class="palette" id="palette" hidden role="dialog" aria-modal="true" aria-label="Search LLModel">
+  <div class="palette__box">
+    <label class="visually-hidden" for="palette-input">Search models, tools, guides and terms</label>
+    <input class="palette__input" id="palette-input" type="search" placeholder="Search models, tools, guides, terms" autocomplete="off" spellcheck="false" aria-controls="palette-list">
+    <ul class="palette__list" id="palette-list" role="listbox"></ul>
+    <div class="palette__foot"><span><span class="kbd">&uarr;</span> <span class="kbd">&darr;</span> to move</span><span><span class="kbd">Enter</span> to open</span><span><span class="kbd">Esc</span> to close</span></div>
+  </div>
+</div>
+<script src="assets/js/config.js?v=caa5324cbb"></script>
+
+<script src="assets/js/app.js?v=4b39d7c1bd" defer></script>
+<script src="assets/js/pages/glossary.js?v=a99c13579b" defer></script>
+</body>
+</html>
