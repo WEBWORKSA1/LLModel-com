@@ -1,0 +1,32 @@
+<!--meta
+{
+  "slug": "tools",
+  "title": "Free LLM Tools: Cost Calculator, Token Counter, VRAM Calculator and More",
+  "h1": "Free tools for building with LLMs",
+  "lede": "Seven calculators and builders for the questions that come up on every LLM project: what will it cost, will it fit, which model, and how do I phrase it. No sign-up, and what you type stays in your browser.",
+  "head_meta": ["Model data checked October 10, 2026"],
+  "description": "Free LLM tools: API cost calculator, token counter, GPU VRAM calculator, model picker quiz, context window visualizer, prompt builder and self-host vs API break-even calculator.",
+  "section": "tools",
+  "crumbs": [["Home", "index.html"], ["Tools", null]],
+  "priority": 0.9,
+  "faq": [
+    {"q": "Are these LLM tools free?", "a": "Yes, all of them, with no account. They run entirely in your browser: the text you paste into the token counter or prompt builder isn't uploaded anywhere."},
+    {"q": "Where do the prices come from?", "a": "From each provider's official pricing page, checked on the date shown on the tool. Every model page lists the exact sources. Prices change often, so confirm on the provider's site before you commit to a budget."},
+    {"q": "How accurate is the VRAM calculator?", "a": "The weights figure is exact arithmetic on the parameter count and precision. The KV cache figure is an estimate that depends on each model's attention design, which the calculator accounts for where it's known. Leave headroom of 10-20% for real deployments."}
+  ]
+}
+-->
+<div class="wrap">
+  {{tools_index}}
+  {{ad:content}}
+</div>
+<section class="section" aria-labelledby="which-h">
+  <div class="wrap wrap--read prose">
+    <h2 id="which-h">Which tool do you need?</h2>
+    <p><strong>Budgeting a feature?</strong> Start with the <a href="llm-cost-calculator.html">cost calculator</a>: enter tokens per request and requests per day, and it ranks every priced model by monthly bill. If you don't know your token counts, paste a typical prompt into the <a href="token-counter.html">token counter</a> first.</p>
+    <p><strong>Choosing a model?</strong> The <a href="llm-picker.html">model picker</a> asks five questions and returns three candidates with the reasons. Put them side by side in the <a href="compare.html">compare tool</a>, then test them on your own data.</p>
+    <p><strong>Thinking about self-hosting?</strong> Check whether a model fits your GPU or Mac with the <a href="vram-calculator.html">VRAM calculator</a>, then see whether renting GPUs beats paying per token at your volume with the <a href="self-host-vs-api-calculator.html">break-even calculator</a>.</p>
+    <p><strong>Working with long inputs?</strong> The <a href="context-window-visualizer.html">context window visualizer</a> turns token limits into pages, books and hours of transcript. And when you're ready to write the prompt itself, the <a href="prompt-builder.html">prompt builder</a> assembles a structured one from your answers.</p>
+  </div>
+</section>
+<div class="wrap">{{lead:default}}</div>
