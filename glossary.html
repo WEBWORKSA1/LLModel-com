@@ -1,0 +1,1003 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LLM Glossary: 169 AI and Large Language Model Terms Explained | LLModel.com</title>
+<meta name="description" content="Plain-English definitions of 169 large language model terms: tokens, context windows, RAG, quantization, KV cache, reasoning models, MCP and more.">
+<link rel="canonical" href="https://llmodel.com/glossary.html">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="google-adsense-account" content="ca-pub-6620975821265271">
+<meta name="theme-color" content="#f4f6fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12101e" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="LLModel.com">
+<meta property="og:title" content="LLM Glossary: 169 AI and Large Language Model Terms Explained">
+<meta property="og:description" content="Plain-English definitions of 169 large language model terms: tokens, context windows, RAG, quantization, KV cache, reasoning models, MCP and more.">
+<meta property="og:url" content="https://llmodel.com/glossary.html">
+<meta property="og:image" content="https://llmodel.com/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="LLModel: the independent field guide to large language models">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="alternate" type="text/plain" href="llms.txt" title="llms.txt">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Martian+Mono:wght@400..500&family=Newsreader:ital,opsz,wght@0,6..72,400..650;1,6..72,400&display=swap">
+<link rel="stylesheet" href="assets/css/style.css?v=dae4813595">
+<script>(function(){var d=document.documentElement,t=null;try{t=localStorage.getItem('llm-theme')}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}d.setAttribute('data-theme',t)})();</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6620975821265271" crossorigin="anonymous"></script>
+<script type="application/ld+json">{
+ "@type": "Organization",
+ "@id": "https://llmodel.com/#org",
+ "name": "LLModel.com",
+ "url": "https://llmodel.com/",
+ "logo": "https://llmodel.com/assets/img/icon-512.png",
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://llmodel.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Glossary"
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "CollectionPage",
+ "name": "LLM glossary",
+ "url": "https://llmodel.com/glossary.html",
+ "hasPart": [
+  {
+   "@type": "DefinedTermSet",
+   "name": "LLM glossary: fundamentals",
+   "url": "https://llmodel.com/glossary-fundamentals.html"
+  },
+  {
+   "@type": "DefinedTermSet",
+   "name": "LLM glossary: model architecture",
+   "url": "https://llmodel.com/glossary-architecture.html"
+  },
+  {
+   "@type": "DefinedTermSet",
+   "name": "LLM glossary: training",
+   "url": "https://llmodel.com/glossary-training.html"
+  },
+  {
+   "@type": "DefinedTermSet",
+   "name": "LLM glossary: inference and deployment",
+   "url": "https://llmodel.com/glossary-inference-deployment.html"
+  },
+  {
+   "@type": "DefinedTermSet",
+   "name": "LLM glossary: prompting",
+   "url": "https://llmodel.com/glossary-prompting.html"
+  },
+  {
+   "@type": "DefinedTermSet",
+   "name": "LLM glossary: building LLM apps",
+   "url": "https://llmodel.com/glossary-building-apps.html"
+  },
+  {
+   "@type": "DefinedTermSet",
+   "name": "LLM glossary: evaluation and benchmarks",
+   "url": "https://llmodel.com/glossary-evaluation.html"
+  },
+  {
+   "@type": "DefinedTermSet",
+   "name": "LLM glossary: safety and governance",
+   "url": "https://llmodel.com/glossary-safety-governance.html"
+  },
+  {
+   "@type": "DefinedTermSet",
+   "name": "LLM glossary: business and pricing",
+   "url": "https://llmodel.com/glossary-business-pricing.html"
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+
+</head>
+<body class="page-glossary">
+<a class="skip" href="#main">Skip to content</a>
+<div class="partner-bar"><a href="https://web.works/contact" target="_blank" rel="noopener"><span>Contact, if you are interested in this website / domain name / sponsorship / advertisement / partnership</span></a></div>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+    <nav class="nav" aria-label="Main"><a href="models.html">Models</a><a href="compare.html">Compare</a><a href="leaderboard.html">Rankings</a><a href="tools.html">Tools</a><a href="guides.html" aria-current="page">Learn</a><a href="videos.html">Videos</a></nav>
+    <div class="header-actions">
+      <button class="search-btn" type="button" data-open-search aria-label="Search the site"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="search-label">Search</span><span class="kbd" aria-hidden="true">/</span></button>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><svg class="theme-icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="theme-icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+      <a class="btn btn--primary btn--sm header-cta" href="hire-llm-experts.html">Get expert help</a>
+      <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile">
+    <ul><li><a href="models.html">Models</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="tools.html">Tools</a></li>
+<li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="contact.html">Contact</a></li>
+<li class="mobile-cta"><a class="btn btn--primary btn--block" href="hire-llm-experts.html">Get expert help</a></li>
+</ul>
+  </nav>
+</header>
+<main id="main">
+<nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li>
+<li aria-current="page">Glossary</li>
+</ol>
+</nav>
+<header class="page-head wrap"><h1>LLM glossary</h1><p class="lede">169 large-language-model terms explained in plain English, from attention to zero data retention. Browse by topic for full definitions, or filter the A to Z list.</p>
+<div class="page-meta"><span>Updated October 10, 2026</span><span><a href="guides.html">Guides</a></span></div>
+</header>
+<div class="wrap">
+<div class="section-head"><div><h2 id="topics">Browse by topic</h2>
+<p>Each topic page gives every term a short definition, a fuller explanation and links to related terms.</p>
+</div>
+</div>
+<div class="grid grid--3"><a class="card" href="glossary-fundamentals.html"><span class="card__kicker">22 terms</span><span class="card__title">Fundamentals</span><span class="card__desc">The core ideas: what a large language model is, how text becomes tokens, what parameters and context windows are, and the words used to describe different kinds of models.</span></a><a class="card" href="glossary-architecture.html"><span class="card__kicker">16 terms</span><span class="card__title">Model architecture</span><span class="card__desc">What sits inside a model: the transformer, attention and its faster variants, positional encodings, mixture-of-experts layers, and alternatives such as state space and diffusion models.</span></a><a class="card" href="glossary-training.html"><span class="card__kicker">24 terms</span><span class="card__title">Training</span><span class="card__desc">How models learn:
+pretraining, fine-tuning and LoRA, preference methods such as RLHF, DPO and GRPO, scaling laws, and the problems that show up along the way.</span></a><a class="card" href="glossary-inference-deployment.html"><span class="card__kicker">33 terms</span><span class="card__title">Inference and deployment</span><span class="card__desc">Running models: sampling settings such as temperature and top-p, quantization formats, the KV cache, speed metrics, GPUs and VRAM, and the engines used to serve or self-host models.</span></a><a class="card" href="glossary-prompting.html"><span class="card__kicker">11 terms</span><span class="card__title">Prompting</span><span class="card__desc">Techniques for instructing a model: system prompts, few-shot examples, chain-of-thought, prompt chaining and context engineering.</span></a><a class="card" href="glossary-building-apps.html"><span class="card__kicker">23
+terms</span><span class="card__title">Building LLM apps</span><span class="card__desc">Building products on models: retrieval-augmented generation, search and reranking, tool calling, MCP, structured outputs and AI agents.</span></a><a class="card" href="glossary-evaluation.html"><span class="card__kicker">14 terms</span><span class="card__title">Evaluation and benchmarks</span><span class="card__desc">Measuring models: benchmarks such as MMLU, GPQA and SWE-bench, arena Elo ratings, contamination, LLM-as-a-judge and long-context tests.</span></a><a class="card" href="glossary-safety-governance.html"><span class="card__kicker">16 terms</span><span class="card__title">Safety and governance</span><span class="card__desc">Risks, rules and safeguards: prompt injection, jailbreaks, guardrails, red teaming, alignment, privacy, copyright and the EU AI Act.</span></a><a class="card" href="glossary-business-pricing.html"><span class="card__kicker">10
+terms</span><span class="card__title">Business and pricing</span><span class="card__desc">What a model costs and how you buy it: per-token pricing, batch APIs, prompt caching, rate limits, dedicated endpoints and model licenses.</span></a></div>
+<div style="margin-top:3rem"><div class="section-head"><div><h2 id="a-z">Every term, A to Z</h2>
+</div>
+</div>
+</div>
+<div class="filters"><div class="filters__top"><label class="visually-hidden" for="gl-q">Filter terms</label><input class="input" id="gl-q" type="search" placeholder="Filter 169 terms" autocomplete="off"></div>
+<div class="tags" role="group" aria-label="Topic"><button type="button" class="chip-toggle" data-cat="Fundamentals" aria-pressed="false">Fundamentals</button><button type="button" class="chip-toggle" data-cat="Architecture" aria-pressed="false">Model architecture</button><button type="button" class="chip-toggle" data-cat="Training" aria-pressed="false">Training</button><button type="button" class="chip-toggle" data-cat="Inference &amp; deployment" aria-pressed="false">Inference and deployment</button><button type="button" class="chip-toggle" data-cat="Prompting" aria-pressed="false">Prompting</button><button type="button" class="chip-toggle" data-cat="Building apps" aria-pressed="false">Building LLM apps</button><button type="button" class="chip-toggle" data-cat="Evaluation" aria-pressed="false">Evaluation and benchmarks</button><button type="button" class="chip-toggle" data-cat="Safety &amp; governance" aria-pressed="false">Safety
+and governance</button><button type="button" class="chip-toggle" data-cat="Business &amp; pricing" aria-pressed="false">Business and pricing</button></div>
+<p class="result-count" id="gl-count" aria-live="polite">169 terms</p>
+</div>
+<nav class="az" aria-label="Jump to letter"><a href="#letter-A">A</a><a href="#letter-B">B</a><a href="#letter-C">C</a><a href="#letter-D">D</a><a href="#letter-E">E</a><a href="#letter-F">F</a><a href="#letter-G">G</a><a href="#letter-H">H</a><a href="#letter-I">I</a><a href="#letter-J">J</a><a href="#letter-K">K</a><a href="#letter-L">L</a><a href="#letter-M">M</a><a href="#letter-N">N</a><a href="#letter-O">O</a><a href="#letter-P">P</a><a href="#letter-Q">Q</a><a href="#letter-R">R</a><a href="#letter-S">S</a><a href="#letter-T">T</a><a href="#letter-V">V</a><a href="#letter-W">W</a><a href="#letter-Z">Z</a></nav>
+<aside class="ad-slot" data-ad="glossary-top" aria-label="Sponsored message"><span class="ad-label">From LLModel</span><div class="ad-fill"><div class="house"><div><strong>Price your workload</strong><span>Compare the monthly bill for your token volume across every priced model.</span></div>
+<a class="btn btn--ghost btn--sm" href="llm-cost-calculator.html">Open the calculator</a></div>
+</div>
+</aside>
+<div id="gl-list"><h2 class="letter" id="letter-A">A</h2>
+<div class="terms"><article class="term" id="agent-memory" data-cat="Building apps" data-text="agent memory memory llm memory"><h3><a href="glossary-building-apps.html#agent-memory">Agent memory</a> <span class="aka">memory, LLM memory</span></h3>
+<p class="def">Mechanisms that let an AI system keep and recall information beyond a single context window.</p>
+<p class="small muted">Building LLM apps</p>
+</article>
+<article class="term" id="agentic-workflow" data-cat="Building apps" data-text="agentic workflow agentic ai agentic system"><h3><a href="glossary-building-apps.html#agentic-workflow">Agentic workflow</a> <span class="aka">agentic AI, agentic system</span></h3>
+<p class="def">A multi-step process in which LLMs plan, call tools and act, with control flow set by code or the model.</p>
+<p class="small muted">Building LLM apps</p>
+</article>
+<article class="term" id="ai-agent" data-cat="Building apps" data-text="ai agent agent llm agent autonomous agent"><h3><a href="glossary-building-apps.html#ai-agent">AI agent</a> <span class="aka">agent, LLM agent, autonomous agent</span></h3>
+<p class="def">A system where an LLM decides which actions to take, uses tools, observes results and repeats until done.</p>
+<p class="small muted">Building LLM apps</p>
+</article>
+<article class="term" id="ai-text-detector" data-cat="Safety &amp; governance" data-text="ai text detector ai detector ai content detector gpt detector"><h3><a href="glossary-safety-governance.html#ai-text-detector">AI text detector</a> <span class="aka">AI detector, AI content detector, GPT detector</span></h3>
+<p class="def">A tool that estimates whether text was written by a person or generated by an AI model.</p>
+<p class="small muted">Safety and governance</p>
+</article>
+<article class="term" id="alignment" data-cat="Safety &amp; governance" data-text="alignment ai alignment"><h3><a href="glossary-safety-governance.html#alignment">Alignment</a> <span class="aka">AI alignment</span></h3>
+<p class="def">Making AI systems pursue the goals their developers and users intend, and act within acceptable limits.</p>
+<p class="small muted">Safety and governance</p>
+</article>
+<article class="term" id="api-key" data-cat="Business &amp; pricing" data-text="api key secret key"><h3><a href="glossary-business-pricing.html#api-key">API key</a> <span class="aka">secret key</span></h3>
+<p class="def">A secret credential that authenticates your application to a model provider and ties usage to your account.</p>
+<p class="small muted">Business and pricing</p>
+</article>
+<article class="term" id="agi" data-cat="Fundamentals" data-text="artificial general intelligence (agi) agi"><h3><a href="glossary-fundamentals.html#agi">Artificial general intelligence (AGI)</a> <span class="aka">AGI</span></h3>
+<p class="def">A hypothetical AI that can match or exceed people across most cognitive tasks, not just narrow ones.</p>
+<p class="small muted">Fundamentals</p>
+</article>
+<article class="term" id="attention" data-cat="Architecture" data-text="attention self-attention multi-head attention"><h3><a href="glossary-architecture.html#attention">Attention</a> <span class="aka">self-attention, multi-head attention</span></h3>
+<p class="def">The mechanism that lets each token weigh and combine information from other tokens in the sequence.</p>
+<p class="small muted">Model architecture</p>
+</article>
+<article class="term" id="autoregressive-model" data-cat="Fundamentals" data-text="autoregressive model autoregressive generation next-token prediction"><h3><a href="glossary-fundamentals.html#autoregressive-model">Autoregressive model</a> <span class="aka">autoregressive generation, next-token prediction</span></h3>
+<p class="def">A model that generates output one token at a time, each conditioned on everything before it.</p>
+<p class="small muted">Fundamentals</p>
+</article>
+<article class="term" id="awq" data-cat="Inference &amp; deployment" data-text="awq (activation-aware weight quantization) activation-aware weight quantization"><h3><a href="glossary-inference-deployment.html#awq">AWQ (activation-aware weight quantization)</a> <span class="aka">activation-aware weight quantization</span></h3>
+<p class="def">A 4-bit quantization method that protects the weights most important to a model&#x27;s activations.</p>
+<p class="small muted">Inference and deployment</p>
+</article>
+</div>
+<h2 class="letter" id="letter-B">B</h2>
+<div class="terms"><article class="term" id="base-model" data-cat="Fundamentals" data-text="base model pretrained model"><h3><a href="glossary-fundamentals.html#base-model">Base model</a> <span class="aka">pretrained model</span></h3>
+<p class="def">A model straight out of pretraining that continues text but hasn&#x27;t been tuned to follow instructions.</p>
+<p class="small muted">Fundamentals</p>
+</article>
+<article class="term" id="batch-api" data-cat="Business &amp; pricing" data-text="batch api batch processing batch inference asynchronous batch"><h3><a href="glossary-business-pricing.html#batch-api">Batch API</a> <span class="aka">batch processing, batch inference, asynchronous batch</span></h3>
+<p class="def">An asynchronous way to submit many requests at once, typically at half price with results within 24 hours.</p>
+<p class="small muted">Business and pricing</p>
+</article>
+<article class="term" id="benchmark" data-cat="Evaluation" data-text="benchmark llm benchmark benchmark suite"><h3><a href="glossary-evaluation.html#benchmark">Benchmark</a> <span class="aka">LLM benchmark, benchmark suite</span></h3>
+<p class="def">A standardized test set and scoring method used to compare models on a specific skill.</p>
+<p class="small muted">Evaluation and benchmarks</p>
+</article>
+<article class="term" id="benchmark-contamination" data-cat="Evaluation" data-text="benchmark contamination data contamination test set leakage"><h3><a href="glossary-evaluation.html#benchmark-contamination">Benchmark contamination</a> <span class="aka">data contamination, test set leakage</span></h3>
+<p class="def">When benchmark questions or answers appear in a model&#x27;s training data, inflating its scores.</p>
+<p class="small muted">Evaluation and benchmarks</p>
+</article>
+<article class="term" id="bm25" data-cat="Building apps" data-text="bm25 okapi bm25 best matching 25"><h3><a href="glossary-building-apps.html#bm25">BM25</a> <span class="aka">Okapi BM25, Best Matching 25</span></h3>
+<p class="def">A classic keyword-ranking formula that scores documents by term frequency, rarity and length.</p>
+<p class="small muted">Building LLM apps</p>
+</article>
+<article class="term" id="byte-pair-encoding" data-cat="Fundamentals" data-text="byte-pair encoding (bpe) bpe"><h3><a href="glossary-fundamentals.html#byte-pair-encoding">Byte-pair encoding (BPE)</a> <span class="aka">BPE</span></h3>
+<p class="def">A subword tokenization method that builds a vocabulary by repeatedly merging the most frequent adjacent symbol pairs.</p>
+<p class="small muted">Fundamentals</p>
+</article>
+</div>
+<h2 class="letter" id="letter-C">C</h2>
+<div class="terms"><article class="term" id="catastrophic-forgetting" data-cat="Training" data-text="catastrophic forgetting catastrophic interference"><h3><a href="glossary-training.html#catastrophic-forgetting">Catastrophic forgetting</a> <span class="aka">catastrophic interference</span></h3>
+<p class="def">When training on new data makes a model lose skills or knowledge it previously had.</p>
+<p class="small muted">Training</p>
+</article>
+<article class="term" id="chain-of-thought" data-cat="Prompting" data-text="chain-of-thought prompting (cot) cot chain of thought step-by-step reasoning"><h3><a href="glossary-prompting.html#chain-of-thought">Chain-of-thought prompting (CoT)</a> <span class="aka">CoT, chain of thought, step-by-step reasoning</span></h3>
+<p class="def">Getting a model to write out intermediate reasoning steps before giving its final answer.</p>
+<p class="small muted">Prompting</p>
+</article>
+<article class="term" id="chat-model" data-cat="Fundamentals" data-text="chat model instruct model instruction-tuned model assistant model"><h3><a href="glossary-fundamentals.html#chat-model">Chat model</a> <span class="aka">instruct model, instruction-tuned model, assistant model</span></h3>
+<p class="def">A base model further trained to follow instructions and hold a conversation in turns.</p>
+<p class="small muted">Fundamentals</p>
+</article>
+<article class="term" id="checkpoint" data-cat="Training" data-text="checkpoint model checkpoint weights file"><h3><a href="glossary-training.html#checkpoint">Checkpoint</a> <span class="aka">model checkpoint, weights file</span></h3>
+<p class="def">A saved snapshot of a model&#x27;s weights, and often its training state, at a point in training.</p>
+<p class="small muted">Training</p>
+</article>
+<article class="term" id="chunking" data-cat="Building apps" data-text="chunking text splitting document chunking"><h3><a href="glossary-building-apps.html#chunking">Chunking</a> <span class="aka">text splitting, document chunking</span></h3>
+<p class="def">Splitting documents into smaller passages before embedding them, so retrieval returns focused, relevant text.</p>
+<p class="small muted">Building LLM apps</p>
+</article>
+<article class="term" id="citations" data-cat="Building apps" data-text="citations source attribution source citations"><h3><a href="glossary-building-apps.html#citations">Citations</a> <span class="aka">source attribution, source citations</span></h3>
+<p class="def">References in a model&#x27;s answer that point to the specific sources supporting each claim.</p>
+<p class="small muted">Building LLM apps</p>
+</article>
+<article class="term" id="computer-use" data-cat="Building apps" data-text="computer use computer-using agent gui agent"><h3><a href="glossary-building-apps.html#computer-use">Computer use</a> <span class="aka">computer-using agent, GUI agent</span></h3>
+<p class="def">Agents that operate a computer or browser through screenshots, mouse clicks and keystrokes, like a person.</p>
+<p class="small muted">Building LLM apps</p>
+</article>
+<article class="term" id="constitutional-ai" data-cat="Safety &amp; governance" data-text="constitutional ai cai"><h3><a href="glossary-safety-governance.html#constitutional-ai">Constitutional AI</a> <span class="aka">CAI</span></h3>
+<p class="def">Anthropic&#x27;s method of training models to follow a written set of principles using AI-generated feedback.</p>
+<p class="small muted">Safety and governance</p>
+</article>
+<article class="term" id="context-engineering" data-cat="Prompting" data-text="context engineering"><h3><a href="glossary-prompting.html#context-engineering">Context engineering</a> </h3>
+<p class="def">Deciding what information goes into a model&#x27;s context window, in what form and order, at each step.</p>
+<p class="small muted">Prompting</p>
+</article>
+<article class="term" id="context-window" data-cat="Fundamentals" data-text="context window context length context size"><h3><a href="glossary-fundamentals.html#context-window">Context window</a> <span class="aka">context length, context size</span></h3>
+<p class="def">The maximum number of tokens a model can consider at once, covering both input and output.</p>
+<p class="small muted">Fundamentals</p>
+</article>
+<article class="term" id="copyright-and-training-data" data-cat="Safety &amp; governance" data-text="copyright and training data ai copyright training data copyright"><h3><a href="glossary-safety-governance.html#copyright-and-training-data">Copyright and training data</a> <span class="aka">AI copyright, training data copyright</span></h3>
+<p class="def">The unsettled legal questions over training AI models on copyrighted works without permission.</p>
+<p class="small muted">Safety and governance</p>
+</article>
+<article class="term" id="cosine-similarity" data-cat="Building apps" data-text="cosine similarity"><h3><a href="glossary-building-apps.html#cosine-similarity">Cosine similarity</a> </h3>
+<p class="def">A measure of how closely two vectors point in the same direction, widely used to compare embeddings.</p>
+<p class="small muted">Building LLM apps</p>
+</article>
+<article class="term" id="cost-per-token" data-cat="Business &amp; pricing" data-text="cost per token token pricing price per million tokens input and output pricing"><h3><a href="glossary-business-pricing.html#cost-per-token">Cost per token</a> <span class="aka">token pricing, price per million tokens, input and output pricing</span></h3>
+<p class="def">How LLM APIs charge: a set price per million input tokens and a usually higher one for output.</p>
+<p class="small muted">Business and pricing</p>
+</article>
+<article class="term" id="cross-entropy-loss" data-cat="Training" data-text="cross-entropy loss loss loss function training loss negative log-likelihood"><h3><a href="glossary-training.html#cross-entropy-loss">Cross-entropy loss</a> <span class="aka">loss, loss function, training loss, negative log-likelihood</span></h3>
+<p class="def">The standard training objective for LLMs, measuring how much probability the model gave the correct next token.</p>
+<p class="small muted">Training</p>
+</article>
+</div>
+<h2 class="letter" id="letter-D">D</h2>
+<div class="terms"><article class="term" id="data-poisoning" data-cat="Safety &amp; governance" data-text="data poisoning training data poisoning poisoning attack"><h3><a href="glossary-safety-governance.html#data-poisoning">Data poisoning</a> <span class="aka">training data poisoning, poisoning attack</span></h3>
+<p class="def">Corrupting a model&#x27;s training data so it learns hidden behaviors, biases or backdoor triggers.</p>
+<p class="small muted">Safety and governance</p>
+</article>
+<article class="term" id="decoder-only" data-cat="Architecture" data-text="decoder-only model decoder-only transformer causal language model gpt-style model"><h3><a href="glossary-architecture.html#decoder-only">Decoder-only model</a> <span class="aka">decoder-only transformer, causal language model, GPT-style model</span></h3>
+<p class="def">A transformer made only of decoder layers that predicts the next token from the tokens before it.</p>
+<p class="small muted">Model architecture</p>
+</article>
+<article class="term" id="dedicated-endpoint" data-cat="Business &amp; pricing" data-text="dedicated endpoint provisioned throughput reserved capacity dedicated deployment"><h3><a href="glossary-business-pricing.html#dedicated-endpoint">Dedicated endpoint</a> <span class="aka">provisioned throughput, reserved capacity, dedicated deployment</span></h3>
+<p class="def">Model capacity reserved for one customer, billed by time instead of per token.</p>
+<p class="small muted">Business and pricing</p>
+</article>
+<article class="term" id="diffusion-language-model" data-cat="Architecture" data-text="diffusion language model diffusion llm dllm text diffusion model"><h3><a href="glossary-architecture.html#diffusion-language-model">Diffusion language model</a> <span class="aka">diffusion LLM, dLLM, text diffusion model</span></h3>
+<p class="def">A model that generates text by refining a whole draft in parallel over several steps, not token by token.</p>
+<p class="small muted">Model architecture</p>
+</article>
+<article class="term" id="dpo" data-cat="Training" data-text="direct preference optimization (dpo) dpo"><h3><a href="glossary-training.html#dpo">Direct preference optimization (DPO)</a> <span class="aka">DPO</span></h3>
+<p class="def">A simpler alternative to RLHF that trains directly on preferred-versus-rejected answer pairs.</p>
+<p class="small muted">Training</p>
+</article>
+<article class="term" id="distillation" data-cat="Training" data-text="distillation knowledge distillation model distillation"><h3><a href="glossary-training.html#distillation">Distillation</a> <span class="aka">knowledge distillation, model distillation</span></h3>
+<p class="def">Training a smaller student model to imitate a larger teacher model&#x27;s outputs.</p>
+<p class="small muted">Training</p>
+</article>
+</div>
+<h2 class="letter" id="letter-E">E</h2>
+<div class="terms"><article class="term" id="elo-rating" data-cat="Evaluation" data-text="elo rating (arena leaderboards) arena score elo score"><h3><a href="glossary-evaluation.html#elo-rating">Elo rating (arena leaderboards)</a> <span class="aka">arena score, Elo score</span></h3>
+<p class="def">A rating system from chess, adapted by crowdsourced leaderboards that rank models from head-to-head votes.</p>
+<p class="small muted">Evaluation and benchmarks</p>
+</article>
+<article class="term" id="embedding" data-cat="Fundamentals" data-text="embedding vector embedding embedding vector"><h3><a href="glossary-fundamentals.html#embedding">Embedding</a> <span class="aka">vector embedding, embedding vector</span></h3>
+<p class="def">A list of numbers that represents the meaning of a token, sentence or document as a point in space.</p>
+<p class="small muted">Fundamentals</p>
+</article>
+<article class="term" id="embedding-model" data-cat="Building apps" data-text="embedding model text embedding model embedder"><h3><a href="glossary-building-apps.html#embedding-model">Embedding model</a> <span class="aka">text embedding model, embedder</span></h3>
+<p class="def">A model that converts text into vectors so that similar meanings produce nearby vectors.</p>
+<p class="small muted">Building LLM apps</p>
+</article>
+<article class="term" id="emergent-abilities" data-cat="Fundamentals" data-text="emergent abilities emergence"><h3><a href="glossary-fundamentals.html#emergent-abilities">Emergent abilities</a> <span class="aka">emergence</span></h3>
+<p class="def">Skills that seem to appear suddenly once models pass a certain scale, rather than improving gradually.</p>
+<p class="small muted">Fundamentals</p>
+</article>
+<article class="term" id="encoder" data-cat="Architecture" data-text="encoder encoder-only model bidirectional encoder bert-style model"><h3><a href="glossary-architecture.html#encoder">Encoder</a> <span class="aka">encoder-only model, bidirectional encoder, BERT-style model</span></h3>
+<p class="def">A transformer component that reads a whole input at once, in both directions, to build representations of it.</p>
+<p class="small muted">Model architecture</p>
+</article>
+<article class="term" id="epoch" data-cat="Training" data-text="epoch training epoch"><h3><a href="glossary-training.html#epoch">Epoch</a> <span class="aka">training epoch</span></h3>
+<p class="def">One complete pass of a training process through the entire training dataset.</p>
+<p class="small muted">Training</p>
+</article>
+<article class="term" id="eu-ai-act" data-cat="Safety &amp; governance" data-text="eu ai act artificial intelligence act regulation (eu) 2024/1689"><h3><a href="glossary-safety-governance.html#eu-ai-act">EU AI Act</a> <span class="aka">Artificial Intelligence Act, Regulation (EU) 2024/1689</span></h3>
+<p class="def">The European Union&#x27;s risk-based law regulating AI systems and general-purpose AI models.</p>
+<p class="small muted">Safety and governance</p>
+</article>
+<article class="term" id="eval-set" data-cat="Evaluation" data-text="eval set golden dataset evaluation dataset test set"><h3><a href="glossary-evaluation.html#eval-set">Eval set</a> <span class="aka">golden dataset, evaluation dataset, test set</span></h3>
+<p class="def">A curated set of test inputs, with expected outputs or grading criteria, used to measure an LLM application.</p>
+<p class="small muted">Evaluation and benchmarks</p>
+</article>
+<article class="term" id="evaluation" data-cat="Evaluation" data-text="evaluation (evals) evals llm evaluation model evaluation"><h3><a href="glossary-evaluation.html#evaluation">Evaluation (evals)</a> <span class="aka">evals, LLM evaluation, model evaluation</span></h3>
+<p class="def">Systematically measuring how well a model or LLM application performs on the tasks you care about.</p>
+<p class="small muted">Evaluation and benchmarks</p>
+</article>
+</div>
+<h2 class="letter" id="letter-F">F</h2>
+<div class="terms"><article class="term" id="feed-forward-network" data-cat="Architecture" data-text="feed-forward network (ffn) ffn mlp layer mlp block"><h3><a href="glossary-architecture.html#feed-forward-network">Feed-forward network (FFN)</a> <span class="aka">FFN, MLP layer, MLP block</span></h3>
+<p class="def">The per-token neural network inside each transformer layer that transforms what attention gathered.</p>
+<p class="small muted">Model architecture</p>
+</article>
+<article class="term" id="few-shot-prompting" data-cat="Prompting" data-text="few-shot prompting few-shot learning multi-shot prompting k-shot prompting"><h3><a href="glossary-prompting.html#few-shot-prompting">Few-shot prompting</a> <span class="aka">few-shot learning, multi-shot prompting, k-shot prompting</span></h3>
+<p class="def">Including a few worked examples in the prompt so the model copies the pattern.</p>
+<p class="small muted">Prompting</p>
+</article>
+<article class="term" id="fine-tuning" data-cat="Training" data-text="fine-tuning finetuning model fine-tuning"><h3><a href="glossary-training.html#fine-tuning">Fine-tuning</a> <span class="aka">finetuning, model fine-tuning</span></h3>
+<p class="def">Further training a pretrained model on a smaller, targeted dataset to change its behavior.</p>
+<p class="small muted">Training</p>
+</article>
+<article class="term" id="flash-attention" data-cat="Architecture" data-text="flashattention flash attention"><h3><a href="glossary-architecture.html#flash-attention">FlashAttention</a> <span class="aka">flash attention</span></h3>
+<p class="def">A fast, memory-efficient way to compute exact attention by working in small tiles inside fast GPU memory.</p>
+<p class="small muted">Model architecture</p>
+</article>
+<article class="term" id="flops" data-cat="Inference &amp; deployment" data-text="flops floating-point operations flop/s"><h3><a href="glossary-inference-deployment.html#flops">FLOPs</a> <span class="aka">floating-point operations, FLOP/s</span></h3>
+<p class="def">Counts of floating-point arithmetic operations, the standard unit for training and inference compute.</p>
+<p class="small muted">Inference and deployment</p>
+</article>
+<article class="term" id="foundation-model" data-cat="Fundamentals" data-text="foundation model general-purpose ai model"><h3><a href="glossary-fundamentals.html#foundation-model">Foundation model</a> <span class="aka">general-purpose AI model</span></h3>
+<p class="def">A large model trained on broad data that can be adapted to many downstream tasks.</p>
+<p class="small muted">Fundamentals</p>
+</article>
+<article class="term" id="frontier-model" data-cat="Fundamentals" data-text="frontier model frontier ai"><h3><a href="glossary-fundamentals.html#frontier-model">Frontier model</a> <span class="aka">frontier AI</span></h3>
+<p class="def">One of the most capable models available at a given time, usually from a well-funded lab.</p>
+<p class="small muted">Fundamentals</p>
+</article>
+</div>
+<h2 class="letter" id="letter-G">G</h2>
+<div class="terms"><article class="term" id="gguf" data-cat="Inference &amp; deployment" data-text="gguf gguf format"><h3><a href="glossary-inference-deployment.html#gguf">GGUF</a> <span class="aka">GGUF format</span></h3>
+<p class="def">A single-file model format from the llama.cpp project, widely used to run quantized models locally.</p>
+<p class="small muted">Inference and deployment</p>
+</article>
+<article class="term" id="gpqa" data-cat="Evaluation" data-text="gpqa gpqa diamond graduate-level google-proof q&amp;a"><h3><a href="glossary-evaluation.html#gpqa">GPQA</a> <span class="aka">GPQA Diamond, Graduate-Level Google-Proof Q&amp;A</span></h3>
+<p class="def">A hard multiple-choice science benchmark written by PhD-level experts and designed to resist web search.</p>
+<p class="small muted">Evaluation and benchmarks</p>
+</article>
+<article class="term" id="gptq" data-cat="Inference &amp; deployment" data-text="gptq"><h3><a href="glossary-inference-deployment.html#gptq">GPTQ</a> </h3>
+<p class="def">A post-training method that compresses model weights to about 3-4 bits using a small calibration set.</p>
+<p class="small muted">Inference and deployment</p>
+</article>
+<article class="term" id="gpu" data-cat="Inference &amp; deployment" data-text="gpu (graphics processing unit) graphics card accelerator"><h3><a href="glossary-inference-deployment.html#gpu">GPU (graphics processing unit)</a> <span class="aka">graphics card, accelerator</span></h3>
+<p class="def">The parallel processor that trains and runs most LLMs; memory size and bandwidth matter most.</p>
+<p class="small muted">Inference and deployment</p>
+</article>
+<article class="term" id="greedy-decoding" data-cat="Inference &amp; deployment" data-text="greedy decoding greedy search argmax decoding"><h3><a href="glossary-inference-deployment.html#greedy-decoding">Greedy decoding</a> <span class="aka">greedy search, argmax decoding</span></h3>
+<p class="def">Always choosing the single most likely next token, with no randomness.</p>
+<p class="small muted">Inference and deployment</p>
+</article>
+<article class="term" id="grounding" data-cat="Building apps" data-text="grounding groundedness"><h3><a href="glossary-building-apps.html#grounding">Grounding</a> <span class="aka">groundedness</span></h3>
+<p class="def">Tying a model&#x27;s answers to specific, verifiable sources such as retrieved documents, data or search results.</p>
+<p class="small muted">Building LLM apps</p>
+</article>
+<article class="term" id="grpo" data-cat="Training" data-text="group relative policy optimization (grpo) grpo"><h3><a href="glossary-training.html#grpo">Group relative policy optimization (GRPO)</a> <span class="aka">GRPO</span></h3>
+<p class="def">A reinforcement learning method that scores each answer against a group of answers to the same prompt.</p>
+<p class="small muted">Training</p>
+</article>
+<article class="term" id="grouped-query-attention" data-cat="Architecture" data-text="grouped-query attention (gqa) gqa"><h3><a href="glossary-architecture.html#grouped-query-attention">Grouped-query attention (GQA)</a> <span class="aka">GQA</span></h3>
+<p class="def">An attention variant where groups of query heads share key and value heads to shrink the KV cache.</p>
+<p class="small muted">Model architecture</p>
+</article>
+<article class="term" id="guardrails" data-cat="Safety &amp; governance" data-text="guardrails ai guardrails safety filters"><h3><a href="glossary-safety-governance.html#guardrails">Guardrails</a> <span class="aka">AI guardrails, safety filters</span></h3>
+<p class="def">Checks placed around a model to block, filter or correct unsafe, off-topic or malformed inputs and outputs.</p>
+<p class="small muted">Safety and governance</p>
+</article>
+</div>
+<h2 class="letter" id="letter-H">H</h2>
+<div class="terms"><article class="term" id="hallucination" data-cat="Fundamentals" data-text="hallucination confabulation fabrication"><h3><a href="glossary-fundamentals.html#hallucination">Hallucination</a> <span class="aka">confabulation, fabrication</span></h3>
+<p class="def">When a model states something false or unsupported with the same confidence as a fact.</p>
+<p class="small muted">Fundamentals</p>
+</article>
+<article class="term" id="humaneval" data-cat="Evaluation" data-text="humaneval"><h3><a href="glossary-evaluation.html#humaneval">HumanEval</a> </h3>
+<p class="def">An OpenAI coding benchmark of 164 Python problems, each checked by running unit tests.</p>
+<p class="small muted">Evaluation and benchmarks</p>
+</article>
+<article class="term" id="hybrid-search" data-cat="Building apps" data-text="hybrid search hybrid retrieval"><h3><a href="glossary-building-apps.html#hybrid-search">Hybrid search</a> <span class="aka">hybrid retrieval</span></h3>
+<p class="def">Combining keyword search and semantic vector search so each covers the other&#x27;s blind spots.</p>
+<p class="small muted">Building LLM apps</p>
+</article>
+</div>
+<h2 class="letter" id="letter-I">I</h2>
+<div class="terms"><article class="term" id="in-context-learning" data-cat="Prompting" data-text="in-context learning (icl) icl"><h3><a href="glossary-prompting.html#in-context-learning">In-context learning (ICL)</a> <span class="aka">ICL</span></h3>
+<p class="def">A model&#x27;s ability to pick up a new task from instructions or examples in the prompt, without retraining.</p>
+<p class="small muted">Prompting</p>
+</article>
+<article class="term" id="inference" data-cat="Inference &amp; deployment" data-text="inference model inference llm inference"><h3><a href="glossary-inference-deployment.html#inference">Inference</a> <span class="aka">model inference, LLM inference</span></h3>
+<p class="def">Running a trained model to produce output, as opposed to training it.</p>
+<p class="small muted">Inference and deployment</p>
+</article>
+<article class="term" id="inference-engine" data-cat="Inference &amp; deployment" data-text="inference engine inference server serving engine serving framework"><h3><a href="glossary-inference-deployment.html#inference-engine">Inference engine</a> <span class="aka">inference server, serving engine, serving framework</span></h3>
+<p class="def">Software that loads a model and serves it efficiently, handling batching, memory and scheduling.</p>
+<p class="small muted">Inference and deployment</p>
+</article>
+<article class="term" id="inference-provider" data-cat="Business &amp; pricing" data-text="inference provider model api provider llm api provider model host"><h3><a href="glossary-business-pricing.html#inference-provider">Inference provider</a> <span class="aka">model API provider, LLM API provider, model host</span></h3>
+<p class="def">A company that runs models on its own hardware and sells access through an API, usually priced per token.</p>
+<p class="small muted">Business and pricing</p>
+</article>
+<article class="term" id="instruction-tuning" data-cat="Training" data-text="instruction tuning instruction fine-tuning supervised fine-tuning sft"><h3><a href="glossary-training.html#instruction-tuning">Instruction tuning</a> <span class="aka">instruction fine-tuning, supervised fine-tuning, SFT</span></h3>
+<p class="def">Supervised training on instruction-and-response examples so a model learns to follow requests.</p>
+<p class="small muted">Training</p>
+</article>
+</div>
+<h2 class="letter" id="letter-J">J</h2>
+<div class="terms"><article class="term" id="jailbreak" data-cat="Safety &amp; governance" data-text="jailbreak jailbreaking"><h3><a href="glossary-safety-governance.html#jailbreak">Jailbreak</a> <span class="aka">jailbreaking</span></h3>
+<p class="def">A prompt crafted to trick a model into producing content its safety training is meant to refuse.</p>
+<p class="small muted">Safety and governance</p>
+</article>
+</div>
+<h2 class="letter" id="letter-K">K</h2>
+<div class="terms"><article class="term" id="knowledge-cutoff" data-cat="Fundamentals" data-text="knowledge cutoff training cutoff training data cutoff"><h3><a href="glossary-fundamentals.html#knowledge-cutoff">Knowledge cutoff</a> <span class="aka">training cutoff, training data cutoff</span></h3>
+<p class="def">The date after which a model&#x27;s training data stops, so it knows little about later events.</p>
+<p class="small muted">Fundamentals</p>
+</article>
+<article class="term" id="kv-cache" data-cat="Inference &amp; deployment" data-text="kv cache key-value cache"><h3><a href="glossary-inference-deployment.html#kv-cache">KV cache</a> <span class="aka">key-value cache</span></h3>
+<p class="def">Memory that stores attention keys and values for earlier tokens so they aren&#x27;t recomputed each step.</p>
+<p class="small muted">Inference and deployment</p>
+</article>
+</div>
+<h2 class="letter" id="letter-L">L</h2>
+<div class="terms"><article class="term" id="large-language-model" data-cat="Fundamentals" data-text="large language model (llm) llm language model"><h3><a href="glossary-fundamentals.html#large-language-model">Large language model (LLM)</a> <span class="aka">LLM, language model</span></h3>
+<p class="def">A neural network trained on huge amounts of text to predict and generate language.</p>
+<p class="small muted">Fundamentals</p>
+</article>
+<article class="term" id="latency" data-cat="Inference &amp; deployment" data-text="latency response time end-to-end latency"><h3><a href="glossary-inference-deployment.html#latency">Latency</a> <span class="aka">response time, end-to-end latency</span></h3>
+<p class="def">How long you wait for a response, from sending a request to receiving the full answer.</p>
+<p class="small muted">Inference and deployment</p>
+</article>
+<article class="term" id="layer-normalization" data-cat="Architecture" data-text="layer normalization layernorm layer norm"><h3><a href="glossary-architecture.html#layer-normalization">Layer normalization</a> <span class="aka">LayerNorm, layer norm</span></h3>
+<p class="def">Rescaling each token&#x27;s vector to a consistent range inside every layer, which keeps training numerically stable.</p>
+<p class="small muted">Model architecture</p>
+</article>
+<article class="term" id="learning-rate" data-cat="Training" data-text="learning rate lr step size"><h3><a href="glossary-training.html#learning-rate">Learning rate</a> <span class="aka">LR, step size</span></h3>
+<p class="def">The setting that controls how big a step the model&#x27;s weights take on each training update.</p>
+<p class="small muted">Training</p>
+</article>
+<article class="term" id="llama-cpp" data-cat="Inference &amp; deployment" data-text="llama.cpp"><h3><a href="glossary-inference-deployment.html#llama-cpp">llama.cpp</a> </h3>
+<p class="def">An open-source C/C++ engine for running LLMs efficiently on CPUs, Macs and consumer GPUs.</p>
+<p class="small muted">Inference and deployment</p>
+</article>
+<article class="term" id="llm-as-a-judge" data-cat="Evaluation" data-text="llm-as-a-judge llm judge model-graded evaluation ai judge"><h3><a href="glossary-evaluation.html#llm-as-a-judge">LLM-as-a-judge</a> <span class="aka">LLM judge, model-graded evaluation, AI judge</span></h3>
+<p class="def">Using a language model to grade or compare other models&#x27; outputs against a rubric.</p>
+<p class="small muted">Evaluation and benchmarks</p>
+</article>
+<article class="term" id="logits" data-cat="Inference &amp; deployment" data-text="logits raw scores unnormalized scores"><h3><a href="glossary-inference-deployment.html#logits">Logits</a> <span class="aka">raw scores, unnormalized scores</span></h3>
+<p class="def">The raw, unnormalized scores a model assigns to every token in its vocabulary at each step.</p>
+<p class="small muted">Inference and deployment</p>
+</article>
+<article class="term" id="logprobs" data-cat="Inference &amp; deployment" data-text="logprobs log probabilities token probabilities"><h3><a href="glossary-inference-deployment.html#logprobs">Logprobs</a> <span class="aka">log probabilities, token probabilities</span></h3>
+<p class="def">The log probabilities a model assigned to the tokens it generated, exposed by some APIs.</p>
+<p class="small muted">Inference and deployment</p>
+</article>
+<article class="term" id="long-context" data-cat="Fundamentals" data-text="long context long-context model long-context window"><h3><a href="glossary-fundamentals.html#long-context">Long context</a> <span class="aka">long-context model, long-context window</span></h3>
+<p class="def">The ability to process very long inputs, from hundreds of thousands to millions of tokens.</p>
+<p class="small muted">Fundamentals</p>
+</article>
+<article class="term" id="lora" data-cat="Training" data-text="lora (low-rank adaptation) low-rank adaptation lora adapter"><h3><a href="glossary-training.html#lora">LoRA (low-rank adaptation)</a> <span class="aka">low-rank adaptation, LoRA adapter</span></h3>
+<p class="def">A cheap fine-tuning method that trains small add-on matrices instead of the whole model.</p>
+<p class="small muted">Training</p>
+</article>
+<article class="term" id="lost-in-the-middle" data-cat="Evaluation" data-text="lost in the middle"><h3><a href="glossary-evaluation.html#lost-in-the-middle">Lost in the middle</a> </h3>
+<p class="def">The tendency of models to use information at the start or end of a long input better than the middle.</p>
+<p class="small muted">Evaluation and benchmarks</p>
+</article>
+</div>
+<h2 class="letter" id="letter-M">M</h2>
+<div class="terms"><article class="term" id="max-tokens" data-cat="Inference &amp; deployment" data-text="max tokens max_tokens max output tokens output limit"><h3><a href="glossary-inference-deployment.html#max-tokens">Max tokens</a> <span class="aka">max_tokens, max output tokens, output limit</span></h3>
+<p class="def">The cap you set on how many tokens a model may generate in one response.</p>
+<p class="small muted">Inference and deployment</p>
+</article>
+<article class="term" id="mixture-of-experts" data-cat="Architecture" data-text="mixture of experts (moe) moe sparse mixture of experts sparse moe"><h3><a href="glossary-architecture.html#mixture-of-experts">Mixture of experts (MoE)</a> <span class="aka">MoE, sparse mixture of experts, sparse MoE</span></h3>
+<p class="def">An architecture that routes each token to a few specialist sub-networks, so only part of the model runs per token.</p>
+<p class="small muted">Model architecture</p>
+</article>
+<article class="term" id="mlx" data-cat="Inference &amp; deployment" data-text="mlx apple mlx"><h3><a href="glossary-inference-deployment.html#mlx">MLX</a> <span class="aka">Apple MLX</span></h3>
+<p class="def">Apple&#x27;s open-source machine learning framework, optimized for running and fine-tuning models on Apple silicon.</p>
+<p class="small muted">Inference and deployment</p>
+</article>
+<article class="term" id="mmlu" data-cat="Evaluation" data-text="mmlu massive multitask language understanding"><h3><a href="glossary-evaluation.html#mmlu">MMLU</a> <span class="aka">Massive Multitask Language Understanding</span></h3>
+<p class="def">A widely cited multiple-choice benchmark covering 57 subjects, from math and law to medicine.</p>
+<p class="small muted">Evaluation and benchmarks</p>
+</article>
+<article class="term" id="model-card" data-cat="Safety &amp; governance" data-text="model card system card"><h3><a href="glossary-safety-governance.html#model-card">Model card</a> <span class="aka">system card</span></h3>
+<p class="def">A document describing a model&#x27;s intended uses, training, evaluation results, limitations and risks.</p>
+<p class="small muted">Safety and governance</p>
+</article>
+<article class="term" id="model-collapse" data-cat="Training" data-text="model collapse"><h3><a href="glossary-training.html#model-collapse">Model collapse</a> </h3>
+<p class="def">Quality decay when models are trained repeatedly on data generated by earlier models.</p>
+<p class="small muted">Training</p>
+</article>
+<article class="term" id="model-context-protocol" data-cat="Building apps" data-text="model context protocol (mcp) mcp"><h3><a href="glossary-building-apps.html#model-context-protocol">Model Context Protocol (MCP)</a> <span class="aka">MCP</span></h3>
+<p class="def">An open standard for connecting AI applications to tools and data sources through a common interface.</p>
+<p class="small muted">Building LLM apps</p>
+</article>
+<article class="term" id="license" data-cat="Business &amp; pricing" data-text="model license license open-weights license weights license"><h3><a href="glossary-business-pricing.html#license">Model license</a> <span class="aka">license, open-weights license, weights license</span></h3>
+<p class="def">The legal terms that govern how you may use, modify and distribute a model&#x27;s weights and outputs.</p>
+<p class="small muted">Business and pricing</p>
+</article>
+<article class="term" id="model-routing" data-cat="Building apps" data-text="model routing and fallback llm router model cascade"><h3><a href="glossary-building-apps.html#model-routing">Model routing and fallback</a> <span class="aka">LLM router, model cascade</span></h3>
+<p class="def">Sending each request to the most suitable model, often a cheap one first, with fallbacks for failures.</p>
+<p class="small muted">Building LLM apps</p>
+</article>
+<article class="term" id="multi-agent-system" data-cat="Building apps" data-text="multi-agent system multi-agent multi-agent architecture"><h3><a href="glossary-building-apps.html#multi-agent-system">Multi-agent system</a> <span class="aka">multi-agent, multi-agent architecture</span></h3>
+<p class="def">An application in which several LLM agents with different roles or tools collaborate on a task.</p>
+<p class="small muted">Building LLM apps</p>
+</article>
+<article class="term" id="multimodal" data-cat="Fundamentals" data-text="multimodal multimodal model multimodal llm vision-language model"><h3><a href="glossary-fundamentals.html#multimodal">Multimodal</a> <span class="aka">multimodal model, multimodal LLM, vision-language model</span></h3>
+<p class="def">Able to take in or produce more than one kind of data, such as text, images and audio.</p>
+<p class="small muted">Fundamentals</p>
+</article>
+</div>
+<h2 class="letter" id="letter-N">N</h2>
+<div class="terms"><article class="term" id="needle-in-a-haystack" data-cat="Evaluation" data-text="needle in a haystack niah needle test"><h3><a href="glossary-evaluation.html#needle-in-a-haystack">Needle in a haystack</a> <span class="aka">NIAH, needle test</span></h3>
+<p class="def">A long-context test that hides one fact in a long document and asks the model to find it.</p>
+<p class="small muted">Evaluation and benchmarks</p>
+</article>
+<article class="term" id="numeric-precision" data-cat="Inference &amp; deployment" data-text="numeric precision (fp16, bf16, fp8, int8) data type dtype bit width"><h3><a href="glossary-inference-deployment.html#numeric-precision">Numeric precision (FP16, BF16, FP8, INT8)</a> <span class="aka">data type, dtype, bit width</span></h3>
+<p class="def">How many bits are used to store each number in a model, trading accuracy for memory and speed.</p>
+<p class="small muted">Inference and deployment</p>
+</article>
+</div>
+<h2 class="letter" id="letter-O">O</h2>
+<div class="terms"><article class="term" id="ollama" data-cat="Inference &amp; deployment" data-text="ollama"><h3><a href="glossary-inference-deployment.html#ollama">Ollama</a> </h3>
+<p class="def">A free tool that downloads and runs open-weights models locally with simple commands and an API.</p>
+<p class="small muted">Inference and deployment</p>
+</article>
+<article class="term" id="on-device-ai" data-cat="Inference &amp; deployment" data-text="on-device ai edge ai local ai local llm"><h3><a href="glossary-inference-deployment.html#on-device-ai">On-device AI</a> <span class="aka">edge AI, local AI, local LLM</span></h3>
+<p class="def">Running models directly on a phone, laptop or other local hardware instead of in the cloud.</p>
+<p class="small muted">Inference and deployment</p>
+</article>
+<article class="term" id="open-source-ai-definition" data-cat="Safety &amp; governance" data-text="open source ai definition (osaid) osaid"><h3><a href="glossary-safety-governance.html#open-source-ai-definition">Open Source AI Definition (OSAID)</a> <span class="aka">OSAID</span></h3>
+<p class="def">The Open Source Initiative&#x27;s standard for when an AI system can properly be called open source.</p>
+<p class="small muted">Safety and governance</p>
+</article>
+<article class="term" id="open-weights" data-cat="Fundamentals" data-text="open weights open-weight model open model"><h3><a href="glossary-fundamentals.html#open-weights">Open weights</a> <span class="aka">open-weight model, open model</span></h3>
+<p class="def">A model whose trained parameters are published for anyone to download and run.</p>
+<p class="small muted">Fundamentals</p>
+</article>
+<article class="term" id="overfitting" data-cat="Training" data-text="overfitting"><h3><a href="glossary-training.html#overfitting">Overfitting</a> </h3>
+<p class="def">When a model learns its training examples too closely and performs worse on new data.</p>
+<p class="small muted">Training</p>
+</article>
+</div>
+<h2 class="letter" id="letter-P">P</h2>
+<div class="terms"><article class="term" id="parallelism" data-cat="Training" data-text="parallelism (data, tensor, pipeline, expert) distributed training model parallelism multi-gpu training"><h3><a href="glossary-training.html#parallelism">Parallelism (data, tensor, pipeline, expert)</a> <span class="aka">distributed training, model parallelism, multi-GPU training</span></h3>
+<p class="def">Ways of splitting a model&#x27;s training or serving across many GPUs so it fits in memory and runs faster.</p>
+<p class="small muted">Training</p>
+</article>
+<article class="term" id="peft" data-cat="Training" data-text="parameter-efficient fine-tuning (peft) peft parameter-efficient tuning"><h3><a href="glossary-training.html#peft">Parameter-efficient fine-tuning (PEFT)</a> <span class="aka">PEFT, parameter-efficient tuning</span></h3>
+<p class="def">A family of fine-tuning methods that train a small number of new or selected parameters instead of the whole model.</p>
+<p class="small muted">Training</p>
+</article>
+<article class="term" id="parameters" data-cat="Fundamentals" data-text="parameters weights parameter count"><h3><a href="glossary-fundamentals.html#parameters">Parameters</a> <span class="aka">weights, parameter count</span></h3>
+<p class="def">The learned numbers inside a model; their count is the usual measure of model size.</p>
+<p class="small muted">Fundamentals</p>
+</article>
+<article class="term" id="pass-at-k" data-cat="Evaluation" data-text="pass@k pass at k pass@1"><h3><a href="glossary-evaluation.html#pass-at-k">pass@k</a> <span class="aka">pass at k, pass@1</span></h3>
+<p class="def">The probability that at least one of k generated attempts at a problem is correct.</p>
+<p class="small muted">Evaluation and benchmarks</p>
+</article>
+<article class="term" id="perplexity" data-cat="Evaluation" data-text="perplexity ppl"><h3><a href="glossary-evaluation.html#perplexity">Perplexity</a> <span class="aka">PPL</span></h3>
+<p class="def">A measure of how well a model predicts text; lower means the model is less surprised.</p>
+<p class="small muted">Evaluation and benchmarks</p>
+</article>
+<article class="term" id="pii" data-cat="Safety &amp; governance" data-text="pii (personally identifiable information) personal data personally identifiable information"><h3><a href="glossary-safety-governance.html#pii">PII (personally identifiable information)</a> <span class="aka">personal data, personally identifiable information</span></h3>
+<p class="def">Information that can identify a specific person, such as names, emails, phone numbers or ID numbers.</p>
+<p class="small muted">Safety and governance</p>
+</article>
+<article class="term" id="positional-encoding" data-cat="Architecture" data-text="positional encoding position embedding positional embedding"><h3><a href="glossary-architecture.html#positional-encoding">Positional encoding</a> <span class="aka">position embedding, positional embedding</span></h3>
+<p class="def">Information added to a transformer so it knows the order of tokens, since attention alone ignores order.</p>
+<p class="small muted">Model architecture</p>
+</article>
+<article class="term" id="post-training" data-cat="Training" data-text="post-training"><h3><a href="glossary-training.html#post-training">Post-training</a> </h3>
+<p class="def">Everything done to a pretrained model to turn it into a useful, safer assistant.</p>
+<p class="small muted">Training</p>
+</article>
+<article class="term" id="pretraining" data-cat="Training" data-text="pretraining pre-training"><h3><a href="glossary-training.html#pretraining">Pretraining</a> <span class="aka">pre-training</span></h3>
+<p class="def">The first, most expensive training stage, where a model learns language by predicting the next token.</p>
+<p class="small muted">Training</p>
+</article>
+<article class="term" id="prompt-caching" data-cat="Business &amp; pricing" data-text="prompt caching context caching prefix caching"><h3><a href="glossary-business-pricing.html#prompt-caching">Prompt caching</a> <span class="aka">context caching, prefix caching</span></h3>
+<p class="def">Reusing the processed form of a repeated prompt prefix to cut cost and latency on later requests.</p>
+<p class="small muted">Business and pricing</p>
+</article>
+<article class="term" id="prompt-chaining" data-cat="Prompting" data-text="prompt chaining chained prompts llm chain"><h3><a href="glossary-prompting.html#prompt-chaining">Prompt chaining</a> <span class="aka">chained prompts, LLM chain</span></h3>
+<p class="def">Breaking a task into a sequence of prompts where each step&#x27;s output feeds the next.</p>
+<p class="small muted">Prompting</p>
+</article>
+<article class="term" id="prompt-engineering" data-cat="Prompting" data-text="prompt engineering prompt design prompting"><h3><a href="glossary-prompting.html#prompt-engineering">Prompt engineering</a> <span class="aka">prompt design, prompting</span></h3>
+<p class="def">Designing and testing the instructions and context you give a model to get reliable results.</p>
+<p class="small muted">Prompting</p>
+</article>
+<article class="term" id="prompt-injection" data-cat="Safety &amp; governance" data-text="prompt injection"><h3><a href="glossary-safety-governance.html#prompt-injection">Prompt injection</a> </h3>
+<p class="def">An attack that hides instructions in content a model reads, hijacking it to ignore or override its real instructions.</p>
+<p class="small muted">Safety and governance</p>
+</article>
+<article class="term" id="prompt-template" data-cat="Prompting" data-text="prompt template prompt templating templated prompt"><h3><a href="glossary-prompting.html#prompt-template">Prompt template</a> <span class="aka">prompt templating, templated prompt</span></h3>
+<p class="def">A reusable prompt with placeholders, or the model-specific format that wraps chat messages.</p>
+<p class="small muted">Prompting</p>
+</article>
+<article class="term" id="ppo" data-cat="Training" data-text="proximal policy optimization (ppo) ppo"><h3><a href="glossary-training.html#ppo">Proximal policy optimization (PPO)</a> <span class="aka">PPO</span></h3>
+<p class="def">A reinforcement learning algorithm that improves a model in small, controlled steps; the classic RLHF optimizer.</p>
+<p class="small muted">Training</p>
+</article>
+</div>
+<h2 class="letter" id="letter-Q">Q</h2>
+<div class="terms"><article class="term" id="qlora" data-cat="Training" data-text="qlora quantized lora"><h3><a href="glossary-training.html#qlora">QLoRA</a> <span class="aka">quantized LoRA</span></h3>
+<p class="def">LoRA fine-tuning on top of a 4-bit quantized base model, cutting memory needs dramatically.</p>
+<p class="small muted">Training</p>
+</article>
+<article class="term" id="quantization" data-cat="Inference &amp; deployment" data-text="quantization model quantization weight quantization"><h3><a href="glossary-inference-deployment.html#quantization">Quantization</a> <span class="aka">model quantization, weight quantization</span></h3>
+<p class="def">Storing a model&#x27;s numbers at lower precision to cut memory use and speed up inference.</p>
+<p class="small muted">Inference and deployment</p>
+</article>
+<article class="term" id="query-rewriting" data-cat="Building apps" data-text="query rewriting query reformulation query transformation query expansion"><h3><a href="glossary-building-apps.html#query-rewriting">Query rewriting</a> <span class="aka">query reformulation, query transformation, query expansion</span></h3>
+<p class="def">Using a model to reformulate a user&#x27;s question into better search queries before retrieval.</p>
+<p class="small muted">Building LLM apps</p>
+</article>
+</div>
+<h2 class="letter" id="letter-R">R</h2>
+<div class="terms"><article class="term" id="rate-limit" data-cat="Business &amp; pricing" data-text="rate limit api rate limit quota throttling"><h3><a href="glossary-business-pricing.html#rate-limit">Rate limit</a> <span class="aka">API rate limit, quota, throttling</span></h3>
+<p class="def">A provider-imposed cap on how many requests or tokens you can send in a given time window.</p>
+<p class="small muted">Business and pricing</p>
+</article>
+<article class="term" id="react-pattern" data-cat="Building apps" data-text="react (reason + act) react reason and act"><h3><a href="glossary-building-apps.html#react-pattern">ReAct (reason + act)</a> <span class="aka">ReAct, reason and act</span></h3>
+<p class="def">An agent pattern in which a model alternates between reasoning about a task and taking tool actions.</p>
+<p class="small muted">Building LLM apps</p>
+</article>
+<article class="term" id="reasoning-model" data-cat="Fundamentals" data-text="reasoning model thinking model large reasoning model"><h3><a href="glossary-fundamentals.html#reasoning-model">Reasoning model</a> <span class="aka">thinking model, large reasoning model</span></h3>
+<p class="def">An LLM trained to work through a problem in intermediate steps before giving its final answer.</p>
+<p class="small muted">Fundamentals</p>
+</article>
+<article class="term" id="red-teaming" data-cat="Safety &amp; governance" data-text="red teaming ai red teaming adversarial testing"><h3><a href="glossary-safety-governance.html#red-teaming">Red teaming</a> <span class="aka">AI red teaming, adversarial testing</span></h3>
+<p class="def">Deliberately attacking a model or AI application to find harmful behaviors and security weaknesses before others do.</p>
+<p class="small muted">Safety and governance</p>
+</article>
+<article class="term" id="rlhf" data-cat="Training" data-text="reinforcement learning from human feedback (rlhf) rlhf"><h3><a href="glossary-training.html#rlhf">Reinforcement learning from human feedback (RLHF)</a> <span class="aka">RLHF</span></h3>
+<p class="def">Training a model to produce answers people prefer, using a reward model learned from human rankings.</p>
+<p class="small muted">Training</p>
+</article>
+<article class="term" id="rlvr" data-cat="Training" data-text="reinforcement learning with verifiable rewards (rlvr) rlvr rl with verifiable rewards"><h3><a href="glossary-training.html#rlvr">Reinforcement learning with verifiable rewards (RLVR)</a> <span class="aka">RLVR, RL with verifiable rewards</span></h3>
+<p class="def">Reinforcement learning where rewards come from automatic checks, such as a correct answer or passing tests.</p>
+<p class="small muted">Training</p>
+</article>
+<article class="term" id="repetition-penalty" data-cat="Inference &amp; deployment" data-text="repetition penalty frequency penalty presence penalty"><h3><a href="glossary-inference-deployment.html#repetition-penalty">Repetition penalty</a> <span class="aka">frequency penalty, presence penalty</span></h3>
+<p class="def">A setting that lowers the scores of tokens already used, to discourage loops and repeated phrases.</p>
+<p class="small muted">Inference and deployment</p>
+</article>
+<article class="term" id="reranker" data-cat="Building apps" data-text="reranker reranking model re-ranker"><h3><a href="glossary-building-apps.html#reranker">Reranker</a> <span class="aka">reranking model, re-ranker</span></h3>
+<p class="def">A model that re-scores an initial list of search results to put the most relevant ones first.</p>
+<p class="small muted">Building LLM apps</p>
+</article>
+<article class="term" id="residual-connection" data-cat="Architecture" data-text="residual connection skip connection"><h3><a href="glossary-architecture.html#residual-connection">Residual connection</a> <span class="aka">skip connection</span></h3>
+<p class="def">A shortcut that adds a layer&#x27;s input to its output, keeping signals and gradients flowing through deep networks.</p>
+<p class="small muted">Model architecture</p>
+</article>
+<article class="term" id="retrieval" data-cat="Building apps" data-text="retrieval information retrieval ir"><h3><a href="glossary-building-apps.html#retrieval">Retrieval</a> <span class="aka">information retrieval, IR</span></h3>
+<p class="def">Finding and returning the most relevant pieces of information from a collection for a given query.</p>
+<p class="small muted">Building LLM apps</p>
+</article>
+<article class="term" id="rag" data-cat="Building apps" data-text="retrieval-augmented generation (rag) rag"><h3><a href="glossary-building-apps.html#rag">Retrieval-augmented generation (RAG)</a> <span class="aka">RAG</span></h3>
+<p class="def">Fetching relevant documents at query time and adding them to the prompt so the model answers from them.</p>
+<p class="small muted">Building LLM apps</p>
+</article>
+<article class="term" id="reward-model" data-cat="Training" data-text="reward model preference model rm"><h3><a href="glossary-training.html#reward-model">Reward model</a> <span class="aka">preference model, RM</span></h3>
+<p class="def">A model trained to score responses by how much people, or a rubric, would prefer them.</p>
+<p class="small muted">Training</p>
+</article>
+<article class="term" id="role-prompting" data-cat="Prompting" data-text="role prompting persona prompting role-play prompting"><h3><a href="glossary-prompting.html#role-prompting">Role prompting</a> <span class="aka">persona prompting, role-play prompting</span></h3>
+<p class="def">Telling a model to adopt a role or persona, such as an experienced editor, to shape its responses.</p>
+<p class="small muted">Prompting</p>
+</article>
+<article class="term" id="rope" data-cat="Architecture" data-text="rotary position embedding (rope) rope rotary embedding"><h3><a href="glossary-architecture.html#rope">Rotary position embedding (RoPE)</a> <span class="aka">RoPE, rotary embedding</span></h3>
+<p class="def">A widely used way of encoding token positions by rotating query and key vectors by position-dependent angles.</p>
+<p class="small muted">Model architecture</p>
+</article>
+</div>
+<h2 class="letter" id="letter-S">S</h2>
+<div class="terms"><article class="term" id="scaling-laws" data-cat="Training" data-text="scaling laws neural scaling laws chinchilla scaling"><h3><a href="glossary-training.html#scaling-laws">Scaling laws</a> <span class="aka">neural scaling laws, Chinchilla scaling</span></h3>
+<p class="def">Empirical rules that predict how model quality improves as you add parameters, data and compute.</p>
+<p class="small muted">Training</p>
+</article>
+<article class="term" id="self-consistency" data-cat="Prompting" data-text="self-consistency majority voting"><h3><a href="glossary-prompting.html#self-consistency">Self-consistency</a> <span class="aka">majority voting</span></h3>
+<p class="def">Sampling several independent answers and picking the most common one to improve accuracy.</p>
+<p class="small muted">Prompting</p>
+</article>
+<article class="term" id="self-hosting" data-cat="Inference &amp; deployment" data-text="self-hosting self-hosted llm on-premises deployment"><h3><a href="glossary-inference-deployment.html#self-hosting">Self-hosting</a> <span class="aka">self-hosted LLM, on-premises deployment</span></h3>
+<p class="def">Running models on hardware you control, in your data center or cloud account, instead of calling an API.</p>
+<p class="small muted">Inference and deployment</p>
+</article>
+<article class="term" id="semantic-search" data-cat="Building apps" data-text="semantic search vector search dense retrieval neural search"><h3><a href="glossary-building-apps.html#semantic-search">Semantic search</a> <span class="aka">vector search, dense retrieval, neural search</span></h3>
+<p class="def">Search that matches by meaning rather than exact keywords, usually by comparing embeddings.</p>
+<p class="small muted">Building LLM apps</p>
+</article>
+<article class="term" id="serverless-inference" data-cat="Business &amp; pricing" data-text="serverless inference pay-per-token inference shared endpoint"><h3><a href="glossary-business-pricing.html#serverless-inference">Serverless inference</a> <span class="aka">pay-per-token inference, shared endpoint</span></h3>
+<p class="def">Calling models on shared infrastructure and paying only for what you use, with no servers to manage.</p>
+<p class="small muted">Business and pricing</p>
+</article>
+<article class="term" id="sliding-window-attention" data-cat="Architecture" data-text="sliding window attention local attention windowed attention swa"><h3><a href="glossary-architecture.html#sliding-window-attention">Sliding window attention</a> <span class="aka">local attention, windowed attention, SWA</span></h3>
+<p class="def">Attention limited to a fixed number of recent tokens, keeping cost and memory from growing with length.</p>
+<p class="small muted">Model architecture</p>
+</article>
+<article class="term" id="small-language-model" data-cat="Fundamentals" data-text="small language model (slm) slm compact model"><h3><a href="glossary-fundamentals.html#small-language-model">Small language model (SLM)</a> <span class="aka">SLM, compact model</span></h3>
+<p class="def">A language model small enough to run cheaply or on a single device, often under about 10B parameters.</p>
+<p class="small muted">Fundamentals</p>
+</article>
+<article class="term" id="softmax" data-cat="Architecture" data-text="softmax softmax function"><h3><a href="glossary-architecture.html#softmax">Softmax</a> <span class="aka">softmax function</span></h3>
+<p class="def">A function that turns a list of raw scores into probabilities that are positive and sum to one.</p>
+<p class="small muted">Model architecture</p>
+</article>
+<article class="term" id="special-tokens" data-cat="Fundamentals" data-text="special tokens control tokens reserved tokens"><h3><a href="glossary-fundamentals.html#special-tokens">Special tokens</a> <span class="aka">control tokens, reserved tokens</span></h3>
+<p class="def">Reserved tokens that mark structure, such as the start of a message or the end of output.</p>
+<p class="small muted">Fundamentals</p>
+</article>
+<article class="term" id="speculative-decoding" data-cat="Inference &amp; deployment" data-text="speculative decoding speculative sampling assisted generation"><h3><a href="glossary-inference-deployment.html#speculative-decoding">Speculative decoding</a> <span class="aka">speculative sampling, assisted generation</span></h3>
+<p class="def">A speed-up where a small model drafts several tokens and the large model checks them all at once.</p>
+<p class="small muted">Inference and deployment</p>
+</article>
+<article class="term" id="state-space-model" data-cat="Architecture" data-text="state space model (ssm) ssm state-space model"><h3><a href="glossary-architecture.html#state-space-model">State space model (SSM)</a> <span class="aka">SSM, state-space model</span></h3>
+<p class="def">A sequence architecture that carries a fixed-size running state instead of attending over every past token.</p>
+<p class="small muted">Model architecture</p>
+</article>
+<article class="term" id="stop-sequence" data-cat="Inference &amp; deployment" data-text="stop sequence stop token stop string"><h3><a href="glossary-inference-deployment.html#stop-sequence">Stop sequence</a> <span class="aka">stop token, stop string</span></h3>
+<p class="def">A string that tells the model to end generation as soon as it produces it.</p>
+<p class="small muted">Inference and deployment</p>
+</article>
+<article class="term" id="streaming" data-cat="Inference &amp; deployment" data-text="streaming token streaming streamed responses"><h3><a href="glossary-inference-deployment.html#streaming">Streaming</a> <span class="aka">token streaming, streamed responses</span></h3>
+<p class="def">Sending a model&#x27;s output to the client piece by piece as it is generated, rather than all at once.</p>
+<p class="small muted">Inference and deployment</p>
+</article>
+<article class="term" id="structured-outputs" data-cat="Building apps" data-text="structured outputs structured generation constrained generation"><h3><a href="glossary-building-apps.html#structured-outputs">Structured outputs</a> <span class="aka">structured generation, constrained generation</span></h3>
+<p class="def">Forcing a model&#x27;s output to follow a defined format, typically valid JSON matching a schema you supply.</p>
+<p class="small muted">Building LLM apps</p>
+</article>
+<article class="term" id="swe-bench" data-cat="Evaluation" data-text="swe-bench swe-bench verified"><h3><a href="glossary-evaluation.html#swe-bench">SWE-bench</a> <span class="aka">SWE-bench Verified</span></h3>
+<p class="def">A benchmark that tests whether a model or agent can resolve real GitHub issues in Python projects.</p>
+<p class="small muted">Evaluation and benchmarks</p>
+</article>
+<article class="term" id="sycophancy" data-cat="Safety &amp; governance" data-text="sycophancy ai sycophancy"><h3><a href="glossary-safety-governance.html#sycophancy">Sycophancy</a> <span class="aka">AI sycophancy</span></h3>
+<p class="def">A model&#x27;s tendency to tell users what they want to hear rather than what is accurate.</p>
+<p class="small muted">Safety and governance</p>
+</article>
+<article class="term" id="synthetic-data" data-cat="Training" data-text="synthetic data model-generated data"><h3><a href="glossary-training.html#synthetic-data">Synthetic data</a> <span class="aka">model-generated data</span></h3>
+<p class="def">Training or test data generated by a model or program rather than collected from people.</p>
+<p class="small muted">Training</p>
+</article>
+<article class="term" id="system-prompt" data-cat="Prompting" data-text="system prompt system message developer message system instructions"><h3><a href="glossary-prompting.html#system-prompt">System prompt</a> <span class="aka">system message, developer message, system instructions</span></h3>
+<p class="def">Standing instructions, set by the developer, that shape a model&#x27;s behavior for an entire conversation.</p>
+<p class="small muted">Prompting</p>
+</article>
+</div>
+<h2 class="letter" id="letter-T">T</h2>
+<div class="terms"><article class="term" id="temperature" data-cat="Inference &amp; deployment" data-text="temperature sampling temperature"><h3><a href="glossary-inference-deployment.html#temperature">Temperature</a> <span class="aka">sampling temperature</span></h3>
+<p class="def">A sampling setting that controls how random or predictable a model&#x27;s word choices are.</p>
+<p class="small muted">Inference and deployment</p>
+</article>
+<article class="term" id="test-time-compute" data-cat="Inference &amp; deployment" data-text="test-time compute inference-time compute inference-time scaling test-time scaling"><h3><a href="glossary-inference-deployment.html#test-time-compute">Test-time compute</a> <span class="aka">inference-time compute, inference-time scaling, test-time scaling</span></h3>
+<p class="def">Extra computation spent while answering, such as longer reasoning, to get better results.</p>
+<p class="small muted">Inference and deployment</p>
+</article>
+<article class="term" id="throughput" data-cat="Inference &amp; deployment" data-text="throughput aggregate throughput system throughput"><h3><a href="glossary-inference-deployment.html#throughput">Throughput</a> <span class="aka">aggregate throughput, system throughput</span></h3>
+<p class="def">How much work a system completes per unit of time, such as total tokens per second across all users.</p>
+<p class="small muted">Inference and deployment</p>
+</article>
+<article class="term" id="time-to-first-token" data-cat="Inference &amp; deployment" data-text="time to first token (ttft) ttft"><h3><a href="glossary-inference-deployment.html#time-to-first-token">Time to first token (TTFT)</a> <span class="aka">TTFT</span></h3>
+<p class="def">How long a model takes to start responding after receiving a request.</p>
+<p class="small muted">Inference and deployment</p>
+</article>
+<article class="term" id="token" data-cat="Fundamentals" data-text="token"><h3><a href="glossary-fundamentals.html#token">Token</a> </h3>
+<p class="def">The basic unit of text a language model reads and writes, often a word or word fragment.</p>
+<p class="small muted">Fundamentals</p>
+</article>
+<article class="term" id="token-budget" data-cat="Business &amp; pricing" data-text="token budget context budget token allowance"><h3><a href="glossary-business-pricing.html#token-budget">Token budget</a> <span class="aka">context budget, token allowance</span></h3>
+<p class="def">A planned limit on how many tokens a request, user, feature or task may consume.</p>
+<p class="small muted">Business and pricing</p>
+</article>
+<article class="term" id="tokenization" data-cat="Fundamentals" data-text="tokenization tokenizer"><h3><a href="glossary-fundamentals.html#tokenization">Tokenization</a> <span class="aka">tokenizer</span></h3>
+<p class="def">Splitting text into the tokens a model uses, and mapping each one to an ID number.</p>
+<p class="small muted">Fundamentals</p>
+</article>
+<article class="term" id="tokens-per-second" data-cat="Inference &amp; deployment" data-text="tokens per second output speed tps tok/s"><h3><a href="glossary-inference-deployment.html#tokens-per-second">Tokens per second</a> <span class="aka">output speed, TPS, tok/s</span></h3>
+<p class="def">How fast a model generates output, the standard measure of LLM generation speed.</p>
+<p class="small muted">Inference and deployment</p>
+</article>
+<article class="term" id="tool-calling" data-cat="Building apps" data-text="tool calling function calling tool use"><h3><a href="glossary-building-apps.html#tool-calling">Tool calling</a> <span class="aka">function calling, tool use</span></h3>
+<p class="def">Letting a model request that your code run a defined function, then using the result in its answer.</p>
+<p class="small muted">Building LLM apps</p>
+</article>
+<article class="term" id="top-k" data-cat="Inference &amp; deployment" data-text="top-k sampling top_k"><h3><a href="glossary-inference-deployment.html#top-k">Top-k sampling</a> <span class="aka">top_k</span></h3>
+<p class="def">A sampling setting that restricts each choice to the k most likely next tokens.</p>
+<p class="small muted">Inference and deployment</p>
+</article>
+<article class="term" id="top-p" data-cat="Inference &amp; deployment" data-text="top-p (nucleus sampling) nucleus sampling top_p"><h3><a href="glossary-inference-deployment.html#top-p">Top-p (nucleus sampling)</a> <span class="aka">nucleus sampling, top_p</span></h3>
+<p class="def">A sampling setting that limits choices to the smallest set of tokens covering a set share of probability.</p>
+<p class="small muted">Inference and deployment</p>
+</article>
+<article class="term" id="transformer" data-cat="Architecture" data-text="transformer transformer architecture"><h3><a href="glossary-architecture.html#transformer">Transformer</a> <span class="aka">transformer architecture</span></h3>
+<p class="def">The neural network design behind nearly all modern LLMs, built around the attention mechanism.</p>
+<p class="small muted">Model architecture</p>
+</article>
+<article class="term" id="tree-of-thoughts" data-cat="Prompting" data-text="tree of thoughts (tot) tot"><h3><a href="glossary-prompting.html#tree-of-thoughts">Tree of thoughts (ToT)</a> <span class="aka">ToT</span></h3>
+<p class="def">A technique where a model explores and evaluates multiple branching lines of reasoning, backtracking as needed.</p>
+<p class="small muted">Prompting</p>
+</article>
+</div>
+<h2 class="letter" id="letter-V">V</h2>
+<div class="terms"><article class="term" id="vector-database" data-cat="Building apps" data-text="vector database vector store vector index"><h3><a href="glossary-building-apps.html#vector-database">Vector database</a> <span class="aka">vector store, vector index</span></h3>
+<p class="def">A database built to store embeddings and quickly find the ones most similar to a query.</p>
+<p class="small muted">Building LLM apps</p>
+</article>
+<article class="term" id="vllm" data-cat="Inference &amp; deployment" data-text="vllm"><h3><a href="glossary-inference-deployment.html#vllm">vLLM</a> </h3>
+<p class="def">A popular open-source engine for serving LLMs at high throughput on GPUs.</p>
+<p class="small muted">Inference and deployment</p>
+</article>
+<article class="term" id="vram" data-cat="Inference &amp; deployment" data-text="vram (gpu memory) video ram gpu memory"><h3><a href="glossary-inference-deployment.html#vram">VRAM (GPU memory)</a> <span class="aka">video RAM, GPU memory</span></h3>
+<p class="def">The memory on a GPU, which must hold the model&#x27;s weights plus working memory to run it.</p>
+<p class="small muted">Inference and deployment</p>
+</article>
+</div>
+<h2 class="letter" id="letter-W">W</h2>
+<div class="terms"><article class="term" id="watermarking" data-cat="Safety &amp; governance" data-text="watermarking ai watermarking ai watermark"><h3><a href="glossary-safety-governance.html#watermarking">Watermarking</a> <span class="aka">AI watermarking, AI watermark</span></h3>
+<p class="def">Embedding a hidden, detectable signal in AI-generated content so it can later be identified as machine-made.</p>
+<p class="small muted">Safety and governance</p>
+</article>
+</div>
+<h2 class="letter" id="letter-Z">Z</h2>
+<div class="terms"><article class="term" id="zero-data-retention" data-cat="Safety &amp; governance" data-text="zero data retention (zdr) zdr no data retention"><h3><a href="glossary-safety-governance.html#zero-data-retention">Zero data retention (ZDR)</a> <span class="aka">ZDR, no data retention</span></h3>
+<p class="def">An arrangement in which an AI provider does not store your prompts and outputs after processing them.</p>
+<p class="small muted">Safety and governance</p>
+</article>
+</div>
+</div>
+<p class="empty" id="gl-empty" hidden>No terms match that filter. Try a shorter word.</p>
+<section class="lead-band" aria-labelledby="lead-default-glossary">
+  <div>
+    <h2 id="lead-default-glossary">Building with LLMs? Get a vendor-neutral plan.</h2>
+    <p>Tell us what you&#x27;re building. Within 2 business days you get a model shortlist, an architecture outline and a cost estimate, plus optional introductions to vetted implementation partners.</p>
+    <ul><li>Free and vendor-neutral: no model provider pays for placement.</li>
+<li>Your details go only to partners you agree to.</li>
+</ul>
+  </div>
+  <form class="mini-form" action="hire-llm-experts.html" method="get">
+    <label for="need-default-glossary">What do you need help with?</label>
+    <select id="need-default-glossary" name="need"><option value="choose-model">Choose the right model</option>
+<option value="chatbot">Build a chatbot or assistant</option>
+<option value="rag">Answer questions over our documents (RAG)</option>
+<option value="agents">Automate work with AI agents</option>
+<option value="self-host">Fine-tune or self-host a model</option>
+<option value="cut-costs">Cut our LLM costs</option>
+<option value="security">Security, privacy or compliance review</option>
+<option value="not-sure">Not sure yet</option>
+</select>
+    <input type="hidden" name="from" value="glossary">
+    <button class="btn btn--yellow btn--block" type="submit">Start my free plan</button>
+    <p class="fine">Takes about 2 minutes. No sales calls unless you ask for one.</p>
+  </form>
+</section>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+      <p>The independent field guide to large language models. Model data checked against provider documentation; last full check October 10, 2026.</p>
+    </div>
+    <div><h2>Explore</h2>
+<ul><li><a href="models.html">Model directory</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare models</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="search.html">Search</a></li>
+</ul>
+</div>
+<div><h2>Tools</h2>
+<ul><li><a href="llm-cost-calculator.html">Cost calculator</a></li>
+<li><a href="token-counter.html">Token counter</a></li>
+<li><a href="vram-calculator.html">GPU and VRAM calculator</a></li>
+<li><a href="llm-picker.html">Which LLM should I use?</a></li>
+<li><a href="context-window-visualizer.html">Context window visualizer</a></li>
+<li><a href="prompt-builder.html">Prompt builder</a></li>
+<li><a href="self-host-vs-api-calculator.html">Self-host vs API calculator</a></li>
+</ul>
+</div>
+<div><h2>Learn</h2>
+<ul><li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+</ul>
+</div>
+<div><h2>Work with us</h2>
+<ul><li><a href="hire-llm-experts.html">Get expert help</a></li>
+<li><a href="list-your-product.html">List your product</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</div>
+<div><h2>About</h2>
+<ul><li><a href="about.html">About LLModel</a></li>
+<li><a href="editorial-policy.html">Editorial policy</a></li>
+<li><a href="privacy.html">Privacy policy</a></li>
+<li><a href="terms.html">Terms of use</a></li>
+<li><a href="disclaimer.html">Disclaimer</a></li>
+<li><a href="trademark-copyright.html">Trademark and copyright</a></li>
+<li><a href="sitemap.html">Site map</a></li>
+<li><button class="linklike" type="button" data-privacy-choices>Privacy and cookie choices</button></li>
+</ul>
+</div>
+  </div>
+  <div class="wrap footer-legal">
+    <p>&copy; 2026 LLModel.com. Independent: not affiliated with, endorsed by or sponsored by any model provider. Model and company names are trademarks of their respective owners and are used only to identify products. See <a href="trademark-copyright.html">trademark and copyright</a>.</p>
+    <p>Prices and specifications change often. Always confirm on the provider's own pricing page before you buy.</p>
+  </div>
+</footer>
+<div class="palette" id="palette" hidden role="dialog" aria-modal="true" aria-label="Search LLModel">
+  <div class="palette__box">
+    <label class="visually-hidden" for="palette-input">Search models, tools, guides and terms</label>
+    <input class="palette__input" id="palette-input" type="search" placeholder="Search models, tools, guides, terms" autocomplete="off" spellcheck="false" aria-controls="palette-list">
+    <ul class="palette__list" id="palette-list" role="listbox"></ul>
+    <div class="palette__foot"><span><span class="kbd">&uarr;</span> <span class="kbd">&darr;</span> to move</span><span><span class="kbd">Enter</span> to open</span><span><span class="kbd">Esc</span> to close</span></div>
+  </div>
+</div>
+<script src="assets/js/config.js?v=caa5324cbb"></script>
+<script src="assets/js/app.js?v=4b39d7c1bd" defer></script>
+<script src="assets/js/pages/glossary.js?v=a99c13579b" defer></script>
+</body>
+</html>
