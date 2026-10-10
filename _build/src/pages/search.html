@@ -1,0 +1,25 @@
+<!--meta
+{
+  "slug": "search",
+  "title": "Search LLModel",
+  "h1": "Search",
+  "lede": "Find models, comparisons, tools, guides and glossary terms.",
+  "description": "Search LLModel.com for large language models, comparisons, tools, guides and glossary terms.",
+  "section": "",
+  "crumbs": [["Home", "index.html"], ["Search", null]],
+  "scripts": ["pages/search.js"],
+  "noindex": true,
+  "ads": false,
+  "priority": 0.1
+}
+-->
+<div class="wrap wrap--read">
+  <form class="inline-form" id="sr-form" action="search.html" method="get" role="search">
+    <label class="visually-hidden" for="sr-q">Search</label>
+    <input class="input" id="sr-q" name="q" type="search" placeholder="Try a model name, a tool or a term" autocomplete="off">
+    <button class="btn btn--primary" type="submit">Search</button>
+  </form>
+  <p class="result-count" id="sr-count" aria-live="polite" style="margin-top:1rem"></p>
+  <ul class="rowlist" id="sr-results" style="margin-top:.5rem"></ul>
+  <noscript><p class="notice">Search needs JavaScript. Browse the <a href="sitemap.html">site map</a> instead.</p></noscript>
+</div>
