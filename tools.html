@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free LLM Tools: Cost Calculator, Token Counter, VRAM Calculator and More | LLModel.com</title>
+<meta name="description" content="Free LLM tools: API cost calculator, token counter, GPU VRAM calculator, model picker quiz, context window visualizer, prompt builder and self-host vs API break-even calculator.">
+<link rel="canonical" href="https://llmodel.com/tools.html">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="google-adsense-account" content="ca-pub-6620975821265271">
+<meta name="theme-color" content="#f4f6fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12101e" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="LLModel.com">
+<meta property="og:title" content="Free LLM Tools: Cost Calculator, Token Counter, VRAM Calculator and More">
+<meta property="og:description" content="Free LLM tools: API cost calculator, token counter, GPU VRAM calculator, model picker quiz, context window visualizer, prompt builder and self-host vs API break-even calculator.">
+<meta property="og:url" content="https://llmodel.com/tools.html">
+<meta property="og:image" content="https://llmodel.com/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="LLModel: the independent field guide to large language models">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="alternate" type="text/plain" href="llms.txt" title="llms.txt">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Martian+Mono:wght@400..500&family=Newsreader:ital,opsz,wght@0,6..72,400..650;1,6..72,400&display=swap">
+<link rel="stylesheet" href="assets/css/style.css?v=dae4813595">
+<script>(function(){var d=document.documentElement,t=null;try{t=localStorage.getItem('llm-theme')}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}d.setAttribute('data-theme',t)})();</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6620975821265271" crossorigin="anonymous"></script>
+<script type="application/ld+json">{
+ "@type": "Organization",
+ "@id": "https://llmodel.com/#org",
+ "name": "LLModel.com",
+ "url": "https://llmodel.com/",
+ "logo": "https://llmodel.com/assets/img/icon-512.png",
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://llmodel.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Tools"
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "Are these LLM tools free?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes, all of them, with no account. They run entirely in your browser: the text you paste into the token counter or prompt builder isn't uploaded anywhere."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Where do the prices come from?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "From each provider's official pricing page, checked on the date shown on the tool. Every model page lists the exact sources. Prices change often, so confirm on the provider's site before you commit to a budget."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How accurate is the VRAM calculator?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The weights figure is exact arithmetic on the parameter count and precision. The KV cache figure is an estimate that depends on each model's attention design, which the calculator accounts for where it's known. Leave headroom of 10-20% for real deployments."
+   }
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+
+</head>
+<body class="page-tools">
+<a class="skip" href="#main">Skip to content</a>
+<div class="partner-bar"><a href="https://web.works/contact" target="_blank" rel="noopener"><span>Contact, if you are interested in this website / domain name / sponsorship / advertisement / partnership</span></a></div>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+    <nav class="nav" aria-label="Main"><a href="models.html">Models</a><a href="compare.html">Compare</a><a href="leaderboard.html">Rankings</a><a href="tools.html" aria-current="page">Tools</a><a href="guides.html">Learn</a><a href="videos.html">Videos</a></nav>
+    <div class="header-actions">
+      <button class="search-btn" type="button" data-open-search aria-label="Search the site"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="search-label">Search</span><span class="kbd" aria-hidden="true">/</span></button>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><svg class="theme-icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="theme-icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+      <a class="btn btn--primary btn--sm header-cta" href="hire-llm-experts.html">Get expert help</a>
+      <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile">
+    <ul><li><a href="models.html">Models</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="tools.html">Tools</a></li>
+<li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="contact.html">Contact</a></li>
+<li class="mobile-cta"><a class="btn btn--primary btn--block" href="hire-llm-experts.html">Get expert help</a></li>
+</ul>
+  </nav>
+</header>
+<main id="main">
+<nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li>
+<li aria-current="page">Tools</li>
+</ol>
+</nav>
+<header class="page-head wrap"><h1>Free tools for building with LLMs</h1><p class="lede">Seven calculators and builders for the questions that come up on every LLM project: what will it cost, will it fit, which model, and how do I phrase it. No sign-up, and what you type stays in your browser.</p>
+<div class="page-meta"><span>Model data checked October 10, 2026</span></div>
+</header>
+<div class="wrap">
+  <ul class="tool-index"><li><a href="llm-cost-calculator.html"><span class="ti-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><ellipse cx="9" cy="7" rx="6" ry="3"/><path d="M3 7v5c0 1.7 2.7 3 6 3s6-1.3 6-3V7"/><path d="M9 15v2c0 1.7 2.7 3 6 3s6-1.3 6-3v-5c0-1.7-2.7-3-6-3"/></svg></span><span><span class="ti-name">LLM API cost calculator</span><span class="ti-desc">Price a workload across every model with a published rate. Set tokens, requests and caching; get a ranked monthly bill.</span></span></a></li>
+<li><a href="token-counter.html"><span class="ti-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="2.5" y="7" width="6" height="10" rx="2"/><rect x="9.5" y="7" width="5" height="10" rx="2"/><rect x="15.5" y="7" width="6" height="10" rx="2"/></svg></span><span><span class="ti-name">Token counter</span><span class="ti-desc">Paste text to estimate tokens, see how it splits, get an exact count with OpenAI&#x27;s tokenizer and price it per model.</span></span></a></li>
+<li><a href="vram-calculator.html"><span class="ti-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></span><span><span class="ti-name">GPU and VRAM calculator</span><span class="ti-desc">Work out the memory an open-weight model needs at each precision, including the KV cache, and which GPUs or Macs fit it.</span></span></a></li>
+<li><a href="llm-picker.html"><span class="ti-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg></span><span><span class="ti-name">Which LLM should I use?</span><span class="ti-desc">Answer five questions about your task, budget and deployment. Get a shortlist of three models with the reasons.</span></span></a></li>
+<li><a href="context-window-visualizer.html"><span class="ti-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="M2.5 9h19M7 13h6"/></svg></span><span><span class="ti-name">Context window visualizer</span><span class="ti-desc">See what 8K, 128K or 1M tokens hold in pages, books, code and meeting hours, and compare model limits.</span></span></a></li>
+<li><a href="prompt-builder.html"><span class="ti-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13.5 6.5 4 4"/></svg></span><span><span class="ti-name">Prompt builder</span><span class="ti-desc">Assemble a structured prompt from role, task, context, format and constraints. Copy it or download it.</span></span></a></li>
+<li><a href="self-host-vs-api-calculator.html"><span class="ti-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M5 21h14M6 7h12"/><path d="m6 7-3 6a3 3 0 0 0 6 0zM18 7l-3 6a3 3 0 0 0 6 0z"/></svg></span><span><span class="ti-name">Self-host vs API calculator</span><span class="ti-desc">Find the monthly volume where renting GPUs beats paying per token, with your own prices and throughput.</span></span></a></li>
+</ul>
+  <aside class="ad-slot" data-ad="content" aria-label="Sponsored message"><span class="ad-label">From LLModel</span><div class="ad-fill"><div class="house"><div><strong>Building with LLMs?</strong><span>Tell us what you&#x27;re building and get a vendor-neutral stack plan within 2 business days.</span></div>
+<a class="btn btn--ghost btn--sm" href="hire-llm-experts.html">Get my stack plan</a></div>
+</div>
+</aside>
+</div>
+<section class="section" aria-labelledby="which-h">
+  <div class="wrap wrap--read prose">
+    <h2 id="which-h">Which tool do you need?</h2>
+    <p><strong>Budgeting a feature?</strong> Start with the <a href="llm-cost-calculator.html">cost calculator</a>: enter tokens per request and requests per day, and it ranks every priced model by monthly bill. If you don't know your token counts, paste a typical prompt into the <a href="token-counter.html">token counter</a> first.</p>
+    <p><strong>Choosing a model?</strong> The <a href="llm-picker.html">model picker</a> asks five questions and returns three candidates with the reasons. Put them side by side in the <a href="compare.html">compare tool</a>, then test them on your own data.</p>
+    <p><strong>Thinking about self-hosting?</strong> Check whether a model fits your GPU or Mac with the <a href="vram-calculator.html">VRAM calculator</a>, then see whether renting GPUs beats paying per token at your volume with the <a href="self-host-vs-api-calculator.html">break-even calculator</a>.</p>
+    <p><strong>Working with long inputs?</strong> The <a href="context-window-visualizer.html">context window visualizer</a> turns token limits into pages, books and hours of transcript. And when you're ready to write the prompt itself, the <a href="prompt-builder.html">prompt builder</a> assembles a structured one from your answers.</p>
+  </div>
+</section>
+<div class="wrap"><section class="lead-band" aria-labelledby="lead-default-tools">
+  <div>
+    <h2 id="lead-default-tools">Building with LLMs? Get a vendor-neutral plan.</h2>
+    <p>Tell us what you&#x27;re building. Within 2 business days you get a model shortlist, an architecture outline and a cost estimate, plus optional introductions to vetted implementation partners.</p>
+    <ul><li>Free and vendor-neutral: no model provider pays for placement.</li>
+<li>Your details go only to partners you agree to.</li>
+</ul>
+  </div>
+  <form class="mini-form" action="hire-llm-experts.html" method="get">
+    <label for="need-default-tools">What do you need help with?</label>
+    <select id="need-default-tools" name="need"><option value="choose-model">Choose the right model</option>
+<option value="chatbot">Build a chatbot or assistant</option>
+<option value="rag">Answer questions over our documents (RAG)</option>
+<option value="agents">Automate work with AI agents</option>
+<option value="self-host">Fine-tune or self-host a model</option>
+<option value="cut-costs">Cut our LLM costs</option>
+<option value="security">Security, privacy or compliance review</option>
+<option value="not-sure">Not sure yet</option>
+</select>
+    <input type="hidden" name="from" value="tools">
+    <button class="btn btn--yellow btn--block" type="submit">Start my free plan</button>
+    <p class="fine">Takes about 2 minutes. No sales calls unless you ask for one.</p>
+  </form>
+</section>
+</div>
+<div class="wrap" style="margin-top:3rem"><section class="faq-wrap" aria-labelledby="faq"><h2 class="h2" id="faq" style="margin-bottom:1rem">Frequently asked questions</h2>
+<div class="faq"><details><summary>Are these LLM tools free?</summary><div class="faq__a"><p>Yes, all of them, with no account. They run entirely in your browser: the text you paste into the token counter or prompt builder isn&#x27;t uploaded anywhere.</p>
+</div>
+</details>
+<details><summary>Where do the prices come from?</summary><div class="faq__a"><p>From each provider&#x27;s official pricing page, checked on the date shown on the tool. Every model page lists the exact sources. Prices change often, so confirm on the provider&#x27;s site before you commit to a budget.</p>
+</div>
+</details>
+<details><summary>How accurate is the VRAM calculator?</summary><div class="faq__a"><p>The weights figure is exact arithmetic on the parameter count and precision. The KV cache figure is an estimate that depends on each model&#x27;s attention design, which the calculator accounts for where it&#x27;s known. Leave headroom of 10-20% for real deployments.</p>
+</div>
+</details>
+</div>
+</section>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+      <p>The independent field guide to large language models. Model data checked against provider documentation; last full check October 10, 2026.</p>
+    </div>
+    <div><h2>Explore</h2>
+<ul><li><a href="models.html">Model directory</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare models</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="search.html">Search</a></li>
+</ul>
+</div>
+<div><h2>Tools</h2>
+<ul><li><a href="llm-cost-calculator.html">Cost calculator</a></li>
+<li><a href="token-counter.html">Token counter</a></li>
+<li><a href="vram-calculator.html">GPU and VRAM calculator</a></li>
+<li><a href="llm-picker.html">Which LLM should I use?</a></li>
+<li><a href="context-window-visualizer.html">Context window visualizer</a></li>
+<li><a href="prompt-builder.html">Prompt builder</a></li>
+<li><a href="self-host-vs-api-calculator.html">Self-host vs API calculator</a></li>
+</ul>
+</div>
+<div><h2>Learn</h2>
+<ul><li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+</ul>
+</div>
+<div><h2>Work with us</h2>
+<ul><li><a href="hire-llm-experts.html">Get expert help</a></li>
+<li><a href="list-your-product.html">List your product</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</div>
+<div><h2>About</h2>
+<ul><li><a href="about.html">About LLModel</a></li>
+<li><a href="editorial-policy.html">Editorial policy</a></li>
+<li><a href="privacy.html">Privacy policy</a></li>
+<li><a href="terms.html">Terms of use</a></li>
+<li><a href="disclaimer.html">Disclaimer</a></li>
+<li><a href="trademark-copyright.html">Trademark and copyright</a></li>
+<li><a href="sitemap.html">Site map</a></li>
+<li><button class="linklike" type="button" data-privacy-choices>Privacy and cookie choices</button></li>
+</ul>
+</div>
+  </div>
+  <div class="wrap footer-legal">
+    <p>&copy; 2026 LLModel.com. Independent: not affiliated with, endorsed by or sponsored by any model provider. Model and company names are trademarks of their respective owners and are used only to identify products. See <a href="trademark-copyright.html">trademark and copyright</a>.</p>
+    <p>Prices and specifications change often. Always confirm on the provider's own pricing page before you buy.</p>
+  </div>
+</footer>
+<div class="palette" id="palette" hidden role="dialog" aria-modal="true" aria-label="Search LLModel">
+  <div class="palette__box">
+    <label class="visually-hidden" for="palette-input">Search models, tools, guides and terms</label>
+    <input class="palette__input" id="palette-input" type="search" placeholder="Search models, tools, guides, terms" autocomplete="off" spellcheck="false" aria-controls="palette-list">
+    <ul class="palette__list" id="palette-list" role="listbox"></ul>
+    <div class="palette__foot"><span><span class="kbd">&uarr;</span> <span class="kbd">&darr;</span> to move</span><span><span class="kbd">Enter</span> to open</span><span><span class="kbd">Esc</span> to close</span></div>
+  </div>
+</div>
+<script src="assets/js/config.js?v=caa5324cbb"></script>
+
+<script src="assets/js/app.js?v=4b39d7c1bd" defer></script>
+
+</body>
+</html>

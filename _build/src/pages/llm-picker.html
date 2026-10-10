@@ -1,0 +1,86 @@
+<!--meta
+{
+  "slug": "llm-picker",
+  "title": "Which LLM Should I Use? Answer 5 Questions, Get a Shortlist",
+  "h1": "Which LLM should I use?",
+  "lede": "Answer five questions about your task, priorities and constraints. The picker scores every current model in our directory and returns three to test, with the reasons for each.",
+  "head_meta": ["Updates as you answer", "Scores use published specs and prices checked October 10, 2026"],
+  "description": "Find the right large language model in 30 seconds: pick your use case, budget, deployment, input types and context needs, and get three LLMs to test with clear reasons.",
+  "section": "tools",
+  "crumbs": [["Home", "index.html"], ["Tools", "tools.html"], ["Model picker", null]],
+  "data": ["models"],
+  "scripts": ["tools/picker.js"],
+  "priority": 0.9,
+  "faq": [
+    {"q": "How does the model picker choose?", "a": "It removes models that can't meet your hard requirements (self-hosting, image or audio input, context length), then scores the rest on how well their provider's stated strengths match your use case, their capability tier, their blended price and a speed proxy. Your priority answer changes how much each factor counts."},
+    {"q": "Should I trust the top pick blindly?", "a": "No. The picker narrows dozens of models to three plausible candidates using published facts. The best model for you is the one that does your actual tasks well at an acceptable cost, so run a small test with real examples before deciding."},
+    {"q": "What if my use case isn't listed?", "a": "Choose the closest one, or pick general assistant. You can also describe your project on our expert help page and get a vendor-neutral shortlist from a person."}
+  ]
+}
+-->
+<div class="wrap">
+  <form class="tool" id="pk-form" onsubmit="return false" aria-describedby="pk-help">
+    <div class="tool__in">
+      <p class="small muted" id="pk-help">Your answers stay in this page; nothing is sent anywhere.</p>
+      <fieldset><legend>1. What will the model mainly do?</legend>
+        <div class="pills">
+          <label class="pill"><input type="radio" name="use" value="general" checked><span>General assistant</span></label>
+          <label class="pill"><input type="radio" name="use" value="coding"><span>Coding</span></label>
+          <label class="pill"><input type="radio" name="use" value="support"><span>Customer support</span></label>
+          <label class="pill"><input type="radio" name="use" value="documents"><span>Questions over documents</span></label>
+          <label class="pill"><input type="radio" name="use" value="agents"><span>Agents and automation</span></label>
+          <label class="pill"><input type="radio" name="use" value="writing"><span>Writing and content</span></label>
+          <label class="pill"><input type="radio" name="use" value="extraction"><span>Data extraction</span></label>
+          <label class="pill"><input type="radio" name="use" value="research"><span>Research and analysis</span></label>
+        </div></fieldset>
+      <fieldset><legend>2. What matters most?</legend>
+        <div class="pills">
+          <label class="pill"><input type="radio" name="prio" value="quality"><span>Best quality</span></label>
+          <label class="pill"><input type="radio" name="prio" value="balanced" checked><span>Balance of quality and cost</span></label>
+          <label class="pill"><input type="radio" name="prio" value="cost"><span>Lowest cost</span></label>
+          <label class="pill"><input type="radio" name="prio" value="speed"><span>Fast responses</span></label>
+        </div></fieldset>
+      <fieldset><legend>3. Where will it run?</legend>
+        <div class="pills">
+          <label class="pill"><input type="radio" name="deploy" value="api" checked><span>A cloud API is fine</span></label>
+          <label class="pill"><input type="radio" name="deploy" value="prefer-open"><span>Prefer open weights</span></label>
+          <label class="pill"><input type="radio" name="deploy" value="self-host"><span>Must self-host</span></label>
+        </div></fieldset>
+      <fieldset><legend>4. What will you send it?</legend>
+        <div class="pills">
+          <label class="pill"><input type="radio" name="inputs" value="text" checked><span>Text only</span></label>
+          <label class="pill"><input type="radio" name="inputs" value="image"><span>Text and images</span></label>
+          <label class="pill"><input type="radio" name="inputs" value="av"><span>Audio or video too</span></label>
+        </div></fieldset>
+      <fieldset><legend>5. How much text per request?</legend>
+        <div class="pills">
+          <label class="pill"><input type="radio" name="ctx" value="0" checked><span>Up to a few pages</span></label>
+          <label class="pill"><input type="radio" name="ctx" value="200000"><span>Long reports or code files (200K+)</span></label>
+          <label class="pill"><input type="radio" name="ctx" value="1000000"><span>Whole books or repos (1M)</span></label>
+        </div></fieldset>
+    </div>
+    <div class="tool__out">
+      <h2 class="h3" style="margin-bottom:.75rem">Your shortlist</h2>
+      <div id="pk-out" aria-live="polite"></div>
+      <div class="tool-actions" id="pk-actions"></div>
+      <h3 style="margin-top:1.5rem;font-size:var(--fs-16)">Also worth a look</h3>
+      <ul id="pk-more" class="small" style="margin:.5rem 0 0;padding-left:1.1rem"></ul>
+    </div>
+  </form>
+  {{ad:tool-result}}
+</div>
+
+<section class="section" aria-labelledby="next-h">
+  <div class="wrap wrap--read prose">
+    <h2 id="next-h">From shortlist to decision</h2>
+    <p>The picker uses what providers publish: positioning, prices, context limits and input types. It can't see how a model handles your documents, your codebase or your customers. Close the gap with a quick test.</p>
+    <ol>
+      <li><strong>Collect 20-50 real examples</strong> of the task, including a few hard ones.</li>
+      <li><strong>Write one prompt</strong> and run it unchanged on all three models.</li>
+      <li><strong>Score the outputs</strong> against what a good answer looks like. A simple pass or fail per example is enough to start.</li>
+      <li><strong>Divide each model's cost by its passes.</strong> The lowest cost per correct answer usually wins, unless latency rules it out.</li>
+    </ol>
+    <p>The full framework, with a weighted scoring matrix and a procurement checklist, is in <a href="how-to-choose-an-llm.html">how to choose an LLM</a>.</p>
+  </div>
+</section>
+<div class="wrap">{{lead:choose,choose-model}}</div>
