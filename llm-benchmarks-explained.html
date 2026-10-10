@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LLM Benchmarks Explained: What the Scores Really Measure in 2026 | LLModel.com</title>
+<meta name="description" content="LLM benchmarks explained: what MMLU-Pro, GPQA, SWE-bench, HLE and ARC-AGI measure, which are saturated in 2026, and how to read leaderboards critically.">
+<link rel="canonical" href="https://llmodel.com/llm-benchmarks-explained.html">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="google-adsense-account" content="ca-pub-6620975821265271">
+<meta name="theme-color" content="#f4f6fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12101e" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="LLModel.com">
+<meta property="og:title" content="LLM Benchmarks Explained: What the Scores Really Measure in 2026">
+<meta property="og:description" content="LLM benchmarks explained: what MMLU-Pro, GPQA, SWE-bench, HLE and ARC-AGI measure, which are saturated in 2026, and how to read leaderboards critically.">
+<meta property="og:url" content="https://llmodel.com/llm-benchmarks-explained.html">
+<meta property="og:image" content="https://llmodel.com/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="LLModel: the independent field guide to large language models">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="alternate" type="text/plain" href="llms.txt" title="llms.txt">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Martian+Mono:wght@400..500&family=Newsreader:ital,opsz,wght@0,6..72,400..650;1,6..72,400&display=swap">
+<link rel="stylesheet" href="assets/css/style.css?v=dae4813595">
+<script>(function(){var d=document.documentElement,t=null;try{t=localStorage.getItem('llm-theme')}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}d.setAttribute('data-theme',t)})();</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6620975821265271" crossorigin="anonymous"></script>
+<script type="application/ld+json">{
+ "@type": "Organization",
+ "@id": "https://llmodel.com/#org",
+ "name": "LLModel.com",
+ "url": "https://llmodel.com/",
+ "logo": "https://llmodel.com/assets/img/icon-512.png",
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://llmodel.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Guides",
+   "item": "https://llmodel.com/guides.html"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "LLM benchmarks explained"
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "Article",
+ "headline": "LLM Benchmarks Explained: What the Scores Really Measure in 2026",
+ "description": "LLM benchmarks explained: what MMLU-Pro, GPQA, SWE-bench, HLE and ARC-AGI measure, which are saturated in 2026, and how to read leaderboards critically.",
+ "datePublished": "2026-10-10",
+ "dateModified": "2026-10-10",
+ "inLanguage": "en",
+ "mainEntityOfPage": "https://llmodel.com/llm-benchmarks-explained.html",
+ "image": "https://llmodel.com/assets/img/og-image.png",
+ "author": {
+  "@type": "Organization",
+  "name": "LLModel editorial team",
+  "url": "https://llmodel.com/about.html"
+ },
+ "publisher": {
+  "@id": "https://llmodel.com/#org"
+ },
+ "keywords": "llm benchmarks, ai benchmarks explained, llm leaderboard, swe-bench, humanity's last exam, lmarena, llm evaluation",
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is the most reliable LLM benchmark?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "No single benchmark is reliable on its own. As of October 2026, tests that still separate frontier models include Humanity's Last Exam, ARC-AGI-3, SWE-bench Pro and agentic suites such as Terminal-Bench, while MMLU and HumanEval are saturated. The most reliable signal for your decision is a private evaluation built from your own tasks, scored consistently, with cost and latency recorded next to accuracy."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Why did OpenAI stop using SWE-bench Verified?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "In February 2026 OpenAI said SWE-bench Verified no longer measured frontier coding ability. Its audit of hard problems found that most had flawed tests or problem descriptions, including tests that reject correct fixes, and that every frontier model it tested could reproduce some original solutions or task text, a sign of training contamination. It recommended reporting SWE-bench Pro instead until cleaner benchmarks arrive."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What does an LMArena rating mean?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "It is a rating estimated from anonymous head-to-head votes, fitted with a Bradley-Terry model and shown on an Elo-like scale. Only differences matter: a 100-point gap means the higher-rated model wins about 64 percent of votes. Ratings reflect what arena visitors ask and prefer, including a taste for longer, well-formatted answers, so check style-controlled rankings and confidence intervals before reading much into small gaps."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is benchmark contamination?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Contamination happens when a benchmark's questions or answers end up in a model's training data, usually because the test was published online. The model can then recall answers instead of solving problems, which inflates its score. Warning signs include a model reproducing exact answer text or scoring far better on old public questions than on fresh ones. Private held-out sets and newly written questions reduce the risk."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How many examples do I need to evaluate an LLM for my use case?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Fifty to two hundred well-chosen examples is a practical start. With 200 cases and an 85 percent pass rate, the margin of error is roughly five points either way, so smaller differences need more cases or repeated runs. Cover your main task types in proportion to real traffic, include hard cases and past failures, and keep the set private so it never leaks into training data."
+   }
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+
+</head>
+<body class="page-llm-benchmarks-explained">
+<a class="skip" href="#main">Skip to content</a>
+<div class="partner-bar"><a href="https://web.works/contact" target="_blank" rel="noopener"><span>Contact, if you are interested in this website / domain name / sponsorship / advertisement / partnership</span></a></div>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+    <nav class="nav" aria-label="Main"><a href="models.html">Models</a><a href="compare.html">Compare</a><a href="leaderboard.html">Rankings</a><a href="tools.html">Tools</a><a href="guides.html" aria-current="page">Learn</a><a href="videos.html">Videos</a></nav>
+    <div class="header-actions">
+      <button class="search-btn" type="button" data-open-search aria-label="Search the site"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="search-label">Search</span><span class="kbd" aria-hidden="true">/</span></button>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><svg class="theme-icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="theme-icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+      <a class="btn btn--primary btn--sm header-cta" href="hire-llm-experts.html">Get expert help</a>
+      <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile">
+    <ul><li><a href="models.html">Models</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="tools.html">Tools</a></li>
+<li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="contact.html">Contact</a></li>
+<li class="mobile-cta"><a class="btn btn--primary btn--block" href="hire-llm-experts.html">Get expert help</a></li>
+</ul>
+  </nav>
+</header>
+<main id="main">
+<nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li>
+<li><a href="guides.html">Guides</a></li>
+<li aria-current="page">LLM benchmarks explained</li>
+</ol>
+</nav>
+<div class="read-progress" id="read-progress" aria-hidden="true"></div>
+<header class="page-head wrap"><h1>LLM benchmarks explained</h1><p class="lede">What the major LLM benchmarks test, which ones still separate frontier models as of October 2026, and why arena rankings and launch charts need a skeptical read. Includes a method for building your own evaluation with golden sets, rubrics and cost metrics.</p>
+<div class="page-meta"><span>Safety &amp; quality</span><span>Intermediate</span><span>9 min read</span><span>Updated October 10, 2026</span></div>
+</header>
+<div class="wrap article">
+  <nav class="article__toc toc" aria-label="On this page"><p class="toc-title">On this page</p>
+<ol><li><a href="#why-benchmarks-exist">Why benchmarks exist</a></li>
+<li><a href="#what-the-major-benchmarks-measure">What the major benchmarks measure</a></li>
+<li><a href="#contamination-and-saturation">Contamination and saturation</a></li>
+<li><a href="#human-preference-arenas">Human-preference arenas</a></li>
+<li><a href="#how-to-read-a-leaderboard-skeptically">How to read a leaderboard skeptically</a></li>
+<li><a href="#building-your-own-evaluation">Building your own evaluation</a></li>
+<li><a href="#common-mistakes">Common mistakes</a></li>
+<li><a href="#next-steps">Next steps</a></li>
+</ol>
+</nav>
+  <article class="prose" id="article">
+    <div class="takeaways"><h2>Key takeaways</h2>
+<ul><li>Public benchmarks are screening tools; a private evaluation built from your own tasks should make the final call.</li>
+<li>MMLU and HumanEval are saturated, MATH is close behind, and OpenAI stopped reporting SWE-bench Verified in 2026 over flawed tests and contamination.</li>
+<li>Harder tests such as Humanity&#x27;s Last Exam, ARC-AGI-3 and agentic benchmarks still separate frontier models as of October 2026.</li>
+<li>Arena ratings capture human preference but reward style and reflect who votes, so small rating gaps are fragile.</li>
+<li>On small test sets a 1-3 point lead is often noise; check sample size, settings and confidence intervals.</li>
+<li>Track cost per task and latency next to accuracy, because the cheapest model per correct answer often wins.</li>
+</ul>
+</div>
+    <p>Every model launch arrives with a chart of benchmark scores, and every leaderboard claims to know which model is best. This guide explains what the major benchmarks actually test, which ones still separate frontier models as of October 2026, how human-preference arenas rank models, and how to build an evaluation that predicts performance on your own work.</p>
+
+<h2 id="why-benchmarks-exist">Why benchmarks exist</h2>
+<p>A <a href="glossary-evaluation.html#benchmark">benchmark</a> is a fixed set of tasks with an agreed scoring method, so different models can be compared under the same conditions. Researchers use benchmarks to track progress, labs use them to catch regressions, and buyers use them as a first filter when building a shortlist.</p>
+<p>The catch is that a benchmark is a proxy. It measures performance on one sample of questions, in one format, under one set of settings. A model that aces graduate-level physics questions can still fumble your invoice format. Treat public scores as a screening tool and your own <a href="glossary-evaluation.html#evaluation">evaluation</a> as the deciding vote.</p>
+<p>Benchmarks also have a life cycle. A new test starts out hard, labs optimize for it, scores climb toward the ceiling, and the field moves on. Knowing where a benchmark sits in that cycle tells you how much its scores can still reveal.</p>
+
+<h2 id="what-the-major-benchmarks-measure">What the major benchmarks measure</h2>
+<p>The table covers the benchmarks you'll meet most often in model cards and launch posts. Status reflects published results and maintainer statements as of October 2026, so check the source before relying on any single score.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Benchmark</th><th>What it tests</th><th>Status in 2026</th></tr>
+</thead>
+<tbody>
+<tr><td><a href="glossary-evaluation.html#mmlu">MMLU</a></td><td>Four-option multiple-choice questions across 57 academic and professional subjects</td><td>Saturated: frontier models score above 90 percent, and audits have found flawed answer keys</td></tr>
+<tr><td>MMLU-Pro</td><td>A harder, reasoning-heavy rebuild with ten answer options per question</td><td>Still widely reported; harder and less sensitive to prompt wording than MMLU</td></tr>
+<tr><td>GPQA Diamond</td><td>198 graduate-level biology, chemistry and physics questions written to resist web search</td><td>Near saturation: top models report scores above 90 percent, past the PhD-expert baseline</td></tr>
+<tr><td>HumanEval</td><td>164 short Python functions checked by unit tests, scored as pass@k</td><td>Saturated; still useful for comparing small models</td></tr>
+<tr><td>SWE-bench Verified</td><td>500 human-screened GitHub issues; the model must write a patch that passes the project's tests</td><td>OpenAI stopped reporting it in February 2026, citing flawed tests and contamination, and recommends SWE-bench Pro</td></tr>
+<tr><td>AIME and MATH</td><td>Competition math with exact answers; each AIME exam has 15 problems</td><td>MATH is near saturation; top reasoning models score close to the ceiling on recent AIME papers</td></tr>
+<tr><td>Humanity's Last Exam</td><td>2,500 expert-written questions across dozens of subjects, some with images, designed so answers can't be quickly looked up</td><td>Unsaturated: early-2025 models scored in single digits, and leading models reached roughly half by mid-2026</td></tr>
+<tr><td>ARC-AGI-2 and ARC-AGI-3</td><td>Puzzles that are easy for people: inferring a new rule from a few examples (v2) or exploring unfamiliar game worlds with no instructions (v3)</td><td>Top ARC-AGI-2 scores were reported above the 85 percent target by mid-2026; ARC-AGI-3 launched in March 2026 with humans solving every task and frontier AI scoring about 0.5 percent at launch</td></tr>
+<tr><td>Long-context tests</td><td>Finding and combining facts buried in very long inputs: needle-in-a-haystack, RULER and multi-hop variants</td><td>Simple needle retrieval is saturated; harder variants show usable context is often shorter than advertised</td></tr>
+<tr><td>Tool-use and agent benchmarks</td><td>Calling functions correctly (BFCL), customer-service tasks with a simulated user (τ²-bench), terminal work (Terminal-Bench), operating a desktop (OSWorld)</td><td>The most active area, with frequent new versions; results depend heavily on the agent harness</td></tr>
+</tbody>
+</table>
+</div>
+<p>Two patterns stand out. Multiple-choice knowledge tests have mostly topped out, so the signal has moved to benchmarks that require doing something: shipping working code, using tools correctly, or adapting to an environment the model has never seen. And the newest tests deliberately target what models still do badly, which is why their scores look low.</p>
+<p>Long-context results deserve special care. The RULER study found that only half of the models it tested, all claiming windows of 32,000 tokens or more, performed satisfactorily at 32,000 tokens. The <a href="context-windows-explained.html">context windows guide</a> explains why advertised and usable <a href="glossary-fundamentals.html#context-window">context</a> differ.</p>
+
+<aside class="ad-slot" data-ad="in-article" aria-label="Sponsored message"><span class="ad-label">From LLModel</span><div class="ad-fill"><div class="house"><div><strong>Prompt Efficiency Challenge</strong><span>Season 1 is open: solve five tasks for the fewest dollars. $500 in prizes.</span></div>
+<a class="btn btn--ghost btn--sm" href="contests.html">Read the brief</a></div>
+</div>
+</aside>
+<h2 id="contamination-and-saturation">Contamination and saturation</h2>
+<p>A benchmark is saturated when top models score so close to the ceiling that differences are mostly noise. Small test sets make this worse. GPQA Diamond has 198 questions, so each one is worth about half a percentage point, and a 2-point lead is just four questions. AIME results usually cover a year's two 15-problem exams, so a single problem moves the score by more than 3 points.</p>
+<p>Errors in the answer key cap scores too. If 3 percent of a test's answers are wrong, a flawless model tops out at 97 percent, and a model that scores higher may have memorized the mistakes.</p>
+<p>Contamination happens when test questions or answers leak into training data, usually because benchmarks are published on the web that models learn from. The model then recalls instead of reasoning. OpenAI's February 2026 audit of SWE-bench Verified is the clearest recent case. Every frontier model it tested could reproduce some original fixes or task details verbatim, and 59.4 percent of the 138 hard problems it reviewed had flawed tests or descriptions.</p>
+<p>OpenAI concluded that recent gains, from 74.9 to 80.9 percent over six months, increasingly reflected exposure rather than skill. Benchmark makers respond with private held-out test sets, fresh questions written after training cutoffs, contests that refresh every year, and interactive tasks like ARC-AGI-3 that can't be answered from memory.</p>
+
+<h2 id="human-preference-arenas">Human-preference arenas</h2>
+<p>Arenas take a different approach. A user submits a prompt, two anonymous models answer side by side, and the user votes for the better response. The best known is LMArena, which began as the academic Chatbot Arena project and now operates under the Arena brand. Its 2024 paper described more than 240,000 votes, and the platform has gathered far more since.</p>
+<p>Votes become ratings through a Bradley-Terry model, which estimates each model's strength from all pairwise results at once. The project originally used chess-style Elo updates, which depend on the order of games; the Bradley-Terry fit removes that effect and yields confidence intervals. Ratings sit on an Elo-like scale where a 50-point gap means the higher-rated model wins about 57 percent of votes, and a 100-point gap about 64 percent.</p>
+<p>Arenas capture something static tests miss: what real people prefer on real prompts. They also carry known biases:</p>
+<ul>
+<li><strong>Style over substance.</strong> Voters tend to reward longer, well-formatted, confident answers. Arena publishes style-controlled rankings that adjust for length and Markdown, so compare both views.</li>
+<li><strong>A particular prompt mix.</strong> Votes reflect what visitors ask, which leans toward coding, quick questions and puzzles rather than long documents in your domain.</li>
+<li><strong>Unchecked answers.</strong> Voters rarely verify facts or run code, so a fluent wrong answer can win.</li>
+<li><strong>Uneven access.</strong> The 2025 paper "The Leaderboard Illusion" reported that some providers privately tested many variants before release, 27 for Meta ahead of Llama 4, and that Google and OpenAI each received about a fifth of all arena data. Arena has since open-sourced its ranking code, which reweights models with fewer battles.</li>
+</ul>
+<p>The practical lesson: an arena rating is a useful read on general chat quality, but a lead of a few points says little about your workload.</p>
+
+<figure class="video-figure"><div class="video" data-yt="kDY4TodQwbg"><button class="video__btn" type="button" aria-label="Play video: What are Large Language Model (LLM) Benchmarks?"><img src="https://i.ytimg.com/vi/kDY4TodQwbg/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="video__play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></button></div>
+<figcaption>Watch: What are Large Language Model (LLM) Benchmarks? (IBM Technology). Introduces the standardized tests used to compare language models and what their scores can and cannot tell you. It gives buyers and developers a starting point for reading leaderboard numbers with context.</figcaption></figure>
+<h2 id="how-to-read-a-leaderboard-skeptically">How to read a leaderboard skeptically</h2>
+<p>Whether you're looking at a lab's launch chart, a third-party tracker or our <a href="leaderboard.html">LLM leaderboard</a>, run through these questions before drawing conclusions.</p>
+<div class="checklist"><ul>
+<li><strong>Same settings?</strong> Scores with tools, majority voting or maximum reasoning effort aren't comparable to single-attempt scores. Look for labels like "pass@1," "with tools" or "high effort."</li>
+<li><strong>Who ran it?</strong> Self-reported numbers use the lab's own prompts and harness. Independent reruns with a shared harness are easier to compare.</li>
+<li><strong>How big is the test?</strong> On a few hundred questions, gaps of 1 to 3 points usually sit within noise. Look for confidence intervals.</li>
+<li><strong>Saturated or contaminated?</strong> A near-perfect score on an old public test says little about the frontier.</li>
+<li><strong>What did it cost?</strong> A score reached at high effort can cost many times more per task. ARC Prize plots score against cost per task and lists only systems that cost under $10,000 to run.</li>
+<li><strong>Does it match your work?</strong> A math leaderboard says little about summarizing contracts. Weight the benchmarks that resemble your use case.</li>
+<li><strong>How fresh is it?</strong> Rankings shift every few weeks, so check the date and exact model version.</li>
+</ul>
+</div>
+<p>Composite indexes that blend many benchmarks, such as Epoch AI's Capabilities Index, smooth out single-test noise but inherit their ingredients' blind spots. Use them to shortlist, then line up finalists with <a href="compare.html">side-by-side comparison</a> and your own tests.</p>
+
+<h2 id="building-your-own-evaluation">Building your own evaluation</h2>
+<h3 id="start-with-a-golden-set">Start with a golden set</h3>
+<p>A golden set is a collection of real inputs with known-good outputs or clear pass criteria. Fifty to two hundred examples is enough to start. Pull them from production logs or realistic drafts, cover your task types in proportion to real traffic, and deliberately add hard cases and past failures. Keep the set private, and add each new failure you find.</p>
+<p>Know your margin of error. With 200 cases and a pass rate near 85 percent, the 95 percent confidence interval is roughly 5 points either way; with 100 cases at 90 percent, it's about 6. A model that scores 87 against another's 84 on 200 cases hasn't clearly won, so rerun before deciding.</p>
+<h3 id="write-rubrics-not-vibes">Write rubrics, not vibes</h3>
+<p>For open-ended outputs, break quality into yes-or-no checks: "cites the policy section," "under 150 words," "no invented order numbers." Binary criteria are applied more consistently than a 1-to-10 scale, and they tell you what to fix. Score exact matches and formats with code wherever possible, since it's cheaper and deterministic.</p>
+<h3 id="llm-as-a-judge-pitfalls">LLM-as-a-judge pitfalls</h3>
+<p>Using a strong model to grade outputs, called <a href="glossary-evaluation.html#llm-as-a-judge">LLM-as-a-judge</a>, makes evaluation cheap to scale. The 2023 study that popularized it found GPT-4's verdicts matched human preferences over 80 percent of the time, about as often as humans agree with each other. It also documented systematic biases:</p>
+<ul>
+<li><strong>Position bias:</strong> judges favor an answer because of where it appears. Run pairwise comparisons in both orders and count only consistent wins.</li>
+<li><strong>Verbosity bias:</strong> longer answers look better. Put length expectations in the rubric.</li>
+<li><strong>Self-preference:</strong> models tend to favor outputs like their own. Use a judge from a different model family when you can.</li>
+<li><strong>Limited checking:</strong> judges miss math or code errors they can't verify. Supply a reference answer or execute the code.</li>
+</ul>
+<p>Before trusting a judge, have a person label 50 to 100 examples and measure how often the judge agrees. If agreement is low, fix the rubric before scaling up.</p>
+<h3 id="cost-and-latency-are-metrics-too">Cost and latency are metrics too</h3>
+<p>Suppose Model A passes 92 percent of your tests at $0.012 per task with a 9-second p95 latency, and Model B passes 89 percent at $0.002 with 2 seconds. At 100,000 tasks a month, A costs $1,200 and B costs $200. But if a person reviews every failure, B's extra 3 percent means 3,000 more reviews; at 50 cents each that's $1,500, which makes the "expensive" model $500 a month cheaper overall.</p>
+<p>Record cost per task, cost per correct answer, and p50 and p95 <a href="glossary-inference-deployment.html#latency">latency</a> next to accuracy. The <a href="llm-cost-calculator.html">LLM cost calculator</a> handles the token arithmetic, and the <a href="prompt-engineering-guide.html">prompt engineering guide</a> shows how to rerun the same set after every prompt change.</p>
+
+<aside class="ad-slot" data-ad="in-article-2" aria-label="Sponsored message"><span class="ad-label">From LLModel</span><div class="ad-fill"><div class="house"><div><strong>Building with LLMs?</strong><span>Tell us what you&#x27;re building and get a vendor-neutral stack plan within 2 business days.</span></div>
+<a class="btn btn--ghost btn--sm" href="hire-llm-experts.html">Get my stack plan</a></div>
+</div>
+</aside>
+<h2 id="common-mistakes">Common mistakes</h2>
+<ul>
+<li><strong>Choosing a model from one number.</strong> A single headline score hides the settings, cost and task fit behind it.</li>
+<li><strong>Mixing settings.</strong> Comparing one model's tool-assisted, high-effort score with another's plain score is meaningless.</li>
+<li><strong>Trusting saturated tests.</strong> MMLU and HumanEval no longer separate frontier models.</li>
+<li><strong>Evaluating on a dozen examples.</strong> At that size, noise looks like signal.</li>
+<li><strong>Leaking the test set.</strong> Examples you use in few-shot prompts or publish online shouldn't also be in your golden set.</li>
+<li><strong>Running each case once.</strong> Outputs vary, so repeat runs at your production settings.</li>
+<li><strong>Evaluating only at launch.</strong> Rerun after every prompt edit and model update, and pin model versions in between.</li>
+</ul>
+
+<h2 id="next-steps">Next steps</h2>
+<p>Check the <a href="leaderboard.html">LLM leaderboard</a> to see how current models rank on quality and value, then line up two or three finalists in <a href="compare.html">side-by-side comparison</a>. The <a href="how-to-choose-an-llm.html">guide to choosing an LLM</a> shows how to combine benchmark results with cost, privacy and latency constraints.</p>
+<p>If you'd like help designing a golden set or an automated evaluation pipeline, you can <a href="hire-llm-experts.html">work with an LLM evaluation specialist</a>.</p>
+    <section class="sources" aria-labelledby="sources"><h2 id="sources">Sources</h2>
+<ol><li><a href="https://openai.com/index/why-we-no-longer-evaluate-swe-bench-verified/" target="_blank" rel="noopener">OpenAI: Why we no longer evaluate SWE-bench Verified (February 2026)</a></li>
+<li><a href="https://arxiv.org/abs/2501.14249" target="_blank" rel="noopener">Humanity&#x27;s Last Exam (Phan et al., 2025)</a></li>
+<li><a href="https://arxiv.org/abs/2311.12022" target="_blank" rel="noopener">GPQA: A Graduate-Level Google-Proof Q&amp;A Benchmark (Rein et al., 2023)</a></li>
+<li><a href="https://arxiv.org/abs/2406.01574" target="_blank" rel="noopener">MMLU-Pro: A More Robust and Challenging Multi-Task Language Understanding Benchmark (Wang et al., 2024)</a></li>
+<li><a href="https://arcprize.org/blog/arc-agi-3-launch" target="_blank" rel="noopener">ARC Prize: ARC-AGI-3 launch announcement (March 2026)</a></li>
+<li><a href="https://arxiv.org/abs/2403.04132" target="_blank" rel="noopener">Chatbot Arena: An Open Platform for Evaluating LLMs by Human Preference (Chiang et al., 2024)</a></li>
+<li><a href="https://arxiv.org/abs/2504.20879" target="_blank" rel="noopener">The Leaderboard Illusion (2025)</a></li>
+<li><a href="https://arxiv.org/abs/2306.05685" target="_blank" rel="noopener">Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena (Zheng et al., 2023)</a></li>
+<li><a href="https://arxiv.org/abs/2404.06654" target="_blank" rel="noopener">RULER: What&#x27;s the Real Context Size of Your Long-Context Language Models? (Hsieh et al., 2024)</a></li>
+<li><a href="https://arxiv.org/abs/2506.07982" target="_blank" rel="noopener">Tau-squared-bench: Evaluating Conversational Agents in a Dual-Control Environment (2025)</a></li>
+</ol>
+      <p class="small muted">Written by the LLModel editorial team and checked against the sources above on October 10, 2026. Found an error? <a href="contact.html?topic=correction">Send a correction</a>.</p>
+</section>
+    <div class="share" aria-label="Share this guide"><span class="muted">Share:</span><button type="button" data-copy-link>Copy link</button><a href="https://www.linkedin.com/sharing/share-offsite/?url=https://llmodel.com/llm-benchmarks-explained.html" target="_blank" rel="noopener">LinkedIn</a><a href="https://twitter.com/intent/tweet?url=https://llmodel.com/llm-benchmarks-explained.html&amp;text=LLM benchmarks explained" target="_blank" rel="noopener">X</a><a href="https://news.ycombinator.com/submitlink?u=https://llmodel.com/llm-benchmarks-explained.html&amp;t=LLM benchmarks explained" target="_blank" rel="noopener">Hacker News</a><a href="https://www.reddit.com/submit?url=https://llmodel.com/llm-benchmarks-explained.html&amp;title=LLM benchmarks explained" target="_blank" rel="noopener">Reddit</a></div>
+  </article>
+  <aside class="article__side" aria-label="Related"><div class="panel"><h2 class="h3">Try the tools</h2>
+<ul style="margin:.5rem 0 0;padding-left:1.1rem"><li><a href="llm-picker.html">Which LLM should I use?</a></li>
+<li><a href="llm-cost-calculator.html">LLM API cost calculator</a></li>
+</ul>
+</div>
+<div class="panel"><h2 class="h3">Need hands-on help?</h2>
+<p class="small muted" style="margin-top:.4rem">Get a vendor-neutral plan for your project within 2 business days.</p>
+<a class="btn btn--primary btn--block" style="margin-top:.8rem" href="hire-llm-experts.html?from=guide-llm-benchmarks-explained">Get expert help</a></div>
+<div class="panel newsletter-box">
+
+  <p class="muted" style="margin-top:.4rem">One short email a week: model releases, price changes and one tool worth trying. Free, and you can unsubscribe anytime.</p>
+  <form class="form" data-form="newsletter" data-subject="Newsletter signup" novalidate style="margin-top:1rem">
+    <div class="inline-form">
+      <label class="visually-hidden" for="nl-side-email">Email address</label>
+      <input class="input" type="email" id="nl-side-email" name="email" required autocomplete="email" placeholder="Your work email">
+      <button class="btn btn--primary" type="submit">Subscribe</button>
+    </div>
+    <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <div class="form-status" role="status" aria-live="polite"></div>
+  </form>
+  <p class="fine" style="margin-top:.6rem">We send one email a week and never sell your address. See the <a href="privacy.html">privacy policy</a>.</p>
+</div>
+</aside>
+</div>
+<div class="wrap wrap--read" style="margin-top:3rem"><section class="faq-wrap" aria-labelledby="faq"><h2 class="h2" id="faq" style="margin-bottom:1rem">Frequently asked questions</h2>
+<div class="faq"><details><summary>What is the most reliable LLM benchmark?</summary><div class="faq__a"><p>No single benchmark is reliable on its own. As of October 2026, tests that still separate frontier models include Humanity&#x27;s Last Exam, ARC-AGI-3, SWE-bench Pro and agentic suites such as Terminal-Bench, while MMLU and HumanEval are saturated. The most reliable signal for your decision is a private evaluation built from your own tasks, scored consistently, with cost and latency recorded next to accuracy.</p>
+</div>
+</details>
+<details><summary>Why did OpenAI stop using SWE-bench Verified?</summary><div class="faq__a"><p>In February 2026 OpenAI said SWE-bench Verified no longer measured frontier coding ability. Its audit of hard problems found that most had flawed tests or problem descriptions, including tests that reject correct fixes, and that every frontier model it tested could reproduce some original solutions or task text, a sign of training contamination. It recommended reporting SWE-bench Pro instead until cleaner benchmarks arrive.</p>
+</div>
+</details>
+<details><summary>What does an LMArena rating mean?</summary><div class="faq__a"><p>It is a rating estimated from anonymous head-to-head votes, fitted with a Bradley-Terry model and shown on an Elo-like scale. Only differences matter: a 100-point gap means the higher-rated model wins about 64 percent of votes. Ratings reflect what arena visitors ask and prefer, including a taste for longer, well-formatted answers, so check style-controlled rankings and confidence intervals before reading much into small gaps.</p>
+</div>
+</details>
+<details><summary>What is benchmark contamination?</summary><div class="faq__a"><p>Contamination happens when a benchmark&#x27;s questions or answers end up in a model&#x27;s training data, usually because the test was published online. The model can then recall answers instead of solving problems, which inflates its score. Warning signs include a model reproducing exact answer text or scoring far better on old public questions than on fresh ones. Private held-out sets and newly written questions reduce the risk.</p>
+</div>
+</details>
+<details><summary>How many examples do I need to evaluate an LLM for my use case?</summary><div class="faq__a"><p>Fifty to two hundred well-chosen examples is a practical start. With 200 cases and an 85 percent pass rate, the margin of error is roughly five points either way, so smaller differences need more cases or repeated runs. Cover your main task types in proportion to real traffic, include hard cases and past failures, and keep the set private so it never leaks into training data.</p>
+</div>
+</details>
+</div>
+</section>
+</div>
+
+<section class="wrap" aria-labelledby="related" style="margin-top:3rem"><h2 class="h2" id="related" style="margin-bottom:1rem">Keep reading</h2>
+<div class="cardlist"><a class="card" href="how-to-choose-an-llm.html"><span class="card__kicker">Choosing &amp; buying</span><span class="card__title">How to choose an LLM for your project</span><span class="card__desc">A practical framework for choosing a large language model: define the job, weigh ten criteria in a scoring matrix, and run a quick evaluation on your own data. Includes starting points for five common use cases as of October 2026 and a procurement checklist.</span><span class="card__foot"><span>Intermediate</span><span>10 min read</span></span></a><a class="card" href="llm-hallucinations.html"><span class="card__kicker">Safety &amp; quality</span><span class="card__title">LLM hallucinations: why they happen and how to reduce them</span><span class="card__desc">Hallucinations are fluent, confident outputs that are false or unsupported by the sources a model was given. This
+guide explains why they happen, what published measurements show, and how to reduce, catch and measure them in real applications.</span><span class="card__foot"><span>Beginner</span><span>10 min read</span></span></a><a class="card" href="prompt-engineering-guide.html"><span class="card__kicker">Building</span><span class="card__title">Prompt engineering: a practical guide with examples</span><span class="card__desc">A practical guide to writing prompts that work: the five parts of a prompt, core principles, eight techniques with before-and-after examples, and how reasoning models change the rules. Includes a testing workflow and a reusable template.</span><span class="card__foot"><span>Beginner</span><span>11 min read</span></span></a></div>
+</section>
+<div class="wrap"><section class="lead-band" aria-labelledby="lead-build-guide-llm-benchmarks-explained">
+  <div>
+    <h2 id="lead-build-guide-llm-benchmarks-explained">Need hands-on help building it?</h2>
+    <p>RAG, agents, fine-tuning or a production chatbot: describe the project and we&#x27;ll suggest an approach and, if you want, partners who build it.</p>
+    <ul><li>Free and vendor-neutral: no model provider pays for placement.</li>
+<li>Your details go only to partners you agree to.</li>
+</ul>
+  </div>
+  <form class="mini-form" action="hire-llm-experts.html" method="get">
+    <label for="need-build-guide-llm-benchmarks-explained">What do you need help with?</label>
+    <select id="need-build-guide-llm-benchmarks-explained" name="need"><option value="choose-model">Choose the right model</option>
+<option value="chatbot">Build a chatbot or assistant</option>
+<option value="rag">Answer questions over our documents (RAG)</option>
+<option value="agents">Automate work with AI agents</option>
+<option value="self-host">Fine-tune or self-host a model</option>
+<option value="cut-costs">Cut our LLM costs</option>
+<option value="security">Security, privacy or compliance review</option>
+<option value="not-sure">Not sure yet</option>
+</select>
+    <input type="hidden" name="from" value="guide-llm-benchmarks-explained">
+    <button class="btn btn--yellow btn--block" type="submit">Start my free plan</button>
+    <p class="fine">Takes about 2 minutes. No sales calls unless you ask for one.</p>
+  </form>
+</section>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+      <p>The independent field guide to large language models. Model data checked against provider documentation; last full check October 10, 2026.</p>
+    </div>
+    <div><h2>Explore</h2>
+<ul><li><a href="models.html">Model directory</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare models</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="search.html">Search</a></li>
+</ul>
+</div>
+<div><h2>Tools</h2>
+<ul><li><a href="llm-cost-calculator.html">Cost calculator</a></li>
+<li><a href="token-counter.html">Token counter</a></li>
+<li><a href="vram-calculator.html">GPU and VRAM calculator</a></li>
+<li><a href="llm-picker.html">Which LLM should I use?</a></li>
+<li><a href="context-window-visualizer.html">Context window visualizer</a></li>
+<li><a href="prompt-builder.html">Prompt builder</a></li>
+<li><a href="self-host-vs-api-calculator.html">Self-host vs API calculator</a></li>
+</ul>
+</div>
+<div><h2>Learn</h2>
+<ul><li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+</ul>
+</div>
+<div><h2>Work with us</h2>
+<ul><li><a href="hire-llm-experts.html">Get expert help</a></li>
+<li><a href="list-your-product.html">List your product</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</div>
+<div><h2>About</h2>
+<ul><li><a href="about.html">About LLModel</a></li>
+<li><a href="editorial-policy.html">Editorial policy</a></li>
+<li><a href="privacy.html">Privacy policy</a></li>
+<li><a href="terms.html">Terms of use</a></li>
+<li><a href="disclaimer.html">Disclaimer</a></li>
+<li><a href="trademark-copyright.html">Trademark and copyright</a></li>
+<li><a href="sitemap.html">Site map</a></li>
+<li><button class="linklike" type="button" data-privacy-choices>Privacy and cookie choices</button></li>
+</ul>
+</div>
+  </div>
+  <div class="wrap footer-legal">
+    <p>&copy; 2026 LLModel.com. Independent: not affiliated with, endorsed by or sponsored by any model provider. Model and company names are trademarks of their respective owners and are used only to identify products. See <a href="trademark-copyright.html">trademark and copyright</a>.</p>
+    <p>Prices and specifications change often. Always confirm on the provider's own pricing page before you buy.</p>
+  </div>
+</footer>
+<div class="palette" id="palette" hidden role="dialog" aria-modal="true" aria-label="Search LLModel">
+  <div class="palette__box">
+    <label class="visually-hidden" for="palette-input">Search models, tools, guides and terms</label>
+    <input class="palette__input" id="palette-input" type="search" placeholder="Search models, tools, guides, terms" autocomplete="off" spellcheck="false" aria-controls="palette-list">
+    <ul class="palette__list" id="palette-list" role="listbox"></ul>
+    <div class="palette__foot"><span><span class="kbd">&uarr;</span> <span class="kbd">&darr;</span> to move</span><span><span class="kbd">Enter</span> to open</span><span><span class="kbd">Esc</span> to close</span></div>
+  </div>
+</div>
+<script src="assets/js/config.js?v=caa5324cbb"></script>
+
+<script src="assets/js/app.js?v=4b39d7c1bd" defer></script>
+<script src="assets/js/article.js?v=0235be8880" defer></script>
+</body>
+</html>
