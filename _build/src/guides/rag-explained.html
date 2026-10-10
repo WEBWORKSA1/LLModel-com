@@ -1,0 +1,178 @@
+<!--meta
+{
+  "slug": "rag-explained",
+  "title": "RAG Explained: How Retrieval-Augmented Generation Works",
+  "h1": "Retrieval-augmented generation (RAG) explained",
+  "description": "RAG explained: how retrieval-augmented generation works, with chunking, embeddings, hybrid search, reranking, evaluation and security for LLM apps.",
+  "category": "Building",
+  "level": "Intermediate",
+  "updated": "2026-10-10",
+  "keywords": ["rag", "retrieval-augmented generation", "what is rag", "rag pipeline", "hybrid search reranking", "rag evaluation"],
+  "summary": "A practical guide to retrieval-augmented generation, covering each stage of the pipeline from parsing and chunking to hybrid search, reranking and cited answers. It also explains how to evaluate RAG quality, when long context or fine-tuning fits better and how to secure the system.",
+  "key_takeaways": [
+    "RAG retrieves relevant passages from your own documents at question time and asks the model to answer from them with citations, so answers stay current without retraining.",
+    "Most RAG failures are retrieval failures, so invest first in parsing, chunking, hybrid search and reranking.",
+    "Hybrid search (BM25 plus vectors, merged with reciprocal rank fusion) followed by a reranker is the highest-leverage upgrade over basic vector search.",
+    "Measure retrieval recall and answer faithfulness separately on a labeled set of real questions, and rerun the set on every change.",
+    "Enforce document permissions inside the retrieval query and treat every retrieved passage as untrusted input that may carry prompt injection."
+  ],
+  "faq": [
+    {"q": "What is RAG in simple terms?", "a": "Retrieval-augmented generation is a pattern where an application searches your documents for passages relevant to a question, pastes the best ones into the prompt and asks the language model to answer using only those passages, ideally with citations. The model supplies language skills and reasoning, while the search step supplies current, private and verifiable facts that were never part of its training data."},
+    {"q": "Is RAG better than fine-tuning?", "a": "They solve different problems. RAG is better for knowledge: facts that change, large document collections, citations and per-user permissions. Fine-tuning is better for behavior: a consistent tone, a strict output format or a specialized task the base model handles poorly. Many production systems combine them, using a fine-tuned or well-prompted model that answers from retrieved passages."},
+    {"q": "Do I need a vector database for RAG?", "a": "Not necessarily. Small collections can be searched in memory, and if you already run PostgreSQL, the pgvector extension adds vector search alongside your existing data. Search engines such as Elasticsearch and OpenSearch combine keyword and vector search. Dedicated vector databases such as Qdrant, Milvus or Pinecone make sense at large scale or when you need built-in hybrid search and multi-tenancy."},
+    {"q": "What chunk size should I use for RAG?", "a": "A common starting point is 300 to 800 tokens per chunk with 10 to 15 percent overlap, split along headings and paragraphs rather than at fixed character counts. Prefix each chunk with its document title and section heading. Then test two or three sizes against a labeled set of real questions, because the best size depends on your documents and query style."},
+    {"q": "Do long context windows make RAG obsolete?", "a": "No, but they shrink the cases where RAG is required. If your corpus is small, changes rarely and has no permission boundaries, sending it all with prompt caching can be simpler. For large or changing collections, RAG remains cheaper per query, faster and easier to cite, and models can still overlook facts buried in the middle of very long inputs."}
+  ],
+  "sources": [
+    {"title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks (Lewis et al., 2020)", "url": "https://arxiv.org/abs/2005.11401"},
+    {"title": "Lost in the Middle: How Language Models Use Long Contexts (Liu et al., 2023)", "url": "https://arxiv.org/abs/2307.03172"},
+    {"title": "Introducing Contextual Retrieval (Anthropic, September 2024)", "url": "https://www.anthropic.com/news/contextual-retrieval"},
+    {"title": "OWASP Top 10 for LLM Applications 2025: LLM01 Prompt Injection", "url": "https://genai.owasp.org/llmrisk/llm01-prompt-injection/"},
+    {"title": "Reciprocal rank fusion (Elasticsearch reference)", "url": "https://www.elastic.co/docs/reference/elasticsearch/rest-apis/reciprocal-rank-fusion"},
+    {"title": "Hybrid and multi-stage queries (Qdrant documentation)", "url": "https://qdrant.tech/documentation/concepts/hybrid-queries/"},
+    {"title": "pgvector: open-source vector similarity search for Postgres", "url": "https://github.com/pgvector/pgvector"},
+    {"title": "Ragas documentation: available metrics", "url": "https://docs.ragas.io/en/stable/concepts/metrics/available_metrics/"},
+    {"title": "Vector embeddings guide (OpenAI API documentation)", "url": "https://developers.openai.com/api/docs/guides/embeddings"},
+    {"title": "Qwen3-Embedding model card (Qwen, Hugging Face)", "url": "https://huggingface.co/Qwen/Qwen3-Embedding-8B"}
+  ],
+  "related_tools": ["llm-cost-calculator", "token-counter", "context-window-visualizer"],
+  "related_guides": ["fine-tuning-vs-rag-vs-prompting", "context-windows-explained", "llm-hallucinations", "llm-security-and-privacy"]
+}
+-->
+<p>Retrieval-augmented generation (RAG) lets a language model answer from your documents instead of from memory alone. This guide walks through the full pipeline, the choices that matter most at each stage, how to measure quality, how RAG compares with long context and fine-tuning, and the security controls a production system needs.</p>
+
+<h2 id="what-rag-is">What RAG is and why it exists</h2>
+<p>A <a href="glossary.html#large-language-model">language model</a> knows only what was in its training data, frozen at a cutoff date, and it knows nothing about your private files. Ask about last week's pricing change or an internal policy and it will either decline or produce a confident guess. That second failure is a <a href="glossary.html#hallucination">hallucination</a>.</p>
+<p><a href="glossary.html#rag">RAG</a> fixes this by adding a search step. Before the model answers, your application retrieves the most relevant passages from a knowledge base and places them in the prompt with an instruction to answer from those passages and cite them. The term comes from a 2020 research paper by Patrick Lewis and colleagues, and the pattern is now a standard way to connect LLMs to company knowledge.</p>
+<p>RAG addresses four problems at once:</p>
+<ul>
+<li><strong>Freshness.</strong> Update a document and the next answer reflects it, with no retraining.</li>
+<li><strong>Private knowledge.</strong> The model can use content it never saw in training.</li>
+<li><strong>Verifiability.</strong> Answers can cite their sources, which <a href="glossary.html#grounding">grounds</a> them in text users can check.</li>
+<li><strong>Access control.</strong> Retrieval can respect who is allowed to see which document.</li>
+</ul>
+<p>RAG does not make a model smarter, and it cannot help if the right passage is never retrieved. Most RAG quality problems are search problems.</p>
+
+<h2 id="the-rag-pipeline">The RAG pipeline, step by step</h2>
+<p>A RAG system has an offline indexing path that prepares documents and an online query path that runs for every question.</p>
+<ol>
+<li><strong>Ingest.</strong> Connectors pull content from file shares, wikis, ticketing systems, databases and websites. Record the source URL, owner, last-modified date and access permissions for every document, and schedule syncs so edits and deletions propagate.</li>
+<li><strong>Parse.</strong> Convert each file to clean text while keeping structure: headings, lists, tables and page numbers. PDFs are the hardest case. Scanned pages need OCR, and complex layouts need a document-conversion tool such as Docling or Apache Tika rather than raw text extraction.</li>
+<li><strong>Chunk.</strong> Split documents into passages small enough to retrieve precisely but large enough to make sense alone.</li>
+<li><strong>Embed.</strong> An <a href="glossary.html#embedding">embedding</a> model turns each chunk into a vector, a list of numbers positioned so that passages with similar meaning sit close together.</li>
+<li><strong>Index.</strong> Store vectors, chunk text and metadata in a <a href="glossary.html#vector-database">vector database</a> or search engine, usually alongside a keyword index for exact terms.</li>
+<li><strong>Retrieve.</strong> At query time, embed the question, apply metadata and permission filters and fetch the top candidates, commonly 20 to 100.</li>
+<li><strong>Rerank.</strong> A slower, more accurate model rescores the candidates and keeps the best 5 to 10.</li>
+<li><strong>Generate with citations.</strong> Put the passages in the prompt with numbered source labels. Instruct the model to answer only from them, cite each claim and say when the sources do not contain the answer. Before showing the response, check that every cited source ID exists.</li>
+</ol>
+
+<h2 id="chunking-strategies">Chunking strategies and trade-offs</h2>
+<p><a href="glossary.html#chunking">Chunking</a> decides what the retriever can find. Chunks that are too small lose context ("the limit is 30 days," with no hint of which limit), while chunks that are too large blur the embedding and waste prompt space.</p>
+<table>
+<thead><tr><th>Strategy</th><th>How it works</th><th>Strengths</th><th>Weaknesses</th></tr></thead>
+<tbody>
+<tr><td>Fixed-size with overlap</td><td>Windows of N tokens overlapping by 10-20 percent</td><td>Simple, predictable, fast</td><td>Cuts through sentences, tables and sections</td></tr>
+<tr><td>Recursive, structure-aware</td><td>Split on headings, then paragraphs, then sentences, until under a size limit</td><td>Keeps logical units together; a strong default</td><td>Uneven sizes; depends on clean parsing</td></tr>
+<tr><td>Format-specific</td><td>Markdown by heading, code by function, slides by page, tables by row groups with headers repeated</td><td>Highest fidelity for structured content</td><td>Custom code per format</td></tr>
+<tr><td>Semantic</td><td>Start a new chunk where similarity between neighboring sentences drops</td><td>Topic-coherent chunks</td><td>More compute at ingest; inconsistent gains; harder to debug</td></tr>
+<tr><td>Parent-child (small-to-big)</td><td>Match on small chunks, then send the larger parent section to the model</td><td>Precise matching with full context</td><td>More storage and prompt tokens</td></tr>
+<tr><td>Contextual headers</td><td>Prepend the document title, heading path or a short LLM-written summary to each chunk before embedding</td><td>Fixes orphaned chunks; measurable recall gains</td><td>Extra cost and time at ingest</td></tr>
+</tbody>
+</table>
+<p>A reasonable starting point is structure-aware chunks of roughly 300-800 tokens with 10-15 percent overlap, each prefixed with its document title and section heading. Then tune against an evaluation set rather than intuition. Anthropic reported that prepending generated context to each chunk before embedding cut top-20 retrieval failures by 35 percent in its tests, and by 49 percent when combined with contextual keyword search. The <a href="token-counter.html">token counter</a> helps you check chunk sizes.</p>
+
+<h2 id="retrieval-components">Retrieval: embeddings, vector stores, hybrid search and reranking</h2>
+<h3 id="embedding-models-and-vector-databases">Embedding models and vector databases</h3>
+<p>Choose the embedding model carefully, because changing it later means re-embedding everything. Compare candidates on a sample of your own queries, and check language coverage, maximum input length and vector size, which drives storage cost. Many current models can output shortened vectors (Matryoshka-style), trading a little accuracy for much smaller indexes. The options below were current as of October 2026.</p>
+<table>
+<thead><tr><th>Category</th><th>Examples</th><th>When to choose</th></tr></thead>
+<tbody>
+<tr><td>Hosted embedding APIs</td><td>OpenAI text-embedding-3-small and -large; Cohere Embed v4 and v5; Voyage AI's voyage-4 family, including voyage-code-4; Google's Gemini Embedding 2</td><td>Fastest start with no GPUs; your text is sent to the provider</td></tr>
+<tr><td>Open-weight embedding models</td><td>Qwen3-Embedding (0.6B, 4B, 8B); BGE-M3 (dense, sparse and multi-vector in one model); EmbeddingGemma; nomic-embed-text</td><td>Data stays in-house; runs on your own hardware, including through Ollama</td></tr>
+<tr><td>Vector search in an existing database</td><td>pgvector for PostgreSQL; vector fields in Elasticsearch and OpenSearch</td><td>You want one system with joins, transactions, backups and familiar operations</td></tr>
+<tr><td>Dedicated vector databases</td><td>Qdrant, Milvus, Weaviate, Chroma and LanceDB (open source); Pinecone (managed service)</td><td>Large scale, high query volume, built-in hybrid search and multi-tenancy</td></tr>
+</tbody>
+</table>
+<p>Most of these use approximate nearest-neighbor indexes such as HNSW, which give up a sliver of recall for large speed gains. Store the embedding model name and version with every vector so incompatible vectors never mix in one index.</p>
+
+<h3 id="hybrid-search">Hybrid search: BM25 plus vectors</h3>
+<p>Vector search matches meaning, so "how do I get my money back" finds a passage titled "Refund policy." It is weaker on exact strings such as product codes, error messages, names and rare acronyms. BM25, the classic keyword-ranking algorithm, has the opposite profile. Hybrid search runs both and merges the results.</p>
+<p>The usual merge method is reciprocal rank fusion (RRF). Each document scores the sum of 1 / (k + rank) across the result lists, where k is a smoothing constant that Elasticsearch sets to 60 by default. A chunk ranked first by keywords and third by vectors scores 1/61 + 1/63, about 0.0323, beating a chunk ranked second in only one list (1/62, about 0.0161). Because RRF uses ranks rather than raw scores, you never have to reconcile two incompatible scoring scales.</p>
+
+<h3 id="reranking">Reranking</h3>
+<p>Embedding search compares a precomputed document vector with a query vector. A reranker, usually a cross-encoder, reads the query and each candidate together and scores relevance directly, which is more accurate but too slow to run over a whole corpus.</p>
+<p>The standard pattern retrieves 50 to 100 hybrid candidates and reranks them down to the best 5 to 10. Options include Cohere's rerank-v4.0 models (pro and fast), Voyage AI's rerankers and open-weight models such as Qwen3-Reranker and the BGE reranker family. In Anthropic's tests, adding reranking on top of contextual embeddings and keyword search raised the reduction in retrieval failures to 67 percent.</p>
+
+<h2 id="evaluating-rag">How to evaluate a RAG system</h2>
+<p>Evaluate retrieval and generation separately, or you will not know which half to fix. Start with 50 to 200 real questions, each labeled with the passages that answer it and a reference answer.</p>
+<table>
+<thead><tr><th>Metric</th><th>Question it answers</th><th>How to measure</th></tr></thead>
+<tbody>
+<tr><td>Retrieval recall@k</td><td>Did the right passage appear in the top k?</td><td>Compare retrieved chunk IDs with labeled ones; no LLM needed</td></tr>
+<tr><td>Ranking quality (MRR, nDCG)</td><td>How high did relevant passages rank?</td><td>Standard information-retrieval formulas over the same labels</td></tr>
+<tr><td>Faithfulness</td><td>Is every claim in the answer supported by the retrieved context?</td><td>An <a href="glossary.html#llm-as-a-judge">LLM judge</a> checks each claim against the passages</td></tr>
+<tr><td>Answer relevance</td><td>Does the answer address the question asked?</td><td>LLM judge or human rating</td></tr>
+<tr><td>Citation accuracy</td><td>Do cited sources support the sentences that cite them?</td><td>Spot checks plus automated claim-to-source matching</td></tr>
+</tbody>
+</table>
+<p>Open-source frameworks automate much of this <a href="glossary.html#evaluation">evaluation</a>. Ragas provides context precision, context recall, faithfulness and response relevancy metrics. TruLens popularized the "RAG triad" of context relevance, groundedness and answer relevance, while DeepEval, Arize Phoenix and promptfoo add test runners, tracing and regression checks. Calibrate any LLM judge against a few dozen human ratings before trusting it, and rerun the suite whenever you change chunking, embeddings, prompts or models.</p>
+
+<h2 id="rag-vs-long-context-vs-fine-tuning">RAG vs long context vs fine-tuning</h2>
+<p>Several frontier models now accept around 1 million tokens, so you can sometimes paste a whole knowledge base into the prompt. Fine-tuning is a third option. Each solves a different problem.</p>
+<table>
+<thead><tr><th>Approach</th><th>Best for</th><th>Limits</th></tr></thead>
+<tbody>
+<tr><td>RAG</td><td>Large or changing knowledge bases, citations, per-user permissions</td><td>Engineering effort; quality capped by retrieval</td></tr>
+<tr><td>Long context</td><td>One-off analysis of a few documents; small corpora (under roughly 200K tokens) that rarely change</td><td>Cost and latency on every query; facts buried mid-context get missed</td></tr>
+<tr><td>Fine-tuning</td><td>Consistent style, format and domain behavior</td><td>Unreliable for teaching facts; no citations; stale once trained</td></tr>
+</tbody>
+</table>
+<p>Cost makes the trade-off concrete. At an example rate of $2 per million input tokens, sending a 200,000-token corpus with every question costs $0.40 per query, or $12,000 for 30,000 queries a month. <a href="glossary.html#prompt-caching">Prompt caching</a> at an example cached rate of $0.10 per million cuts that to about $600 plus cache writes. Retrieving 8,000 tokens of context instead costs $0.016 per query, or $480 a month, and answers arrive faster.</p>
+<p>Accuracy matters too. The 2023 "Lost in the Middle" study found that models use information at the start and end of a long input more reliably than information in the middle. See <a href="context-windows-explained.html">context windows explained</a> for more, and <a href="fine-tuning-vs-rag-vs-prompting.html">fine-tuning vs RAG vs prompting</a> for a full decision guide.</p>
+
+<h2 id="rag-security">Security: permissions and prompt injection</h2>
+<p>RAG connects a model to sensitive data. The OWASP Top 10 for LLM Applications (2025 edition) lists the two biggest resulting risks: prompt injection (LLM01) and vector and embedding weaknesses (LLM08).</p>
+<h3 id="document-level-permissions">Document-level permissions</h3>
+<p>The model must never see a passage the user is not allowed to read. Copy access-control lists into each chunk's metadata during ingestion, filter on the authenticated user's identity and groups inside the retrieval query and sync permission changes as fast as content changes. Never rely on the system prompt to withhold restricted text; once it is in the context window, assume it can leak. Use separate indexes or namespaces per customer in multi-tenant products, and protect stored embeddings as carefully as the text they came from.</p>
+<h3 id="prompt-injection-in-retrieved-content">Prompt injection in retrieved content</h3>
+<p>Any retrieved document can contain text that reads like instructions, such as a hidden line in a web page or PDF telling the model to ignore its rules. This is indirect <a href="glossary.html#prompt-injection">prompt injection</a>, and no filter stops it completely, so limit the damage:</p>
+<ul>
+<li>Wrap retrieved passages in clear delimiters and tell the model they are reference data, not instructions.</li>
+<li>Grant the least privilege possible; a RAG chatbot rarely needs tools that send email or change records.</li>
+<li>Require human approval for consequential actions and validate outputs with deterministic code.</li>
+<li>Strip or flag hidden text during parsing, and control which sources can enter the index.</li>
+<li>Do not auto-render model-generated links or images, a known channel for leaking data.</li>
+</ul>
+<p>For broader controls, read the <a href="llm-security-and-privacy.html">LLM security and privacy guide</a>.</p>
+
+<h2 id="reference-architecture">A reference architecture</h2>
+<p>This design suits most internal knowledge assistants. It has two paths that share one index, plus a feedback loop.</p>
+<p><strong>Indexing path.</strong> Connectors detect new, changed and deleted documents and place them on a queue. A parsing service converts each file to structured text, and a chunker emits passages with metadata: source URL, title, heading path, timestamps and access groups. An enrichment step adds contextual headers, and an embedding service writes vectors and text to a versioned store that supports both vector and BM25 search, so a bad build can be rolled back.</p>
+<p><strong>Query path.</strong> The API authenticates the user and resolves their groups. A rewrite step turns follow-ups such as "what about Canada?" into standalone queries. Hybrid retrieval runs with a permission filter, fuses about 50 candidates with RRF and passes them to a reranker that keeps the top 8.</p>
+<p>A context builder orders the passages, enforces a token budget and assigns source numbers. The LLM answers with inline citations, a validator confirms the cited IDs exist and <a href="glossary.html#guardrails">guardrails</a> screen the output before it streams to the user with clickable sources.</p>
+<p><strong>Feedback loop.</strong> Log queries, retrieved IDs, scores, answers and user ratings under your data-retention policy. Add failed questions to the evaluation set, and rerun the suite before every change to chunking, models or prompts.</p>
+
+<h2 id="common-mistakes">Common mistakes and how to fix them</h2>
+<table>
+<thead><tr><th>Failure</th><th>Symptom</th><th>Fix</th></tr></thead>
+<tbody>
+<tr><td>Poor parsing</td><td>Garbled tables, merged columns, missing scanned pages</td><td>Layout-aware parsing and OCR; inspect parsed output by hand</td></tr>
+<tr><td>Orphaned chunks</td><td>Right fact, wrong product or year</td><td>Add titles, heading paths or contextual summaries to chunks</td></tr>
+<tr><td>Vector-only search</td><td>Misses part numbers, error codes and names</td><td>Add BM25 and fuse with RRF</td></tr>
+<tr><td>Too much context</td><td>Slow, costly answers that overlook the key passage</td><td>Rerank and send fewer, better chunks</td></tr>
+<tr><td>Stale index</td><td>Answers cite deleted or outdated documents</td><td>Incremental sync with delete handling; show document dates</td></tr>
+<tr><td>Ungrounded answers</td><td>Model fills gaps from memory</td><td>Instruct it to answer only from sources and admit gaps; track faithfulness</td></tr>
+<tr><td>No evaluation set</td><td>Quality regresses quietly after changes</td><td>Build a labeled set from real queries and run it automatically</td></tr>
+</tbody>
+</table>
+<div class="checklist"><ul>
+<li>Parsed output spot-checked for tables, headings and scanned pages</li>
+<li>Chunks carry title, section, date and permission metadata</li>
+<li>Hybrid retrieval plus reranking, tuned on labeled queries</li>
+<li>Recall@k and faithfulness tracked on every change</li>
+<li>Permission filters enforced in the retrieval query, not the prompt</li>
+<li>Retrieved text treated as untrusted input</li>
+</ul></div>
+
+<h2 id="next-steps">Next steps</h2>
+<p>Estimate per-query cost for your retrieval budget with the <a href="llm-cost-calculator.html">LLM cost calculator</a>, and see how much text fits in different prompt sizes with the <a href="context-window-visualizer.html">context window visualizer</a>. Then read <a href="fine-tuning-vs-rag-vs-prompting.html">fine-tuning vs RAG vs prompting</a> to confirm RAG is the right tool for your problem. If you are building a production knowledge assistant and want an experienced reviewer, you can <a href="hire-llm-experts.html">hire an LLM expert</a>.</p>

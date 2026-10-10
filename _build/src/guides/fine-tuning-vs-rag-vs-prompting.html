@@ -1,0 +1,157 @@
+<!--meta
+{
+  "slug": "fine-tuning-vs-rag-vs-prompting",
+  "title": "Fine-Tuning vs RAG vs Prompting: How to Choose (2026)",
+  "h1": "Fine-tuning vs RAG vs prompting: which should you use?",
+  "description": "Fine-tuning vs RAG vs prompting: what each changes, a decision tree, cost and risk comparison, LoRA and managed options, and worked examples for LLM apps.",
+  "category": "Building",
+  "level": "Intermediate",
+  "updated": "2026-10-10",
+  "keywords": ["fine-tuning vs rag", "rag vs fine-tuning", "fine-tuning vs prompt engineering", "when to fine-tune an llm", "lora qlora", "managed fine-tuning"],
+  "summary": "Prompting changes the instructions, RAG changes the knowledge a model can see and fine-tuning changes its behavior. This guide gives a decision tree, a cost and risk comparison, fine-tuning methods, managed options as of October 2026 and worked examples.",
+  "key_takeaways": [
+    "Prompting changes instructions, RAG changes the knowledge available at answer time and fine-tuning changes the model's learned behavior.",
+    "Start with prompting and an evaluation set; add RAG when the gap is missing or changing facts, and fine-tune only when a consistent behavior gap remains.",
+    "Fine-tuning is a poor way to teach facts: it does not cite sources, goes stale and can make a model confidently wrong.",
+    "LoRA and QLoRA make fine-tuning open-weight models affordable, while managed fine-tuning of proprietary models has narrowed sharply in 2026.",
+    "Most production systems combine techniques, such as a prompted or tuned model answering from retrieved documents."
+  ],
+  "faq": [
+    {"q": "Is RAG better than fine-tuning?", "a": "Neither is better in general; they fix different problems. RAG supplies knowledge at answer time, so it suits facts that change, large document sets and answers that need citations. Fine-tuning changes how a model behaves, so it suits consistent formats, tone or specialized classification. If the model gives wrong facts, try RAG first. If it knows the facts but responds in the wrong way, consider fine-tuning."},
+    {"q": "Can fine-tuning teach a model new knowledge?", "a": "Only weakly and unreliably. Fine-tuning on documents may help a model echo some facts, but recall is inconsistent, it cannot cite a source and every update requires retraining. It can also raise confident errors on topics near the training data. For knowledge that must be accurate and current, retrieval is the dependable tool, with fine-tuning reserved for behavior and format."},
+    {"q": "How much data do I need to fine-tune an LLM?", "a": "For supervised fine-tuning of style or format, a few hundred high-quality examples often show clear gains, and one to several thousand is a typical production range. Quality and consistency matter more than volume, because the model copies whatever patterns your examples contain. Preference tuning needs pairs of better and worse responses, and distillation can generate data from a stronger teacher model."},
+    {"q": "Is fine-tuning expensive?", "a": "The training run is often the cheap part. A LoRA run on an open 8B model with a few thousand examples can finish in hours on a single rented GPU. The larger costs are building a clean dataset, evaluating results, hosting a custom model and retraining whenever the base model or your requirements change. Budget for that ongoing maintenance, not just the first run."},
+    {"q": "Can I combine fine-tuning and RAG?", "a": "Yes, and many strong systems do. A common pattern fine-tunes a model to follow your citation format, tone and refusal rules, then feeds it retrieved passages at query time. Another uses a small fine-tuned model to rewrite queries or rerank documents. Add each layer only when your evaluation set shows a gap the simpler setup cannot close."}
+  ],
+  "sources": [
+    {"title": "LoRA: Low-Rank Adaptation of Large Language Models (Hu et al., 2021)", "url": "https://arxiv.org/abs/2106.09685"},
+    {"title": "QLoRA: Efficient Finetuning of Quantized LLMs (Dettmers et al., 2023)", "url": "https://arxiv.org/abs/2305.14314"},
+    {"title": "Direct Preference Optimization (Rafailov et al., 2023)", "url": "https://arxiv.org/abs/2305.18290"},
+    {"title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks (Lewis et al., 2020)", "url": "https://arxiv.org/abs/2005.11401"},
+    {"title": "OpenAI API deprecations: self-serve fine-tuning update", "url": "https://developers.openai.com/api/docs/deprecations"},
+    {"title": "Microsoft Foundry fine-tuning overview: supported models", "url": "https://learn.microsoft.com/en-us/azure/foundry/fine-tuning/overview"},
+    {"title": "Gemini API: model tuning availability", "url": "https://ai.google.dev/gemini-api/docs/model-tuning"},
+    {"title": "Amazon Bedrock: customize your model", "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/custom-models.html"},
+    {"title": "Mistral AI documentation: fine-tuning", "url": "https://docs.mistral.ai/capabilities/finetuning/"},
+    {"title": "MLX LM: LoRA and full fine-tuning on Apple Silicon", "url": "https://github.com/ml-explore/mlx-lm"}
+  ],
+  "related_tools": ["llm-cost-calculator", "prompt-builder", "self-host-vs-api-calculator"],
+  "related_guides": ["rag-explained", "prompt-engineering-guide", "open-source-vs-closed-llms", "how-to-choose-an-llm"]
+}
+-->
+<p>When a language model falls short, there are three main levers: change the prompt, give the model better information at answer time or train the model itself. This guide explains what each technique actually changes, offers a decision tree and comparison table, covers fine-tuning methods and managed options as of October 2026 and works through three common scenarios.</p>
+
+<h2 id="what-each-technique-changes">What each technique changes</h2>
+<p>The fastest way to choose is to ask what kind of gap you have: instructions, knowledge or behavior.</p>
+<ul>
+<li><strong><a href="glossary.html#prompt-engineering">Prompting</a> changes the instructions.</strong> The <a href="glossary.html#system-prompt">system prompt</a>, examples and output format tell the model what to do on this request. Nothing persists beyond the request, and changes take effect immediately.</li>
+<li><strong><a href="glossary.html#rag">Retrieval-augmented generation</a> changes the knowledge in view.</strong> Your application searches a document store and places relevant passages in the prompt, so the model answers from current, private and citable sources.</li>
+<li><strong><a href="glossary.html#fine-tuning">Fine-tuning</a> changes the model's behavior.</strong> Training on examples adjusts the weights, so the model responds differently by default: a house style, a strict output schema or skill at a narrow task.</li>
+</ul>
+<p>An analogy: prompting is a written brief for a contractor, RAG is giving them the company handbook during the job and fine-tuning is months of on-the-job training. Training shapes habits well, but it is a poor way to make anyone memorize a handbook that changes every week.</p>
+
+<h2 id="decision-tree">A decision tree in plain language</h2>
+<p>Work through these questions in order. Each one assumes you have a small <a href="glossary.html#evaluation">evaluation</a> set, ideally 50 to 200 real inputs with expected outputs, so you can measure progress instead of guessing.</p>
+<ol>
+<li><strong>Have you tried a strong prompt on a capable model?</strong> If not, start there. Write explicit instructions, add three to five <a href="glossary.html#few-shot-prompting">few-shot examples</a>, request <a href="glossary.html#structured-outputs">structured outputs</a> if you need JSON and test a stronger model. Many gaps close at this step.</li>
+<li><strong>Is the remaining gap about facts?</strong> If the model lacks information, such as your product catalog, recent events or internal policies, add RAG. If your corpus is small and stable, simply placing it in the prompt with <a href="glossary.html#prompt-caching">prompt caching</a> may be enough.</li>
+<li><strong>Is the gap about behavior that prompting cannot pin down?</strong> Examples include a format the model drifts from at volume, a specialized labeling scheme or a tone that requires pages of examples in every prompt. That is a fine-tuning candidate, provided you can assemble hundreds of good examples.</li>
+<li><strong>Is the problem cost or latency rather than quality?</strong> If a large model meets your bar but costs too much, consider distilling it into a smaller fine-tuned model, or route easy requests to a cheaper model.</li>
+<li><strong>Do you need several of these at once?</strong> Combine them, adding one layer at a time and keeping each only if the evaluation scores improve.</li>
+</ol>
+<div class="callout tip"><p>If you cannot describe what "better" looks like in a few dozen labeled examples, you are not ready to fine-tune. The same examples become your evaluation set and the seed of a training set.</p></div>
+
+<h2 id="comparison-table">Comparison table: cost, data, time and risk</h2>
+<table>
+<thead><tr><th>Factor</th><th>Prompting</th><th>RAG</th><th>Fine-tuning</th></tr></thead>
+<tbody>
+<tr><td>What it changes</td><td>Instructions per request</td><td>Knowledge available at answer time</td><td>Default behavior learned in the weights</td></tr>
+<tr><td>Upfront cost</td><td>Very low</td><td>Medium: parsing, indexing, search infrastructure</td><td>Medium to high: dataset building, training, evaluation</td></tr>
+<tr><td>Per-request cost</td><td>Grows with prompt length</td><td>Adds retrieved tokens plus search costs</td><td>Can fall if a shorter prompt or smaller model suffices; custom hosting may cost more</td></tr>
+<tr><td>Data needed</td><td>A few examples</td><td>Your documents, cleaned and chunked</td><td>Hundreds to thousands of labeled examples</td></tr>
+<tr><td>Time to first result</td><td>Hours</td><td>Days to weeks</td><td>Weeks, including data work</td></tr>
+<tr><td>Freshness</td><td>Immediate edits</td><td>As fresh as the index</td><td>Frozen at training time</td></tr>
+<tr><td>Maintenance</td><td>Prompt versioning and regression tests</td><td>Sync pipelines, index updates, permission handling</td><td>Retraining when data, requirements or base models change</td></tr>
+<tr><td>Citations</td><td>No</td><td>Yes</td><td>No</td></tr>
+<tr><td>Main risks</td><td>Long, brittle prompts; prompt injection</td><td>Retrieval misses; leaked restricted documents; injected content</td><td>Overfitting; lost general skills; weakened safety behavior; vendor retirements</td></tr>
+</tbody>
+</table>
+
+<h2 id="fine-tuning-methods">Fine-tuning methods</h2>
+<p>Fine-tuning covers several techniques with very different costs. Memory figures below are rough, for illustration.</p>
+<h3 id="full-fine-tuning">Full fine-tuning</h3>
+<p>Every weight is updated. This gives the most capacity to change the model but needs the most compute: with a standard optimizer, training takes roughly 16 bytes per <a href="glossary.html#parameters">parameter</a> before activations, about 130 GB for an 8B model, which means several data-center GPUs. You also store a full copy of the model for every variant, and aggressive training can erase general skills, a problem known as catastrophic forgetting.</p>
+<h3 id="lora-and-qlora">LoRA and QLoRA</h3>
+<p><a href="glossary.html#lora">LoRA</a> (low-rank adaptation) freezes the base model and trains small adapter matrices alongside selected layers. The 2021 paper reported up to 10,000 times fewer trainable parameters than full fine-tuning on GPT-3 175B. Adapters are usually tens to hundreds of megabytes, so one base model can serve many of them.</p>
+<p>QLoRA, introduced in 2023, loads the frozen base model in 4-bit precision and trains LoRA adapters on top, bringing an 8B model's weights to roughly 5 GB and putting fine-tuning within reach of a single consumer GPU. Popular tools include Hugging Face TRL and PEFT, Unsloth, Axolotl and, on Macs, MLX LM.</p>
+<h3 id="preference-tuning">Preference tuning</h3>
+<p>Supervised fine-tuning teaches by imitation: here is the input, here is the ideal output. Preference tuning teaches by comparison: here are two responses, and this one is better. <a href="glossary.html#rlhf">RLHF</a> trains a reward model and optimizes against it, while <a href="glossary.html#dpo">direct preference optimization</a> (DPO) learns directly from preference pairs and is much simpler to run.</p>
+<p>Preference methods help with qualities that are easier to judge than to write, such as helpfulness, concision or tone. Reinforcement fine-tuning, offered on some platforms, instead scores outputs with a grader you define, which suits tasks with checkable answers.</p>
+<h3 id="distillation">Distillation</h3>
+<p><a href="glossary.html#distillation">Distillation</a> uses a large teacher model to generate high-quality outputs, often thousands of them, then fine-tunes a smaller student model on that <a href="glossary.html#synthetic-data">synthetic data</a>. The aim is to get near-teacher quality on one narrow task at a fraction of the cost and latency. Check the teacher's terms of service first, because some providers restrict using outputs to train competing models.</p>
+
+<h2 id="managed-fine-tuning-options">Managed fine-tuning options in 2026</h2>
+<p>Managed fine-tuning of proprietary models has contracted sharply. Status as of October 2026:</p>
+<ul>
+<li><strong>OpenAI</strong> is winding down self-serve fine-tuning. Since May 7, 2026, organizations that never fine-tuned cannot create jobs; organizations without recent fine-tuned inference lost job creation on July 2, 2026; and all customers lose it on January 6, 2027. Existing fine-tuned models keep serving until their base models are deprecated.</li>
+<li><strong>Google</strong> no longer offers tuning in the Gemini API or AI Studio. Supervised, preference and reinforcement tuning for Gemini, plus tuning of open models, remain available on Google Cloud, where Vertex AI's tuning documentation now sits under the Gemini Enterprise Agent Platform.</li>
+<li><strong>Microsoft Foundry</strong> lists managed fine-tuning for several OpenAI models (supervised, DPO and reinforcement fine-tuning) and open-weight models including gpt-oss, Qwen3.6, Qwen3.8 and Llama 3.3. Availability varies by region, and some options are in preview.</li>
+<li><strong>Amazon Bedrock</strong> offers supervised fine-tuning, reinforcement fine-tuning and distillation for selected foundation models; check the console for the current model list in your region.</li>
+<li><strong>Mistral AI</strong> marks its fine-tuning feature as deprecated in its documentation.</li>
+<li><strong>Open-weight specialists</strong>, including several GPU clouds and inference providers, run LoRA and full fine-tuning jobs on popular open models and host the results.</li>
+</ul>
+<div class="callout warn"><p>A model fine-tuned on a proprietary base cannot be exported, and it disappears when the provider retires the base model. Fine-tuning an <a href="glossary.html#open-weights">open-weight</a> model gives you a portable artifact you can host anywhere. See <a href="open-source-vs-closed-llms.html">open-source vs closed LLMs</a> for the wider trade-off.</p></div>
+
+<h2 id="worked-examples">Worked examples</h2>
+<h3 id="example-support-tone">Support replies in a consistent brand tone</h3>
+<p><strong>Situation:</strong> a support team wants replies that match its voice: warm, brief, no jargon and always ending with a next step. A detailed prompt gets most of the way, but the tone drifts on unusual tickets.</p>
+<p><strong>Approach:</strong> first build a 30-item style rubric and score 100 replies with a human or an <a href="glossary.html#llm-as-a-judge">LLM judge</a>. Then try a stronger system prompt with five exemplary replies. If that block grows to 6,000 tokens, it costs about $1,200 a month across 100,000 requests at an example rate of $2 per million input tokens, or roughly $60 with cached reads at $0.10 per million.</p>
+<p>Fine-tune only if tone scores still fall short: collect 500 to 1,000 of your best human-written replies, train a LoRA adapter on an open model or use a managed service and compare rubric scores against the prompted baseline. Product facts should still come from RAG, not the fine-tune.</p>
+<h3 id="example-domain-extraction">Extracting fields from domain documents</h3>
+<p><strong>Situation:</strong> a logistics firm extracts 25 fields from 50,000 freight invoices a month, about 3,000 input and 400 output tokens each.</p>
+<p><strong>Approach:</strong> start with a capable model, a JSON schema and a few examples, measuring field-level accuracy on 200 labeled invoices. At example frontier prices of $10 input and $50 output per million tokens, the workload costs $1,500 + $1,000 = $2,500 a month. If a frontier model scores well but a small model at $0.10 and $0.50 per million (about $25 a month) misses edge cases, fine-tune or distill the small model using the frontier model's verified outputs as training data. Keep a regression set of tricky invoices and spot-check production output.</p>
+<h3 id="example-internal-knowledge-qa">Internal knowledge Q&amp;A</h3>
+<p><strong>Situation:</strong> employees ask questions about HR policies, engineering runbooks and product documentation that change weekly, and answers must cite sources and respect access rights.</p>
+<p><strong>Approach:</strong> this is a RAG problem. Fine-tuning on the documents would go stale within weeks, could not cite sources and would blur access boundaries. Build retrieval with permission filters, hybrid search and reranking, then prompt the model to answer only from sources.</p>
+<p>Fine-tuning becomes worth considering later for narrow behaviors, such as consistent citation formatting or reranking. The <a href="rag-explained.html">RAG guide</a> covers the full pipeline.</p>
+
+<h2 id="combining-techniques">Combining techniques</h2>
+<p>The techniques stack. Common production patterns include:</p>
+<ul>
+<li><strong>Prompted model plus RAG:</strong> the default for knowledge assistants.</li>
+<li><strong>Fine-tuned model plus RAG:</strong> the model learns your format, tone and refusal rules, and retrieval supplies current facts.</li>
+<li><strong>Distilled specialist plus a frontier fallback:</strong> a small tuned model handles routine requests, and low-confidence cases escalate to a larger model.</li>
+<li><strong>Tuned components:</strong> a small fine-tuned model classifies intent, rewrites queries or reranks passages, while a general model writes the answer.</li>
+</ul>
+<p>Add one layer at a time, and keep it only if your evaluation set shows a gain worth its maintenance cost.</p>
+
+<h2 id="evaluation-before-and-after">Evaluation before and after</h2>
+<p>Every technique needs the same discipline: measure, change one thing, measure again.</p>
+<ol>
+<li><strong>Freeze a test set first.</strong> Use real inputs, including edge cases, with expected outputs or scoring rubrics. Never train on it.</li>
+<li><strong>Record a baseline.</strong> Score the best prompted model on the test set, including cost and <a href="glossary.html#latency">latency</a> per request.</li>
+<li><strong>Use task-appropriate metrics.</strong> Exact match or field accuracy for extraction, retrieval recall and faithfulness for RAG, rubric scores for tone and pass rates for code.</li>
+<li><strong>Check for regressions.</strong> After fine-tuning, run general-capability and safety checks to catch lost skills or weakened refusals.</li>
+<li><strong>Compare total cost.</strong> Include training, hosting, retraining cadence and engineering time, not just per-token price.</li>
+<li><strong>Keep monitoring.</strong> Sample production outputs, add new failures to the test set and rerun it whenever a model, prompt or index changes.</li>
+</ol>
+
+<h2 id="common-mistakes">Common mistakes</h2>
+<ul>
+<li><strong>Fine-tuning to teach facts.</strong> Use retrieval for knowledge; fine-tune for behavior.</li>
+<li><strong>Skipping the prompt baseline.</strong> Teams sometimes spend weeks on training data for a gap a better prompt or model would have closed in an afternoon.</li>
+<li><strong>Training on messy data.</strong> Inconsistent examples teach inconsistent behavior. Fifty clean examples beat five hundred noisy ones.</li>
+<li><strong>No held-out test set.</strong> Without it, you cannot tell improvement from memorization.</li>
+<li><strong>Ignoring platform risk.</strong> Proprietary fine-tunes can vanish with their base model, as OpenAI's 2026 wind-down shows.</li>
+<li><strong>Building RAG for a tiny, static corpus.</strong> If everything fits comfortably in the prompt, cache it and skip the pipeline.</li>
+</ul>
+<div class="checklist"><ul>
+<li>I can state the gap as instructions, knowledge or behavior.</li>
+<li>I have a frozen evaluation set with a scored baseline.</li>
+<li>I tried a stronger prompt and a stronger model before training anything.</li>
+<li>Knowledge gaps go to RAG; behavior gaps go to fine-tuning.</li>
+<li>I know who maintains the system and how often it must be retrained or re-indexed.</li>
+</ul></div>
+
+<h2 id="next-steps">Next steps</h2>
+<p>Draft and test a stronger baseline with the <a href="prompt-builder.html">prompt builder</a> before you train anything. Compare prompt-heavy, retrieval and smaller-model options with the <a href="llm-cost-calculator.html">LLM cost calculator</a>, and if you plan to host a fine-tuned open model, run the numbers in the <a href="self-host-vs-api-calculator.html">self-host vs API calculator</a>. For help designing a training dataset or evaluation plan, you can <a href="hire-llm-experts.html">work with an LLM expert</a>.</p>
