@@ -1,0 +1,2412 @@
+{
+ "models": [
+  {
+   "slug": "llama-4-maverick",
+   "name": "Llama 4 Maverick",
+   "provider": "meta",
+   "family": "Llama 4",
+   "released": "2025-04-05",
+   "status": "legacy",
+   "weights": "open",
+   "license": "Llama 4 Community License",
+   "params_total_b": 400,
+   "params_active_b": 17,
+   "architecture": "MoE",
+   "context": 1048576,
+   "max_output": null,
+   "price_in": null,
+   "price_out": null,
+   "price_cached_in": null,
+   "price_note": "No serverless list price found on the official pricing pages of Together AI, Fireworks, DeepInfra or Groq as of 2026-10-10 (Together lists Llama 4 only for fine-tuning; Groq and DeepInfra do not list Maverick). Set to null.",
+   "modalities_in": [
+    "text",
+    "image"
+   ],
+   "modalities_out": [
+    "text"
+   ],
+   "reasoning": false,
+   "tool_use": true,
+   "tier": "advanced",
+   "best_for": [
+    "multimodal",
+    "multilingual",
+    "long documents",
+    "self-hosting"
+   ],
+   "summary": "Llama 4 Maverick is Meta's larger April 2025 open-weight model, a mixture-of-experts design with 128 experts and about 17B parameters active per token. It accepts text and images and was trained for 12 languages. Meta's newer releases use the Muse name, so Maverick is no longer the company's headline model.",
+   "strengths": [
+    "Native image and text input in one model",
+    "1M-token context window",
+    "FP8 weights fit on a single H100 DGX host"
+   ],
+   "considerations": [
+    "About 400B total parameters must sit in memory even though only 17B are active",
+    "Llama 4 Community License adds attribution rules and a 700M monthly-user threshold"
+   ],
+   "access": [
+    "Hugging Face",
+    "Ollama"
+   ],
+   "url": "https://huggingface.co/meta-llama/Llama-4-Maverick-17B-128E-Instruct",
+   "pricing_url": null,
+   "hf_repo": "meta-llama/Llama-4-Maverick-17B-128E-Instruct",
+   "arch": {
+    "layers": 48,
+    "kv_heads": 8,
+    "head_dim": 128,
+    "hidden": 5120
+   },
+   "sources": [
+    "https://huggingface.co/meta-llama/Llama-4-Maverick-17B-128E-Instruct",
+    "https://huggingface.co/unsloth/Llama-4-Maverick-17B-128E-Instruct/raw/main/config.json",
+    "https://dev.meta.ai/llama/docs/model-cards-and-prompt-formats/llama4",
+    "https://www.together.ai/pricing",
+    "https://deepinfra.com/pricing",
+    "https://console.groq.com/docs/models",
+    "https://ollama.com/library/llama4"
+   ],
+   "verified": "2026-10-10"
+  },
+  {
+   "slug": "llama-4-scout",
+   "name": "Llama 4 Scout",
+   "provider": "meta",
+   "family": "Llama 4",
+   "released": "2025-04-05",
+   "status": "legacy",
+   "weights": "open",
+   "license": "Llama 4 Community License",
+   "params_total_b": 109,
+   "params_active_b": 17,
+   "architecture": "MoE",
+   "context": 10485760,
+   "max_output": null,
+   "price_in": 0.1,
+   "price_out": 0.3,
+   "price_cached_in": null,
+   "price_note": "DeepInfra serverless price for Llama-4-Scout-17B-16E (DeepInfra serves it with a 320K context, well below the official 10M).",
+   "modalities_in": [
+    "text",
+    "image"
+   ],
+   "modalities_out": [
+    "text"
+   ],
+   "reasoning": false,
+   "tool_use": true,
+   "tier": "efficient",
+   "best_for": [
+    "long documents",
+    "multimodal",
+    "self-hosting",
+    "high volume"
+   ],
+   "summary": "Llama 4 Scout is the smaller April 2025 Llama 4 model: a 16-expert mixture-of-experts with 17B active parameters out of 109B. Meta rates it for a 10M-token context window. It accepts text and images and is widely hosted at low per-token prices.",
+   "strengths": [
+    "Officially rated for a 10M-token context window",
+    "Runs on a single H100 with on-the-fly int4 quantization",
+    "Low hosted prices"
+   ],
+   "considerations": [
+    "Hosts usually serve far less than the 10M context",
+    "Llama 4 Community License rather than an OSI license"
+   ],
+   "access": [
+    "Hugging Face",
+    "Ollama",
+    "DeepInfra"
+   ],
+   "url": "https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct",
+   "pricing_url": "https://deepinfra.com/pricing",
+   "hf_repo": "meta-llama/Llama-4-Scout-17B-16E-Instruct",
+   "arch": {
+    "layers": 48,
+    "kv_heads": 8,
+    "head_dim": 128,
+    "hidden": 5120
+   },
+   "sources": [
+    "https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct",
+    "https://huggingface.co/unsloth/Llama-4-Scout-17B-16E-Instruct/raw/main/config.json",
+    "https://deepinfra.com/pricing",
+    "https://ollama.com/library/llama4"
+   ],
+   "verified": "2026-10-10"
+  },
+  {
+   "slug": "muse-glimmer-30b",
+   "name": "Muse Glimmer 30B",
+   "provider": "meta",
+   "family": "Muse",
+   "released": "2026-08-10",
+   "status": "current",
+   "weights": "open",
+   "license": "Apache-2.0",
+   "params_total_b": 29.8,
+   "params_active_b": 29.8,
+   "architecture": "dense",
+   "context": 131072,
+   "max_output": null,
+   "price_in": 0.35,
+   "price_out": 1.5,
+   "price_cached_in": 0.04,
+   "price_note": "Together AI serverless price (model meta-models/Muse-Glimmer-30B); the $0.04 cached-input rate is from the Together pricing page. Meta's Model API page does not list a Glimmer price.",
+   "modalities_in": [
+    "text",
+    "image",
+    "video"
+   ],
+   "modalities_out": [
+    "text"
+   ],
+   "reasoning": true,
+   "tool_use": true,
+   "tier": "efficient",
+   "best_for": [
+    "agents",
+    "on-device",
+    "self-hosting",
+    "coding",
+    "multimodal"
+   ],
+   "summary": "Muse Glimmer 30B is Meta's August 2026 open-weight model from Meta Superintelligence Labs, released under Apache 2.0. It is a dense model of about 30B parameters (including a 1.8B vision encoder) built for agentic tool use. Meta targets 24-32 GB machines with 4-bit builds and a speculative-decoding drafter.",
+   "strengths": [
+    "Apache 2.0 license with no usage thresholds",
+    "Adjustable reasoning effort (low to xhigh)",
+    "Official 4-bit builds sized for 24-32 GB GPUs and Macs"
+   ],
+   "considerations": [
+    "131K context is shorter than many 2026 open models",
+    "BF16 weights exceed 55 GB, so most local setups need quantization"
+   ],
+   "access": [
+    "Hugging Face",
+    "Ollama",
+    "Together AI",
+    "Fireworks",
+    "OpenRouter",
+    "LM Studio"
+   ],
+   "url": "https://dev.meta.ai/models/muse-glimmer/",
+   "pricing_url": "https://docs.together.ai/docs/serverless-models",
+   "hf_repo": "meta-models/Muse-Glimmer-30B",
+   "arch": {
+    "layers": 52,
+    "kv_heads": 2,
+    "head_dim": 128,
+    "hidden": 6656
+   },
+   "sources": [
+    "https://research.meta.ai/blog/introducing-muse-glimmer-open-agentic-model",
+    "https://huggingface.co/meta-models/Muse-Glimmer-30B",
+    "https://huggingface.co/meta-models/Muse-Glimmer-30B/raw/main/config.json",
+    "https://huggingface.co/api/models/meta-models/Muse-Glimmer-30B",
+    "https://dev.meta.ai/models/muse-glimmer/",
+    "https://www.together.ai/pricing",
+    "https://docs.together.ai/docs/serverless-models",
+    "https://ollama.com/library"
+   ],
+   "verified": "2026-10-10"
+  },
+  {
+   "slug": "mistral-large-4",
+   "name": "Mistral Large 4",
+   "provider": "mistral",
+   "family": "Mistral Large",
+   "released": "2026-10-06",
+   "status": "preview",
+   "weights": "closed",
+   "license": null,
+   "params_total_b": 1050,
+   "params_active_b": 52,
+   "architecture": "MoE",
+   "context": 1000000,
+   "max_output": null,
+   "price_in": 1.36,
+   "price_out": 4.18,
+   "price_cached_in": 0.14,
+   "price_note": "Mistral list price per Mistral docs. During the public preview the docs show a sale price of $0.68 input / $0.07 cached / $2.09 output. API-only for now: Mistral promises open weights 'by the end of the month' (October 2026), but none are on Hugging Face yet and no license is named, so weights is 'closed' and license is null. Context 1M per Mistral docs.",
+   "modalities_in": [
+    "text",
+    "image"
+   ],
+   "modalities_out": [
+    "text"
+   ],
+   "reasoning": true,
+   "tool_use": true,
+   "tier": "frontier",
+   "best_for": [
+    "agents",
+    "reasoning",
+    "long documents",
+    "multimodal",
+    "enterprise"
+   ],
+   "summary": "Mistral Large 4 is Mistral's flagship, announced on 6 October 2026 as a public API preview. It is a mixture-of-experts model with about 1.05T total and 52B active parameters, a 1.6B vision encoder and a 1M-token context, combining instruct and reasoning modes. Mistral says the weights will be released openly later in October 2026.",
+   "strengths": [
+    "1M-token context window",
+    "Hybrid instruct and reasoning model with image input",
+    "Mistral-operated European deployment option"
+   ],
+   "considerations": [
+    "Preview status; weights and license not yet published",
+    "Self-hosting a ~1T-parameter model needs multi-GPU servers"
+   ],
+   "access": [
+    "API"
+   ],
+   "url": "https://docs.mistral.ai/models/mistral-large-4-0",
+   "pricing_url": "https://docs.mistral.ai/models/mistral-large-4-0",
+   "hf_repo": null,
+   "arch": null,
+   "sources": [
+    "https://mistral.ai/news/mistral-large-4/",
+    "https://docs.mistral.ai/models/mistral-large-4-0",
+    "https://docs.mistral.ai/getting-started/models/",
+    "https://huggingface.co/api/models?author=mistralai&search=Large-4"
+   ],
+   "verified": "2026-10-10"
+  },
+  {
+   "slug": "mistral-large-3",
+   "name": "Mistral Large 3",
+   "provider": "mistral",
+   "family": "Mistral Large",
+   "released": "2025-12-02",
+   "status": "current",
+   "weights": "open",
+   "license": "Apache-2.0",
+   "params_total_b": 675,
+   "params_active_b": 41,
+   "architecture": "MoE",
+   "context": 262144,
+   "max_output": null,
+   "price_in": 0.5,
+   "price_out": 1.5,
+   "price_cached_in": null,
+   "price_note": "Mistral API price (mistral-large-2512) from Mistral docs; no cached-input price listed.",
+   "modalities_in": [
+    "text",
+    "image"
+   ],
+   "modalities_out": [
+    "text"
+   ],
+   "reasoning": false,
+   "tool_use": true,
+   "tier": "advanced",
+   "best_for": [
+    "enterprise",
+    "multilingual",
+    "self-hosting",
+    "agents",
+    "long documents"
+   ],
+   "summary": "Mistral Large 3 is a December 2025 open-weight mixture-of-experts model with 675B total and 41B active parameters, released under Apache 2.0. It accepts text and images and offers a 256K context window. Mistral positions it as a general-purpose model rather than a dedicated reasoning model.",
+   "strengths": [
+    "Apache 2.0 license at frontier scale",
+    "Low first-party API price",
+    "NVFP4 build runs on a single H100 or A100 node"
+   ],
+   "considerations": [
+    "Not a dedicated reasoning model",
+    "FP8 needs a full B200 or H200 node to self-host"
+   ],
+   "access": [
+    "Hugging Face",
+    "Ollama",
+    "API"
+   ],
+   "url": "https://docs.mistral.ai/models/mistral-large-3-25-12",
+   "pricing_url": "https://docs.mistral.ai/models/mistral-large-3-25-12",
+   "hf_repo": "mistralai/Mistral-Large-3-675B-Instruct-2512",
+   "arch": {
+    "layers": 61,
+    "kv_heads": 128,
+    "head_dim": 192,
+    "hidden": 7168
+   },
+   "sources": [
+    "https://docs.mistral.ai/models/mistral-large-3-25-12",
+    "https://huggingface.co/mistralai/Mistral-Large-3-675B-Instruct-2512",
+    "https://huggingface.co/mistralai/Mistral-Large-3-675B-Instruct-2512/raw/main/params.json",
+    "https://ollama.com/library"
+   ],
+   "verified": "2026-10-10"
+  },
+  {
+   "slug": "mistral-medium-3-5",
+   "name": "Mistral Medium 3.5",
+   "provider": "mistral",
+   "family": "Mistral Medium",
+   "released": "2026-04-28",
+   "status": "current",
+   "weights": "open",
+   "license": "Modified MIT",
+   "params_total_b": 127.7,
+   "params_active_b": 127.7,
+   "architecture": "dense",
+   "context": 262144,
+   "max_output": null,
+   "price_in": 1.5,
+   "price_out": 7.5,
+   "price_cached_in": null,
+   "price_note": "Mistral API price (mistral-medium-3-5). The docs page shows $1.5 and $7.5 per 1M tokens without input/output labels; mapped in Mistral's usual input-then-output order.",
+   "modalities_in": [
+    "text",
+    "image"
+   ],
+   "modalities_out": [
+    "text"
+   ],
+   "reasoning": true,
+   "tool_use": true,
+   "tier": "advanced",
+   "best_for": [
+    "coding",
+    "agents",
+    "enterprise",
+    "multimodal"
+   ],
+   "summary": "Mistral Medium 3.5 is a dense 128B-parameter model released in April 2026 with open weights under a modified MIT license. It handles text and images, has a 256K context window and lets you switch reasoning on or off per request. Mistral uses it to power the remote agents in its Vibe agent product.",
+   "strengths": [
+    "Per-request reasoning switch (reasoning_effort none or high)",
+    "Native function calling and JSON output",
+    "Dense architecture makes memory planning simple"
+   ],
+   "considerations": [
+    "License withdraws rights from companies above $20M monthly revenue unless they get a commercial license",
+    "128B dense weights need a multi-GPU server (8-way tensor parallel in examples)"
+   ],
+   "access": [
+    "Hugging Face",
+    "Ollama",
+    "API"
+   ],
+   "url": "https://docs.mistral.ai/models/mistral-medium-3-5-26-04",
+   "pricing_url": "https://docs.mistral.ai/models/mistral-medium-3-5-26-04",
+   "hf_repo": "mistralai/Mistral-Medium-3.5-128B",
+   "arch": {
+    "layers": 88,
+    "kv_heads": 8,
+    "head_dim": 128,
+    "hidden": 12288
+   },
+   "sources": [
+    "https://docs.mistral.ai/models/mistral-medium-3-5-26-04",
+    "https://huggingface.co/mistralai/Mistral-Medium-3.5-128B",
+    "https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/raw/main/config.json",
+    "https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/raw/main/LICENSE",
+    "https://huggingface.co/api/models/mistralai/Mistral-Medium-3.5-128B",
+    "https://ollama.com/library"
+   ],
+   "verified": "2026-10-10"
+  },
+  {
+   "slug": "mistral-small-4",
+   "name": "Mistral Small 4",
+   "provider": "mistral",
+   "family": "Mistral Small",
+   "released": "2026-03-16",
+   "status": "current",
+   "weights": "open",
+   "license": "Apache-2.0",
+   "params_total_b": 119.4,
+   "params_active_b": 6.5,
+   "architecture": "MoE",
+   "context": 262144,
+   "max_output": null,
+   "price_in": 0.15,
+   "price_out": 0.6,
+   "price_cached_in": null,
+   "price_note": "Mistral API price (mistral-small-2603 / mistral-small-latest) from Mistral docs and launch post.",
+   "modalities_in": [
+    "text",
+    "image"
+   ],
+   "modalities_out": [
+    "text"
+   ],
+   "reasoning": true,
+   "tool_use": true,
+   "tier": "efficient",
+   "best_for": [
+    "coding",
+    "agents",
+    "high volume",
+    "self-hosting",
+    "multimodal"
+   ],
+   "summary": "Mistral Small 4, released in March 2026, merges Mistral's reasoning, vision and agentic-coding lines into one Apache 2.0 model. It is a 128-expert mixture-of-experts with 119B total and about 6.5B active parameters, and reasoning can be switched on per request. The context window is 256K tokens.",
+   "strengths": [
+    "Apache 2.0 license",
+    "Low active-parameter count keeps API prices low",
+    "One model covers chat, reasoning, coding and image input"
+   ],
+   "considerations": [
+    "All 119B parameters must be loaded (about 240 GB at BF16)",
+    "Not in the Ollama library as of October 2026"
+   ],
+   "access": [
+    "Hugging Face",
+    "API",
+    "build.nvidia.com"
+   ],
+   "url": "https://docs.mistral.ai/models/mistral-small-4-0-26-03",
+   "pricing_url": "https://docs.mistral.ai/models/mistral-small-4-0-26-03",
+   "hf_repo": "mistralai/Mistral-Small-4-119B-2603",
+   "arch": {
+    "layers": 36,
+    "kv_heads": 32,
+    "head_dim": 128,
+    "hidden": 4096
+   },
+   "sources": [
+    "https://mistral.ai/news/mistral-small-4/",
+    "https://docs.mistral.ai/models/mistral-small-4-0-26-03",
+    "https://huggingface.co/mistralai/Mistral-Small-4-119B-2603",
+    "https://huggingface.co/mistralai/Mistral-Small-4-119B-2603/raw/main/config.json",
+    "https://huggingface.co/api/models/mistralai/Mistral-Small-4-119B-2603",
+    "https://ollama.com/library"
+   ],
+   "verified": "2026-10-10"
+  },
+  {
+   "slug": "ministral-3-14b",
+   "name": "Ministral 3 14B",
+   "provider": "mistral",
+   "family": "Ministral 3",
+   "released": "2025-12-02",
+   "status": "current",
+   "weights": "open",
+   "license": "Apache-2.0",
+   "params_total_b": 13.9,
+   "params_active_b": 13.9,
+   "architecture": "dense",
+   "context": 262144,
+   "max_output": null,
+   "price_in": 0.2,
+   "price_out": 0.2,
+   "price_cached_in": null,
+   "price_note": "Mistral API price (ministral-14b-2512); the docs list a single $0.2 per 1M rate (shown twice, unlabeled), read as the same price for input and output.",
+   "modalities_in": [
+    "text",
+    "image"
+   ],
+   "modalities_out": [
+    "text"
+   ],
+   "reasoning": false,
+   "tool_use": true,
+   "tier": "efficient",
+   "best_for": [
+    "self-hosting",
+    "fine-tuning",
+    "multilingual",
+    "data extraction"
+   ],
+   "summary": "Ministral 3 14B is the largest of Mistral's December 2025 edge models, pairing a 13.5B language model with a 0.4B vision encoder. It is Apache 2.0 licensed, supports a 256K context and fits in about 24 GB of VRAM at FP8. Separate base, instruct and reasoning checkpoints are published.",
+   "strengths": [
+    "Fits a single 24 GB GPU at FP8",
+    "Apache 2.0 with base, instruct and reasoning variants",
+    "Native function calling and image input"
+   ],
+   "considerations": [
+    "Reasoning is a separate checkpoint, not a switch in the instruct model",
+    "Smaller models trail large MoE models on hard agentic tasks"
+   ],
+   "access": [
+    "Hugging Face",
+    "Ollama",
+    "API"
+   ],
+   "url": "https://huggingface.co/mistralai/Ministral-3-14B-Instruct-2512",
+   "pricing_url": "https://docs.mistral.ai/models/ministral-3-14b-25-12",
+   "hf_repo": "mistralai/Ministral-3-14B-Instruct-2512",
+   "arch": {
+    "layers": 40,
+    "kv_heads": 8,
+    "head_dim": 128,
+    "hidden": 5120
+   },
+   "sources": [
+    "https://docs.mistral.ai/models/ministral-3-14b-25-12",
+    "https://huggingface.co/mistralai/Ministral-3-14B-Instruct-2512",
+    "https://huggingface.co/mistralai/Ministral-3-14B-Instruct-2512/raw/main/config.json",
+    "https://ollama.com/library"
+   ],
+   "verified": "2026-10-10"
+  },
+  {
+   "slug": "ministral-3-8b",
+   "name": "Ministral 3 8B",
+   "provider": "mistral",
+   "family": "Ministral 3",
+   "released": "2025-12-02",
+   "status": "current",
+   "weights": "open",
+   "license": "Apache-2.0",
+   "params_total_b": 8.8,
+   "params_active_b": 8.8,
+   "architecture": "dense",
+   "context": 262144,
+   "max_output": null,
+   "price_in": 0.15,
+   "price_out": 0.15,
+   "price_cached_in": null,
+   "price_note": "Mistral API price (ministral-8b-2512); the docs list a single $0.15 per 1M rate (shown twice, unlabeled), read as the same price for input and output.",
+   "modalities_in": [
+    "text",
+    "image"
+   ],
+   "modalities_out": [
+    "text"
+   ],
+   "reasoning": false,
+   "tool_use": true,
+   "tier": "compact",
+   "best_for": [
+    "on-device",
+    "self-hosting",
+    "low latency",
+    "fine-tuning"
+   ],
+   "summary": "Ministral 3 8B combines an 8.4B language model with a 0.4B vision encoder and is released under Apache 2.0. It supports a 256K context window, native function calling and image input. Mistral says it fits in about 12 GB of VRAM at FP8.",
+   "strengths": [
+    "Runs on a 12 GB consumer GPU at FP8",
+    "Apache 2.0 license",
+    "Image input and tool calling in a small model"
+   ],
+   "considerations": [
+    "Limited depth on complex multi-step tasks",
+    "Long contexts add KV-cache memory beyond the weight footprint"
+   ],
+   "access": [
+    "Hugging Face",
+    "Ollama",
+    "API"
+   ],
+   "url": "https://huggingface.co/mistralai/Ministral-3-8B-Instruct-2512",
+   "pricing_url": "https://docs.mistral.ai/models/ministral-3-8b-25-12",
+   "hf_repo": "mistralai/Ministral-3-8B-Instruct-2512",
+   "arch": {
+    "layers": 34,
+    "kv_heads": 8,
+    "head_dim": 128,
+    "hidden": 4096
+   },
+   "sources": [
+    "https://docs.mistral.ai/models/ministral-3-8b-25-12",
+    "https://huggingface.co/mistralai/Ministral-3-8B-Instruct-2512",
+    "https://huggingface.co/mistralai/Ministral-3-8B-Instruct-2512/raw/main/config.json",
+    "https://ollama.com/library"
+   ],
+   "verified": "2026-10-10"
+  },
+  {
+   "slug": "ministral-3-3b",
+   "name": "Ministral 3 3B",
+   "provider": "mistral",
+   "family": "Ministral 3",
+   "released": "2025-12-02",
+   "status": "current",
+   "weights": "open",
+   "license": "Apache-2.0",
+   "params_total_b": 3.8,
+   "params_active_b": 3.8,
+   "architecture": "dense",
+   "context": 262144,
+   "max_output": null,
+   "price_in": 0.1,
+   "price_out": 0.1,
+   "price_cached_in": null,
+   "price_note": "Mistral API price (ministral-3b-2512); the docs list a single $0.1 per 1M rate, read as the same price for input and output.",
+   "modalities_in": [
+    "text",
+    "image"
+   ],
+   "modalities_out": [
+    "text"
+   ],
+   "reasoning": false,
+   "tool_use": true,
+   "tier": "compact",
+   "best_for": [
+    "on-device",
+    "low latency",
+    "high volume",
+    "fine-tuning"
+   ],
+   "summary": "Ministral 3 3B is Mistral's smallest current model: a 3.4B language model plus a 0.4B vision encoder under Apache 2.0. It keeps the family's 256K context window and function calling. Mistral says it fits in about 8 GB of VRAM at FP8, and an ONNX build is published.",
+   "strengths": [
+    "Fits in about 8 GB of VRAM at FP8",
+    "ONNX and GGUF builds available",
+    "Apache 2.0 license"
+   ],
+   "considerations": [
+    "Small capacity limits accuracy on knowledge-heavy questions",
+    "Best suited to narrow, well-defined tasks"
+   ],
+   "access": [
+    "Hugging Face",
+    "Ollama",
+    "API"
+   ],
+   "url": "https://huggingface.co/mistralai/Ministral-3-3B-Instruct-2512",
+   "pricing_url": "https://docs.mistral.ai/models/ministral-3-3b-25-12",
+   "hf_repo": "mistralai/Ministral-3-3B-Instruct-2512",
+   "arch": {
+    "layers": 26,
+    "kv_heads": 8,
+    "head_dim": 128,
+    "hidden": 3072
+   },
+   "sources": [
+    "https://docs.mistral.ai/models/ministral-3-3b-25-12",
+    "https://huggingface.co/mistralai/Ministral-3-3B-Instruct-2512",
+    "https://huggingface.co/mistralai/Ministral-3-3B-Instruct-2512/raw/main/config.json",
+    "https://ollama.com/library"
+   ],
+   "verified": "2026-10-10"
+  },
+  {
+   "slug": "codestral-25-08",
+   "name": "Codestral 25.08",
+   "provider": "mistral",
+   "family": "Codestral",
+   "released": "2025-07-30",
+   "status": "current",
+   "weights": "closed",
+   "license": "Proprietary",
+   "params_total_b": null,
+   "params_active_b": null,
+   "architecture": "unknown",
+   "context": 128000,
+   "max_output": null,
+   "price_in": 0.3,
+   "price_out": 0.9,
+   "price_cached_in": null,
+   "price_note": "Mistral API price (codestral-2508); the docs show $0.3 and $0.9 per 1M tokens without labels, mapped as input then output. Parameter count is not published.",
+   "modalities_in": [
+    "text"
+   ],
+   "modalities_out": [
+    "text"
+   ],
+   "reasoning": false,
+   "tool_use": true,
+   "tier": "efficient",
+   "best_for": [
+    "coding",
+    "low latency",
+    "enterprise"
+   ],
+   "summary": "Codestral 25.08 is Mistral's API-only code model, released at the end of July 2025 for code completion. It supports fill-in-the-middle (FIM) completion through a dedicated endpoint, function calling and a 128K context. Mistral sells it as a premier model and does not publish its weights or parameter count.",
+   "strengths": [
+    "Dedicated fill-in-the-middle endpoint for IDE completion",
+    "128K context for repository-level prompts",
+    "Function calling support"
+   ],
+   "considerations": [
+    "Weights are not available for self-hosting",
+    "Parameter count and architecture are not disclosed"
+   ],
+   "access": [
+    "API"
+   ],
+   "url": "https://docs.mistral.ai/models/codestral-25-08",
+   "pricing_url": "https://docs.mistral.ai/models/codestral-25-08",
+   "hf_repo": null,
+   "arch": null,
+   "sources": [
+    "https://docs.mistral.ai/models/codestral-25-08",
+    "https://docs.mistral.ai/getting-started/models/"
+   ],
+   "verified": "2026-10-10"
+  },
+  {
+   "slug": "deepseek-v4-1-flash",
+   "name": "DeepSeek-V4.1-Flash",
+   "provider": "deepseek",
+   "family": "DeepSeek V4",
+   "released": "2026-09-10",
+   "status": "current",
+   "weights": "open",
+   "license": "MIT",
+   "params_total_b": 552,
+   "params_active_b": 16,
+   "architecture": "MoE",
+   "context": 1048576,
+   "max_output": 384000,
+   "price_in": 0.3,
+   "price_out": 1.2,
+   "price_cached_in": 0.006,
+   "price_note": "DeepSeek API peak price (model deepseek-flash). Off-peak rates are half: $0.15 input, $0.003 cached, $0.60 output. Peak hours are 01:00-04:00 and 06:00-10:00 UTC on weekdays. 552B backbone excludes a 196B Engram memory table (763B in safetensors); 16B active at decode, 8B at prefill. Max output is DeepSeek's stated API limit of 384K.",
+   "modalities_in": [
+    "text",
+    "image"
+   ],
+   "modalities_out": [
+    "text"
+   ],
+   "reasoning": true,
+   "tool_use": true,
+   "tier": "advanced",
+   "best_for": [
+    "coding",
+    "agents",
+    "high volume",
+    "long documents",
+    "multimodal"
+   ],
+   "summary": "DeepSeek-V4.1-Flash, released on 10 September 2026 under MIT, is the smallest model in DeepSeek's new encoder-decoder MoE architecture family. It has 552B backbone parameters plus a 196B lookup memory, activates about 16B parameters per generated token, and accepts images. It now serves the deepseek-flash API model with a 1M-token context.",
+   "strengths": [
+    "Very low first-party API price, halved off-peak",
+    "1M-token context with a much smaller KV cache than V4-Flash",
+    "MIT license with image input"
+   ],
+   "considerations": [
+    "763B stored parameters make local hosting a multi-GPU job",
+    "New architecture may need recent inference engine versions"
+   ],
+   "access": [
+    "Hugging Face",
+    "Ollama",
+    "API",
+    "Together AI",
+    "Fireworks"
+   ],
+   "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash",
+   "pricing_url": "https://api-docs.deepseek.com/quick_start/pricing",
+   "hf_repo": "deepseek-ai/DeepSeek-V4.1-Flash",
+   "arch": {
+    "layers": 40,
+    "kv_heads": 1,
+    "head_dim": 512,
+    "hidden": 5120
+   },
+   "sources": [
+    "https://api-docs.deepseek.com/news/news260910",
+    "https://api-docs.deepseek.com/quick_start/pricing",
+    "https://api-docs.deepseek.com/updates",
+    "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash",
+    "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/raw/main/config.json",
+    "https://huggingface.co/api/models/deepseek-ai/DeepSeek-V4.1-Flash",
+    "https://docs.together.ai/docs/serverless-models",
+    "https://docs.fireworks.ai/serverless/pricing",
+    "https://ollama.com/library"
+   ],
+   "verified": "2026-10-10"
+  },
+  {
+   "slug": "deepseek-v4-pro",
+   "name": "DeepSeek-V4-Pro",
+   "provider": "deepseek",
+   "family": "DeepSeek V4",
+   "released": "2026-04-24",
+   "status": "current",
+   "weights": "open",
+   "license": "MIT",
+   "params_total_b": 1600,
+   "params_active_b": 49,
+   "architecture": "MoE",
+   "context": 1048576,
+   "max_output": 384000,
+   "price_in": 1.32,
+   "price_out": 3.96,
+   "price_cached_in": 0.044,
+   "price_note": "DeepSeek API peak price (model deepseek-v4-pro, served by V4-Pro-0813). Off-peak: $0.66 input, $0.022 cached, $1.98 output. DeepSeek's 2026-09-10 announcement says V4-Pro is being phased out ahead of a V4.1-Pro release, but its change log says V4-Pro API service continues past 2026-09-14 with billing unchanged, and the pricing page still lists it. Released as a preview on 2026-04-24; general-availability update 2026-08-13 (the 0813 checkpoint stores 1.65T parameters including a speculative-decoding module).",
+   "modalities_in": [
+    "text"
+   ],
+   "modalities_out": [
+    "text"
+   ],
+   "reasoning": true,
+   "tool_use": true,
+   "tier": "frontier",
+   "best_for": [
+    "coding",
+    "agents",
+    "reasoning",
+    "long documents"
+   ],
+   "summary": "DeepSeek-V4-Pro is DeepSeek's largest open model, a 1.6T-parameter mixture-of-experts with 49B active parameters and a 1M-token context, released under MIT. It launched as a preview in April 2026 and reached general availability as V4-Pro-0813 in August 2026 with low, high and max reasoning effort. DeepSeek has said it will be replaced by a V4.1-Pro model.",
+   "strengths": [
+    "MIT-licensed weights at 1.6T scale",
+    "1M-token context and up to 384K output tokens",
+    "Thinking and non-thinking modes with effort levels"
+   ],
+   "considerations": [
+    "Being phased out in favor of the V4.1 generation",
+    "Self-hosting needs a large multi-GPU cluster even with FP4/FP8 weights"
+   ],
+   "access": [
+    "Hugging Face",
+    "Ollama",
+    "API",
+    "Together AI",
+    "DeepInfra"
+   ],
+   "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813",
+   "pricing_url": "https://api-docs.deepseek.com/quick_start/pricing",
+   "hf_repo": "deepseek-ai/DeepSeek-V4-Pro-0813",
+   "arch": {
+    "layers": 61,
+    "kv_heads": 1,
+    "head_dim": 512,
+    "hidden": 7168
+   },
+   "sources": [
+    "https://api-docs.deepseek.com/news/news260424",
+    "https://api-docs.deepseek.com/news/news260813",
+    "https://api-docs.deepseek.com/news/news260910",
+    "https://api-docs.deepseek.com/quick_start/pricing",
+    "https://api-docs.deepseek.com/updates",
+    "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro",
+    "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813",
+    "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813/raw/main/config.json",
+    "https://huggingface.co/api/models/deepseek-ai/DeepSeek-V4-Pro",
+    "https://huggingface.co/api/models/deepseek-ai/DeepSeek-V4-Pro-0813",
+    "https://docs.together.ai/docs/serverless-models",
+    "https://deepinfra.com/pricing",
+    "https://ollama.com/library"
+   ],
+   "verified": "2026-10-10"
+  },
+  {
+   "slug": "qwen3-8-max",
+   "name": "Qwen3.8-Max",
+   "provider": "alibaba",
+   "family": "Qwen3.8",
+   "released": "2026-08-02",
+   "status": "current",
+   "weights": "closed",
+   "license": "Proprietary",
+   "params_total_b": 2400,
+   "params_active_b": 95,
+   "architecture": "MoE",
+   "context": 1000000,
+   "max_output": null,
+   "price_in": 2.0,
+   "price_out": 6.0,
+   "price_cached_in": null,
+   "price_note": "Alibaba Cloud Model Studio, Singapore (international) price for qwen3.8-max, single tier up to 1M input tokens. Context caching is discounted, but no per-model cached price is listed. Parameter counts are those of the open Qwen3.8-2.4T-A95B checkpoint, which the model card describes as the open version of Max.",
+   "modalities_in": [
+    "text",
+    "image"
+   ],
+   "modalities_out": [
+    "text"
+   ],
+   "reasoning": true,
+   "tool_use": true,
+   "tier": "frontier",
+   "best_for": [
+    "agents",
+    "coding",
+    "reasoning",
+    "long documents",
+    "enterprise"
+   ],
+   "summary": "Qwen3.8-Max is Alibaba's flagship hosted model, launched on Model Studio in August 2026 with a 1M-token context. The hosted version adds image input, a non-thinking mode and built-in tools on top of the open-weight Qwen3.8-2.4T-A95B checkpoint. Alibaba Cloud is the first-party API.",
+   "strengths": [
+    "1M-token context with a flat price tier",
+    "Thinking and non-thinking modes plus built-in tools",
+    "Same core model is available as open weights"
+   ],
+   "considerations": [
+    "The hosted model differs from the open checkpoint (vision, non-thinking mode)",
+    "Higher price than Qwen's Flash and Plus tiers"
+   ],
+   "access": [
+    "API"
+   ],
+   "url": "https://www.alibabacloud.com/help/en/model-studio/models",
+   "pricing_url": "https://www.alibabacloud.com/help/en/model-studio/model-pricing",
+   "hf_repo": null,
+   "arch": null,
+   "sources": [
+    "https://www.alibabacloud.com/help/en/model-studio/models",
+    "https://www.alibabacloud.com/help/en/model-studio/model-pricing",
+    "https://www.alibabacloud.com/help/en/model-studio/text-generation-model/",
+    "https://www.alibabacloud.com/help/en/model-studio/newly-released-models",
+    "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B"
+   ],
+   "verified": "2026-10-10"
+  },
+  {
+   "slug": "qwen3-8-2-4t-a95b",
+   "name": "Qwen3.8-2.4T-A95B",
+   "provider": "alibaba",
+   "family": "Qwen3.8",
+   "released": "2026-08-12",
+   "status": "current",
+   "weights": "open",
+   "license": "Qwen3.8-Max License",
+   "params_total_b": 2446,
+   "params_active_b": 95,
+   "architecture": "MoE",
+   "context": 262144,
+   "max_output": null,
+   "price_in": 2.0,
+   "price_out": 6.0,
+   "price_cached_in": 0.25,
+   "price_note": "Together AI serverless price for Qwen/Qwen3.8-2.4T-A95B ($0.25 cached input per the Together pricing page). Fireworks lists the same $2.00 / $0.25 / $6.00 under the name Qwen 3.8 Max; DeepInfra lists Qwen3.8-Max at $1.65 / $4.951. Context is 262,144 native, extensible to about 1M with YaRN.",
+   "modalities_in": [
+    "text"
+   ],
+   "modalities_out": [
+    "text"
+   ],
+   "reasoning": true,
+   "tool_use": true,
+   "tier": "frontier",
+   "best_for": [
+    "reasoning",
+    "coding",
+    "agents",
+    "research",
+    "self-hosting"
+   ],
+   "summary": "Qwen3.8-2.4T-A95B is the open-weight release of Alibaba's Qwen3.8-Max, published in August 2026. It is a 512-expert mixture-of-experts with about 2.4T total and 95B active parameters, using a hybrid of Gated DeltaNet linear attention and gated full attention. The open checkpoint is text-only and always reasons before answering.",
+   "strengths": [
+    "Max-class Qwen model with downloadable weights",
+    "Hybrid linear attention keeps long-context KV cache small",
+    "262K native context, extensible to about 1M"
+   ],
+   "considerations": [
+    "Model-as-a-Service and AI-assistant businesses above $50M annual revenue need a separate license",
+    "2.4T parameters require a large multi-node deployment"
+   ],
+   "access": [
+    "Hugging Face",
+    "Together AI",
+    "Fireworks",
+    "DeepInfra"
+   ],
+   "url": "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B",
+   "pricing_url": "https://docs.together.ai/docs/serverless-models",
+   "hf_repo": "Qwen/Qwen3.8-2.4T-A95B",
+   "arch": {
+    "layers": 92,
+    "kv_heads": 4,
+    "head_dim": 256,
+    "hidden": 8192
+   },
+   "sources": [
+    "https://github.com/QwenLM/Qwen3.8",
+    "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B",
+    "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B/raw/main/config.json",
+    "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B/raw/main/LICENSE",
+    "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B/raw/main/chat_template.jinja",
+    "https://huggingface.co/api/models/Qwen/Qwen3.8-2.4T-A95B",
+    "https://docs.together.ai/docs/serverless-models",
+    "https://www.together.ai/pricing",
+    "https://docs.fireworks.ai/serverless/pricing",
+    "https://deepinfra.com/pricing"
+   ],
+   "verified": "2026-10-10"
+  },
+  {
+   "slug": "qwen3-8-27b",
+   "name": "Qwen3.8-27B",
+   "provider": "alibaba",
+   "family": "Qwen3.8",
+   "released": "2026-08-14",
+   "status": "current",
+   "weights": "open",
+   "license": "Apache-2.0",
+   "params_total_b": 27.8,
+   "params_active_b": 27.8,
+   "architecture": "dense",
+   "context": 262144,
+   "max_output": null,
+   "price_in": 0.8,
+   "price_out": 4.0,
+   "price_cached_in": null,
+   "price_note": "Groq price (qwen/qwen3.8-27b, a preview model on Groq, served with a 131,072-token context and 16,384 max completion tokens). Official context is 262,144 native, extensible to 1M with YaRN.",
+   "modalities_in": [
+    "text",
+    "image",
+    "video"
+   ],
+   "modalities_out": [
+    "text"
+   ],
+   "reasoning": true,
+   "tool_use": true,
+   "tier": "efficient",
+   "best_for": [
+    "self-hosting",
+    "coding",
+    "agents",
+    "multimodal",
+    "fine-tuning"
+   ],
+   "summary": "Qwen3.8-27B is the mid-size dense model of Alibaba's August 2026 Qwen3.8 release, under Apache 2.0. It mixes Gated DeltaNet linear-attention layers with gated full-attention layers and includes a vision encoder for image and video input. Thinking is on by default but can be turned off per request.",
+   "strengths": [
+    "Apache 2.0 with image and video input",
+    "Only 16 of 64 layers keep a full KV cache",
+    "About 14 GB of weights at 4-bit, within reach of a 24 GB GPU"
+   ],
+   "considerations": [
+    "Thinking mode is on by default and adds output tokens",
+    "Few hosts list it yet; Groq offers it only as a preview"
+   ],
+   "access": [
+    "Hugging Face",
+    "Ollama",
+    "Groq"
+   ],
+   "url": "https://huggingface.co/Qwen/Qwen3.8-27B",
+   "pricing_url": "https://console.groq.com/docs/models",
+   "hf_repo": "Qwen/Qwen3.8-27B",
+   "arch": {
+    "layers": 64,
+    "kv_heads": 4,
+    "head_dim": 256,
+    "hidden": 5120
+   },
+   "sources": [
+    "https://github.com/QwenLM/Qwen3.8",
+    "https://huggingface.co/Qwen/Qwen3.8-27B",
+    "https://huggingface.co/Qwen/Qwen3.8-27B/raw/main/config.json",
+    "https://huggingface.co/Qwen/Qwen3.8-27B/raw/main/chat_template.jinja",
+    "https://huggingface.co/api/models/Qwen/Qwen3.8-27B",
+    "https://console.groq.com/docs/models",
+    "https://ollama.com/library"
+   ],
+   "verified": "2026-10-10"
+  },
+  {
+   "slug": "qwen3-6-35b-a3b",
+   "name": "Qwen3.6-35B-A3B",
+   "provider": "alibaba",
+   "family": "Qwen3.6",
+   "released": "2026-04-16",
+   "status": "current",
+   "weights": "open",
+   "license": "Apache-2.0",
+   "params_total_b": 36,
+   "params_active_b": 3,
+   "architecture": "MoE",
+   "context": 262144,
+   "max_output": null,
+   "price_in": 0.1,
+   "price_out": 0.95,
+   "price_cached_in": 0.1,
+   "price_note": "DeepInfra serverless price (256K context); DeepInfra lists the cached-input rate at the same $0.10. Official context is 262,144 native, extensible to about 1M with YaRN.",
+   "modalities_in": [
+    "text",
+    "image",
+    "video"
+   ],
+   "modalities_out": [
+    "text"
+   ],
+   "reasoning": true,
+   "tool_use": true,
+   "tier": "compact",
+   "best_for": [
+    "self-hosting",
+    "low latency",
+    "agents",
+    "coding",
+    "on-device"
+   ],
+   "summary": "Qwen3.6-35B-A3B is a small mixture-of-experts model from Alibaba's April 2026 Qwen3.6 release, under Apache 2.0. It has about 36B total and 3B active parameters across 256 experts, a hybrid linear/full attention stack and a vision encoder. Thinking and non-thinking modes are both supported.",
+   "strengths": [
+    "3B active parameters give fast token generation",
+    "Apache 2.0 with image and video input",
+    "Tool calling supported in vLLM and SGLang; Qwen recommends Qwen Code and Qwen-Agent"
+   ],
+   "considerations": [
+    "All ~36B parameters must be held in memory",
+    "Small active size limits depth on hard reasoning tasks"
+   ],
+   "access": [
+    "Hugging Face",
+    "Ollama",
+    "DeepInfra"
+   ],
+   "url": "https://huggingface.co/Qwen/Qwen3.6-35B-A3B",
+   "pricing_url": "https://deepinfra.com/pricing",
+   "hf_repo": "Qwen/Qwen3.6-35B-A3B",
+   "arch": {
+    "layers": 40,
+    "kv_heads": 2,
+    "head_dim": 256,
+    "hidden": 2048
+   },
+   "sources": [
+    "https://github.com/QwenLM/Qwen3.8",
+    "https://huggingface.co/Qwen/Qwen3.6-35B-A3B",
+    "https://huggingface.co/Qwen/Qwen3.6-35B-A3B/raw/main/config.json",
+    "https://huggingface.co/api/models/Qwen/Qwen3.6-35B-A3B",
+    "https://deepinfra.com/pricing",
+    "https://ollama.com/library"
+   ],
+   "verified": "2026-10-10"
+  },
+  {
+   "slug": "gemma-4-31b",
+   "name": "Gemma 4 31B",
+   "provider": "google",
+   "family": "Gemma 4",
+   "released": "2026-03-31",
+   "status": "current",
+   "weights": "open",
+   "license": "Apache-2.0",
+   "params_total_b": 31.3,
+   "params_active_b": 31.3,
+   "architecture": "dense",
+   "context": 262144,
+   "max_output": null,
+   "price_in": 0.2,
+   "price_out": 0.4,
+   "price_cached_in": null,
+   "price_note": "DeepInfra serverless price for gemma-4-31B-it (256K context).",
+   "modalities_in": [
+    "text",
+    "image",
+    "video"
+   ],
+   "modalities_out": [
+    "text"
+   ],
+   "reasoning": true,
+   "tool_use": true,
+   "tier": "efficient",
+   "best_for": [
+    "self-hosting",
+    "multimodal",
+    "multilingual",
+    "fine-tuning",
+    "chat"
+   ],
+   "summary": "Gemma 4 31B is the largest dense model in Google's Gemma 4 family, released on 31 March 2026 under Apache 2.0. It accepts text and images (video as frames), offers a 256K context window and has a configurable thinking mode. It interleaves local sliding-window attention with periodic global layers.",
+   "strengths": [
+    "Apache 2.0 license (earlier Gemma versions used custom terms)",
+    "Configurable thinking mode and native function calling",
+    "Only 10 of 60 layers use full global attention, which reduces KV-cache size"
+   ],
+   "considerations": [
+    "About 62 GB of weights at BF16, so a single 24 GB GPU needs 4-bit quantization",
+    "No audio input at this size (audio is limited to E2B, E4B and 12B)"
+   ],
+   "access": [
+    "Hugging Face",
+    "Ollama",
+    "DeepInfra"
+   ],
+   "url": "https://huggingface.co/google/gemma-4-31B-it",
+   "pricing_url": "https://deepinfra.com/pricing",
+   "hf_repo": "google/gemma-4-31B-it",
+   "arch": {
+    "layers": 60,
+    "kv_heads": 16,
+    "head_dim": 256,
+    "hidden": 5376
+   },
+   "sources": [
+    "https://ai.google.dev/gemma/docs/releases",
+    "https://huggingface.co/google/gemma-4-31B-it",
+    "https://huggingface.co/google/gemma-4-31B-it/raw/main/config.json",
+    "https://huggingface.co/api/models/google/gemma-4-31B-it",
+    "https://deepinfra.com/pricing",
+    "https://ollama.com/library"
+   ],
+   "verified": "2026-10-10"
+  },
+  {
+   "slug": "gemma-4-26b-a4b",
+   "name": "Gemma 4 26B A4B",
+   "provider": "google",
+   "family": "Gemma 4",
+   "released": "2026-03-31",
+   "status": "current",
+   "weights": "open",
+   "license": "Apache-2.0",
+   "params_total_b": 25.8,
+   "params_active_b": 3.8,
+   "architecture": "MoE",
+   "context": 262144,
+   "max_output": null,
+   "price_in": 0.07,
+   "price_out": 0.34,
+   "price_cached_in": null,
+   "price_note": "DeepInfra serverless price for gemma-4-26B-A4B-it (256K context).",
+   "modalities_in": [
+    "text",
+    "image",
+    "video"
+   ],
+   "modalities_out": [
+    "text"
+   ],
+   "reasoning": true,
+   "tool_use": true,
+   "tier": "compact",
+   "best_for": [
+    "low latency",
+    "self-hosting",
+    "high volume",
+    "multimodal"
+   ],
+   "summary": "Gemma 4 26B A4B is the mixture-of-experts member of Google's Gemma 4 family, with about 26B total and 3.8B active parameters (8 of 128 experts plus a shared expert). It shares the family's 256K context, image input and thinking mode under Apache 2.0. Its small active size makes generation fast relative to its memory footprint.",
+   "strengths": [
+    "Only 3.8B parameters active per token",
+    "Apache 2.0 license",
+    "Low hosted prices"
+   ],
+   "considerations": [
+    "All 25B parameters must be loaded despite the small active count",
+    "MoE models can be harder to fine-tune than dense ones"
+   ],
+   "access": [
+    "Hugging Face",
+    "Ollama",
+    "DeepInfra"
+   ],
+   "url": "https://huggingface.co/google/gemma-4-26B-A4B-it",
+   "pricing_url": "https://deepinfra.com/pricing",
+   "hf_repo": "google/gemma-4-26B-A4B-it",
+   "arch": {
+    "layers": 30,
+    "kv_heads": 8,
+    "head_dim": 256,
+    "hidden": 2816
+   },
+   "sources": [
+    "https://ai.google.dev/gemma/docs/releases",
+    "https://huggingface.co/google/gemma-4-31B-it",
+    "https://huggingface.co/google/gemma-4-26B-A4B-it/raw/main/config.json",
+    "https://huggingface.co/api/models/google/gemma-4-26B-A4B-it",
+    "https://deepinfra.com/pricing",
+    "https://ollama.com/library"
+   ],
+   "verified": "2026-10-10"
+  },
+  {
+   "slug": "gemma-4-e4b",
+   "name": "Gemma 4 E4B",
+   "provider": "google",
+   "family": "Gemma 4",
+   "released": "2026-03-31",
+   "status": "current",
+   "weights": "open",
+   "license": "Apache-2.0",
+   "params_total_b": 8,
+   "params_active_b": 8,
+   "architecture": "dense",
+   "context": 131072,
+   "max_output": null,
+   "price_in": null,
+   "price_out": null,
+   "price_cached_in": null,
+   "price_note": "Not listed on the official pricing pages of Together AI, Fireworks, DeepInfra or Groq as of 2026-10-10; intended mainly for local and on-device use. Google quotes 4.5B 'effective' parameters; the 8B total includes per-layer embeddings.",
+   "modalities_in": [
+    "text",
+    "image",
+    "audio",
+    "video"
+   ],
+   "modalities_out": [
+    "text"
+   ],
+   "reasoning": true,
+   "tool_use": true,
+   "tier": "compact",
+   "best_for": [
+    "on-device",
+    "low latency",
+    "multimodal",
+    "self-hosting"
+   ],
+   "summary": "Gemma 4 E4B is an on-device Gemma 4 model with about 4.5B effective parameters (8B including per-layer embeddings). It accepts text, images and audio, with video handled as frames, and supports a 128K context window. Google also publishes quantization-aware and mobile builds.",
+   "strengths": [
+    "Audio, image and text input in a phone-class model",
+    "Per-layer embeddings keep the compute footprint near 4.5B",
+    "Apache 2.0 with official QAT and mobile builds"
+   ],
+   "considerations": [
+    "128K context is half that of the larger Gemma 4 models",
+    "Small capacity limits complex reasoning"
+   ],
+   "access": [
+    "Hugging Face",
+    "Ollama"
+   ],
+   "url": "https://huggingface.co/google/gemma-4-E4B-it",
+   "pricing_url": null,
+   "hf_repo": "google/gemma-4-E4B-it",
+   "arch": {
+    "layers": 42,
+    "kv_heads": 2,
+    "head_dim": 256,
+    "hidden": 2560
+   },
+   "sources": [
+    "https://ai.google.dev/gemma/docs/releases",
+    "https://huggingface.co/google/gemma-4-31B-it",
+    "https://huggingface.co/google/gemma-4-E4B-it/raw/main/config.json",
+    "https://ollama.com/library"
+   ],
+   "verified": "2026-10-10"
+  },
+  {
+   "slug": "gpt-oss-120b",
+   "name": "gpt-oss-120b",
+   "provider": "openai",
+   "family": "gpt-oss",
+   "released": "2025-08-05",
+   "status": "current",
+   "weights": "open",
+   "license": "Apache-2.0",
+   "params_total_b": 117,
+   "params_active_b": 5.1,
+   "architecture": "MoE",
+   "context": 131072,
+   "max_output": null,
+   "price_in": 0.15,
+   "price_out": 0.6,
+   "price_cached_in": 0.015,
+   "price_note": "Fireworks standard serverless price; Groq lists $0.15 / $0.60 with up to 65,536 completion tokens.",
+   "modalities_in": [
+    "text"
+   ],
+   "modalities_out": [
+    "text"
+   ],
+   "reasoning": true,
+   "tool_use": true,
+   "tier": "advanced",
+   "best_for": [
+    "reasoning",
+    "agents",
+    "self-hosting",
+    "high volume",
+    "coding"
+   ],
+   "summary": "gpt-oss-120b is OpenAI's larger open-weight reasoning model, released in August 2025 under Apache 2.0. It is a 128-expert mixture-of-experts with 117B total and 5.1B active parameters, natively quantized to MXFP4 so it fits on a single 80 GB GPU. Reasoning effort can be set to low, medium or high.",
+   "strengths": [
+    "Fits on one 80 GB GPU thanks to MXFP4 weights",
+    "Adjustable reasoning effort with browsing, Python and function-calling formats",
+    "Apache 2.0 and very widely hosted"
+   ],
+   "considerations": [
+    "Text-only input",
+    "128K context is modest by 2026 standards"
+   ],
+   "access": [
+    "Hugging Face",
+    "Ollama",
+    "Groq",
+    "Fireworks",
+    "Together AI",
+    "OpenRouter",
+    "AWS",
+    "Azure"
+   ],
+   "url": "https://openai.com/index/introducing-gpt-oss/",
+   "pricing_url": "https://docs.fireworks.ai/serverless/pricing",
+   "hf_repo": "openai/gpt-oss-120b",
+   "arch": {
+    "layers": 36,
+    "kv_heads": 8,
+    "head_dim": 64,
+    "hidden": 2880
+   },
+   "sources": [
+    "https://openai.com/index/introducing-gpt-oss/",
+    "https://openai.com/open-models/",
+    "https://huggingface.co/openai/gpt-oss-120b",
+    "https://huggingface.co/openai/gpt-oss-120b/raw/main/config.json",
+    "https://docs.fireworks.ai/serverless/pricing",
+    "https://console.groq.com/docs/models",
+    "https://ollama.com/library"
+   ],
+   "verified": "2026-10-10"
+  },
+  {
+   "slug": "gpt-oss-20b",
+   "name": "gpt-oss-20b",
+   "provider": "openai",
+   "family": "gpt-oss",
+   "released": "2025-08-05",
+   "status": "current",
+   "weights": "open",
+   "license": "Apache-2.0",
+   "params_total_b": 21,
+   "params_active_b": 3.6,
+   "architecture": "MoE",
+   "context": 131072,
+   "max_output": null,
+   "price_in": 0.075,
+   "price_out": 0.3,
+   "price_cached_in": null,
+   "price_note": "Groq price for openai/gpt-oss-20b (Groq allows up to 65,536 completion tokens; OpenAI states no separate output limit).",
+   "modalities_in": [
+    "text"
+   ],
+   "modalities_out": [
+    "text"
+   ],
+   "reasoning": true,
+   "tool_use": true,
+   "tier": "compact",
+   "best_for": [
+    "on-device",
+    "low latency",
+    "self-hosting",
+    "high volume"
+   ],
+   "summary": "gpt-oss-20b is the smaller of OpenAI's two August 2025 open-weight models: a 32-expert mixture-of-experts with 21B total and 3.6B active parameters. OpenAI says it runs within 16 GB of memory, so it can run on many consumer GPUs and edge devices. It keeps the 128K context and adjustable reasoning effort of the larger model.",
+   "strengths": [
+    "Runs within 16 GB of memory",
+    "Adjustable reasoning effort and tool-use formats",
+    "Apache 2.0 license"
+   ],
+   "considerations": [
+    "Text-only input",
+    "Limited world knowledge for its size"
+   ],
+   "access": [
+    "Hugging Face",
+    "Ollama",
+    "Groq",
+    "OpenRouter",
+    "AWS",
+    "Azure"
+   ],
+   "url": "https://openai.com/index/introducing-gpt-oss/",
+   "pricing_url": "https://console.groq.com/docs/models",
+   "hf_repo": "openai/gpt-oss-20b",
+   "arch": {
+    "layers": 24,
+    "kv_heads": 8,
+    "head_dim": 64,
+    "hidden": 2880
+   },
+   "sources": [
+    "https://openai.com/index/introducing-gpt-oss/",
+    "https://huggingface.co/openai/gpt-oss-120b",
+    "https://huggingface.co/openai/gpt-oss-20b/raw/main/config.json",
+    "https://console.groq.com/docs/models",
+    "https://ollama.com/library"
+   ],
+   "verified": "2026-10-10"
+  },
+  {
+   "slug": "phi-4-reasoning-vision-15b",
+   "name": "Phi-4-reasoning-vision-15B",
+   "provider": "microsoft",
+   "family": "Phi-4",
+   "released": "2026-03-04",
+   "status": "current",
+   "weights": "open",
+   "license": "MIT",
+   "params_total_b": 15.1,
+   "params_active_b": 15.1,
+   "architecture": "dense",
+   "context": 16384,
+   "max_output": null,
+   "price_in": null,
+   "price_out": null,
+   "price_cached_in": null,
+   "price_note": "No serverless price found on the official pricing pages of Together AI, Fireworks, DeepInfra or Groq as of 2026-10-10.",
+   "modalities_in": [
+    "text",
+    "image"
+   ],
+   "modalities_out": [
+    "text"
+   ],
+   "reasoning": true,
+   "tool_use": false,
+   "tier": "compact",
+   "best_for": [
+    "multimodal",
+    "reasoning",
+    "self-hosting",
+    "research"
+   ],
+   "summary": "Phi-4-reasoning-vision-15B is Microsoft's March 2026 multimodal Phi model, which adds a SigLIP-2 vision encoder to Phi-4-reasoning. A single model switches between step-by-step reasoning for math and science and direct answers for perception tasks such as OCR and GUI grounding. It is MIT licensed and focused on English.",
+   "strengths": [
+    "MIT license",
+    "Reasoning and direct-answer modes in one model",
+    "Trained for screen understanding and GUI element grounding"
+   ],
+   "considerations": [
+    "16K context window limits long documents",
+    "Primarily English; tool calling is not documented"
+   ],
+   "access": [
+    "Hugging Face"
+   ],
+   "url": "https://huggingface.co/microsoft/Phi-4-reasoning-vision-15B",
+   "pricing_url": null,
+   "hf_repo": "microsoft/Phi-4-reasoning-vision-15B",
+   "arch": {
+    "layers": 40,
+    "kv_heads": 10,
+    "head_dim": 128,
+    "hidden": 5120
+   },
+   "sources": [
+    "https://huggingface.co/microsoft/Phi-4-reasoning-vision-15B",
+    "https://huggingface.co/microsoft/Phi-4-reasoning-vision-15B/raw/main/config.json",
+    "https://huggingface.co/api/models/microsoft/Phi-4-reasoning-vision-15B"
+   ],
+   "verified": "2026-10-10"
+  },
+  {
+   "slug": "phi-4-mini-instruct",
+   "name": "Phi-4-mini-instruct",
+   "provider": "microsoft",
+   "family": "Phi-4",
+   "released": "2025-02",
+   "status": "current",
+   "weights": "open",
+   "license": "MIT",
+   "params_total_b": 3.8,
+   "params_active_b": 3.8,
+   "architecture": "dense",
+   "context": 131072,
+   "max_output": null,
+   "price_in": null,
+   "price_out": null,
+   "price_cached_in": null,
+   "price_note": "No serverless price found on the official pricing pages of Together AI, Fireworks, DeepInfra or Groq as of 2026-10-10 (DeepInfra lists only the larger phi-4).",
+   "modalities_in": [
+    "text"
+   ],
+   "modalities_out": [
+    "text"
+   ],
+   "reasoning": false,
+   "tool_use": true,
+   "tier": "compact",
+   "best_for": [
+    "on-device",
+    "low latency",
+    "multilingual",
+    "fine-tuning"
+   ],
+   "summary": "Phi-4-mini-instruct is a 3.8B-parameter dense model released by Microsoft in February 2025 under MIT. It supports a 128K context window, function calling through a tool-enabled prompt format and more than 20 languages. Microsoft targets memory-constrained and latency-sensitive deployments.",
+   "strengths": [
+    "128K context in a 3.8B model",
+    "MIT license",
+    "Small enough for laptops and edge devices"
+   ],
+   "considerations": [
+    "Microsoft's red team found it can hallucinate function names and URLs",
+    "Limited factual knowledge at this size"
+   ],
+   "access": [
+    "Hugging Face",
+    "Ollama"
+   ],
+   "url": "https://huggingface.co/microsoft/Phi-4-mini-instruct",
+   "pricing_url": null,
+   "hf_repo": "microsoft/Phi-4-mini-instruct",
+   "arch": {
+    "layers": 32,
+    "kv_heads": 8,
+    "head_dim": 128,
+    "hidden": 3072
+   },
+   "sources": [
+    "https://huggingface.co/microsoft/Phi-4-mini-instruct",
+    "https://huggingface.co/microsoft/Phi-4-mini-instruct/raw/main/config.json",
+    "https://ollama.com/library"
+   ],
+   "verified": "2026-10-10"
+  },
+  {
+   "slug": "nemotron-3-ultra",
+   "name": "NVIDIA Nemotron 3 Ultra",
+   "provider": "nvidia",
+   "family": "Nemotron 3",
+   "released": "2026-06-04",
+   "status": "current",
+   "weights": "open",
+   "license": "OpenMDW-1.1",
+   "params_total_b": 550,
+   "params_active_b": 55,
+   "architecture": "MoE",
+   "context": 1000000,
+   "max_output": null,
+   "price_in": 0.5,
+   "price_out": 2.2,
+   "price_cached_in": 0.1,
+   "price_note": "DeepInfra serverless price (DeepInfra serves a 256K context). Fireworks lists Nemotron 3 Ultra (Preview) at $0.60 / $0.12 cached / $2.40. Official context is up to 1M; the default serving config is 256K.",
+   "modalities_in": [
+    "text"
+   ],
+   "modalities_out": [
+    "text"
+   ],
+   "reasoning": true,
+   "tool_use": true,
+   "tier": "advanced",
+   "best_for": [
+    "agents",
+    "reasoning",
+    "coding",
+    "enterprise",
+    "self-hosting"
+   ],
+   "summary": "Nemotron 3 Ultra is the largest model in NVIDIA's Nemotron 3 family, released in June 2026 under the OpenMDW 1.1 license. It is a hybrid Mamba-2/Transformer latent mixture-of-experts with 550B total and 55B active parameters and multi-token prediction. Reasoning can be switched on or off and capped with a token budget.",
+   "strengths": [
+    "Permissive OpenMDW 1.1 license",
+    "Only 9 of 83 layers use attention, so the KV cache stays small at long context",
+    "Reasoning budget control for cost management"
+   ],
+   "considerations": [
+    "Minimum of 8x B200/H200 or 16x H100 to serve",
+    "Text-only input"
+   ],
+   "access": [
+    "Hugging Face",
+    "Ollama",
+    "DeepInfra",
+    "Fireworks",
+    "build.nvidia.com"
+   ],
+   "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16",
+   "pricing_url": "https://deepinfra.com/pricing",
+   "hf_repo": "nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16",
+   "arch": {
+    "layers": 83,
+    "kv_heads": 2,
+    "head_dim": 128,
+    "hidden": 8192
+   },
+   "sources": [
+    "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16",
+    "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16/raw/main/config.json",
+    "https://deepinfra.com/pricing",
+    "https://docs.fireworks.ai/serverless/pricing",
+    "https://ollama.com/library"
+   ],
+   "verified": "2026-10-10"
+  },
+  {
+   "slug": "nemotron-3-5-lightning-30b-a3b",
+   "name": "NVIDIA Nemotron 3.5 Lightning 30B-A3B",
+   "provider": "nvidia",
+   "family": "Nemotron 3.5",
+   "released": "2026-08-11",
+   "status": "current",
+   "weights": "open",
+   "license": "OpenMDW-1.1",
+   "params_total_b": 30,
+   "params_active_b": 3,
+   "architecture": "MoE",
+   "context": 1000000,
+   "max_output": null,
+   "price_in": 0.05,
+   "price_out": 0.2,
+   "price_cached_in": 0.01,
+   "price_note": "Fireworks standard serverless price; DeepInfra lists $0.06 / $0.03 cached / $0.16. Official context is up to 1M; the model card's single-H100 example uses 256K. The Hugging Face BF16 checkpoint stores 31.6B parameters including multi-token-prediction layers.",
+   "modalities_in": [
+    "text"
+   ],
+   "modalities_out": [
+    "text"
+   ],
+   "reasoning": true,
+   "tool_use": true,
+   "tier": "compact",
+   "best_for": [
+    "low latency",
+    "high volume",
+    "agents",
+    "self-hosting",
+    "coding"
+   ],
+   "summary": "Nemotron 3.5 Lightning 30B-A3B is a small hybrid Mamba-2/Transformer mixture-of-experts model that NVIDIA released in August 2026. It has 30B total and 3B active parameters, a context of up to 1M tokens and thinking that is on by default but can be turned off. NVIDIA says it deploys on a single 80 GB H100 or A100.",
+   "strengths": [
+    "Single 80 GB GPU deployment",
+    "Very low hosted prices",
+    "Hybrid design with only 6 attention layers keeps KV cache small"
+   ],
+   "considerations": [
+    "Text-only input",
+    "NVIDIA recommends the NVFP4 build for production; BF16 is aimed at customization"
+   ],
+   "access": [
+    "Hugging Face",
+    "Ollama",
+    "Fireworks",
+    "DeepInfra",
+    "build.nvidia.com"
+   ],
+   "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16",
+   "pricing_url": "https://docs.fireworks.ai/serverless/pricing",
+   "hf_repo": "nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16",
+   "arch": {
+    "layers": 52,
+    "kv_heads": 2,
+    "head_dim": 128,
+    "hidden": 2688
+   },
+   "sources": [
+    "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16",
+    "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/raw/main/config.json",
+    "https://huggingface.co/api/models/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16",
+    "https://docs.fireworks.ai/serverless/pricing",
+    "https://deepinfra.com/pricing",
+    "https://ollama.com/library"
+   ],
+   "verified": "2026-10-10"
+  },
+  {
+   "slug": "kimi-k3",
+   "name": "Kimi K3",
+   "provider": "moonshot",
+   "family": "Kimi",
+   "released": "2026-07-16",
+   "status": "current",
+   "weights": "open",
+   "license": "Kimi K3 License",
+   "params_total_b": 2800,
+   "params_active_b": 104,
+   "architecture": "MoE",
+   "context": 1048576,
+   "max_output": null,
+   "price_in": 3.0,
+   "price_out": 15.0,
+   "price_cached_in": 0.3,
+   "price_note": "Moonshot (Kimi) API price for kimi-k3; cache writes are billed separately ($3.00 per 1M for a 5-minute TTL, $6.00 for 1-hour). Weights followed the 2026-07-16 API launch (Moonshot promised them by 2026-07-27).",
+   "modalities_in": [
+    "text",
+    "image",
+    "video"
+   ],
+   "modalities_out": [
+    "text"
+   ],
+   "reasoning": true,
+   "tool_use": true,
+   "tier": "frontier",
+   "best_for": [
+    "agents",
+    "coding",
+    "reasoning",
+    "long documents",
+    "multimodal"
+   ],
+   "summary": "Kimi K3 is Moonshot AI's July 2026 flagship, a 2.8T-parameter mixture-of-experts with 104B active parameters drawn from 896 experts. It pairs Kimi Delta Attention linear layers with gated latent-attention layers to support a 1M-token context, and understands images and video. Thinking is always on, with low, high and max effort levels.",
+   "strengths": [
+    "1M-token context with mostly linear-attention layers",
+    "Native image and video understanding",
+    "MXFP4 weights trained with quantization-aware training"
+   ],
+   "considerations": [
+    "At $15 per million output tokens it costs more to run than most open-weight models",
+    "MaaS providers above $20M annual revenue need a separate agreement; very large products must display 'Kimi K3'"
+   ],
+   "access": [
+    "Hugging Face",
+    "Ollama",
+    "API",
+    "Fireworks",
+    "Together AI",
+    "DeepInfra"
+   ],
+   "url": "https://huggingface.co/moonshotai/Kimi-K3",
+   "pricing_url": "https://platform.kimi.ai/docs/pricing/chat",
+   "hf_repo": "moonshotai/Kimi-K3",
+   "arch": null,
+   "sources": [
+    "https://www.kimi.ai/blog",
+    "https://www.kimi.ai/blog/kimi-k3",
+    "https://huggingface.co/moonshotai/Kimi-K3",
+    "https://huggingface.co/moonshotai/Kimi-K3/raw/main/config.json",
+    "https://huggingface.co/moonshotai/Kimi-K3/raw/main/LICENSE",
+    "https://github.com/MoonshotAI/Kimi-K3",
+    "https://platform.kimi.ai/docs/pricing/chat",
+    "https://docs.fireworks.ai/serverless/pricing",
+    "https://docs.together.ai/docs/serverless-models",
+    "https://deepinfra.com/pricing",
+    "https://ollama.com/library"
+   ],
+   "verified": "2026-10-10"
+  },
+  {
+   "slug": "glm-5-3",
+   "name": "GLM-5.3",
+   "provider": "zhipu",
+   "family": "GLM-5",
+   "released": "2026-08-18",
+   "status": "current",
+   "weights": "open",
+   "license": "GLM-5.3 License",
+   "params_total_b": 753,
+   "params_active_b": null,
+   "architecture": "MoE",
+   "context": 1048576,
+   "max_output": 131072,
+   "price_in": 1.4,
+   "price_out": 4.4,
+   "price_cached_in": 0.26,
+   "price_note": "Z.ai API price; cached-input storage is free for a limited time. Active parameters are not stated on the GLM-5.3 card (its config matches GLM-5, which Z.ai describes as 744B total / 40B active), so null. Announced 2026-08-18; weights on Hugging Face from 2026-08-25.",
+   "modalities_in": [
+    "text"
+   ],
+   "modalities_out": [
+    "text"
+   ],
+   "reasoning": true,
+   "tool_use": true,
+   "tier": "frontier",
+   "best_for": [
+    "coding",
+    "agents",
+    "long documents",
+    "reasoning"
+   ],
+   "summary": "GLM-5.3 is Z.ai's flagship, announced on 18 August 2026, with open weights on Hugging Face from 25 August. It is a 753B-parameter mixture-of-experts with DeepSeek-style sparse attention and a 1M-token context, built on the GLM-5.2 base with further post-training aimed at coding. Reasoning is always on, with low, high and max effort levels.",
+   "strengths": [
+    "1M-token context and 128K maximum output",
+    "Coding-focused post-training",
+    "Permissive license; only MaaS providers above $10B revenue need a security review"
+   ],
+   "considerations": [
+    "Reasoning cannot be disabled",
+    "Text-only input; vision is in GLM-5.3-Flash"
+   ],
+   "access": [
+    "Hugging Face",
+    "Ollama",
+    "API",
+    "Together AI",
+    "Fireworks"
+   ],
+   "url": "https://huggingface.co/zai-org/GLM-5.3",
+   "pricing_url": "https://docs.z.ai/guides/overview/pricing",
+   "hf_repo": "zai-org/GLM-5.3",
+   "arch": {
+    "layers": 78,
+    "kv_heads": 64,
+    "head_dim": 192,
+    "hidden": 6144
+   },
+   "sources": [
+    "https://docs.z.ai/release-notes/new-released",
+    "https://docs.z.ai/guides/llm/glm-5.3",
+    "https://docs.z.ai/guides/overview/pricing",
+    "https://docs.z.ai/api-reference/llm/chat-completion",
+    "https://huggingface.co/zai-org/GLM-5.3",
+    "https://huggingface.co/zai-org/GLM-5.3/raw/main/config.json",
+    "https://huggingface.co/zai-org/GLM-5.3/raw/main/LICENSE",
+    "https://huggingface.co/api/models/zai-org/GLM-5.3",
+    "https://huggingface.co/zai-org/GLM-5",
+    "https://huggingface.co/zai-org/GLM-5/raw/main/config.json",
+    "https://docs.together.ai/docs/serverless-models",
+    "https://docs.fireworks.ai/serverless/pricing",
+    "https://ollama.com/library"
+   ],
+   "verified": "2026-10-10"
+  },
+  {
+   "slug": "glm-5-3-flash",
+   "name": "GLM-5.3-Flash",
+   "provider": "zhipu",
+   "family": "GLM-5",
+   "released": "2026-08-26",
+   "status": "current",
+   "weights": "open",
+   "license": "MIT",
+   "params_total_b": 321,
+   "params_active_b": 18,
+   "architecture": "MoE",
+   "context": 1048576,
+   "max_output": 131072,
+   "price_in": 0.15,
+   "price_out": 0.5,
+   "price_cached_in": 0.03,
+   "price_note": "Z.ai API price for GLM-5.3-Flash; a faster GLM-5.3-FlashX tier costs $0.37 / $0.075 cached / $1.25.",
+   "modalities_in": [
+    "text",
+    "image",
+    "video"
+   ],
+   "modalities_out": [
+    "text"
+   ],
+   "reasoning": true,
+   "tool_use": true,
+   "tier": "efficient",
+   "best_for": [
+    "agents",
+    "multimodal",
+    "high volume",
+    "long documents",
+    "coding"
+   ],
+   "summary": "GLM-5.3-Flash is a new mixture-of-experts base model from Z.ai with about 320B total and 18B active parameters, released in August 2026 under MIT. It is the first natively multimodal GLM-5 model and combines sparse and linear attention to cut long-context serving cost. The API accepts text, images, video and files with a 1M-token context.",
+   "strengths": [
+    "MIT license",
+    "Native image, video and file input",
+    "Hybrid sparse/linear attention for cheaper long contexts"
+   ],
+   "considerations": [
+    "Thinking cannot be turned off",
+    "320B total parameters still require a multi-GPU server"
+   ],
+   "access": [
+    "Hugging Face",
+    "Ollama",
+    "API",
+    "Together AI",
+    "Fireworks"
+   ],
+   "url": "https://huggingface.co/zai-org/GLM-5.3-Flash",
+   "pricing_url": "https://docs.z.ai/guides/overview/pricing",
+   "hf_repo": "zai-org/GLM-5.3-Flash",
+   "arch": null,
+   "sources": [
+    "https://docs.z.ai/release-notes/new-released",
+    "https://docs.z.ai/guides/llm/glm-5.3-flash",
+    "https://docs.z.ai/guides/overview/pricing",
+    "https://huggingface.co/zai-org/GLM-5.3-Flash",
+    "https://huggingface.co/zai-org/GLM-5.3-Flash/raw/main/config.json",
+    "https://huggingface.co/api/models/zai-org/GLM-5.3-Flash",
+    "https://docs.together.ai/docs/serverless-models",
+    "https://docs.fireworks.ai/serverless/pricing",
+    "https://ollama.com/library"
+   ],
+   "verified": "2026-10-10"
+  },
+  {
+   "slug": "minimax-m3",
+   "name": "MiniMax-M3",
+   "provider": "minimax",
+   "family": "MiniMax M",
+   "released": "2026-06-01",
+   "status": "current",
+   "weights": "open",
+   "license": "MiniMax Community License",
+   "params_total_b": 427,
+   "params_active_b": 23,
+   "architecture": "MoE",
+   "context": 1048576,
+   "max_output": null,
+   "price_in": 0.3,
+   "price_out": 1.2,
+   "price_cached_in": 0.06,
+   "price_note": "MiniMax API standard price for prompts up to 512K tokens (shown as a permanent 50% discount); above 512K: $0.60 input / $0.12 cache read / $2.40 output. Priority tier costs 1.5x. MiniMax guarantees at least 512K of the 1M context.",
+   "modalities_in": [
+    "text",
+    "image",
+    "video"
+   ],
+   "modalities_out": [
+    "text"
+   ],
+   "reasoning": true,
+   "tool_use": true,
+   "tier": "advanced",
+   "best_for": [
+    "coding",
+    "agents",
+    "long documents",
+    "multimodal",
+    "high volume"
+   ],
+   "summary": "MiniMax-M3 is MiniMax's June 2026 flagship, a natively multimodal mixture-of-experts with about 427B total and 23B active parameters. It uses MiniMax Sparse Attention to serve contexts up to 1M tokens and offers enabled, adaptive and disabled thinking modes. Its weights are published under a community license that requires notice and attribution for commercial use.",
+   "strengths": [
+    "Low price for a 1M-context multimodal model",
+    "Adaptive thinking mode lets the model decide when to reason",
+    "Sparse attention cuts per-token compute at long context"
+   ],
+   "considerations": [
+    "Commercial use requires 'Built with MiniMax M3' attribution, and products above $20M yearly revenue need separate authorization",
+    "Military use is prohibited by the license"
+   ],
+   "access": [
+    "Hugging Face",
+    "Ollama",
+    "API",
+    "Together AI",
+    "Fireworks"
+   ],
+   "url": "https://huggingface.co/MiniMaxAI/MiniMax-M3",
+   "pricing_url": "https://platform.minimax.io/docs/guides/pricing-paygo",
+   "hf_repo": "MiniMaxAI/MiniMax-M3",
+   "arch": {
+    "layers": 60,
+    "kv_heads": 4,
+    "head_dim": 128,
+    "hidden": 6144
+   },
+   "sources": [
+    "https://platform.minimax.io/docs/release-notes/models.md",
+    "https://platform.minimax.io/docs/guides/pricing-paygo",
+    "https://www.minimax.io/models/text/m3",
+    "https://huggingface.co/MiniMaxAI/MiniMax-M3",
+    "https://huggingface.co/MiniMaxAI/MiniMax-M3/raw/main/config.json",
+    "https://huggingface.co/MiniMaxAI/MiniMax-M3/raw/main/LICENSE",
+    "https://huggingface.co/api/models/MiniMaxAI/MiniMax-M3",
+    "https://docs.together.ai/docs/serverless-models",
+    "https://docs.fireworks.ai/serverless/pricing",
+    "https://ollama.com/library"
+   ],
+   "verified": "2026-10-10"
+  },
+  {
+   "slug": "granite-4-2-30b",
+   "name": "Granite 4.2 30B",
+   "provider": "ibm",
+   "family": "Granite 4.2",
+   "released": "2026-08-25",
+   "status": "current",
+   "weights": "open",
+   "license": "Apache-2.0",
+   "params_total_b": 29.3,
+   "params_active_b": 29.3,
+   "architecture": "dense",
+   "context": 131072,
+   "max_output": null,
+   "price_in": 0.16,
+   "price_out": 0.65,
+   "price_cached_in": 0.04,
+   "price_note": "DeepInfra serverless price (131,072 context). Native context is 128K; IBM says it can be extended to 512K.",
+   "modalities_in": [
+    "text"
+   ],
+   "modalities_out": [
+    "text"
+   ],
+   "reasoning": true,
+   "tool_use": true,
+   "tier": "efficient",
+   "best_for": [
+    "enterprise",
+    "self-hosting",
+    "agents",
+    "data extraction",
+    "multilingual"
+   ],
+   "summary": "Granite 4.2 30B is the largest model in IBM's August 2026 Granite 4.2 release, a dense transformer under Apache 2.0. It reasons in think tags by default, with non-thinking and low-effort modes, and supports OpenAI-style function calling. The native context is 128K tokens, extendable to 512K.",
+   "strengths": [
+    "Apache 2.0 license",
+    "Three reasoning modes, including low-effort",
+    "Tested in 12 languages"
+   ],
+   "considerations": [
+    "Text-only input",
+    "Dense 29B weights need about 59 GB at BF16"
+   ],
+   "access": [
+    "Hugging Face",
+    "Ollama",
+    "DeepInfra"
+   ],
+   "url": "https://huggingface.co/ibm-granite/granite-4.2-30b",
+   "pricing_url": "https://deepinfra.com/ibm-granite/granite-4.2-30b",
+   "hf_repo": "ibm-granite/granite-4.2-30b",
+   "arch": {
+    "layers": 64,
+    "kv_heads": 8,
+    "head_dim": 128,
+    "hidden": 4096
+   },
+   "sources": [
+    "https://huggingface.co/ibm-granite/granite-4.2-30b",
+    "https://huggingface.co/ibm-granite/granite-4.2-30b/raw/main/config.json",
+    "https://huggingface.co/api/models/ibm-granite/granite-4.2-30b",
+    "https://deepinfra.com/ibm-granite/granite-4.2-30b",
+    "https://www.ibm.com/granite",
+    "https://ollama.com/library"
+   ],
+   "verified": "2026-10-10"
+  },
+  {
+   "slug": "granite-4-2-8b",
+   "name": "Granite 4.2 8B",
+   "provider": "ibm",
+   "family": "Granite 4.2",
+   "released": "2026-08-25",
+   "status": "current",
+   "weights": "open",
+   "license": "Apache-2.0",
+   "params_total_b": 8.8,
+   "params_active_b": 8.8,
+   "architecture": "dense",
+   "context": 131072,
+   "max_output": null,
+   "price_in": 0.06,
+   "price_out": 0.25,
+   "price_cached_in": 0.015,
+   "price_note": "DeepInfra serverless price (131,072 context). Native context is 128K; IBM says it can be extended to 512K.",
+   "modalities_in": [
+    "text"
+   ],
+   "modalities_out": [
+    "text"
+   ],
+   "reasoning": true,
+   "tool_use": true,
+   "tier": "compact",
+   "best_for": [
+    "enterprise",
+    "self-hosting",
+    "low latency",
+    "fine-tuning",
+    "data extraction"
+   ],
+   "summary": "Granite 4.2 8B is the mid-size model of IBM's Granite 4.2 family, released in August 2026 under Apache 2.0. It shares the 30B model's thinking, non-thinking and low-effort modes and OpenAI-style function calling. At about 9B parameters it fits a single 24 GB GPU at BF16.",
+   "strengths": [
+    "Fits a 24 GB GPU without quantization",
+    "Apache 2.0 license",
+    "Reasoning before tool calls"
+   ],
+   "considerations": [
+    "Text-only input",
+    "Lower ceiling on complex tasks than larger open models"
+   ],
+   "access": [
+    "Hugging Face",
+    "Ollama",
+    "DeepInfra"
+   ],
+   "url": "https://huggingface.co/ibm-granite/granite-4.2-8b",
+   "pricing_url": "https://deepinfra.com/ibm-granite/granite-4.2-8b",
+   "hf_repo": "ibm-granite/granite-4.2-8b",
+   "arch": {
+    "layers": 40,
+    "kv_heads": 8,
+    "head_dim": 128,
+    "hidden": 4096
+   },
+   "sources": [
+    "https://huggingface.co/ibm-granite/granite-4.2-8b",
+    "https://huggingface.co/ibm-granite/granite-4.2-8b/raw/main/config.json",
+    "https://huggingface.co/api/models/ibm-granite/granite-4.2-8b",
+    "https://deepinfra.com/ibm-granite/granite-4.2-8b",
+    "https://www.ibm.com/granite",
+    "https://ollama.com/library"
+   ],
+   "verified": "2026-10-10"
+  },
+  {
+   "slug": "olmo-3-1-32b-think",
+   "name": "Olmo 3.1 32B Think",
+   "provider": "ai2",
+   "family": "Olmo 3",
+   "released": "2025-12-12",
+   "status": "current",
+   "weights": "open",
+   "license": "Apache-2.0",
+   "params_total_b": 32,
+   "params_active_b": 32,
+   "architecture": "dense",
+   "context": 65536,
+   "max_output": null,
+   "price_in": null,
+   "price_out": null,
+   "price_cached_in": null,
+   "price_note": "No serverless price found on the official pricing pages of Together AI, Fireworks, DeepInfra or Groq as of 2026-10-10; Ai2 lists OpenRouter and its own playground as access points.",
+   "modalities_in": [
+    "text"
+   ],
+   "modalities_out": [
+    "text"
+   ],
+   "reasoning": true,
+   "tool_use": false,
+   "tier": "efficient",
+   "best_for": [
+    "research",
+    "reasoning",
+    "fine-tuning",
+    "self-hosting"
+   ],
+   "summary": "Olmo 3.1 32B Think is Ai2's fully open reasoning model, updated in December 2025, with weights, training data, code and intermediate checkpoints all published. It is a dense 32B model that writes long chain-of-thought for math and coding. Ai2 releases it under Apache 2.0 for research and education.",
+   "strengths": [
+    "Training data (Dolma 3, Dolci), code and checkpoints all released",
+    "Apache 2.0 license",
+    "Well suited to reinforcement-learning research"
+   ],
+   "considerations": [
+    "65K context window",
+    "English-focused and text-only; tool use is not documented for this variant"
+   ],
+   "access": [
+    "Hugging Face",
+    "Ollama",
+    "OpenRouter",
+    "Ai2 Playground"
+   ],
+   "url": "https://huggingface.co/allenai/Olmo-3.1-32B-Think",
+   "pricing_url": null,
+   "hf_repo": "allenai/Olmo-3.1-32B-Think",
+   "arch": {
+    "layers": 64,
+    "kv_heads": 8,
+    "head_dim": 128,
+    "hidden": 5120
+   },
+   "sources": [
+    "https://allenai.org/blog/olmo3",
+    "https://allenai.org/olmo",
+    "https://huggingface.co/allenai/Olmo-3.1-32B-Think",
+    "https://huggingface.co/allenai/Olmo-3.1-32B-Think/raw/main/config.json",
+    "https://ollama.com/library"
+   ],
+   "verified": "2026-10-10"
+  }
+ ],
+ "providers": [
+  {
+   "slug": "meta",
+   "name": "Meta",
+   "hq": "Menlo Park, United States",
+   "founded": 2004,
+   "url": "https://ai.meta.com/",
+   "api_url": "https://dev.meta.ai/docs/",
+   "summary": "Meta builds AI for its own apps and publishes models through Meta Superintelligence Labs. Its lineup now spans the Llama 4 models from 2025, the hosted Muse Spark models sold through the Meta Model API, and the open-weight Muse Glimmer 30B released in August 2026. Developers can download open weights from Hugging Face or call Meta-hosted and third-party APIs.",
+   "consumer_app": "Meta AI",
+   "open_weights": "Llama 4 Scout and Maverick under the Llama 4 Community License; Muse Glimmer 30B under Apache 2.0. Muse Spark is API-only."
+  },
+  {
+   "slug": "mistral",
+   "name": "Mistral AI",
+   "hq": "Paris, France",
+   "founded": 2023,
+   "url": "https://mistral.ai/",
+   "api_url": "https://docs.mistral.ai/",
+   "summary": "Mistral AI is a French model developer that sells API access through Mistral Studio and its Le Chat assistant, and offers sovereign European deployments. Its current generalist lineup runs from Ministral 3 edge models through Mistral Small 4 and Medium 3.5 to Mistral Large 3, with Large 4 in public preview since October 2026. Most general models ship as open weights, while specialist models such as Codestral and OCR stay API-only.",
+   "consumer_app": "Le Chat",
+   "open_weights": "Most generalist models are open: Apache 2.0 for Ministral 3, Small 4 and Large 3; a modified MIT license with a revenue cap for Medium 3.5. Large 4 weights are promised for October 2026. Codestral and OCR models are proprietary."
+  },
+  {
+   "slug": "deepseek",
+   "name": "DeepSeek",
+   "hq": "Hangzhou, China",
+   "founded": 2023,
+   "url": "https://www.deepseek.com/",
+   "api_url": "https://api-docs.deepseek.com/",
+   "summary": "DeepSeek is a Chinese AI lab that publishes large mixture-of-experts models with open weights and runs a low-cost first-party API. Its V4 generation (April 2026) introduced 1M-token context, and V4.1-Flash (September 2026) moved to a new encoder-decoder architecture with image input. The API uses OpenAI- and Anthropic-compatible formats and charges half price outside peak hours.",
+   "consumer_app": "DeepSeek",
+   "open_weights": "Recent models, including DeepSeek-V4-Pro and V4.1-Flash, are released under the MIT license on Hugging Face."
+  },
+  {
+   "slug": "alibaba",
+   "name": "Alibaba (Qwen)",
+   "hq": "Hangzhou, China",
+   "founded": 1999,
+   "url": "https://qwen.ai/",
+   "api_url": "https://www.alibabacloud.com/help/en/model-studio/models",
+   "summary": "Alibaba's Qwen team builds one of the largest open model families, from sub-1B models to multi-trillion-parameter mixtures of experts. As of October 2026, Qwen3.8 is the current generation: Qwen3.8-Max and Qwen3.8-Flash are served through Alibaba Cloud Model Studio alongside Qwen3.7-Plus, and open checkpoints include Qwen3.8-27B and Qwen3.8-2.4T-A95B. Most small and mid-size models use Apache 2.0, while the largest open releases carry custom licenses.",
+   "consumer_app": "Qwen Chat",
+   "open_weights": "Dense and small MoE models (for example Qwen3.8-27B and Qwen3.6-35B-A3B) under Apache 2.0; Qwen3.8-2.4T-A95B under the Qwen3.8-Max License and Qwen3.8-Flash-Next under the Qwen Community License, both requiring a separate license for some large commercial services."
+  },
+  {
+   "slug": "google",
+   "name": "Google (Gemma)",
+   "hq": "Mountain View, United States",
+   "founded": 1998,
+   "url": "https://ai.google.dev/gemma",
+   "api_url": "https://huggingface.co/google",
+   "summary": "Google DeepMind's Gemma family is the open-weight counterpart to its Gemini models. Gemma 4, released from March 2026, includes on-device E2B and E4B models, a 12B unified model added in June, a 26B mixture-of-experts and a 31B dense model, all with configurable thinking. Developers download the weights from Hugging Face or run them through Ollama and other local runtimes.",
+   "consumer_app": null,
+   "open_weights": "Gemma 4 weights are released under Apache 2.0; earlier Gemma generations used the Gemma Terms of Use."
+  },
+  {
+   "slug": "openai",
+   "name": "OpenAI",
+   "hq": "San Francisco, United States",
+   "founded": 2015,
+   "url": "https://openai.com/",
+   "api_url": "https://openai.com/open-models/",
+   "summary": "OpenAI is best known for its proprietary GPT models and ChatGPT. In August 2025 it released gpt-oss-120b and gpt-oss-20b, its first open-weight language models since GPT-2. Both are reasoning models with adjustable effort, available on Hugging Face and through most major inference providers and cloud platforms.",
+   "consumer_app": "ChatGPT",
+   "open_weights": "gpt-oss-120b and gpt-oss-20b, plus the gpt-oss-safeguard safety reasoning models, under Apache 2.0; all other GPT models are proprietary."
+  },
+  {
+   "slug": "microsoft",
+   "name": "Microsoft (Phi)",
+   "hq": "Redmond, United States",
+   "founded": 1975,
+   "url": "https://huggingface.co/microsoft",
+   "api_url": "https://huggingface.co/microsoft",
+   "summary": "Microsoft Research's Phi family focuses on small language models trained heavily on synthetic and curated data. The current lineup includes Phi-4, Phi-4-mini, the Phi-4-reasoning models and the March 2026 Phi-4-reasoning-vision-15B. Models are published on Hugging Face under MIT, with ONNX and GGUF builds for local use.",
+   "consumer_app": null,
+   "open_weights": "Phi models, including Phi-4-mini-instruct and Phi-4-reasoning-vision-15B, are released under the MIT license."
+  },
+  {
+   "slug": "nvidia",
+   "name": "NVIDIA",
+   "hq": "Santa Clara, United States",
+   "founded": 1993,
+   "url": "https://huggingface.co/nvidia",
+   "api_url": "https://build.nvidia.com/",
+   "summary": "NVIDIA publishes the Nemotron family of open models alongside its GPUs and NIM inference software. The Nemotron 3 family spans Nano, Super (120B, March 2026) and Ultra (550B, June 2026), with Super and Ultra using a hybrid Mamba-2/Transformer mixture-of-experts design, and Nemotron 3.5 Lightning followed in August 2026. NVIDIA hosts the models for testing on build.nvidia.com.",
+   "consumer_app": null,
+   "open_weights": "Nemotron 3 Ultra and Nemotron 3.5 Lightning use the OpenMDW 1.1 license; Nemotron 3 Super uses the NVIDIA Nemotron Open Model License."
+  },
+  {
+   "slug": "moonshot",
+   "name": "Moonshot AI",
+   "hq": "Beijing, China",
+   "founded": 2023,
+   "url": "https://www.kimi.ai/",
+   "api_url": "https://platform.kimi.ai/docs/",
+   "summary": "Moonshot AI develops the Kimi assistant and the Kimi family of large mixture-of-experts models. Kimi K3, released in July 2026, has 2.8T parameters and a 1M-token context, following Kimi K2.6 and the coding-focused K2.7 Code. The Kimi API is OpenAI- and Anthropic-compatible, and weights are published on Hugging Face.",
+   "consumer_app": "Kimi",
+   "open_weights": "Kimi K2.6 uses a modified MIT license; Kimi K3 uses the Kimi K3 License, which requires a separate agreement for large Model-as-a-Service providers and attribution in very large products."
+  },
+  {
+   "slug": "zhipu",
+   "name": "Z.ai (Zhipu AI)",
+   "hq": "Beijing, China",
+   "founded": 2019,
+   "url": "https://z.ai/",
+   "api_url": "https://docs.z.ai/",
+   "summary": "Z.ai, the international brand of Zhipu AI, is a Tsinghua University spin-off that develops the GLM model family. Its GLM-5 series (2026) includes the flagship GLM-5.3 and the multimodal GLM-5.3-Flash, both with 1M-token contexts and always-on reasoning. Models are sold through the Z.ai API and a coding subscription, and weights are published on Hugging Face.",
+   "consumer_app": "Z.ai Chat",
+   "open_weights": "Most GLM-5 models are MIT licensed; GLM-5.3 uses an MIT-style GLM-5.3 License that requires a security review only for MaaS providers above $10B revenue."
+  },
+  {
+   "slug": "minimax",
+   "name": "MiniMax",
+   "hq": "Shanghai, China",
+   "founded": 2021,
+   "url": "https://www.minimax.io/",
+   "api_url": "https://platform.minimax.io/docs/",
+   "summary": "MiniMax is a Chinese AI company that builds language, speech, music and video models. Its text flagship, MiniMax-M3 (June 2026), is a natively multimodal mixture-of-experts with a 1M-token context, following the M2.5 and M2.7 models. Developers use the MiniMax API or download weights from Hugging Face.",
+   "consumer_app": "MiniMax Agent",
+   "open_weights": "MiniMax-M3 weights are published under the MiniMax Community License, which is non-commercial by default and allows commercial use with notice, attribution and, above $20M yearly revenue, separate authorization."
+  },
+  {
+   "slug": "ibm",
+   "name": "IBM",
+   "hq": "Armonk, United States",
+   "founded": 1911,
+   "url": "https://www.ibm.com/granite",
+   "api_url": "https://huggingface.co/ibm-granite",
+   "summary": "IBM develops the Granite family of open models for enterprise use, covering language, vision, speech, guardrails, embeddings and time-series forecasting. Granite 4.2 (August 2026) offers dense 3B, 8B and 30B language models with built-in reasoning modes. Models are available on Hugging Face, Ollama and IBM watsonx.ai.",
+   "consumer_app": null,
+   "open_weights": "Granite language models are released under Apache 2.0."
+  },
+  {
+   "slug": "ai2",
+   "name": "Ai2 (Allen Institute for AI)",
+   "hq": "Seattle, United States",
+   "founded": 2014,
+   "url": "https://allenai.org/olmo",
+   "api_url": "https://docs.allenai.org/models/olmo",
+   "summary": "Ai2 is a non-profit research institute founded by Paul Allen. Its OLMo family is fully open: Ai2 publishes the weights, training data, code and intermediate checkpoints. The current Olmo 3 and 3.1 models come in 7B and 32B sizes with Think and Instruct variants, joined in early 2026 by Olmo Hybrid 7B, which mixes Gated DeltaNet and attention layers.",
+   "consumer_app": null,
+   "open_weights": "OLMo models are released under Apache 2.0, together with their training datasets and code."
+  }
+ ]
+}
