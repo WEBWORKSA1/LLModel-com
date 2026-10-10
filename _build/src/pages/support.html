@@ -1,0 +1,100 @@
+<!--meta
+{
+  "slug": "support",
+  "title": "Support LLModel: Keep the LLM Field Guide Free and Independent",
+  "h1": "Keep LLModel free and independent",
+  "lede": "LLModel has no paywall and no provider pays for rankings. Reader support pays for the slow, unglamorous work: re-checking prices against provider docs, building new tools, funding contest prizes and hiring writers.",
+  "head_meta": ["One-time or monthly", "Contributions aren't tax-deductible"],
+  "description": "Support LLModel.com with a one-time or monthly contribution. Reader support funds data verification, new free tools, contest prizes, promotion and new writers and researchers.",
+  "section": "",
+  "crumbs": [["Home", "index.html"], ["Support us", null]],
+  "scripts": ["pages/support.js"],
+  "priority": 0.5,
+  "faq": [
+    {"q": "Is my contribution tax-deductible?", "a": "No. LLModel.com is an independent publication, not a registered charity, so contributions aren't tax-deductible."},
+    {"q": "Does supporting LLModel buy any influence?", "a": "No. Supporters, sponsors and advertisers have no say over rankings, comparisons or editorial text. That independence is the point of reader support."},
+    {"q": "How do I pay after pledging?", "a": "We email you a secure payment link for the amount and frequency you chose, usually within one business day. Nothing is charged until you complete that link, and you can cancel a monthly contribution anytime."},
+    {"q": "Can my company support LLModel?", "a": "Yes. Companies can sponsor a contest prize pool or a tool, which is labeled as sponsorship. See the advertise page or use the pledge form and mention your company."}
+  ]
+}
+-->
+<div class="wrap grid grid--sidebar">
+  <div>
+    <section class="panel" aria-labelledby="give-h">
+      <h2 class="h2" id="give-h">Choose an amount</h2>
+      <form class="form" data-form="pledge" data-subject="Support pledge" data-replace data-success-title="Thank you" data-success="Your pledge is in. We'll email you a secure payment link within 1 business day. Nothing is charged until you use it." novalidate style="margin-top:1rem">
+        <fieldset class="field"><legend>Amount (US dollars)</legend>
+          <div class="pills" id="sp-amounts">
+            <label class="pill"><input type="radio" name="amount" value="5"><span>$5</span></label>
+            <label class="pill"><input type="radio" name="amount" value="15" checked><span>$15</span></label>
+            <label class="pill"><input type="radio" name="amount" value="50"><span>$50</span></label>
+            <label class="pill"><input type="radio" name="amount" value="100"><span>$100</span></label>
+            <label class="pill"><input type="radio" name="amount" value="other"><span>Other</span></label>
+          </div>
+          <div class="field" id="sp-other-wrap" hidden style="margin-top:.6rem"><label for="sp-other">Your amount</label><input class="input" id="sp-other" name="other_amount" type="number" min="1" step="1" inputmode="numeric" style="max-width:10rem"></div>
+        </fieldset>
+        <fieldset class="field"><legend>How often</legend><div class="pills">
+          <label class="pill"><input type="radio" name="frequency" value="one-time" checked><span>One time</span></label>
+          <label class="pill"><input type="radio" name="frequency" value="monthly"><span>Monthly</span></label></div></fieldset>
+        <div class="field"><label for="sp-alloc">Where should it go?</label>
+          <select class="select" id="sp-alloc" name="allocation"><option>Wherever it's needed most</option><option>Data checks and operations</option><option>Hiring writers, researchers and developers</option><option>Contest prizes</option><option>Promotion and marketing</option></select></div>
+
+        <div data-donate-wrap hidden>
+          <p class="small muted" style="margin-bottom:.5rem">Pay now with:</p>
+          <div class="btn-row">
+            <a class="btn btn--ghost btn--sm" data-donate="paypal" hidden target="_blank" rel="noopener" href="#">PayPal</a>
+            <a class="btn btn--ghost btn--sm" data-donate="stripe" hidden target="_blank" rel="noopener" href="#">Card (Stripe)</a>
+            <a class="btn btn--ghost btn--sm" data-donate="buymeacoffee" hidden target="_blank" rel="noopener" href="#">Buy Me a Coffee</a>
+            <a class="btn btn--ghost btn--sm" data-donate="kofi" hidden target="_blank" rel="noopener" href="#">Ko-fi</a>
+            <a class="btn btn--ghost btn--sm" data-donate="patreon" hidden target="_blank" rel="noopener" href="#">Patreon</a>
+            <a class="btn btn--ghost btn--sm" data-donate="githubSponsors" hidden target="_blank" rel="noopener" href="#">GitHub Sponsors</a>
+          </div>
+          <p class="small muted" style="margin:.75rem 0 0">Or pledge below and we'll send you a payment link.</p>
+        </div>
+
+        <div class="form-row">
+          <div class="field"><label for="sp-name">Name <span class="muted">(optional)</span></label><input class="input" id="sp-name" name="name" autocomplete="name"></div>
+          <div class="field"><label for="sp-email">Email<span class="req" aria-hidden="true">*</span></label><input class="input" id="sp-email" name="email" type="email" required autocomplete="email"></div>
+        </div>
+        <div class="field"><label for="sp-msg">Message <span class="muted">(optional)</span></label><textarea class="textarea" id="sp-msg" name="message" rows="2" maxlength="500"></textarea></div>
+        <label class="check"><input type="checkbox" name="credit" value="yes"> Thank me by name on the supporters list.</label>
+        {{honeypot}}
+        <button class="btn btn--primary" type="submit">Pledge support</button>
+        <div class="form-status" role="status" aria-live="polite"></div>
+      </form>
+    </section>
+
+    <section aria-labelledby="where-h" style="margin-top:2.5rem">
+      <h2 class="h2" id="where-h" style="margin-bottom:1rem">Where the money goes</h2>
+      <div class="alloc">
+        <div class="alloc-row"><span>Data checks and operations</span><span class="b-track"><span class="b-fill" style="width:35%;background:var(--v2)"></span></span><span class="tnum">35%</span></div>
+        <div class="alloc-row"><span>Hiring writers, researchers and developers</span><span class="b-track"><span class="b-fill" style="width:25%;background:var(--v4)"></span></span><span class="tnum">25%</span></div>
+        <div class="alloc-row"><span>Contests and prizes</span><span class="b-track"><span class="b-fill" style="width:20%;background:var(--v6)"></span></span><span class="tnum">20%</span></div>
+        <div class="alloc-row"><span>Promotion and marketing</span><span class="b-track"><span class="b-fill" style="width:20%;background:var(--v8)"></span></span><span class="tnum">20%</span></div>
+      </div>
+      <p class="small muted" style="margin-top:.75rem">Our target split for general contributions. If you choose a specific purpose above, your money goes there.</p>
+      <div class="prose" style="margin-top:1.5rem">
+        <h3 id="what">What support pays for</h3>
+        <ul>
+          <li><strong>Data checks.</strong> Re-verifying prices, context windows and licenses against provider documentation, and API credits to test models ourselves.</li>
+          <li><strong>New tools.</strong> More calculators, deeper comparisons and features readers ask for.</li>
+          <li><strong>People.</strong> Paying writers, researchers, developers and video producers to cover more models in more depth.</li>
+          <li><strong>Contests.</strong> Prize pools that reward practical, efficient work with LLMs.</li>
+          <li><strong>Reach.</strong> Getting the guides and tools in front of the people who need them.</li>
+        </ul>
+      </div>
+    </section>
+  </div>
+  <aside class="aside-box">
+    <h2>Other ways to help</h2>
+    <ul>
+      <li><a href="newsletter.html">Subscribe to The LLM Brief</a></li>
+      <li>Share a guide or tool with your team</li>
+      <li><a href="contact.html?topic=correction">Send a correction</a> when you spot one</li>
+      <li><a href="contests.html">Enter or sponsor a contest</a></li>
+      <li><a href="careers.html">Write or build with us</a></li>
+    </ul>
+    <h2 style="margin-top:1.25rem">For companies</h2>
+    <p class="small muted" style="margin-top:.4rem">Sponsor a prize pool or a tool, clearly labeled. <a href="advertise.html">See sponsorship options</a>.</p>
+  </aside>
+</div>
