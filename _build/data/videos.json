@@ -1,0 +1,421 @@
+{
+  "verified": "2026-10-10",
+  "videos": [
+    {
+      "id": "zjkBMFhNj_g",
+      "title": "[1hr Talk] Intro to Large Language Models",
+      "channel": "Andrej Karpathy",
+      "uploaded": "2023-11-23",
+      "duration": "59:48",
+      "category": "Fundamentals",
+      "level": "Beginner",
+      "summary": "A one-hour tour of what a large language model is, how one gets trained, and where it still falls short, presented without heavy math. It suits newcomers who want a complete mental model before reading about any single technique.",
+      "takeaways": [
+        "An LLM is a big file of learned parameters plus a small program that runs it",
+        "Pretraining on huge text collections builds knowledge; fine-tuning shapes assistant behavior",
+        "Tool use and security problems such as jailbreaks and prompt injection are open challenges"
+      ],
+      "guide": "what-is-a-large-language-model"
+    },
+    {
+      "id": "LPZh9BOjkQs",
+      "title": "Large Language Models explained briefly",
+      "channel": "3Blue1Brown",
+      "uploaded": "2024-11-20",
+      "duration": "07:57",
+      "category": "Fundamentals",
+      "level": "Beginner",
+      "summary": "A short, animated primer on how a language model predicts the next word, how training tunes billions of parameters, and what makes transformers different. It works as a first stop for beginners and as a quick refresher for everyone else.",
+      "takeaways": [
+        "Chat replies come from repeatedly predicting likely next words",
+        "Training tweaks vast numbers of parameters using huge amounts of text",
+        "Human feedback after pretraining makes the model more useful as an assistant"
+      ],
+      "guide": "what-is-a-large-language-model"
+    },
+    {
+      "id": "7xTGNNLPyMI",
+      "title": "Deep Dive into LLMs like ChatGPT",
+      "channel": "Andrej Karpathy",
+      "uploaded": null,
+      "duration": null,
+      "category": "Fundamentals",
+      "level": "Intermediate",
+      "summary": "A multi-hour walkthrough of the full pipeline behind assistants like ChatGPT, from gathering web text and tokenizing it to pretraining, supervised fine-tuning and reinforcement learning. It rewards technical readers and curious builders who want a durable picture of how modern models are made and why they behave as they do.",
+      "takeaways": [
+        "How web text becomes tokens and then a pretrained base model",
+        "How post-training and reinforcement learning turn that base model into an assistant",
+        "Why hallucinations and uneven skills follow from how models are trained"
+      ],
+      "guide": "how-llms-work"
+    },
+    {
+      "id": "KL_hBC3XcrY",
+      "title": "Open Source vs Open Weight AI Models Explained",
+      "channel": "KodeKloud",
+      "uploaded": null,
+      "duration": null,
+      "category": "Fundamentals",
+      "level": "Beginner",
+      "summary": "Draws the line between fully open-source AI and models that only publish their weights, and why that difference matters in practice. It helps developers and decision-makers read vendor claims about \"open\" models with more care.",
+      "takeaways": [
+        "What open weights does and does not give you",
+        "How license terms can limit use, modification and redistribution",
+        "What to check before building a product on an open model"
+      ],
+      "guide": "open-source-vs-closed-llms"
+    },
+    {
+      "id": "wjZofJX0v4M",
+      "title": "Transformers, the tech behind LLMs | Deep Learning Chapter 5",
+      "channel": "3Blue1Brown",
+      "uploaded": "2024-04-01",
+      "duration": "27:14",
+      "category": "How transformers work",
+      "level": "Intermediate",
+      "summary": "A visual walkthrough of how a GPT-style transformer turns text into tokens, embeddings and finally a probability distribution over the next token. It is a strong fit for readers who want the architecture explained with geometric intuition before meeting the math.",
+      "takeaways": [
+        "How tokens become embedding vectors that carry meaning",
+        "Where attention blocks and feed-forward layers sit in the stack",
+        "How the last step produces next-token probabilities, and what temperature changes"
+      ],
+      "guide": "how-llms-work"
+    },
+    {
+      "id": "eMlx5fFNoYc",
+      "title": "Attention in transformers, step-by-step | Deep Learning Chapter 6",
+      "channel": "3Blue1Brown",
+      "uploaded": "2024-04-07",
+      "duration": "26:09",
+      "category": "How transformers work",
+      "level": "Intermediate",
+      "summary": "Builds up the attention mechanism piece by piece using queries, keys and values, then adds masking and multiple heads. It is aimed at readers comfortable with basic linear algebra who want to see what attention actually computes.",
+      "takeaways": [
+        "How queries and keys score which tokens matter to each other",
+        "Why masking keeps the model from peeking at future tokens",
+        "How multiple heads let the model track several relationships at once"
+      ],
+      "guide": "how-llms-work"
+    },
+    {
+      "id": "zxQyTK8quyY",
+      "title": "Transformer Neural Networks, ChatGPT's foundation, Clearly Explained!!!",
+      "channel": "StatQuest with Josh Starmer",
+      "uploaded": null,
+      "duration": null,
+      "category": "How transformers work",
+      "level": "Intermediate",
+      "summary": "Josh Starmer's patient, step-by-step walkthrough of the original encoder-decoder transformer, tracked through a small translation example. It is a good second pass for learners who found faster explanations hard to follow.",
+      "takeaways": [
+        "How word embeddings and positional encoding prepare the input",
+        "How self-attention lets each word weigh the others",
+        "How residual connections and the decoder complete the architecture"
+      ],
+      "guide": "how-llms-work"
+    },
+    {
+      "id": "kCc8FmEb1nY",
+      "title": "Let's build GPT: from scratch, in code, spelled out.",
+      "channel": "Andrej Karpathy",
+      "uploaded": "2023-01-17",
+      "duration": "1:56:20",
+      "category": "How transformers work",
+      "level": "Advanced",
+      "summary": "A coding session that builds a small GPT in PyTorch from an empty file and trains it on Shakespeare text. It is meant for programmers comfortable with Python who want to see attention and the transformer block written out line by line.",
+      "takeaways": [
+        "How self-attention reduces to a few matrix operations",
+        "How blocks with residual connections and layer norm stack into a GPT",
+        "How the small model relates to the scaled-up models behind ChatGPT"
+      ],
+      "guide": "how-llms-work"
+    },
+    {
+      "id": "EWvNQjAaOHw",
+      "title": "How I use LLMs",
+      "channel": "Andrej Karpathy",
+      "uploaded": null,
+      "duration": null,
+      "category": "Using LLMs well",
+      "level": "Beginner",
+      "summary": "Karpathy shows his everyday workflow with chat assistants, from choosing between standard and reasoning models to using search, uploaded files and code tools. It is useful for working professionals who already use an assistant and want a more deliberate routine.",
+      "takeaways": [
+        "How to match the model type to the kind of task",
+        "When search, deep research or code execution is worth switching on",
+        "How context, memory and custom instructions change the answers you get"
+      ],
+      "guide": "how-to-choose-an-llm"
+    },
+    {
+      "id": "T9aRN5JkmL8",
+      "title": "AI prompt engineering: A deep dive",
+      "channel": "Anthropic",
+      "uploaded": null,
+      "duration": null,
+      "category": "Using LLMs well",
+      "level": "Intermediate",
+      "summary": "Anthropic specialists discuss what prompt engineering really involves: communicating clearly, testing against real outputs, and learning how a model reads instructions. It suits anyone who writes prompts often and wants working habits rather than a list of tricks.",
+      "takeaways": [
+        "Why clear, specific instructions beat clever phrasing",
+        "How to iterate by reading outputs and studying failures",
+        "How context and examples remove ambiguity for the model"
+      ],
+      "guide": "prompt-engineering-guide"
+    },
+    {
+      "id": "ysPbXH0LpIE",
+      "title": "Prompting 101 | Code w/ Claude",
+      "channel": "Anthropic",
+      "uploaded": null,
+      "duration": null,
+      "category": "Using LLMs well",
+      "level": "Intermediate",
+      "summary": "Anthropic engineers build a real prompt step by step, showing how to organize the task, supply context, add examples and fix an output format. It helps developers and analysts turn a rough one-off prompt into one that behaves consistently.",
+      "takeaways": [
+        "A reusable structure for prompts: task, context, rules, examples, format",
+        "How to improve a prompt by testing it against realistic inputs",
+        "Why a defined output format makes results easier to use"
+      ],
+      "guide": "prompt-engineering-guide"
+    },
+    {
+      "id": "-QVoIxEpFkM",
+      "title": "What is a Context Window? Unlocking LLM Secrets",
+      "channel": "IBM Technology",
+      "uploaded": null,
+      "duration": null,
+      "category": "Using LLMs well",
+      "level": "Beginner",
+      "summary": "Explains the context window as a model's working memory, counted in tokens, and how it limits what an LLM can take in during one session. It is a quick primer for anyone who has hit a length limit or wondered why long chats drift off course.",
+      "takeaways": [
+        "What a context window is and how tokens count against it",
+        "Why the prompt, chat history and answer all share the same space",
+        "Why bigger windows help but are not a free fix"
+      ],
+      "guide": "context-windows-explained"
+    },
+    {
+      "id": "kDY4TodQwbg",
+      "title": "What are Large Language Model (LLM) Benchmarks?",
+      "channel": "IBM Technology",
+      "uploaded": null,
+      "duration": null,
+      "category": "Using LLMs well",
+      "level": "Beginner",
+      "summary": "Introduces the standardized tests used to compare language models and what their scores can and cannot tell you. It gives buyers and developers a starting point for reading leaderboard numbers with context.",
+      "takeaways": [
+        "What an LLM benchmark is and which skills it tries to measure",
+        "How scores are produced so different models can be compared",
+        "Why a benchmark score is a starting point for your own testing"
+      ],
+      "guide": "llm-benchmarks-explained"
+    },
+    {
+      "id": "-0HRzXk8vlk",
+      "title": "Why AI Tokens are so Expensive - Computerphile",
+      "channel": "Computerphile",
+      "uploaded": null,
+      "duration": null,
+      "category": "Using LLMs well",
+      "level": "Beginner",
+      "summary": "Computerphile asks why AI tokens cost what they do, the question behind every per-token price on an API rate card. It is helpful background for anyone budgeting for LLM usage who wants the reasoning, not only the numbers.",
+      "takeaways": [
+        "What a token is and why usage is metered in tokens",
+        "What makes producing tokens costly for the provider",
+        "How to connect those costs to the prices and limits you see in practice"
+      ],
+      "guide": "llm-api-pricing-explained"
+    },
+    {
+      "id": "T-D1OfcDW1M",
+      "title": "What is Retrieval-Augmented Generation (RAG)?",
+      "channel": "IBM Technology",
+      "uploaded": null,
+      "duration": null,
+      "category": "Building with LLMs",
+      "level": "Beginner",
+      "summary": "A short whiteboard explanation of retrieval-augmented generation, where the system fetches relevant documents and hands them to the model alongside the question. It is a good first introduction for product managers and developers meeting RAG for the first time.",
+      "takeaways": [
+        "Why a plain LLM can be out of date and unable to cite sources",
+        "How a retriever supplies relevant content at question time",
+        "How RAG improves freshness and lets an assistant admit it does not know"
+      ],
+      "guide": "rag-explained"
+    },
+    {
+      "id": "zYGDpG-pTho",
+      "title": "RAG vs Fine-Tuning vs Prompt Engineering: Optimizing AI Models",
+      "channel": "IBM Technology",
+      "uploaded": null,
+      "duration": null,
+      "category": "Building with LLMs",
+      "level": "Beginner",
+      "summary": "Compares three ways to adapt a model to your needs: write better instructions, retrieve outside knowledge at runtime, or train the model further on your data. It works as a practical decision aid for teams choosing where to invest first.",
+      "takeaways": [
+        "What each technique changes: instructions, knowledge or model behavior",
+        "How cost and effort differ across the three",
+        "Typical situations where each approach is the best fit"
+      ],
+      "guide": "fine-tuning-vs-rag-vs-prompting"
+    },
+    {
+      "id": "ahnGLM-RC1Y",
+      "title": "A Survey of Techniques for Maximizing LLM Performance",
+      "channel": "OpenAI",
+      "uploaded": null,
+      "duration": null,
+      "category": "Building with LLMs",
+      "level": "Intermediate",
+      "summary": "OpenAI engineers lay out a framework for improving an LLM application: start with prompting and evaluation, then add retrieval for missing knowledge or fine-tuning for consistent behavior. It is aimed at developers with a working prototype who need a disciplined path to better accuracy.",
+      "takeaways": [
+        "Why missing-knowledge problems and behavior problems need different fixes",
+        "How prompt engineering, RAG and fine-tuning combine in practice",
+        "Why evaluation should come before each optimization step"
+      ],
+      "guide": "fine-tuning-vs-rag-vs-prompting"
+    },
+    {
+      "id": "F8NKVhkZZWI",
+      "title": "What are AI Agents?",
+      "channel": "IBM Technology",
+      "uploaded": null,
+      "duration": null,
+      "category": "Building with LLMs",
+      "level": "Beginner",
+      "summary": "An accessible explanation of AI agents as LLM-driven systems that plan steps, call tools and act on the results instead of answering a single prompt. It helps non-specialists and managers separate real agent behavior from a chatbot with a new label.",
+      "takeaways": [
+        "How an agent differs from a one-shot chatbot reply",
+        "The roles of planning, memory and tool access",
+        "Why more autonomy raises reliability and oversight questions"
+      ],
+      "guide": "ai-agents-explained"
+    },
+    {
+      "id": "LCEmiRjPEtQ",
+      "title": "Andrej Karpathy: Software Is Changing (Again)",
+      "channel": "Y Combinator",
+      "uploaded": "2025-06-19",
+      "duration": "39:31",
+      "category": "Building with LLMs",
+      "level": "Intermediate",
+      "summary": "Karpathy's AI Startup School keynote frames LLMs as a new kind of computer programmed in plain English, then covers their quirks and how to build products around them. It is a strong pick for founders and engineers who want a big-picture view of where LLM-based software is heading.",
+      "takeaways": [
+        "The Software 1.0, 2.0 and 3.0 framing for how programming is changing",
+        "Model quirks to design around, such as uneven skills and limited memory",
+        "How apps keep a human in the loop to verify AI output"
+      ],
+      "guide": "ai-agents-explained"
+    },
+    {
+      "id": "90ozfdsQOKo",
+      "title": "Getting Started on Ollama",
+      "channel": "Matt Williams",
+      "uploaded": null,
+      "duration": null,
+      "category": "Running models locally",
+      "level": "Beginner",
+      "summary": "A hands-on introduction to installing Ollama and running an open model on your own machine from the command line. It suits developers and tinkerers who want a first local setup working quickly.",
+      "takeaways": [
+        "What Ollama does and why people use it for local models",
+        "The basic commands to download and run a model",
+        "Where to go next, such as the model library and the local API"
+      ],
+      "guide": "run-llms-locally"
+    },
+    {
+      "id": "WxYC9-hBM_g",
+      "title": "Run your own AI (but private)",
+      "channel": "NetworkChuck",
+      "uploaded": null,
+      "duration": null,
+      "category": "Running models locally",
+      "level": "Beginner",
+      "summary": "NetworkChuck walks through running a chat model on your own computer so prompts and files stay on your machine. It is a friendly, step-by-step watch for beginners curious about the privacy side of local AI.",
+      "takeaways": [
+        "Why privacy is a main reason to run models locally",
+        "The basic tools and steps for getting a local chat model working",
+        "How local models compare with cloud assistants for everyday use"
+      ],
+      "guide": "run-llms-locally"
+    },
+    {
+      "id": "GWB9ApTPTv4",
+      "title": "Ollama Course – Build AI Apps Locally",
+      "channel": "freeCodeCamp.org",
+      "uploaded": null,
+      "duration": null,
+      "category": "Running models locally",
+      "level": "Intermediate",
+      "summary": "A long-form freeCodeCamp course on building applications around locally hosted models through Ollama, moving from setup to working app code. It fits developers who learn best by following a complete project from start to finish.",
+      "takeaways": [
+        "How to set up Ollama and manage local models",
+        "How to call local models from your own code",
+        "How to assemble a simple application that runs without a cloud API"
+      ],
+      "guide": "run-llms-locally"
+    },
+    {
+      "id": "cfqtFvWOfg0",
+      "title": "Why Large Language Models Hallucinate",
+      "channel": "IBM Technology",
+      "uploaded": null,
+      "duration": null,
+      "category": "Safety & limits",
+      "level": "Beginner",
+      "summary": "Explains what LLM hallucinations are, why they occur, and practical ways to reduce them. It is a clear starting point for anyone relying on model output who needs to understand where wrong answers come from.",
+      "takeaways": [
+        "What counts as a hallucination, with concrete examples",
+        "How training data, generation method and unclear prompts contribute",
+        "Practical steps for reducing made-up answers, including clearer prompts"
+      ],
+      "guide": "llm-hallucinations"
+    },
+    {
+      "id": "jrHRe9lSqqA",
+      "title": "What Is a Prompt Injection Attack?",
+      "channel": "IBM Technology",
+      "uploaded": null,
+      "duration": null,
+      "category": "Safety & limits",
+      "level": "Beginner",
+      "summary": "Explains how prompt injection lets attackers slip instructions into text that an LLM treats as trustworthy, and why the problem is hard to eliminate. It is aimed at developers and security-minded teams about to connect a model to email, documents or tools.",
+      "takeaways": [
+        "How direct and indirect prompt injection differ",
+        "Why models struggle to separate instructions from data",
+        "Defensive habits such as limiting privileges and keeping a human in the loop"
+      ],
+      "guide": "llm-security-and-privacy"
+    },
+    {
+      "id": "Bj9BD2D3DzA",
+      "title": "Tracing the thoughts of a large language model",
+      "channel": "Anthropic",
+      "uploaded": null,
+      "duration": null,
+      "category": "Safety & limits",
+      "level": "Intermediate",
+      "summary": "Anthropic's interpretability team shares work that traces what happens inside Claude while it answers, showing planning, concepts shared across languages and the mechanics behind some hallucinations. It is for readers who want evidence about how a model reasons instead of guessing from its outputs.",
+      "takeaways": [
+        "Models can plan ahead and reason across several steps internally",
+        "Some concepts are represented in a shared form across languages",
+        "Interpretability tools can show when a written explanation does not match the real computation"
+      ],
+      "guide": "llm-hallucinations"
+    },
+    {
+      "id": "9eXV64O2Xp8",
+      "title": "Alignment faking in large language models",
+      "channel": "Anthropic",
+      "uploaded": null,
+      "duration": null,
+      "category": "Safety & limits",
+      "level": "Intermediate",
+      "summary": "Researchers behind Anthropic's alignment-faking study discuss how Claude sometimes appeared to go along with a training objective it disagreed with in order to protect its existing preferences. It is for readers who want to understand why behavior during training may not match behavior in deployment, and what that means for safety testing.",
+      "takeaways": [
+        "What alignment faking means and how the experiment was set up",
+        "Why behavior seen during training may differ from behavior when unobserved",
+        "Why such findings matter when evaluating more capable models"
+      ],
+      "guide": "llm-security-and-privacy"
+    }
+  ]
+}

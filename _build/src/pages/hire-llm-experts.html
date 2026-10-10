@@ -1,0 +1,157 @@
+<!--meta
+{
+  "slug": "hire-llm-experts",
+  "title": "Get Expert Help With Your LLM Project: Free, Vendor-Neutral Plan",
+  "h1": "Get expert help with your LLM project",
+  "lede": "Tell us what you're building. Within 2 business days you get a vendor-neutral recommendation: which models to test, how to architect it, what it should cost to run, and, only if you want them, introductions to up to three vetted implementation partners.",
+  "head_meta": ["Free", "About 2 minutes", "No provider pays for placement"],
+  "description": "Get a free, vendor-neutral plan for your LLM project: model shortlist, architecture outline, cost estimate and optional introductions to vetted AI implementation partners for RAG, agents, chatbots and fine-tuning.",
+  "section": "",
+  "crumbs": [["Home", "index.html"], ["Get expert help", null]],
+  "scripts": ["pages/funnel.js"],
+  "priority": 0.9,
+  "faq": [
+    {"q": "Is this really free?", "a": "Yes. The recommendation costs you nothing. If you choose to be introduced to an implementation partner and later hire them, the partner may pay LLModel a referral fee. That never affects which models we recommend, and you're never obliged to hire anyone."},
+    {"q": "Who will contact me?", "a": "The LLModel team replies first, by email, within 2 business days. Your details go to implementation partners only if you tick the box asking for introductions, and then only to up to three partners matched to your project."},
+    {"q": "What kinds of projects can you help with?", "a": "Choosing a model, building chatbots and assistants, retrieval-augmented generation over company documents, agents and workflow automation, fine-tuning or self-hosting open models, cutting API costs, and security or compliance reviews of LLM features."},
+    {"q": "What if my project is small?", "a": "Send it anyway. Small teams often get the most from a second opinion before they commit to a model or a vendor. If a partner introduction doesn't make sense at your size, we'll point you to the tools and guides that cover your case."},
+    {"q": "How do you use my information?", "a": "Only to respond to your request and, if you ask, to make introductions. We don't sell personal data. Details are in our privacy policy."}
+  ]
+}
+-->
+<div class="wrap funnel">
+  <div>
+    <ol class="steps" id="fn-steps" aria-label="Progress">
+      <li class="is-current">Your goal</li><li>Project</li><li>Requirements</li><li>Contact</li>
+    </ol>
+    <form class="form" id="funnel" data-form="lead" data-custom data-subject="New LLM project lead" data-prefill novalidate>
+      <fieldset class="funnel-step" data-step="1">
+        <h2>What do you need help with?</h2>
+        <p>Pick the closest match. You can add details later.</p>
+        <fieldset data-required-group><legend class="visually-hidden">What do you need help with?</legend>
+        <div class="choice-grid">
+          <label class="choice"><input type="radio" name="need" value="choose-model"><span>Choose the right model<small>Shortlist and evaluation plan</small></span></label>
+          <label class="choice"><input type="radio" name="need" value="chatbot"><span>Build a chatbot or assistant<small>Support, sales or internal help</small></span></label>
+          <label class="choice"><input type="radio" name="need" value="rag"><span>Answer questions over our documents<small>Retrieval-augmented generation</small></span></label>
+          <label class="choice"><input type="radio" name="need" value="agents"><span>Automate work with AI agents<small>Tools, workflows, integrations</small></span></label>
+          <label class="choice"><input type="radio" name="need" value="self-host"><span>Fine-tune or self-host a model<small>Open weights, GPUs, serving</small></span></label>
+          <label class="choice"><input type="radio" name="need" value="cut-costs"><span>Cut our LLM costs<small>Routing, caching, model swaps</small></span></label>
+          <label class="choice"><input type="radio" name="need" value="security"><span>Security or compliance review<small>Prompt injection, data, policy</small></span></label>
+          <label class="choice"><input type="radio" name="need" value="not-sure"><span>Not sure yet<small>Help us find the right first step</small></span></label>
+        </div></fieldset>
+        <div class="funnel-nav"><span></span><button type="button" class="btn btn--primary" data-next>Continue</button></div>
+      </fieldset>
+
+      <fieldset class="funnel-step" data-step="2" hidden>
+        <h2>Tell us about the project</h2>
+        <p>Rough answers are fine. They help us size the recommendation.</p>
+        <fieldset class="field"><legend>Where are you now?</legend><div class="pills">
+          <label class="pill"><input type="radio" name="stage" value="exploring" checked><span>Exploring ideas</span></label>
+          <label class="pill"><input type="radio" name="stage" value="prototype"><span>Have a prototype</span></label>
+          <label class="pill"><input type="radio" name="stage" value="production"><span>In production</span></label></div></fieldset>
+        <fieldset class="field"><legend>When do you want it working?</legend><div class="pills">
+          <label class="pill"><input type="radio" name="timeline" value="asap"><span>As soon as possible</span></label>
+          <label class="pill"><input type="radio" name="timeline" value="1-3-months" checked><span>1-3 months</span></label>
+          <label class="pill"><input type="radio" name="timeline" value="3-6-months"><span>3-6 months</span></label>
+          <label class="pill"><input type="radio" name="timeline" value="6-months-plus"><span>Later</span></label></div></fieldset>
+        <fieldset class="field"><legend>Budget for building it</legend><div class="pills">
+          <label class="pill"><input type="radio" name="budget" value="under-5k"><span>Under $5K</span></label>
+          <label class="pill"><input type="radio" name="budget" value="5k-15k"><span>$5K-$15K</span></label>
+          <label class="pill"><input type="radio" name="budget" value="15k-50k"><span>$15K-$50K</span></label>
+          <label class="pill"><input type="radio" name="budget" value="50k-150k"><span>$50K-$150K</span></label>
+          <label class="pill"><input type="radio" name="budget" value="150k-plus"><span>$150K+</span></label>
+          <label class="pill"><input type="radio" name="budget" value="not-sure" checked><span>Not sure</span></label></div></fieldset>
+        <fieldset class="field"><legend>Current monthly spend on LLM APIs</legend><div class="pills">
+          <label class="pill"><input type="radio" name="spend" value="none" checked><span>None yet</span></label>
+          <label class="pill"><input type="radio" name="spend" value="under-500"><span>Under $500</span></label>
+          <label class="pill"><input type="radio" name="spend" value="500-5000"><span>$500-$5K</span></label>
+          <label class="pill"><input type="radio" name="spend" value="5000-50000"><span>$5K-$50K</span></label>
+          <label class="pill"><input type="radio" name="spend" value="50000-plus"><span>$50K+</span></label></div></fieldset>
+        <div class="funnel-nav"><button type="button" class="btn btn--ghost" data-prev>Back</button><button type="button" class="btn btn--primary" data-next>Continue</button></div>
+      </fieldset>
+
+      <fieldset class="funnel-step" data-step="3" hidden>
+        <h2>Requirements</h2>
+        <p>These decide which models and deployment options are even on the table.</p>
+        <fieldset class="field"><legend>Where can the model run?</legend><div class="pills">
+          <label class="pill"><input type="radio" name="deploy" value="api" checked><span>A cloud API is fine</span></label>
+          <label class="pill"><input type="radio" name="deploy" value="private-cloud"><span>Our own cloud account</span></label>
+          <label class="pill"><input type="radio" name="deploy" value="on-prem"><span>On our own servers</span></label>
+          <label class="pill"><input type="radio" name="deploy" value="not-sure"><span>Not sure</span></label></div></fieldset>
+        <fieldset class="field"><legend>How sensitive is the data?</legend><div class="pills">
+          <label class="pill"><input type="radio" name="data" value="public"><span>Public</span></label>
+          <label class="pill"><input type="radio" name="data" value="internal" checked><span>Internal</span></label>
+          <label class="pill"><input type="radio" name="data" value="confidential"><span>Confidential</span></label>
+          <label class="pill"><input type="radio" name="data" value="regulated"><span>Regulated (health, financial, personal)</span></label></div></fieldset>
+        <fieldset class="field"><legend>Rules you need to meet <span class="muted">(optional)</span></legend><div class="pills">
+          <label class="pill"><input type="checkbox" name="compliance" value="GDPR"><span>GDPR</span></label>
+          <label class="pill"><input type="checkbox" name="compliance" value="HIPAA"><span>HIPAA</span></label>
+          <label class="pill"><input type="checkbox" name="compliance" value="SOC 2"><span>SOC 2</span></label>
+          <label class="pill"><input type="checkbox" name="compliance" value="PIPEDA / Law 25"><span>PIPEDA or Quebec Law 25</span></label>
+          <label class="pill"><input type="checkbox" name="compliance" value="EU AI Act"><span>EU AI Act</span></label></div></fieldset>
+        <div class="field"><label for="fn-models">Models you're considering <span class="muted">(optional)</span></label><input class="input" id="fn-models" name="models" placeholder="e.g. Claude Sonnet 5.5, GPT-6.1 Sol"></div>
+        <div class="funnel-nav"><button type="button" class="btn btn--ghost" data-prev>Back</button><button type="button" class="btn btn--primary" data-next>Continue</button></div>
+      </fieldset>
+
+      <fieldset class="funnel-step" data-step="4" hidden>
+        <h2>Where should we send your plan?</h2>
+        <p>We reply by email within 2 business days.</p>
+        <div class="form-row">
+          <div class="field"><label for="fn-name">Your name<span class="req" aria-hidden="true">*</span></label><input class="input" id="fn-name" name="name" required autocomplete="name"></div>
+          <div class="field"><label for="fn-email">Work email<span class="req" aria-hidden="true">*</span></label><input class="input" id="fn-email" name="email" type="email" required autocomplete="email"></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label for="fn-company">Company or organization<span class="req" aria-hidden="true">*</span></label><input class="input" id="fn-company" name="company" required autocomplete="organization"></div>
+          <div class="field"><label for="fn-role">Your role</label><input class="input" id="fn-role" name="role" autocomplete="organization-title" placeholder="e.g. CTO, product manager"></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label for="fn-size">Team size<span class="req" aria-hidden="true">*</span></label>
+            <select class="select" id="fn-size" name="team_size" required><option value="">Choose one</option><option value="1-10">1-10 people</option><option value="11-50">11-50</option><option value="51-250">51-250</option><option value="251-1000">251-1,000</option><option value="1000-plus">More than 1,000</option></select></div>
+          <div class="field"><label for="fn-country">Country</label><input class="input" id="fn-country" name="country" autocomplete="country-name"></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label for="fn-site">Website <span class="muted">(optional)</span></label><input class="input" id="fn-site" name="website" type="url" placeholder="https://" autocomplete="url"></div>
+          <div class="field"><label for="fn-phone">Phone <span class="muted">(optional)</span></label><input class="input" id="fn-phone" name="phone" type="tel" autocomplete="tel"></div>
+        </div>
+        <div class="field"><label for="fn-desc">What are you building?<span class="req" aria-hidden="true">*</span></label><textarea class="textarea" id="fn-desc" name="project" required maxlength="1000" rows="5" placeholder="The problem, who uses it, rough volumes, what you've tried, and what a win looks like."></textarea></div>
+        <label class="check"><input type="checkbox" name="introductions" value="yes" checked> Introduce me to up to three vetted implementation partners for this project.</label>
+        <label class="check"><input type="checkbox" name="newsletter" value="yes"> Send me The LLM Brief, our weekly email. Unsubscribe anytime.</label>
+        <label class="check"><input type="checkbox" name="consent" value="yes" required> I agree that LLModel.com may contact me about this request, as described in the <a href="privacy.html">privacy policy</a>.<span class="req" aria-hidden="true">*</span></label>
+        <input type="hidden" name="source">
+        <input type="hidden" name="usecase">
+        <input type="hidden" name="model">
+        <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="funnel-nav"><button type="button" class="btn btn--ghost" data-prev>Back</button><button type="submit" class="btn btn--primary">Get my stack plan</button></div>
+        <div class="form-status" role="status" aria-live="polite" style="margin-top:1rem"></div>
+      </fieldset>
+    </form>
+    <div class="form-success" id="fn-done" hidden tabindex="-1">
+      <h2 class="h3">Request received</h2>
+      <p style="margin-top:.5rem">Thanks. You'll hear from us by email within 2 business days. While you wait:</p>
+      <ul style="margin:.75rem 0 0;padding-left:1.1rem">
+        <li><a href="llm-cost-calculator.html">Price your workload</a> across every model</li>
+        <li><a href="llm-picker.html">Run the model picker</a> for a quick shortlist</li>
+        <li><a href="how-to-choose-an-llm.html">Read how to choose an LLM</a></li>
+      </ul>
+    </div>
+  </div>
+  <aside class="aside-box">
+    <h2>What you get</h2>
+    <ul>
+      <li>A shortlist of models to test, with the reasons</li>
+      <li>An architecture outline: API or self-hosted, RAG, agents, guardrails</li>
+      <li>A monthly cost estimate at your volume</li>
+      <li>Risks to check: data handling, compliance, lock-in</li>
+      <li>Optional introductions to up to three vetted partners</li>
+    </ul>
+    <h2 style="margin-top:1.25rem">How it works</h2>
+    <ol style="margin:.5rem 0 0;padding-left:1.2rem">
+      <li>You answer four short steps.</li>
+      <li>We review the project and reply within 2 business days.</li>
+      <li>You decide whether you want introductions. No sales calls unless you ask.</li>
+    </ol>
+    <p class="small muted" style="margin-top:1.25rem">Independent: no model provider pays to be recommended. If you hire a partner we introduced, they may pay us a referral fee. <a href="editorial-policy.html#money">How we make money</a>.</p>
+    <p class="small muted" style="margin-top:.75rem">Interested in sponsoring, advertising, partnering or acquiring this website or domain? <a href="https://web.works/contact" target="_blank" rel="noopener">Contact us here</a>.</p>
+  </aside>
+</div>
+<div class="wrap" style="margin-top:2rem">{{ad:content}}</div>

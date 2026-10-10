@@ -1,0 +1,178 @@
+<!--meta
+{
+  "slug": "llm-api-pricing-explained",
+  "title": "LLM API Pricing Explained: Tokens, Caching and Real Costs (2026)",
+  "h1": "LLM API pricing explained",
+  "description": "LLM API pricing explained: how tokens are billed, why output costs more, reasoning tokens, caching and batch discounts, and worked cost examples for 2026.",
+  "category": "Choosing & buying",
+  "level": "Beginner",
+  "updated": "2026-10-10",
+  "keywords": ["llm api pricing", "how much does an llm api cost", "token pricing", "prompt caching discount", "batch api discount", "reasoning tokens cost"],
+  "summary": "LLM APIs bill per token, but output, reasoning, caching, batching and long-context tiers can change a bill several-fold. This guide explains each pricing component, shows real prices as of October 2026 and works through three cost examples step by step.",
+  "key_takeaways": [
+    "You pay per million tokens, with output typically priced four to six times higher than input.",
+    "Reasoning models bill their hidden thinking as output tokens, which can multiply the cost of a short answer.",
+    "Prompt caching cuts repeated input to 5-10 percent of the normal price, and batch processing halves the price of work that can wait up to 24 hours.",
+    "Long-context surcharges, images, audio and built-in tools add costs that a headline price does not show.",
+    "Routing easy requests to small models, caching stable prompts and batching offline jobs are the biggest levers on a bill."
+  ],
+  "faq": [
+    {"q": "How much does an LLM API call cost?", "a": "Multiply input tokens by the input price and output tokens by the output price, both per million tokens. A request with 2,000 input and 500 output tokens on a model charging $2 and $10 per million costs $0.004 plus $0.005, or $0.009. A million such requests cost about $9,000, while a small model at $0.10 and $0.50 handles the same volume for about $450."},
+    {"q": "Why do output tokens cost more than input tokens?", "a": "Input tokens are processed together in one parallel pass, which uses GPUs efficiently. Output tokens are generated one at a time, and each new token requires another pass through the model, so generation occupies expensive hardware far longer per token. That is why most providers price output four to six times higher than input."},
+    {"q": "Am I charged for reasoning or thinking tokens?", "a": "Yes. Reasoning models generate internal reasoning before the visible answer, and providers bill those tokens at the output rate even when you cannot see them. They also take up space in the context window. Check the usage data returned with each response to see the count, and lower the reasoning effort or thinking budget for simple tasks."},
+    {"q": "How much does prompt caching save?", "a": "Cached input typically costs 5 to 10 percent of the normal input price, so a long, repeated prefix such as a system prompt, tool definitions or reference documents can become up to 95 percent cheaper on later requests. Writing to the cache can cost a premium, often 1.25 times the input price, and caches expire after minutes of inactivity, so savings depend on steady traffic."},
+    {"q": "Is self-hosting an open model cheaper than using an API?", "a": "Only at high, steady volume. In our example, a $2.50-per-hour GPU server costs about $1,825 a month and breaks even against a mid-tier API at roughly 450 million tokens a month, but against a cheap small model it needs over 9 billion. Add engineering time, idle capacity and possible quality differences before deciding."}
+  ],
+  "sources": [
+    {"title": "OpenAI API pricing", "url": "https://developers.openai.com/api/docs/pricing"},
+    {"title": "OpenAI GPT-6.1 Sol model page (pricing, long context, rate limits)", "url": "https://developers.openai.com/api/docs/models/gpt-6.1-sol"},
+    {"title": "OpenAI reasoning models guide", "url": "https://developers.openai.com/api/docs/guides/reasoning"},
+    {"title": "OpenAI prompt caching guide", "url": "https://developers.openai.com/api/docs/guides/prompt-caching"},
+    {"title": "OpenAI Batch API guide", "url": "https://developers.openai.com/api/docs/guides/batch"},
+    {"title": "OpenAI rate limits guide", "url": "https://developers.openai.com/api/docs/guides/rate-limits"},
+    {"title": "Claude API pricing (Anthropic)", "url": "https://platform.claude.com/docs/en/about-claude/pricing"},
+    {"title": "Prompt caching (Anthropic documentation)", "url": "https://platform.claude.com/docs/en/build-with-claude/prompt-caching"},
+    {"title": "Vision: image token costs (Anthropic documentation)", "url": "https://platform.claude.com/docs/en/build-with-claude/vision"},
+    {"title": "Gemini Developer API pricing (Google)", "url": "https://ai.google.dev/gemini-api/docs/pricing"}
+  ],
+  "related_tools": ["llm-cost-calculator", "self-host-vs-api-calculator", "token-counter"],
+  "related_guides": ["how-to-choose-an-llm", "context-windows-explained", "open-source-vs-closed-llms", "run-llms-locally"]
+}
+-->
+<p>LLM APIs charge by the token, and the final bill depends on much more than the headline price. This guide explains how billing works, which tokens cost extra and which are discounted, what prices look like as of October 2026 and how to estimate costs, with three worked examples and the tactics that save the most. It covers pay-as-you-go API pricing; chat subscriptions charge a flat monthly fee per seat instead.</p>
+
+<h2 id="how-billing-works">How LLM API billing works</h2>
+<h3 id="what-a-token-is">What a token is</h3>
+<p>A <a href="glossary.html#token">token</a> is a chunk of text the model reads or writes: a short word, part of a longer word, a number or a punctuation mark. A common rule of thumb for English is about four characters, or three-quarters of a word, per token, so 1,000 words come to roughly 1,300 tokens. Code, numbers and many other languages use more tokens per word, and each provider's <a href="glossary.html#tokenization">tokenizer</a> splits text differently. Paste your own text into the <a href="token-counter.html">token counter</a> for a real estimate.</p>
+<h3 id="the-billing-formula">The billing formula</h3>
+<p>Prices are quoted per million tokens, with separate rates for input and output:</p>
+<pre><code>cost = (input tokens / 1,000,000) x input price
+     + (output tokens / 1,000,000) x output price</code></pre>
+<p>Input is everything you send: the system prompt, tool definitions, retrieved documents, images and the conversation so far. Most chat APIs are stateless, so every turn resends the full history and you pay for it again. Message 20 of a conversation costs far more than message one.</p>
+<p>Example: 2,000 input tokens and 500 output tokens on a model charging $2 and $10 per million cost $0.004 + $0.005 = $0.009. That looks tiny, but a million such requests cost $9,000.</p>
+<h3 id="why-output-costs-more">Why output costs more</h3>
+<p>Output tokens typically cost four to six times as much as input because of how <a href="glossary.html#inference">inference</a> works. The model processes all input tokens in one parallel pass, which keeps GPUs efficiently busy. Output is generated one token at a time, and each new token needs another pass through the model, so generation occupies expensive hardware far longer per token. Verbose answers therefore cost more than long prompts of the same length.</p>
+<h3 id="reasoning-tokens">Reasoning tokens: the hidden output</h3>
+<p><a href="glossary.html#reasoning-model">Reasoning models</a> work through a problem before answering, generating internal reasoning tokens. Providers bill these at the output rate even though you usually see only a summary or nothing at all. OpenAI's documentation notes that they also take up context window space, and the count appears in each response's usage data.</p>
+<p>Example: a 300-token answer preceded by 3,000 reasoning tokens bills 3,300 output tokens. At $10 per million, that is $0.033 instead of $0.003, eleven times more. Most providers offer a reasoning-effort setting or thinking budget; keep it low for simple tasks and raise it only where accuracy improves.</p>
+
+<h2 id="current-prices">What prices look like in October 2026</h2>
+<p>List prices in US dollars per million tokens, checked against official pricing pages on October 10, 2026. Prices change often, so confirm them before you budget.</p>
+<table>
+<thead><tr><th>Model (provider)</th><th>Input</th><th>Cached input</th><th>Output</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td>GPT-6 Astra (OpenAI)</td><td>$10.00</td><td>$1.00</td><td>$50.00</td><td>Flagship</td></tr>
+<tr><td>GPT-6.1 Sol (OpenAI)</td><td>$2.00</td><td>$0.10</td><td>$10.00</td><td>Prompts over 272K tokens cost 2x input and 1.5x output</td></tr>
+<tr><td>GPT-6 Luna (OpenAI)</td><td>$0.10</td><td>$0.01</td><td>$0.50</td><td>Built for high-volume work</td></tr>
+<tr><td>Claude Opus 5.5 (Anthropic)</td><td>$4.00</td><td>$0.20</td><td>$20.00</td><td>Full 1M-token context at standard rates</td></tr>
+<tr><td>Claude Haiku 5.5 (Anthropic)</td><td>$0.10</td><td>$0.01</td><td>$0.50</td><td>Prompts over 100K tokens: $0.50 input, $2.50 output</td></tr>
+<tr><td>Gemini 3.1 Pro Preview (Google)</td><td>$2.00</td><td>$0.20</td><td>$12.00</td><td>Prompts over 200K tokens: $4.00 input, $18.00 output</td></tr>
+<tr><td>Gemini 3.8 Flash (Google)</td><td>$0.75</td><td>$0.075</td><td>$3.75</td><td>Google lists higher rates from January 1, 2027</td></tr>
+</tbody>
+</table>
+<p>Three patterns stand out: input prices span 100x, from $0.10 to $10.00 per million; output costs five to six times input; and cached input costs 5-10 percent of the normal input price. The <a href="compare.html">comparison tool</a> and <a href="providers.html">provider directory</a> track more models.</p>
+
+<h2 id="caching-and-batch-discounts">Discounts: prompt caching and batch processing</h2>
+<h3 id="prompt-caching">Prompt caching</h3>
+<p><a href="glossary.html#prompt-caching">Prompt caching</a> stores the processed form of a prompt's opening section. When a later request starts with exactly the same prefix, the provider reads it from cache at a steep discount: $0.10 instead of $2.00 per million on GPT-6.1 Sol and Claude Sonnet 5.5.</p>
+<ul>
+<li><strong>Write premium.</strong> Writing to the cache costs 1.25x the input price on OpenAI's newer models and Anthropic's default 5-minute cache, and 2x for Anthropic's 1-hour cache. Google also charges hourly storage for explicit caches.</li>
+<li><strong>Setup.</strong> OpenAI caches eligible prompts automatically. Anthropic requires a <code>cache_control</code> setting in the request.</li>
+<li><strong>Minimums and lifetimes.</strong> Prefixes must reach a minimum length: 1,024 tokens on OpenAI's current models and 512 to 4,096 tokens on Claude models, depending on the model. Caches expire after minutes of inactivity, so savings depend on steady traffic.</li>
+<li><strong>Prompt order.</strong> Put stable content first (system prompt, tool definitions, reference documents, examples) and variable content last. A timestamp at the top breaks the cache on every request.</li>
+</ul>
+<p>Caching can also stretch rate limits: Anthropic does not count cache reads toward input-token limits on most models. Check the cached token count in each response's usage data to confirm hits.</p>
+<h3 id="batch-processing">Batch processing</h3>
+<p>A <a href="glossary.html#batch-api">batch API</a> accepts a file of requests and returns results asynchronously. OpenAI, Anthropic and Google all list batch prices at 50 percent off, with results within 24 hours and often much sooner. OpenAI also gives batch jobs a separate, higher rate-limit pool. Use batch for evaluations, backfills, classification, summarization and embeddings, anything a person is not waiting on.</p>
+<p>Some providers also sell speed tiers. Google's priority tier for Gemini 2.5 Flash lists $0.54 per million input tokens versus $0.30 standard, and Anthropic's fast mode for Claude Opus 5.5 doubles its rates to $8 input and $40 output.</p>
+
+<h2 id="long-context-and-multimodal-pricing">Long context, images, audio and tools</h2>
+<h3 id="long-context-tiers">Long-context price tiers</h3>
+<p>Some models charge more once a prompt crosses a size threshold, and the higher rate usually applies to the entire request, not just the overflow. A 300,000-token prompt on GPT-6.1 Sol costs $1.20 in input instead of $0.60, because it crosses the 272K-token line.</p>
+<p>Gemini 3.1 Pro Preview doubles its input price above 200K tokens, and Claude Haiku 5.5 charges five times more above 100K. Other current Claude models bill their full 1M-token <a href="glossary.html#context-window">context window</a> at standard rates. Regional processing can add a premium too: Anthropic charges 1.1x for US-only inference.</p>
+<h3 id="images-audio-video">Images, audio and video</h3>
+<p><a href="glossary.html#multimodal">Multimodal</a> inputs are converted to tokens. Anthropic's formula divides an image into 28-pixel squares, so a 1,000 x 1,000 pixel image costs 1,296 tokens, about $0.0026 at $2 per million, or $25.92 per 10,000 images. Newer Claude models accept larger images, so a full-resolution 1920 x 1080 screenshot costs 2,691 tokens; resize when fine detail does not matter. Image generation is usually priced per image: Google lists Gemini 3.1 Flash Image at about $0.067 per 1K-resolution image and $0.151 at 4K.</p>
+<p>Audio input often costs more than text. Gemini 3.1 Flash-Lite charges $0.50 per million audio tokens versus $0.25 for text, and real-time voice models carry separate, higher rates.</p>
+<h3 id="tool-pricing">Tool calls</h3>
+<p><a href="glossary.html#tool-calling">Tool</a> definitions are input tokens on every request, and Anthropic adds a tool-use system prompt of a few hundred tokens (286 on Claude Opus 5.5). Tool results you send back are input too. Built-in server tools add per-call fees:</p>
+<ul>
+<li>Web search costs $10 per 1,000 searches on both OpenAI and Anthropic, plus the retrieved content billed as tokens.</li>
+<li>Google's search grounding for Gemini 3 models costs $14 per 1,000 requests after 5,000 free each month.</li>
+<li>Anthropic's code execution tool includes 1,550 free hours per organization each month, then $0.05 per container-hour.</li>
+</ul>
+
+<h2 id="rate-limits-and-tiers">Rate limits and usage tiers</h2>
+<p>Rate limits cap how much you can use per minute or per day: requests per minute (RPM), tokens per minute (TPM) and sometimes daily totals. Anthropic splits input and output tokens per minute. Whichever limit you hit first applies, and exceeding it returns an HTTP 429 error, usually with a retry-after header.</p>
+<p>Limits rise with spending history. OpenAI's paid tiers, Build, Launch and Grow, unlock after $5, $100 and $500 in total credit purchases; for GPT-6.1 Sol they allow 1 million, 4 million and 40 million TPM. Anthropic's Start, Build, Scale and Custom tiers advance automatically with usage, and the Start tier allows Claude Opus 5.5 1,000 RPM, 2 million input TPM and 400,000 output TPM. Tiers also carry monthly spending caps, such as $500 on OpenAI's Build and Anthropic's Start tiers.</p>
+<p>Check capacity before launch. A chatbot peaking at 600 requests per minute with 5,300 tokens each needs about 3.2 million TPM, well beyond a 1 million TPM tier. Retry with exponential backoff and jitter, and move offline work to batch, which has separate limits.</p>
+
+<h2 id="worked-cost-examples">Three worked cost examples</h2>
+<p>These examples use clearly labeled example prices, rounded from real October 2026 list prices: the small tier resembles GPT-6 Luna or Claude Haiku 5.5, the mid tier GPT-6.1 Sol or Claude Sonnet 5.5 and the frontier tier GPT-6 Astra.</p>
+<table>
+<thead><tr><th>Example tier</th><th>Input</th><th>Cache read</th><th>Cache write</th><th>Output</th></tr></thead>
+<tbody>
+<tr><td>Small</td><td>$0.10</td><td>$0.01</td><td>$0.125</td><td>$0.50</td></tr>
+<tr><td>Mid</td><td>$2.00</td><td>$0.10</td><td>$2.50</td><td>$10.00</td></tr>
+<tr><td>Frontier</td><td>$10.00</td><td>$1.00</td><td>$12.50</td><td>$50.00</td></tr>
+</tbody>
+</table>
+<h3 id="example-support-chatbot">Example 1: customer support chatbot</h3>
+<p>Assume 30,000 conversations a month with four model calls each, or 120,000 calls. Each call sends a 3,000-token fixed prefix (instructions, policies, tool definitions), about 2,000 tokens of history and retrieved text, and receives 300 output tokens.</p>
+<ul>
+<li><strong>Mid tier, no caching:</strong> input 120,000 x 5,000 = 600M tokens x $2 = $1,200. Output 120,000 x 300 = 36M x $10 = $360. Total: <strong>$1,560 a month</strong>.</li>
+<li><strong>With caching</strong>, assuming 2 percent of calls write the prefix and 98 percent read it: writes 7.2M x $2.50 = $18; reads 352.8M x $0.10 = $35.28; uncached input 240M x $2 = $480; output $360. Total: <strong>about $893</strong>, 43 percent less.</li>
+<li><strong>Plus routing</strong> 70 percent of calls (FAQ-style questions) to the small tier: small share about $32.50, mid share about $267.98. Total: <strong>about $300</strong>, 81 percent below the starting point.</li>
+</ul>
+<h3 id="example-summarization-pipeline">Example 2: document summarization pipeline</h3>
+<p>Assume 10,000 documents a month, each 12,000 tokens plus a 500-token instruction, producing a 600-token summary.</p>
+<ul>
+<li><strong>Mid tier:</strong> input 10,000 x 12,500 = 125M x $2 = $250. Output 6M x $10 = $60. Total: <strong>$310</strong>.</li>
+<li><strong>Mid tier through the batch API:</strong> <strong>$155</strong>. Caching does not help here, because the only shared text is the 500-token instruction, below the 1,024-token minimum.</li>
+<li><strong>Small tier through batch:</strong> ($12.50 + $3.00) / 2 = <strong>$7.75</strong>, if its summaries pass your quality checks.</li>
+<li><strong>Watch outliers:</strong> one 300,000-token contract on a model with a 272K threshold is billed at the higher tier for the whole request. Splitting it into two 150K sections keeps each request at standard rates.</li>
+</ul>
+<h3 id="example-coding-agent">Example 3: coding agent</h3>
+<p>An agent completes a task in 40 model calls. Its context starts at 20,000 tokens (instructions, tool definitions, repository map) and grows by 2,500 tokens per step as outputs and tool results accumulate. Each step outputs 2,000 tokens, including reasoning.</p>
+<ul>
+<li><strong>Total input:</strong> 40 x 20,000 + 2,500 x (0 + 1 + ... + 39) = 800,000 + 1,950,000 = 2.75M tokens. Output: 80,000 tokens.</li>
+<li><strong>Mid tier, no caching:</strong> 2.75M x $2 = $5.50, plus 80,000 x $10 per million = $0.80. Total: <strong>$6.30 per task</strong>.</li>
+<li><strong>Mid tier with caching:</strong> each step reads the previous context from cache and writes only new tokens, so writes total 117,500 tokens ($0.29) and reads 2,632,500 ($0.26). With output, the total is <strong>about $1.36 per task</strong>, 78 percent less.</li>
+<li><strong>Frontier tier with caching:</strong> $1.47 + $2.63 + $4.00 = <strong>about $8.10 per task</strong> ($31.50 uncached). If higher reasoning effort tripled output to 6,000 tokens per step, the output line alone would rise from $4.00 to $12.00.</li>
+</ul>
+<p>At 10 tasks a day over 21 workdays, one developer's agent costs about $285 a month on the cached mid tier and about $1,700 on the cached frontier tier. Run your own numbers in the <a href="llm-cost-calculator.html">LLM cost calculator</a>.</p>
+
+<h2 id="how-to-cut-costs">How to cut your LLM API costs</h2>
+<ol>
+<li><strong>Route by difficulty.</strong> Send routine requests to a small model and escalate hard ones. In Example 1, routing cut a cached bill from $893 to about $300.</li>
+<li><strong>Cache stable prefixes.</strong> Keep the start of every prompt identical and verify hits in the usage data.</li>
+<li><strong>Batch anything that can wait</strong> for an immediate 50 percent saving.</li>
+<li><strong>Shorten prompts.</strong> Trim instructions, summarize old conversation turns and retrieve fewer, better passages. Every 1,000 tokens removed saves $2 per 1,000 requests at the mid-tier input rate.</li>
+<li><strong>Control output.</strong> Set a maximum output length, ask for concise answers and use <a href="glossary.html#structured-outputs">structured outputs</a> so you get compact JSON instead of prose and fewer failed parses to retry. Lower reasoning effort for simple tasks.</li>
+<li><strong>Use smaller models.</strong> In the example sheet, the small tier costs one-twentieth of the mid tier. A <a href="glossary.html#small-language-model">small language model</a>, possibly fine-tuned or <a href="glossary.html#distillation">distilled</a>, often handles narrow tasks well.</li>
+<li><strong>Stay under long-context thresholds</strong> by splitting documents or retrieving only relevant sections.</li>
+<li><strong>Monitor spending.</strong> Log tokens per request and per feature, set budget alerts and use provider spend limits.</li>
+</ol>
+<h3 id="self-hosting-break-even">When self-hosting breaks even</h3>
+<p>Self-hosting an open-weight model replaces per-token fees with a fixed hardware cost. Take an example GPU server rented at $2.50 an hour around the clock: $2.50 x 730 hours = $1,825 a month. At a typical 3:1 ratio of input to output tokens, the example mid tier averages (3 x $2 + $10) / 4 = $4.00 per million, so break-even is $1,825 / $4.00 = about 456 million tokens a month, or 15 million a day. Against the small tier ($0.20 per million blended), break-even jumps to about 9.1 billion tokens a month.</p>
+<p>Those figures assume the self-hosted model matches the API model's quality, which you must test, and they exclude engineering time, idle capacity and redundancy. The <a href="self-host-vs-api-calculator.html">self-host vs API calculator</a> handles the full comparison, and <a href="run-llms-locally.html">running LLMs locally</a> covers hardware sizing.</p>
+
+<h2 id="common-mistakes">Common mistakes</h2>
+<ul>
+<li><strong>Budgeting on input price alone.</strong> Output and reasoning tokens often dominate the bill.</li>
+<li><strong>Forgetting that history is resent.</strong> Long chats and agent loops grow input with every turn.</li>
+<li><strong>Breaking the cache.</strong> Dates, user names or shuffled tool lists at the top of a prompt prevent cache hits.</li>
+<li><strong>Running offline jobs synchronously</strong> instead of through a batch API.</li>
+<li><strong>Ignoring thresholds and extras.</strong> Long-context tiers, image sizes and per-search fees add up quietly.</li>
+<li><strong>Choosing on price without testing quality.</strong> A cheaper model that needs retries or human fixes can cost more overall.</li>
+</ul>
+<div class="checklist"><ul>
+<li>I estimated tokens per request, including history, tool definitions and reasoning.</li>
+<li>Stable content sits at the start of the prompt, and cache hits are verified.</li>
+<li>Offline workloads use batch processing.</li>
+<li>Each request type uses the cheapest model that passes my quality tests.</li>
+<li>Output length and reasoning effort are capped.</li>
+<li>Budget alerts and rate-limit retries are in place.</li>
+</ul></div>
+
+<h2 id="next-steps">Next steps</h2>
+<p>Estimate your monthly bill with the <a href="llm-cost-calculator.html">LLM cost calculator</a>. If your volume is large and steady, test the economics in the <a href="self-host-vs-api-calculator.html">self-host vs API calculator</a>. To weigh price against quality and speed, read <a href="how-to-choose-an-llm.html">how to choose an LLM</a>. For a cost review of an existing application, you can <a href="hire-llm-experts.html">hire an LLM expert</a>.</p>
