@@ -1,0 +1,272 @@
+{
+  "category": "Architecture",
+  "updated": "2026-10-10",
+  "terms": [
+    {
+      "slug": "attention",
+      "term": "Attention",
+      "aka": [
+        "self-attention",
+        "multi-head attention"
+      ],
+      "category": "Architecture",
+      "short": "The mechanism that lets each token weigh and combine information from other tokens in the sequence.",
+      "definition": "Attention is how a transformer decides which other tokens matter when it updates a token's representation. Each token produces a query, a key and a value vector; the model compares one token's query with every key, turns the scores into weights with softmax, and takes a weighted mix of the values. In 'the trophy didn't fit in the suitcase because it was too big', attention helps link 'it' to 'trophy'. Multi-head attention runs several of these comparisons in parallel so different heads can track different relationships. In LLMs a causal mask stops tokens from looking ahead, and the cost of full attention grows quadratically with sequence length.",
+      "related": [
+        "transformer",
+        "softmax",
+        "kv-cache",
+        "flash-attention"
+      ]
+    },
+    {
+      "slug": "decoder-only",
+      "term": "Decoder-only model",
+      "aka": [
+        "decoder-only transformer",
+        "causal language model",
+        "GPT-style model"
+      ],
+      "category": "Architecture",
+      "short": "A transformer made only of decoder layers that predicts the next token from the tokens before it.",
+      "definition": "A decoder-only model is a stack of transformer decoder layers with causal self-attention: each token can attend only to the tokens before it. It is trained purely on next-token prediction, which makes it a natural fit for open-ended generation. The GPT series, Llama, Mistral, Qwen and most other well-documented LLM families use this design. Compared with the original encoder-decoder transformer, it is simpler to scale and lets one model handle many tasks through prompting alone. The trade-off is that it reads text in one direction only, which is why bidirectional encoder models remain popular for embeddings, classification and reranking.",
+      "related": [
+        "transformer",
+        "autoregressive-model",
+        "encoder",
+        "attention"
+      ]
+    },
+    {
+      "slug": "diffusion-language-model",
+      "term": "Diffusion language model",
+      "aka": [
+        "diffusion LLM",
+        "dLLM",
+        "text diffusion model"
+      ],
+      "category": "Architecture",
+      "short": "A model that generates text by refining a whole draft in parallel over several steps, not token by token.",
+      "definition": "A diffusion language model borrows the idea behind image generators: it starts from a fully masked or noisy sequence and repeatedly refines it, filling in many positions at once over a series of steps. Because it is not limited to one token per forward pass, it can generate text very quickly and, in some designs, revise parts of a draft before finishing. Inception's Mercury models are commercial examples, Google has demonstrated an experimental Gemini Diffusion, and research models such as LLaDA are openly available. Autoregressive transformers still dominate, and diffusion models have less mature tooling, but they are a serious contender for latency-sensitive uses such as code completion.",
+      "related": [
+        "autoregressive-model",
+        "latency",
+        "transformer"
+      ]
+    },
+    {
+      "slug": "encoder",
+      "term": "Encoder",
+      "aka": [
+        "encoder-only model",
+        "bidirectional encoder",
+        "BERT-style model"
+      ],
+      "category": "Architecture",
+      "short": "A transformer component that reads a whole input at once, in both directions, to build representations of it.",
+      "definition": "An encoder is the part of a transformer that processes an entire input with bidirectional attention, so every token can see both its left and right context. Encoder-only models such as BERT are trained by hiding words and predicting them, and they excel at understanding tasks: classification, named-entity extraction, embeddings and reranking. Encoder-decoder models such as T5 pair an encoder with a decoder that generates output, a layout suited to translation and summarization. Most chat LLMs drop the encoder entirely, but the embedding model behind your search index or the reranker in your RAG pipeline is often encoder-based, smaller and much cheaper to run.",
+      "related": [
+        "decoder-only",
+        "embedding-model",
+        "reranker",
+        "transformer"
+      ]
+    },
+    {
+      "slug": "feed-forward-network",
+      "term": "Feed-forward network (FFN)",
+      "aka": [
+        "FFN",
+        "MLP layer",
+        "MLP block"
+      ],
+      "category": "Architecture",
+      "short": "The per-token neural network inside each transformer layer that transforms what attention gathered.",
+      "definition": "Every transformer layer contains a feed-forward network, also called the MLP block, that processes each token's vector independently after attention has mixed in context. It typically expands the vector to a larger hidden size, applies a nonlinearity (often a gated variant such as SwiGLU), and projects it back down. In dense models these blocks usually hold two-thirds or more of the non-embedding parameters, and interpretability research suggests they store much of a model's factual associations. They are also the part that mixture-of-experts designs replace with many smaller experts, which is how MoE models grow capacity without running every parameter for every token.",
+      "related": [
+        "transformer",
+        "mixture-of-experts",
+        "attention",
+        "parameters"
+      ]
+    },
+    {
+      "slug": "flash-attention",
+      "term": "FlashAttention",
+      "aka": [
+        "flash attention"
+      ],
+      "category": "Architecture",
+      "short": "A fast, memory-efficient way to compute exact attention by working in small tiles inside fast GPU memory.",
+      "definition": "FlashAttention, first published in 2022, is an algorithm that computes exactly the same result as standard attention but much faster. The naive approach writes a huge table of attention scores, one entry for every pair of tokens, to the GPU's relatively slow main memory. FlashAttention instead processes queries and keys in small tiles that fit in fast on-chip memory and never stores the full table, so memory use grows linearly rather than quadratically with sequence length. Later versions were tuned for newer GPU generations. It is built into major training and serving frameworks, and it is one of the reasons long context windows became practical.",
+      "related": [
+        "attention",
+        "gpu",
+        "long-context",
+        "vllm"
+      ]
+    },
+    {
+      "slug": "grouped-query-attention",
+      "term": "Grouped-query attention (GQA)",
+      "aka": [
+        "GQA"
+      ],
+      "category": "Architecture",
+      "short": "An attention variant where groups of query heads share key and value heads to shrink the KV cache.",
+      "definition": "In standard multi-head attention, every head has its own query, key and value projections, and all those keys and values must be kept in the KV cache during generation. Grouped-query attention lets several query heads share one key-value head. A model with 32 query heads and 8 key-value heads, a common configuration, needs a KV cache four times smaller than full multi-head attention, with little loss in quality. Multi-query attention is the extreme case: a single key-value head shared by all queries. GQA is now standard in many open models because it cuts memory use and speeds up long-context and high-concurrency serving.",
+      "related": [
+        "kv-cache",
+        "attention",
+        "vram"
+      ]
+    },
+    {
+      "slug": "layer-normalization",
+      "term": "Layer normalization",
+      "aka": [
+        "LayerNorm",
+        "layer norm"
+      ],
+      "category": "Architecture",
+      "short": "Rescaling each token's vector to a consistent range inside every layer, which keeps training numerically stable.",
+      "definition": "Layer normalization rescales the numbers in each token's vector so they have a consistent average and spread before the next computation, then applies learned scaling factors. Without it, values can drift larger or smaller layer after layer until training becomes unstable. The original transformer normalized after each sublayer; most modern LLMs normalize before each one, a layout called pre-norm that trains more reliably in deep stacks. Many models, including the Llama family, use RMSNorm, a cheaper variant that skips subtracting the mean and divides only by the root mean square. It is a small component, but normalization choices strongly affect whether large training runs stay stable.",
+      "related": [
+        "transformer",
+        "feed-forward-network",
+        "pretraining"
+      ]
+    },
+    {
+      "slug": "mixture-of-experts",
+      "term": "Mixture of experts (MoE)",
+      "aka": [
+        "MoE",
+        "sparse mixture of experts",
+        "sparse MoE"
+      ],
+      "category": "Architecture",
+      "short": "An architecture that routes each token to a few specialist sub-networks, so only part of the model runs per token.",
+      "definition": "A mixture-of-experts model replaces the single feed-forward block in each layer with many parallel expert networks plus a small router that picks a few experts for each token. Mixtral 8x7B, for example, has eight experts per layer and activates two, so each token touches about 13 billion of its roughly 47 billion parameters. The payoff is the knowledge capacity of a large model at the per-token compute cost of a much smaller one. The catch is memory: all experts must still be loaded, so VRAM needs follow the total parameter count. Very large MoE models are often spread across GPUs by placing different experts on different devices, called expert parallelism.",
+      "related": [
+        "feed-forward-network",
+        "parameters",
+        "vram",
+        "parallelism"
+      ]
+    },
+    {
+      "slug": "positional-encoding",
+      "term": "Positional encoding",
+      "aka": [
+        "position embedding",
+        "positional embedding"
+      ],
+      "category": "Architecture",
+      "short": "Information added to a transformer so it knows the order of tokens, since attention alone ignores order.",
+      "definition": "Attention by itself treats its input as an unordered set: without extra information, 'dog bites man' and 'man bites dog' would look the same. Positional encoding fixes this by giving the model a signal about where each token sits. The original transformer added fixed sine and cosine patterns to the token embeddings, and early GPT models learned a separate vector for each absolute position. Most current LLMs use relative schemes such as rotary position embedding (RoPE), which encode the distance between tokens. The choice matters in practice because it strongly affects how well a model handles sequences longer than those it saw in training.",
+      "related": [
+        "rope",
+        "transformer",
+        "attention",
+        "long-context"
+      ]
+    },
+    {
+      "slug": "residual-connection",
+      "term": "Residual connection",
+      "aka": [
+        "skip connection"
+      ],
+      "category": "Architecture",
+      "short": "A shortcut that adds a layer's input to its output, keeping signals and gradients flowing through deep networks.",
+      "definition": "A residual connection adds a sublayer's input directly to its output, so each layer only has to learn an adjustment rather than rebuild the whole representation. In a transformer, both the attention block and the feed-forward block in every layer are wrapped this way. The idea comes from 2015 image-recognition research on ResNets, where it made networks more than 100 layers deep trainable by giving gradients a direct path backward. In LLMs, the running sum that flows from layer to layer is often called the residual stream, and interpretability researchers study it to see how information builds up as text moves through the model.",
+      "related": [
+        "transformer",
+        "layer-normalization",
+        "feed-forward-network"
+      ]
+    },
+    {
+      "slug": "rope",
+      "term": "Rotary position embedding (RoPE)",
+      "aka": [
+        "RoPE",
+        "rotary embedding"
+      ],
+      "category": "Architecture",
+      "short": "A widely used way of encoding token positions by rotating query and key vectors by position-dependent angles.",
+      "definition": "Rotary position embedding, introduced in 2021, encodes position by rotating each query and key vector by an angle that depends on the token's position. When two rotated vectors are compared in attention, the result depends on how far apart the tokens are, so the model naturally learns relative distance. RoPE is used by Llama, Qwen, Mistral and many other model families. It is also the basis for most context-extension tricks: methods such as position interpolation and YaRN rescale the rotation frequencies so a model trained on shorter sequences can handle much longer ones after a modest amount of extra training.",
+      "related": [
+        "positional-encoding",
+        "long-context",
+        "attention"
+      ]
+    },
+    {
+      "slug": "sliding-window-attention",
+      "term": "Sliding window attention",
+      "aka": [
+        "local attention",
+        "windowed attention",
+        "SWA"
+      ],
+      "category": "Architecture",
+      "short": "Attention limited to a fixed number of recent tokens, keeping cost and memory from growing with length.",
+      "definition": "With sliding window attention, each token attends only to a fixed span of preceding tokens, such as the last 4,096, instead of the entire sequence. Compute then grows linearly with length, and the KV cache for those layers stops growing once the window is full. Information can still travel further than the window because each layer passes context forward, letting stacked layers reach well beyond a single window. Mistral 7B used this approach, and several later model families interleave sliding-window layers with full-attention layers to balance long-range recall against memory. It is one of several sparse attention patterns designed to make long contexts affordable.",
+      "related": [
+        "attention",
+        "kv-cache",
+        "long-context"
+      ]
+    },
+    {
+      "slug": "softmax",
+      "term": "Softmax",
+      "aka": [
+        "softmax function"
+      ],
+      "category": "Architecture",
+      "short": "A function that turns a list of raw scores into probabilities that are positive and sum to one.",
+      "definition": "Softmax converts any list of numbers into a probability distribution by exponentiating each value and dividing by the total. Larger scores get disproportionately more weight: the scores 2.0, 1.0 and 0.1 become roughly 0.66, 0.24 and 0.10. LLMs use softmax in two key places. Inside attention, it turns similarity scores into the weights used to mix information between tokens. At the output, it turns the logits for every vocabulary token into next-token probabilities. Temperature works by dividing the logits before this step, which makes the resulting distribution sharper or flatter.",
+      "related": [
+        "logits",
+        "temperature",
+        "attention"
+      ]
+    },
+    {
+      "slug": "state-space-model",
+      "term": "State space model (SSM)",
+      "aka": [
+        "SSM",
+        "state-space model"
+      ],
+      "category": "Architecture",
+      "short": "A sequence architecture that carries a fixed-size running state instead of attending over every past token.",
+      "definition": "A state space model processes a sequence by updating a compact hidden state token by token, somewhat like a recurrent network, rather than comparing every token with every other. Mamba, published in 2023, made this approach competitive for language by letting the state update depend on the input. The appeal is efficiency: compute grows linearly with length and generation needs constant memory per step, with no growing KV cache. The weakness is recall, since squeezing all history into a fixed-size state makes exact copying and lookup harder than with attention. Hybrid designs such as AI21's Jamba interleave SSM layers with attention layers to get some of both.",
+      "related": [
+        "transformer",
+        "attention",
+        "kv-cache",
+        "long-context"
+      ]
+    },
+    {
+      "slug": "transformer",
+      "term": "Transformer",
+      "aka": [
+        "transformer architecture"
+      ],
+      "category": "Architecture",
+      "short": "The neural network design behind nearly all modern LLMs, built around the attention mechanism.",
+      "definition": "The transformer is the architecture introduced in the 2017 paper 'Attention Is All You Need' and used by almost every major LLM since. It processes text as a sequence of token embeddings that pass through a stack of identical layers. Each layer has two main parts: self-attention, which lets every token pull in information from other tokens, and a feed-forward network, which transforms each token's representation on its own. Residual connections and normalization keep training stable across dozens of layers. Because attention handles all positions in parallel, transformers train efficiently on GPUs, which is a big reason they displaced older recurrent networks.",
+      "related": [
+        "attention",
+        "feed-forward-network",
+        "decoder-only",
+        "positional-encoding"
+      ]
+    }
+  ]
+}
