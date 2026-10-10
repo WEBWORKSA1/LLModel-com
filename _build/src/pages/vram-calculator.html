@@ -1,0 +1,99 @@
+<!--meta
+{
+  "slug": "vram-calculator",
+  "title": "LLM VRAM Calculator: GPU Memory Needed to Run Open Models",
+  "h1": "GPU and VRAM calculator",
+  "lede": "Work out how much GPU memory an open-weight model needs: the weights at your chosen precision, the KV cache for your context length and users, and runtime overhead. Then see which GPUs and Macs fit it.",
+  "head_meta": ["Presets for open-weight models in our directory", "Estimates; leave 10-20% headroom"],
+  "description": "Free LLM VRAM calculator: estimate GPU memory for open models like gpt-oss, Gemma 4, Qwen, Llama and DeepSeek at FP16, FP8 or 4-bit, including KV cache, and see which GPUs or Macs fit.",
+  "section": "tools",
+  "crumbs": [["Home", "index.html"], ["Tools", "tools.html"], ["VRAM calculator", null]],
+  "data": ["models"],
+  "scripts": ["tools/vram.js"],
+  "priority": 0.9,
+  "faq": [
+    {"q": "How much VRAM do I need to run an LLM?", "a": "For the weights alone, multiply the parameter count in billions by the bits per weight and divide by 8 to get gigabytes. A 30B model needs about 60 GB at 16-bit and about 18 GB at 4-bit. Then add the KV cache, which grows with context length and the number of simultaneous users, plus a gigabyte or two of runtime overhead."},
+    {"q": "What does quantization do to quality?", "a": "Quantization stores weights with fewer bits. 8-bit is usually very close to full precision, and good 4-bit formats keep most of the quality for chat and coding tasks, though results vary by model and task. Below 4 bits, quality drops more noticeably. Test on your own prompts."},
+    {"q": "Do mixture-of-experts models need less memory?", "a": "No. All the experts must be loaded, so memory follows the total parameter count. The advantage is speed: only the active parameters are used for each token, so an MoE model generates faster than a dense model of the same total size."},
+    {"q": "Can I run a model that doesn't fit in my GPU?", "a": "Partly. Tools like llama.cpp can offload some layers to system RAM, which works but is much slower. Splitting a model across several GPUs is the usual approach for large models in production."}
+  ]
+}
+-->
+<div class="wrap">
+  <div class="tool">
+    <div class="tool__in">
+      <h2 class="tool-h">Model and settings</h2>
+      <div class="field"><label for="vr-model">Model</label><select class="select" id="vr-model"></select></div>
+      <div class="field"><label for="vr-params">Total parameters (billions)</label><input class="input" type="number" id="vr-params" min="0.1" step="0.1" value="20" inputmode="decimal"></div>
+      <div class="field"><label for="vr-prec">Weight precision</label>
+          <select class="select" id="vr-prec">
+            <option value="32">FP32 (32 bits)</option>
+            <option value="16" selected>BF16 / FP16 (16 bits)</option>
+            <option value="8">FP8 (8 bits)</option>
+            <option value="8.5">INT8 / Q8_0 (about 8.5 bits)</option>
+            <option value="6.56">Q6_K (about 6.6 bits)</option>
+            <option value="5.69">Q5_K_M (about 5.7 bits)</option>
+            <option value="4.85">Q4_K_M (about 4.85 bits)</option>
+            <option value="4.25">AWQ / GPTQ 4-bit (about 4.25 bits)</option>
+            <option value="3.91">Q3_K_M (about 3.9 bits)</option>
+            <option value="3">Q2_K (about 3 bits)</option>
+          </select></div>
+      <div class="field"><label for="vr-ctx">Context length per sequence</label><div class="range-row"><input type="range" id="vr-ctx" min="0" max="9" step="1" value="3"><output for="vr-ctx" id="vr-ctx-out">16K</output></div></div>
+      <div class="field"><label for="vr-batch">Concurrent sequences</label><input class="input" type="number" id="vr-batch" min="1" max="512" step="1" value="1" inputmode="numeric"><p class="hint">Users or requests served at the same time.</p></div>
+      <div class="field"><label for="vr-kvp">KV cache precision</label>
+        <select class="select" id="vr-kvp"><option value="2" selected>FP16 / BF16</option><option value="1">FP8 / INT8</option><option value="0.5">4-bit</option></select></div>
+      <div class="field"><label for="vr-att">Attention design</label>
+        <select class="select" id="vr-att">
+          <option value="full">Standard: every layer caches every token</option>
+          <option value="hybrid">Hybrid: sliding-window or linear layers</option>
+          <option value="latent">Compressed (latent) attention</option>
+          <option value="ssm">Mostly state-space (Mamba) layers</option>
+        </select>
+        <p class="hint" id="vr-att-note"></p></div>
+      <details>
+        <summary class="small" style="cursor:pointer;font-weight:600">Architecture (for the KV cache)</summary>
+        <div class="grid grid--3" style="gap:.6rem;margin-top:.75rem">
+          <div class="field"><label for="vr-layers">Layers</label><input class="input" type="number" id="vr-layers" min="1" value="32"></div>
+          <div class="field"><label for="vr-kvh">KV heads</label><input class="input" type="number" id="vr-kvh" min="1" value="8"></div>
+          <div class="field"><label for="vr-hd">Head size</label><input class="input" type="number" id="vr-hd" min="8" value="128"></div>
+        </div>
+        <p class="hint" style="margin-top:.4rem">Filled from the model's published config where available. KV factor: <span id="vr-kvf">1</span>.</p>
+      </details>
+    </div>
+    <div class="tool__out">
+      <p class="out-label">Estimated memory needed</p>
+      <p class="out-big" id="vr-total" aria-live="polite">0 GB</p>
+      <ul class="bars" id="vr-break" style="margin-top:1rem"></ul>
+      <p class="small muted" id="vr-moe" style="margin-top:.75rem"></p>
+      <h2 class="h3" style="margin:1.5rem 0 .6rem">What fits it</h2>
+      <div class="table-wrap"><table class="table" id="vr-gpus"><thead><tr><th>Hardware</th><th class="num">Memory</th><th>Fits?</th></tr></thead><tbody></tbody></table></div>
+      <p class="small muted" style="margin-top:.6rem">Multi-GPU counts assume the model is split evenly with about 10% of each card kept free. Macs: assumes about 75% of unified memory is available to the GPU by default.</p>
+      <div class="notice" style="margin-top:1rem">Weighing a GPU purchase or rental against an API? <a href="self-host-vs-api-calculator.html">Find your break-even volume</a> or <a href="hire-llm-experts.html?need=self-host&amp;from=vram-calculator">get a second opinion on your setup</a>.</div>
+    </div>
+  </div>
+  {{ad:tool-result}}
+</div>
+
+<section class="section" aria-labelledby="how-h">
+  <div class="wrap wrap--read prose">
+    <h2 id="how-h">How the estimate works</h2>
+    <p>Three things take GPU memory when you run a model: the weights, the KV cache and the runtime itself.</p>
+    <h3 id="weights">Weights</h3>
+    <p>Every parameter is stored at the precision you choose. Memory in gigabytes is the parameter count in billions times the bits per weight, divided by 8. A 117B model at about 4.85 bits per weight needs roughly 71 GB just to load; at 16 bits it needs about 234 GB.</p>
+    <h3 id="kv">KV cache</h3>
+    <p>While generating, the model keeps a key and a value vector for every token, in every attention layer, for every sequence it's serving. The standard formula is:</p>
+    <pre><code>KV bytes = 2 &times; layers &times; KV heads &times; head size &times; context &times; sequences &times; bytes per value</code></pre>
+    <p>Many recent models cut this sharply. Grouped-query attention shares keys and values across heads, which is already reflected in the KV-head count. Sliding-window and linear-attention layers only keep a short window, compressed (latent) attention stores a much smaller vector per token, and state-space layers keep no per-token cache at all. For models that use these designs, the calculator scales the standard estimate down by a factor shown under the architecture fields. Treat that figure as an approximation and leave headroom.</p>
+    <h3 id="overhead">Runtime overhead</h3>
+    <p>The serving framework, CUDA context and temporary activation buffers add memory too. The calculator adds 0.8 GB plus 6% of the weights, a conservative middle ground across common runtimes such as llama.cpp, Ollama and vLLM. vLLM also pre-allocates a share of free memory for its cache by default, so its reported usage will look higher.</p>
+    <h3 id="tips">Getting a model to fit</h3>
+    <ul>
+      <li>Drop from 16-bit to 8-bit or a good 4-bit quantization; that's the biggest single saving.</li>
+      <li>Shorten the context or serve fewer simultaneous sequences to shrink the KV cache.</li>
+      <li>Quantize the KV cache to 8 bits where your runtime supports it.</li>
+      <li>Split the model across two or more GPUs, or offload some layers to system RAM if speed matters less.</li>
+    </ul>
+    <p>Step-by-step setup with Ollama, LM Studio and llama.cpp is in <a href="run-llms-locally.html">how to run LLMs locally</a>, and the <a href="llms-you-can-run-locally.html">local model shortlist</a> lists what fits common hardware.</p>
+  </div>
+</section>
+<div class="wrap">{{lead:local,self-host}}</div>
