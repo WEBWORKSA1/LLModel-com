@@ -1,0 +1,188 @@
+{
+  "category": "Prompting",
+  "updated": "2026-10-10",
+  "terms": [
+    {
+      "slug": "chain-of-thought",
+      "term": "Chain-of-thought prompting (CoT)",
+      "aka": [
+        "CoT",
+        "chain of thought",
+        "step-by-step reasoning"
+      ],
+      "category": "Prompting",
+      "short": "Getting a model to write out intermediate reasoning steps before giving its final answer.",
+      "definition": "Chain-of-thought prompting asks a model to reason step by step before answering, either by showing worked examples or with a simple instruction to think it through. A 2022 Google paper showed this markedly improved large models' accuracy on arithmetic and logic word problems, because each written step gives the model more computation and a scaffold to build on. Reasoning models now produce this kind of thinking on their own, so explicitly asking for it matters less with them. Two cautions: the written steps are not always a faithful account of how the model reached its answer, and longer reasoning means more output tokens and higher latency.",
+      "related": [
+        "reasoning-model",
+        "self-consistency",
+        "tree-of-thoughts",
+        "few-shot-prompting"
+      ]
+    },
+    {
+      "slug": "context-engineering",
+      "term": "Context engineering",
+      "aka": [],
+      "category": "Prompting",
+      "short": "Deciding what information goes into a model's context window, in what form and order, at each step.",
+      "definition": "Context engineering is the discipline of assembling the full input a model sees on each call: instructions, retrieved documents, tool definitions, conversation history, memory and intermediate results. The term gained popularity in 2025 as agents made it clear that wording a single prompt is only part of the job. Good context engineering keeps inputs relevant and compact, summarizes or drops stale history, retrieves facts only when needed, and orders material so the most important parts stand out. It matters because irrelevant or contradictory context degrades answers, and every extra token adds cost and latency, even in models with huge context windows.",
+      "related": [
+        "prompt-engineering",
+        "context-window",
+        "rag",
+        "agent-memory"
+      ]
+    },
+    {
+      "slug": "few-shot-prompting",
+      "term": "Few-shot prompting",
+      "aka": [
+        "few-shot learning",
+        "multi-shot prompting",
+        "k-shot prompting"
+      ],
+      "category": "Prompting",
+      "short": "Including a few worked examples in the prompt so the model copies the pattern.",
+      "definition": "Few-shot prompting shows the model a handful of input-output examples before the real input. To classify support emails, you might include three emails each labeled billing, bug or feature request, then the new email. The model infers the task and format from the examples, with no training involved. Zero-shot prompting gives instructions only, and one-shot gives a single example. The GPT-3 paper in 2020 made the technique famous. Choose examples that are varied and representative, because models imitate surface features such as length and wording, and keep the format identical across examples. Modern instruction-tuned models often need fewer examples than older ones.",
+      "related": [
+        "in-context-learning",
+        "prompt-engineering",
+        "chain-of-thought"
+      ]
+    },
+    {
+      "slug": "in-context-learning",
+      "term": "In-context learning (ICL)",
+      "aka": [
+        "ICL"
+      ],
+      "category": "Prompting",
+      "short": "A model's ability to pick up a new task from instructions or examples in the prompt, without retraining.",
+      "definition": "In-context learning is the ability of a large model to perform a task it was never explicitly trained on, just by reading instructions or examples in its prompt. Give it a few examples of converting product descriptions into a particular JSON format and it will convert the next one, even though none of its weights changed. The effect lasts only for that request; nothing is learned permanently. It was a defining discovery of the GPT-3 era and is what makes prompting a practical alternative to fine-tuning for many tasks. Long context windows extend it to hundreds of examples, sometimes called many-shot in-context learning.",
+      "related": [
+        "few-shot-prompting",
+        "fine-tuning",
+        "context-window",
+        "emergent-abilities"
+      ]
+    },
+    {
+      "slug": "prompt-chaining",
+      "term": "Prompt chaining",
+      "aka": [
+        "chained prompts",
+        "LLM chain"
+      ],
+      "category": "Prompting",
+      "short": "Breaking a task into a sequence of prompts where each step's output feeds the next.",
+      "definition": "Prompt chaining splits a complex job into smaller model calls run in sequence. To turn a sales-call transcript into a CRM update, one call might extract facts, a second classify the deal stage, and a third draft a follow-up email using both results. Each step gets a focused prompt, so it is easier to test, debug and improve on its own, and you can insert code checks between steps or use a cheaper model for simple ones. The costs are added latency and the risk that an early error propagates. Chains with a fixed order are the simplest form of agentic workflow and often more reliable than a free-roaming agent.",
+      "related": [
+        "agentic-workflow",
+        "prompt-template",
+        "structured-outputs",
+        "ai-agent"
+      ]
+    },
+    {
+      "slug": "prompt-engineering",
+      "term": "Prompt engineering",
+      "aka": [
+        "prompt design",
+        "prompting"
+      ],
+      "category": "Prompting",
+      "short": "Designing and testing the instructions and context you give a model to get reliable results.",
+      "definition": "Prompt engineering is the practice of writing, structuring and iterating on model inputs until the outputs are consistently good. Effective prompts state the task plainly, supply the context the model can't know, give an example or two of the desired output, specify the format and say what to do when information is missing. Compare 'summarize this' with 'summarize this support ticket in three bullets for an engineer, quoting any error codes exactly'. The engineering part is measurement: keep a set of test inputs, change one thing at a time and compare results. Prompts that work well on one model often need adjusting for another.",
+      "related": [
+        "system-prompt",
+        "few-shot-prompting",
+        "context-engineering",
+        "prompt-template"
+      ]
+    },
+    {
+      "slug": "prompt-template",
+      "term": "Prompt template",
+      "aka": [
+        "prompt templating",
+        "templated prompt"
+      ],
+      "category": "Prompting",
+      "short": "A reusable prompt with placeholders, or the model-specific format that wraps chat messages.",
+      "definition": "A prompt template is a reusable prompt with slots filled at run time, for example 'Summarize the following {document_type} for a {audience} in {n} bullets.' Templates let you version, test and reuse prompts like code instead of rebuilding strings by hand. The related chat template is the model-specific format that converts a list of system, user and assistant messages into one token sequence, complete with special tokens marking each turn. Hosted APIs apply chat templates automatically, but when you run open models yourself a mismatched chat template is a common cause of rambling or strangely formatted answers, so use the template shipped with the model.",
+      "related": [
+        "prompt-engineering",
+        "special-tokens",
+        "chat-model",
+        "prompt-chaining"
+      ]
+    },
+    {
+      "slug": "role-prompting",
+      "term": "Role prompting",
+      "aka": [
+        "persona prompting",
+        "role-play prompting"
+      ],
+      "category": "Prompting",
+      "short": "Telling a model to adopt a role or persona, such as an experienced editor, to shape its responses.",
+      "definition": "Role prompting assigns the model an identity, for example 'You are a senior security reviewer' or 'You are a patient math tutor for 12-year-olds.' A role compactly signals the expected vocabulary, depth, tone and priorities, and it is commonly placed in the system prompt. Its effect on factual accuracy is limited and inconsistent across studies: calling a model an expert does not give it knowledge it lacks. Roles work best combined with concrete instructions about audience, format and criteria. 'Act as a lawyer' alone adds little; 'review this lease for clauses about early termination and list them with section numbers' does much more.",
+      "related": [
+        "system-prompt",
+        "prompt-engineering",
+        "sycophancy"
+      ]
+    },
+    {
+      "slug": "self-consistency",
+      "term": "Self-consistency",
+      "aka": [
+        "majority voting"
+      ],
+      "category": "Prompting",
+      "short": "Sampling several independent answers and picking the most common one to improve accuracy.",
+      "definition": "Self-consistency, proposed by Google researchers in 2022, improves reasoning accuracy by asking the same question several times at a nonzero temperature, letting each attempt reason its own way, and then taking a majority vote over the final answers. If five of eight attempts at a math problem reach 42, you answer 42. The idea is that correct reasoning paths tend to converge while errors scatter. It works best when answers are short and comparable, like numbers or labels, and it multiplies cost by the number of samples. A related method, best-of-n, uses a scoring model or verifier to pick the strongest attempt instead of voting.",
+      "related": [
+        "chain-of-thought",
+        "test-time-compute",
+        "tree-of-thoughts",
+        "temperature"
+      ]
+    },
+    {
+      "slug": "system-prompt",
+      "term": "System prompt",
+      "aka": [
+        "system message",
+        "developer message",
+        "system instructions"
+      ],
+      "category": "Prompting",
+      "short": "Standing instructions, set by the developer, that shape a model's behavior for an entire conversation.",
+      "definition": "A system prompt is the set of instructions placed at the start of a conversation, separate from user messages, that defines the model's role, rules, tone and output format. A customer-support bot's system prompt might name the product, list topics it may discuss, require a friendly tone and tell it to hand off billing disputes to a person. Models are trained to give system instructions more weight than user messages, but that priority is not a security boundary: determined users can sometimes extract or override them. Keep secrets such as API keys out of system prompts, and enforce critical rules in your application code as well.",
+      "related": [
+        "prompt-engineering",
+        "prompt-injection",
+        "guardrails",
+        "role-prompting"
+      ]
+    },
+    {
+      "slug": "tree-of-thoughts",
+      "term": "Tree of thoughts (ToT)",
+      "aka": [
+        "ToT"
+      ],
+      "category": "Prompting",
+      "short": "A technique where a model explores and evaluates multiple branching lines of reasoning, backtracking as needed.",
+      "definition": "Tree of thoughts, introduced in a 2023 paper, extends chain-of-thought from a single line of reasoning into a search. At each step the model proposes several possible next thoughts, evaluates how promising each one looks, and a search procedure expands the best branches while abandoning dead ends. On the Game of 24, a puzzle that requires combining four numbers to reach 24, the paper reported GPT-4 solving 4 percent of problems with chain-of-thought and 74 percent with tree of thoughts. The method needs many model calls and custom orchestration code, so it is mainly used for puzzles and research; reasoning models now perform similar exploration internally.",
+      "related": [
+        "chain-of-thought",
+        "self-consistency",
+        "reasoning-model",
+        "test-time-compute"
+      ]
+    }
+  ]
+}
