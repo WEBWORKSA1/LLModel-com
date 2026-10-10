@@ -1,0 +1,138 @@
+<!--meta
+{
+  "slug": "contests",
+  "title": "Prompt Efficiency Challenge: Season 1 ($500 in Prizes)",
+  "h1": "Prompt Efficiency Challenge, Season 1",
+  "lede": "Solve five practical tasks with any language model. The most accurate entries win, and among them the cheapest one wins most. $500 in prizes, open now, closing December 15, 2026.",
+  "head_meta": ["Any model, any provider", "Skill-based, no purchase necessary", "<a href=\"contest-rules.html\">Official rules</a>"],
+  "description": "Enter the LLModel Prompt Efficiency Challenge: solve five real tasks with any LLM, report tokens and cost, and compete for $500 in prizes. Skill-based, free to enter.",
+  "section": "",
+  "crumbs": [["Home", "index.html"], ["Contests", null]],
+  "priority": 0.6,
+  "faq": [
+    {"q": "Can I use any model?", "a": "Yes: closed APIs, open-weight models on your own hardware, or a mix. Name the exact model and version, and report token counts and the cost at the provider's list price. For self-hosted models, report tokens and note your hardware."},
+    {"q": "Is there an entry fee?", "a": "No. Entry is free and no purchase is necessary. Winners are chosen by judging against the published scoring, not by chance."},
+    {"q": "Can I enter more than once?", "a": "One entry per person. You can update your entry before the deadline by submitting again with the same email; we judge the latest one."},
+    {"q": "Who can enter?", "a": "Anyone who has reached the age of majority where they live and isn't otherwise excluded by the official rules or local law. See the official rules for details, including the clause for residents of Quebec."}
+  ]
+}
+-->
+<div class="wrap grid grid--sidebar">
+  <div class="prose" style="max-width:none">
+    <h2 id="how">How it works</h2>
+    <ol>
+      <li>Solve the five tasks below with any language model and any prompts you like.</li>
+      <li>Record every prompt, every output, the token counts and the total cost at list price.</li>
+      <li>Publish your entry as a public gist, document or repository and submit the link below.</li>
+    </ol>
+    <h3 id="scoring">Scoring (100 points)</h3>
+    <ul>
+      <li><strong>Accuracy, 60 points.</strong> 12 points per task, checked against the answer key and rubric published after the deadline.</li>
+      <li><strong>Efficiency, 30 points.</strong> Among entries with at least 48 accuracy points, the lowest total cost scores 30 and others score in proportion.</li>
+      <li><strong>Reproducibility, 10 points.</strong> Exact model names, settings and prompts that a judge can rerun.</li>
+    </ul>
+    <h3 id="prizes">Prizes</h3>
+    <ul>
+      <li>First place: $300</li>
+      <li>Second place: $150</li>
+      <li>Third place: $50</li>
+    </ul>
+    <p>Winners are featured on LLModel.com and in The LLM Brief. Sponsors may add prizes; any additions will be announced on this page.</p>
+
+    <h2 id="tasks">The five tasks</h2>
+    <h3 id="task-1">Task 1: extract an invoice</h3>
+    <p>Return a JSON object with the fields <code>vendor</code>, <code>invoice_number</code>, <code>issue_date</code> (ISO 8601), <code>subtotal</code>, <code>tax</code>, <code>total</code> and <code>currency</code> (ISO 4217).</p>
+    <pre><code>INVOICE A-20931 | Larkspur Paper Co.
+Issued: 3rd of September 2026
+12 boxes A4 paper @ 18.50 = 222.00
+Delivery 15.00
+Subtotal 237.00
+GST 5% 11.85
+Amount due: CAD 248.85</code></pre>
+    <h3 id="task-2">Task 2: triage support tickets</h3>
+    <p>Label each message with exactly one of: Billing, Bug, Feature request, Account access, Other.</p>
+    <pre><code>1. I was charged twice for October, please refund one.
+2. The export button does nothing when I click it in Safari.
+3. Could you add a dark mode to the mobile app?
+4. I can't log in since I changed phones; the 2FA codes don't work.
+5. Do you have an office in Berlin?
+6. My invoice shows the wrong company name. Can you fix it?
+7. After the update, charts show yesterday's data instead of today's.
+8. It would be great to schedule reports weekly instead of daily.</code></pre>
+    <h3 id="task-3">Task 3: summarize a notice in 40 words or fewer</h3>
+    <pre><code>Starting November 3, 2026, the Team plan changes in three ways. First, the monthly
+price rises from $12 to $14 per seat, though annual subscribers keep their current
+rate until renewal. Second, every Team workspace gets 100 GB of shared storage, up
+from 25 GB, with no action needed. Third, single sign-on, previously an add-on at $3
+per seat, is now included at no extra cost. Workspaces on the Free and Business plans
+aren't affected. Existing invoices won't change, and admins will see the new price on
+their first bill after November 3.</code></pre>
+    <h3 id="task-4">Task 4: fix the function</h3>
+    <p>Return a corrected version that passes all four tests.</p>
+    <pre><code>def median(values):
+    """Return the median of a non-empty list of numbers."""
+    s = sorted(values)
+    mid = len(s) // 2
+    return s[mid]
+
+assert median([3, 1, 2]) == 2
+assert median([4, 1, 3, 2]) == 2.5
+assert median([5]) == 5
+assert median([-1, -3, 10, 2]) == 0.5</code></pre>
+    <h3 id="task-5">Task 5: reason over a price table</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Plan</th><th>Monthly price</th><th>Seats included</th><th>Each extra seat</th><th>API calls per month</th></tr></thead>
+      <tbody>
+        <tr><td>Starter</td><td>$29</td><td>3</td><td>$9</td><td>10,000</td></tr>
+        <tr><td>Growth</td><td>$99</td><td>10</td><td>$8</td><td>100,000</td></tr>
+        <tr><td>Scale</td><td>$299</td><td>30</td><td>$7</td><td>1,000,000</td></tr>
+      </tbody>
+    </table></div>
+    <ol type="a">
+      <li>A team of 12 needs 50,000 API calls a month. Which plan is cheapest, and what does it cost per month?</li>
+      <li>What does the Scale plan cost per month for 35 seats?</li>
+      <li>Ignoring API limits, at how many seats does Scale first become cheaper than Growth?</li>
+    </ol>
+    <div class="callout tip"><p>Measure cost honestly: use the token counts your provider reports and its list prices. The <a href="token-counter.html">token counter</a> and <a href="llm-cost-calculator.html">cost calculator</a> help you check your numbers.</p></div>
+  </div>
+  <aside class="aside-box">
+    <h2>Key dates</h2>
+    <dl class="kv" style="margin-top:.5rem">
+      <dt>Opens</dt><dd>October 10, 2026</dd>
+      <dt>Closes</dt><dd>December 15, 2026, 11:59 p.m. ET</dd>
+      <dt>Winners</dt><dd>By January 15, 2027</dd>
+      <dt>Prize pool</dt><dd>$500</dd>
+    </dl>
+    <p class="small muted" style="margin-top:1rem">Read the <a href="contest-rules.html">official rules</a> before you enter.</p>
+    <h2 style="margin-top:1.25rem">Sponsor a prize</h2>
+    <p class="small muted" style="margin-top:.4rem">Put your product in front of skilled builders. <a href="advertise.html">Contest title sponsorship</a> includes naming rights and a winners' feature.</p>
+  </aside>
+</div>
+
+<section class="section" aria-labelledby="enter-h">
+  <div class="wrap wrap--read">
+    <div class="panel">
+      <h2 class="h2" id="enter-h">Submit your entry</h2>
+      <form class="form" data-form="contest" data-subject="Contest entry: Prompt Efficiency Challenge S1" data-replace data-success-title="Entry received" data-success="Thanks for entering. We'll confirm by email. You can update your entry before December 15 by submitting again with the same email." novalidate style="margin-top:1rem">
+        <div class="form-row">
+          <div class="field"><label for="ct-name">Full name<span class="req" aria-hidden="true">*</span></label><input class="input" id="ct-name" name="name" required autocomplete="name"></div>
+          <div class="field"><label for="ct-email">Email<span class="req" aria-hidden="true">*</span></label><input class="input" id="ct-email" name="email" type="email" required autocomplete="email"></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label for="ct-country">Country and province or state<span class="req" aria-hidden="true">*</span></label><input class="input" id="ct-country" name="location" required></div>
+          <div class="field"><label for="ct-link">Link to your entry<span class="req" aria-hidden="true">*</span></label><input class="input" id="ct-link" name="entry_url" type="url" required placeholder="https://"></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label for="ct-model">Model and version used<span class="req" aria-hidden="true">*</span></label><input class="input" id="ct-model" name="model" required></div>
+          <div class="field"><label for="ct-cost">Total cost in USD<span class="req" aria-hidden="true">*</span></label><input class="input" id="ct-cost" name="total_cost" required inputmode="decimal" placeholder="e.g. 0.0042"></div>
+        </div>
+        <div class="field"><label for="ct-notes">Notes for the judges</label><textarea class="textarea" id="ct-notes" name="notes" rows="3" maxlength="800"></textarea></div>
+        <label class="check"><input type="checkbox" name="age" value="yes" required> I have reached the age of majority where I live.<span class="req" aria-hidden="true">*</span></label>
+        <label class="check"><input type="checkbox" name="rules" value="yes" required> I have read and agree to the <a href="contest-rules.html">official rules</a>, and the entry is my own work.<span class="req" aria-hidden="true">*</span></label>
+        {{honeypot}}
+        <button class="btn btn--primary" type="submit">Submit my entry</button>
+        <div class="form-status" role="status" aria-live="polite"></div>
+      </form>
+    </div>
+  </div>
+</section>
