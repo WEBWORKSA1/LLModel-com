@@ -1,0 +1,397 @@
+{
+  "category": "Training",
+  "updated": "2026-10-10",
+  "terms": [
+    {
+      "slug": "catastrophic-forgetting",
+      "term": "Catastrophic forgetting",
+      "aka": [
+        "catastrophic interference"
+      ],
+      "category": "Training",
+      "short": "When training on new data makes a model lose skills or knowledge it previously had.",
+      "definition": "Catastrophic forgetting happens when fine-tuning on a narrow task overwrites what a model learned before. Train a general assistant heavily on legal contract summaries and it may summarize contracts well but get noticeably worse at coding, casual conversation or following unrelated instructions. The risk grows with aggressive learning rates, many epochs and data that looks nothing like the original training mix. Common mitigations include parameter-efficient methods such as LoRA, which leave the base weights untouched, mixing some general-purpose examples into the fine-tuning set, and evaluating on a broad test suite rather than only the target task.",
+      "related": [
+        "fine-tuning",
+        "lora",
+        "learning-rate",
+        "overfitting"
+      ]
+    },
+    {
+      "slug": "checkpoint",
+      "term": "Checkpoint",
+      "aka": [
+        "model checkpoint",
+        "weights file"
+      ],
+      "category": "Training",
+      "short": "A saved snapshot of a model's weights, and often its training state, at a point in training.",
+      "definition": "A checkpoint is a saved copy of a model's parameters at a particular moment, usually written every few hundred or thousand training steps. A full training checkpoint also stores optimizer state, so a crashed run can resume where it stopped, and teams keep several so they can roll back if quality drops. In everyday use, people also call any downloadable set of model weights a checkpoint, such as a fine-tuned variant on Hugging Face. Checkpoints come in formats such as safetensors, PyTorch files or GGUF for local inference. Safetensors is preferred for sharing because, unlike older pickle-based files, it cannot execute code when loaded.",
+      "related": [
+        "parameters",
+        "gguf",
+        "epoch"
+      ]
+    },
+    {
+      "slug": "cross-entropy-loss",
+      "term": "Cross-entropy loss",
+      "aka": [
+        "loss",
+        "loss function",
+        "training loss",
+        "negative log-likelihood"
+      ],
+      "category": "Training",
+      "short": "The standard training objective for LLMs, measuring how much probability the model gave the correct next token.",
+      "definition": "Loss is the number training tries to drive down, and for language models it is almost always cross-entropy: the negative logarithm of the probability the model assigned to the token that actually came next, averaged over every position. If the model gave the right token a probability of 0.25, that position contributes about 1.39 to the loss; a probability of 0.9 contributes only about 0.11. Watching loss curves is the main way to monitor training, with validation loss on held-out data revealing overfitting. Cross-entropy also connects directly to perplexity: exponentiate the average loss and you get perplexity, so a loss of 2.0 corresponds to a perplexity of about 7.4.",
+      "related": [
+        "perplexity",
+        "pretraining",
+        "overfitting",
+        "logits"
+      ]
+    },
+    {
+      "slug": "dpo",
+      "term": "Direct preference optimization (DPO)",
+      "aka": [
+        "DPO"
+      ],
+      "category": "Training",
+      "short": "A simpler alternative to RLHF that trains directly on preferred-versus-rejected answer pairs.",
+      "definition": "Direct preference optimization, introduced in a 2023 paper by Rafailov and colleagues, gets much of the benefit of RLHF without training a separate reward model or running a reinforcement learning loop. You give it examples of a prompt, a preferred answer and a rejected answer, and a simple classification-style loss raises the likelihood of the preferred answer relative to the rejected one, measured against a frozen reference model. The paper showed that this objective is mathematically tied to the RLHF goal, with the reward implicit in the model itself. DPO is stable, cheap and easy to run with open-source tools, so it is a common choice for preference-tuning open models.",
+      "related": [
+        "rlhf",
+        "reward-model",
+        "fine-tuning",
+        "post-training"
+      ]
+    },
+    {
+      "slug": "distillation",
+      "term": "Distillation",
+      "aka": [
+        "knowledge distillation",
+        "model distillation"
+      ],
+      "category": "Training",
+      "short": "Training a smaller student model to imitate a larger teacher model's outputs.",
+      "definition": "Distillation transfers ability from a large teacher model to a smaller, cheaper student. The student learns either from the teacher's full probability distributions over next tokens, which carry richer signal than a single right answer, or simply from large volumes of text the teacher generated. In January 2025, for example, DeepSeek released several small open models fine-tuned on reasoning traces from its much larger R1 model, and they scored far higher on math and coding benchmarks than earlier models of similar size. Distillation is how many small and fast models get their quality. Check the terms of service first: many API providers prohibit using their outputs to train competing models.",
+      "related": [
+        "small-language-model",
+        "synthetic-data",
+        "fine-tuning",
+        "reasoning-model"
+      ]
+    },
+    {
+      "slug": "epoch",
+      "term": "Epoch",
+      "aka": [
+        "training epoch"
+      ],
+      "category": "Training",
+      "short": "One complete pass of a training process through the entire training dataset.",
+      "definition": "An epoch is one full pass over your training data. With 10,000 examples and a batch size of 16, one epoch is 625 training steps. Large pretraining runs often see most of their data only once or a few times because the corpus is so big, while fine-tuning jobs typically run one to three epochs over a much smaller dataset. More epochs let the model absorb the examples more thoroughly, but past a point it starts memorizing them, which shows up as validation loss rising while training loss keeps falling. Hosted fine-tuning services usually let you set the epoch count or choose it automatically.",
+      "related": [
+        "overfitting",
+        "learning-rate",
+        "fine-tuning",
+        "checkpoint"
+      ]
+    },
+    {
+      "slug": "fine-tuning",
+      "term": "Fine-tuning",
+      "aka": [
+        "finetuning",
+        "model fine-tuning"
+      ],
+      "category": "Training",
+      "short": "Further training a pretrained model on a smaller, targeted dataset to change its behavior.",
+      "definition": "Fine-tuning continues training an existing model on your own examples so it adopts a style, format or narrow skill. A support team might fine-tune on a few thousand past tickets so replies match house tone and ticket categories. Full fine-tuning updates every parameter; parameter-efficient methods such as LoRA update a small add-on instead and are far cheaper. Fine-tuning is best for consistent behavior and format, not for teaching fresh facts: knowledge that changes often belongs in retrieval. Before you fine-tune, check whether better prompting or a few examples in the prompt already get you there, and keep a held-out test set to prove the gain.",
+      "related": [
+        "lora",
+        "peft",
+        "instruction-tuning",
+        "rag"
+      ]
+    },
+    {
+      "slug": "grpo",
+      "term": "Group relative policy optimization (GRPO)",
+      "aka": [
+        "GRPO"
+      ],
+      "category": "Training",
+      "short": "A reinforcement learning method that scores each answer against a group of answers to the same prompt.",
+      "definition": "GRPO is a variant of PPO introduced in DeepSeek's DeepSeekMath paper in February 2024 and later used to train the DeepSeek-R1 reasoning model. Instead of training a separate value model to judge how good an answer should be, it samples a group of answers to the same question, say eight attempts at a math problem, scores each one, and uses the group's average score as the baseline. Answers that beat the average are reinforced and the rest are discouraged. Dropping the value model saves memory and simplifies training, which made GRPO a popular choice for reinforcement learning with verifiable rewards.",
+      "related": [
+        "ppo",
+        "rlvr",
+        "reasoning-model",
+        "rlhf"
+      ]
+    },
+    {
+      "slug": "instruction-tuning",
+      "term": "Instruction tuning",
+      "aka": [
+        "instruction fine-tuning",
+        "supervised fine-tuning",
+        "SFT"
+      ],
+      "category": "Training",
+      "short": "Supervised training on instruction-and-response examples so a model learns to follow requests.",
+      "definition": "Instruction tuning is supervised fine-tuning on pairs of instructions and good responses, such as 'Summarize this email in two bullet points' followed by an ideal summary. It turns a base model, which merely continues text, into one that treats your input as a task to complete. Research in 2021 and 2022, including Google's FLAN and OpenAI's InstructGPT work, showed that training on many varied instructions helps models handle instructions they have never seen. Datasets range from tens of thousands to millions of examples, written by people, generated by stronger models, or both. Instruction tuning is usually the first post-training step, followed by preference training.",
+      "related": [
+        "fine-tuning",
+        "post-training",
+        "chat-model",
+        "rlhf"
+      ]
+    },
+    {
+      "slug": "learning-rate",
+      "term": "Learning rate",
+      "aka": [
+        "LR",
+        "step size"
+      ],
+      "category": "Training",
+      "short": "The setting that controls how big a step the model's weights take on each training update.",
+      "definition": "The learning rate determines how far the weights move in response to each batch of training data. Too high and training becomes unstable or wipes out useful knowledge; too low and the model barely changes or takes far longer to train. Most runs use a schedule: a short warmup that ramps the rate up, followed by gradual decay, often along a cosine curve. Sensible values depend on the method. LoRA fine-tuning commonly uses values around 1e-4 to 2e-4, while full fine-tuning of a large model usually needs a rate an order of magnitude smaller. Treat it as the first hyperparameter to tune when results disappoint.",
+      "related": [
+        "fine-tuning",
+        "epoch",
+        "cross-entropy-loss",
+        "catastrophic-forgetting"
+      ]
+    },
+    {
+      "slug": "lora",
+      "term": "LoRA (low-rank adaptation)",
+      "aka": [
+        "low-rank adaptation",
+        "LoRA adapter"
+      ],
+      "category": "Training",
+      "short": "A cheap fine-tuning method that trains small add-on matrices instead of the whole model.",
+      "definition": "Low-rank adaptation, published in 2021, freezes a model's original weights and trains small pairs of matrices injected into selected layers. Their product approximates the change full fine-tuning would make, using a tiny fraction of the trainable parameters; the paper reported roughly 10,000 times fewer trainable parameters than full fine-tuning of GPT-3 175B. A trained adapter is often just tens of megabytes, so you can keep one per customer or task and swap them on a single base model. Adapters can also be merged into the base weights, which avoids any extra inference latency. LoRA is the default starting point for fine-tuning open models.",
+      "related": [
+        "qlora",
+        "peft",
+        "fine-tuning",
+        "catastrophic-forgetting"
+      ]
+    },
+    {
+      "slug": "model-collapse",
+      "term": "Model collapse",
+      "aka": [],
+      "category": "Training",
+      "short": "Quality decay when models are trained repeatedly on data generated by earlier models.",
+      "definition": "Model collapse describes a degenerative cycle in which models trained on the outputs of previous models gradually lose the rare and varied parts of the original data distribution. Each generation over-represents what is common, so later models produce blander, more repetitive and eventually distorted text. A 2024 paper in Nature demonstrated the effect when each generation was trained mainly on the previous generation's output. Follow-up research found that keeping the original human data in the mix, rather than replacing it, largely avoids collapse. As more of the web becomes AI-written, curating and tracking data provenance matters more for anyone building training sets.",
+      "related": [
+        "synthetic-data",
+        "pretraining",
+        "data-poisoning"
+      ]
+    },
+    {
+      "slug": "overfitting",
+      "term": "Overfitting",
+      "aka": [],
+      "category": "Training",
+      "short": "When a model learns its training examples too closely and performs worse on new data.",
+      "definition": "Overfitting occurs when a model fits the quirks of its training set instead of the general pattern, so it does well on examples it has seen and poorly on new ones. In LLM fine-tuning, the telltale signs are validation loss that starts climbing while training loss keeps dropping, and outputs that parrot phrases from training examples. Small datasets and too many epochs make it more likely. Fixes include stopping training earlier, using fewer epochs or a lower learning rate, adding more varied data, and always holding back a test set the model never trains on. Memorizing benchmark questions is a related problem, known as contamination.",
+      "related": [
+        "epoch",
+        "fine-tuning",
+        "benchmark-contamination",
+        "cross-entropy-loss"
+      ]
+    },
+    {
+      "slug": "parallelism",
+      "term": "Parallelism (data, tensor, pipeline, expert)",
+      "aka": [
+        "distributed training",
+        "model parallelism",
+        "multi-GPU training"
+      ],
+      "category": "Training",
+      "short": "Ways of splitting a model's training or serving across many GPUs so it fits in memory and runs faster.",
+      "definition": "Large models are far too big and slow to train on one chip, so the work is spread across many GPUs in several ways at once. Data parallelism gives each GPU a copy of the model and a different slice of each batch, then averages their gradients; sharding methods such as ZeRO and FSDP split the bulky optimizer state to save memory. Tensor parallelism splits individual weight matrices across GPUs and needs very fast links between them. Pipeline parallelism places different layers on different GPUs, like stations on an assembly line. Expert parallelism spreads a mixture-of-experts model's experts across devices. Tensor and pipeline parallelism are also used to serve models too large for a single GPU.",
+      "related": [
+        "gpu",
+        "mixture-of-experts",
+        "pretraining",
+        "vram"
+      ]
+    },
+    {
+      "slug": "peft",
+      "term": "Parameter-efficient fine-tuning (PEFT)",
+      "aka": [
+        "PEFT",
+        "parameter-efficient tuning"
+      ],
+      "category": "Training",
+      "short": "A family of fine-tuning methods that train a small number of new or selected parameters instead of the whole model.",
+      "definition": "Parameter-efficient fine-tuning is the umbrella term for adapting a model while leaving almost all of its original weights frozen. Instead, you train a small set of extra parameters: low-rank matrices in LoRA, small bottleneck layers called adapters, or learned prompt vectors in prefix and prompt tuning. The benefits are practical. Training fits on far smaller GPUs, each fine-tuned variant is a small file rather than a full copy of the model, and one base model can serve many tasks by swapping adapters. For large shifts in behavior or domain, full fine-tuning can still edge ahead, but PEFT is the sensible default for most teams.",
+      "related": [
+        "lora",
+        "qlora",
+        "fine-tuning"
+      ]
+    },
+    {
+      "slug": "post-training",
+      "term": "Post-training",
+      "aka": [],
+      "category": "Training",
+      "short": "Everything done to a pretrained model to turn it into a useful, safer assistant.",
+      "definition": "Post-training covers the stages that follow pretraining and shape how a model behaves. A typical recipe starts with supervised fine-tuning on high-quality example conversations, adds preference training such as RLHF or DPO so the model favors answers people rate highly, and increasingly includes reinforcement learning on checkable tasks like math and coding to build reasoning skill. Safety training, tool-use training and tuning for specific formats happen here too. Post-training has traditionally needed far less compute than pretraining, though reinforcement learning budgets are growing fast, and it largely determines the personality, helpfulness and refusal behavior you notice when you use a model, which is why two models built on similar base models can feel very different.",
+      "related": [
+        "pretraining",
+        "instruction-tuning",
+        "rlhf",
+        "rlvr"
+      ]
+    },
+    {
+      "slug": "pretraining",
+      "term": "Pretraining",
+      "aka": [
+        "pre-training"
+      ],
+      "category": "Training",
+      "short": "The first, most expensive training stage, where a model learns language by predicting the next token.",
+      "definition": "Pretraining is the stage where a model learns general language ability by predicting the next token across a huge corpus of web pages, books, code and other text, typically trillions of tokens. No human labels are needed: the text itself supplies the right answers. This stage has traditionally consumed most of a model's training compute, often running for weeks or months on thousands of GPUs, and it fixes most of what the model knows, including its knowledge cutoff. The output is a base model, which then goes through post-training to become a useful assistant. Very few organizations pretrain frontier models; most teams adapt existing ones.",
+      "related": [
+        "base-model",
+        "post-training",
+        "scaling-laws",
+        "knowledge-cutoff"
+      ]
+    },
+    {
+      "slug": "ppo",
+      "term": "Proximal policy optimization (PPO)",
+      "aka": [
+        "PPO"
+      ],
+      "category": "Training",
+      "short": "A reinforcement learning algorithm that improves a model in small, controlled steps; the classic RLHF optimizer.",
+      "definition": "Proximal policy optimization, published by OpenAI researchers in 2017, is a reinforcement learning method that updates a policy in small, clipped steps so a single batch can't change it too drastically. In RLHF, the policy is the language model: it generates answers, a reward model scores them, and PPO nudges the model toward higher-scoring behavior. The full setup is heavy, because training typically juggles four models at once: the policy, a frozen reference copy, the reward model and a value model that estimates expected reward. That cost and complexity motivated lighter alternatives such as DPO, which skips reinforcement learning entirely, and GRPO, which drops the value model.",
+      "related": [
+        "rlhf",
+        "reward-model",
+        "grpo",
+        "dpo"
+      ]
+    },
+    {
+      "slug": "qlora",
+      "term": "QLoRA",
+      "aka": [
+        "quantized LoRA"
+      ],
+      "category": "Training",
+      "short": "LoRA fine-tuning on top of a 4-bit quantized base model, cutting memory needs dramatically.",
+      "definition": "QLoRA, introduced in 2023, combines LoRA with an aggressively quantized base model. The frozen base weights are stored in 4-bit precision using a format called NormalFloat4, while the small LoRA adapters train in higher precision. Extra tricks, such as quantizing the quantization constants and paging optimizer memory to the CPU when the GPU runs short, squeeze memory further. The paper fine-tuned a 65B-parameter model on a single 48 GB GPU, a job that would otherwise need a multi-GPU server. Today QLoRA is a standard way to fine-tune 7B to 70B models on one workstation or rented cloud GPU, with quality close to 16-bit LoRA.",
+      "related": [
+        "lora",
+        "quantization",
+        "peft",
+        "vram"
+      ]
+    },
+    {
+      "slug": "rlhf",
+      "term": "Reinforcement learning from human feedback (RLHF)",
+      "aka": [
+        "RLHF"
+      ],
+      "category": "Training",
+      "short": "Training a model to produce answers people prefer, using a reward model learned from human rankings.",
+      "definition": "RLHF tunes a model toward responses people actually prefer. Annotators compare pairs of answers to the same prompt and pick the better one; those comparisons train a reward model that scores any response; then reinforcement learning, classically PPO, adjusts the language model to earn higher scores while a penalty keeps it from drifting too far from its starting point. OpenAI's 2022 InstructGPT paper reported that people preferred outputs from a 1.3B-parameter RLHF model over those of the 175B GPT-3. RLHF improves helpfulness and tone but can also reward flattery and confident-sounding answers, so it is often combined with other methods.",
+      "related": [
+        "reward-model",
+        "ppo",
+        "dpo",
+        "alignment"
+      ]
+    },
+    {
+      "slug": "rlvr",
+      "term": "Reinforcement learning with verifiable rewards (RLVR)",
+      "aka": [
+        "RLVR",
+        "RL with verifiable rewards"
+      ],
+      "category": "Training",
+      "short": "Reinforcement learning where rewards come from automatic checks, such as a correct answer or passing tests.",
+      "definition": "Reinforcement learning with verifiable rewards trains a model on tasks where correctness can be checked by a program rather than judged by people or a learned reward model. A math answer either matches the reference or it doesn't; generated code either passes the unit tests or fails. The model attempts many such problems, and successful attempts are reinforced, often with algorithms like GRPO. Because the reward is hard to fake, this approach scales well and is a central ingredient in modern reasoning models. Its limit is coverage: open-ended writing, advice and design work lack a clean pass-or-fail check, so they still rely on preference-based methods.",
+      "related": [
+        "grpo",
+        "reasoning-model",
+        "reward-model",
+        "post-training"
+      ]
+    },
+    {
+      "slug": "reward-model",
+      "term": "Reward model",
+      "aka": [
+        "preference model",
+        "RM"
+      ],
+      "category": "Training",
+      "short": "A model trained to score responses by how much people, or a rubric, would prefer them.",
+      "definition": "A reward model takes a prompt and a response and outputs a single number estimating how good the response is. It is usually trained on human comparisons: shown two answers and told which one people preferred, it learns to give the winner a higher score. During RLHF, that score acts as the training signal for the language model. Reward models are imperfect proxies, and a policy optimized hard against one can find loopholes, for example by producing longer or more flattering answers that score well without being better. This problem, called reward hacking, is why training also penalizes drifting far from the original model.",
+      "related": [
+        "rlhf",
+        "ppo",
+        "alignment",
+        "sycophancy"
+      ]
+    },
+    {
+      "slug": "scaling-laws",
+      "term": "Scaling laws",
+      "aka": [
+        "neural scaling laws",
+        "Chinchilla scaling"
+      ],
+      "category": "Training",
+      "short": "Empirical rules that predict how model quality improves as you add parameters, data and compute.",
+      "definition": "Scaling laws are empirical relationships showing that a model's loss falls smoothly and predictably as you increase parameters, training data and compute. OpenAI researchers described these power laws in 2020. DeepMind's 2022 Chinchilla study refined them: for a fixed compute budget, parameters and training tokens should grow together, roughly 20 tokens per parameter, and its 70B Chinchilla trained on 1.4 trillion tokens outperformed the 280B Gopher. In practice, labs now train smaller models far past that ratio because they are cheaper to serve; Meta trained Llama 3 8B on over 15 trillion tokens. More recent work adds another dimension: spending more compute at inference time.",
+      "related": [
+        "parameters",
+        "pretraining",
+        "flops",
+        "test-time-compute"
+      ]
+    },
+    {
+      "slug": "synthetic-data",
+      "term": "Synthetic data",
+      "aka": [
+        "model-generated data"
+      ],
+      "category": "Training",
+      "short": "Training or test data generated by a model or program rather than collected from people.",
+      "definition": "Synthetic data is text or other data produced by models or scripts and used to train or evaluate other models. Teams generate it to cover gaps, such as rare edge cases, new languages or step-by-step math solutions, when human-written examples are scarce or expensive. Microsoft's Phi models showed in 2023 that small models trained heavily on carefully generated, textbook-style material can perform well above their size. The risks are real: generated data can carry the generator's errors and biases, lose diversity, and, if recycled carelessly over generations, contribute to model collapse. Filtering, verification and mixing with real data are what make it work.",
+      "related": [
+        "distillation",
+        "model-collapse",
+        "fine-tuning",
+        "eval-set"
+      ]
+    }
+  ]
+}
