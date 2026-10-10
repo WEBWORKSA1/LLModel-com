@@ -1,0 +1,183 @@
+<!--meta
+{
+  "slug": "llm-hallucinations",
+  "title": "LLM Hallucinations: Why They Happen and How to Reduce Them",
+  "h1": "LLM hallucinations: why they happen and how to reduce them",
+  "description": "LLM hallucinations explained: why language models make things up, what published error rates show, and how to reduce, catch and measure them in your app.",
+  "category": "Safety & quality",
+  "level": "Beginner",
+  "updated": "2026-10-10",
+  "keywords": ["llm hallucinations", "ai hallucination", "why do llms hallucinate", "reduce hallucinations", "hallucination rate", "rag citations"],
+  "summary": "Hallucinations are fluent, confident outputs that are false or unsupported by the sources a model was given. This guide explains why they happen, what published measurements show, and how to reduce, catch and measure them in real applications.",
+  "key_takeaways": [
+    "A hallucination is confident output that is false or unsupported by the model's sources; it is a side effect of how models generate text, not a rare glitch.",
+    "Published rates vary enormously by task, from low single digits on grounded summarization to far higher on open-ended factual questions, so measure your own use case.",
+    "Grounding answers in retrieved sources with checkable citations is the strongest general defense, but only when retrieval finds the right passages.",
+    "Letting the model say it doesn't know, validating structured outputs and using tools for facts and math remove whole classes of errors.",
+    "Track wrong answers and abstentions on a test set that includes unanswerable questions, and rerun it every time you change the model, prompt or retriever."
+  ],
+  "faq": [
+    {"q": "Why do AI chatbots make things up?", "a": "Language models generate text by predicting likely next words, not by looking facts up, so a fluent answer can still be false. Errors are more likely when a fact is rare in training data, newer than the model's knowledge cutoff, or missing from the sources provided. Training and benchmarks that reward confident answers over admitting uncertainty also push models to guess instead of saying they don't know."},
+    {"q": "Can hallucinations be eliminated completely?", "a": "Not with today's methods. Models can avoid many errors by declining to answer when unsure, and grounding, tools and verification cut rates further, but no published technique guarantees zero hallucinations across open-ended use. For anything high stakes, design your app so a person or an automated check confirms important claims before anyone acts on them."},
+    {"q": "Does RAG stop hallucinations?", "a": "RAG reduces hallucinations but does not stop them. If retrieval misses the right passage, the model may guess or fall back on outdated memory, and it can still misread or overstate what a source says. A 2024 study of commercial legal research tools built on retrieval found hallucination rates between 17% and 33%. Pair RAG with checkable citations, abstention rules and regular evaluation."},
+    {"q": "Does lowering the temperature reduce hallucinations?", "a": "Only a little. Lower temperature makes the model pick its most likely continuation more often, which reduces random variation between runs. But if the most likely continuation is wrong, the model will be consistently wrong. Use a low temperature for factual and extraction tasks because it makes behavior more predictable, then rely on grounding, tools and verification for accuracy."},
+    {"q": "Which LLM hallucinates the least?", "a": "It depends on the task. On Vectara's grounded summarization leaderboard, last updated May 11, 2026, rates ranged from 1.8% to 24.2%, and some small models beat much larger flagships. Rankings on open-ended factual questions look different again. Shortlist a few models, then compare them on a test set built from your own documents and questions, including ones that should not be answered."},
+    {"q": "How can I tell if an AI answer is hallucinated?", "a": "Be most skeptical of specific details: numbers, dates, names, quotes, citations and links. Open the cited source and confirm it says what the answer claims. Ask the same question in a fresh conversation and compare, since inconsistent answers are a warning sign. For code, run it and confirm that functions and packages exist. When an answer matters, check a primary source."}
+  ],
+  "sources": [
+    {"title": "Why Language Models Hallucinate (Kalai et al., 2025)", "url": "https://arxiv.org/abs/2509.04664"},
+    {"title": "OpenAI: Why language models hallucinate (2025)", "url": "https://openai.com/index/why-language-models-hallucinate/"},
+    {"title": "Measuring short-form factuality in large language models (Wei et al., 2024)", "url": "https://arxiv.org/abs/2411.04368"},
+    {"title": "Vectara hallucination leaderboard", "url": "https://github.com/vectara/hallucination-leaderboard"},
+    {"title": "Hallucination-Free? Assessing the Reliability of Leading AI Legal Research Tools (Magesh et al., 2024)", "url": "https://arxiv.org/abs/2405.20362"},
+    {"title": "Fabrication and errors in the bibliographic citations generated by ChatGPT (Walters and Wilder, 2023)", "url": "https://www.nature.com/articles/s41598-023-41032-5"},
+    {"title": "We Have a Package for You! A Comprehensive Analysis of Package Hallucinations by Code Generating LLMs (Spracklen et al., 2024)", "url": "https://arxiv.org/abs/2406.10279"},
+    {"title": "Chain-of-Verification Reduces Hallucination in Large Language Models (Dhuliawala et al., 2023)", "url": "https://arxiv.org/abs/2309.11495"},
+    {"title": "Detecting hallucinations in large language models using semantic entropy (Farquhar et al., Nature, 2024)", "url": "https://www.nature.com/articles/s41586-024-07421-0"},
+    {"title": "NIST AI 600-1: Generative Artificial Intelligence Profile (2024)", "url": "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf"}
+  ],
+  "related_tools": ["prompt-builder", "llm-picker", "llm-cost-calculator"],
+  "related_guides": ["rag-explained", "prompt-engineering-guide", "llm-benchmarks-explained", "llm-security-and-privacy", "context-windows-explained"]
+}
+-->
+<p>Ask a language model for a statistic, a court case or a library function and it may hand you one that doesn't exist, in the same confident tone it uses for facts. These errors are called hallucinations. This guide explains why they happen, what published measurements show about how often, and the practical steps that reduce, catch and measure them in your own app.</p>
+
+<h2 id="what-a-hallucination-is">What a hallucination is</h2>
+<p>A <a href="glossary.html#hallucination">hallucination</a> is output that is fluent and confident but false, or not supported by the information the model was given. NIST's generative AI risk profile calls the same problem confabulation, defined as "the production of confidently stated but erroneous or false content."</p>
+<p>It helps to separate two failures. A factuality error contradicts the real world, like a wrong founding date. A faithfulness error contradicts or goes beyond the source you supplied, like a summary that adds a figure the document never mentions.</p>
+<p>Both matter, but in apps built on your own documents, faithfulness is the one you can most directly measure and control. Either way, hallucinations are not a bug a patch will remove. They are a side effect of how models produce text, so every serious LLM application needs a plan for them.</p>
+
+<h2 id="why-models-hallucinate">Why models hallucinate</h2>
+<p>Several causes stack together:</p>
+<ul>
+<li><strong>Next-token prediction.</strong> A model writes one <a href="glossary.html#token">token</a> at a time by predicting what plausibly comes next. Plausible and true usually overlap, but nothing in that mechanism checks a claim against reality before writing it.</li>
+<li><strong>Gaps in training data.</strong> During <a href="glossary.html#pretraining">pretraining</a>, a model sees common facts thousands of times and rare ones once or never. A 2025 paper by <a href="https://arxiv.org/abs/2509.04664">Kalai and colleagues</a> argues that when a model can't reliably separate true statements from false ones, statistical pressure produces errors, and rare, arbitrary facts such as an obscure person's birthday are the most exposed.</li>
+<li><strong>Knowledge cutoffs.</strong> Training data stops at a date. OpenAI lists April 30, 2026 as the knowledge cutoff for GPT-6 Astra, for example, so without a search tool it can't know about later events and may fill the gap with a guess.</li>
+<li><strong>Decoding.</strong> Most apps sample from the model's probability distribution, shaped by settings like <a href="glossary.html#temperature">temperature</a> and <a href="glossary.html#top-p">top-p</a>. Sampling can pick a less likely, wrong continuation, and because each token depends on the ones before it, an early wrong detail can carry through the whole answer.</li>
+<li><strong>Pressure to answer.</strong> Fine-tuning for helpfulness can reward complete-sounding answers, and Kalai and colleagues argue that accuracy-only benchmarks reward guessing over admitting uncertainty, leaving models "optimized to be good test-takers." Questions with false premises add to the pressure: ask why something happened and a model may explain an event that never occurred.</li>
+</ul>
+<p>OpenAI's <a href="https://openai.com/index/why-language-models-hallucinate/">September 2025 explainer</a> shows the trade-off with numbers from its SimpleQA factual quiz. The older o4-mini answered 24% of questions correctly but was wrong on 75% because it almost never abstained. The newer gpt-5-thinking-mini was slightly less accurate at 22%, but it declined 52% of questions and was wrong on only 26%.</p>
+
+<h2 id="types-of-hallucinations">Types of hallucinations</h2>
+<p>Different types need different defenses, so it's worth naming them.</p>
+<table>
+<thead><tr><th>Type</th><th>What it looks like</th><th>Best first defense</th></tr></thead>
+<tbody>
+<tr><td>Factual</td><td>Wrong dates, figures, people or events stated as fact</td><td>Ground answers in retrieved sources or a search tool</td></tr>
+<tr><td>Citation and source</td><td>Invented papers, cases, URLs or quotes; real sources cited for claims they don't make</td><td>Require quotes and check every citation exists and supports the claim</td></tr>
+<tr><td>Reasoning</td><td>Arithmetic slips, invalid steps or wrong unit conversions inside a plausible explanation</td><td>Calculator or code tools; check final answers independently</td></tr>
+<tr><td>Instruction-following and faithfulness</td><td>Summaries that add facts, extractions that fill empty fields, ignored constraints</td><td>Structured outputs, validation and explicit rules for missing data</td></tr>
+<tr><td>Code</td><td>Functions, parameters or packages that don't exist</td><td>Run tests, type-check and verify packages before installing</td></tr>
+<tr><td>Agent actions</td><td>An agent reporting a step it never completed</td><td>Confirm actions in tool logs, not the agent's own summary</td></tr>
+</tbody>
+</table>
+<p>Citation errors have been measured directly. In a 2023 study, <a href="https://www.nature.com/articles/s41598-023-41032-5">Walters and Wilder</a> found that 55% of the citations GPT-3.5 produced and 18% of those from GPT-4 were fabricated. Even among real references, 43% and 24% respectively contained substantive errors.</p>
+<p>Code has its own version. A 2024 study by <a href="https://arxiv.org/abs/2406.10279">Spracklen and colleagues</a> generated 576,000 code samples with 16 models and found that, on average, at least 5.2% of the packages suggested by commercial models and 21.7% of those suggested by open-source models did not exist. That is also a security issue, since an attacker could publish a malicious package under a commonly invented name; see <a href="llm-security-and-privacy.html">LLM security and privacy</a>.</p>
+
+<h2 id="how-often-llms-hallucinate">How often LLMs hallucinate</h2>
+<p>There's no single hallucination rate. It depends on the model, task, domain, whether sources are supplied and how errors are counted. Published, dated measurements show the range:</p>
+<ul>
+<li><strong>Grounded summarization.</strong> <a href="https://github.com/vectara/hallucination-leaderboard">Vectara's leaderboard</a>, last updated May 11, 2026, asks models to summarize more than 7,700 documents using only facts in the text and scores the results with its own classifier. Rates ranged from 1.8% to 24.2%. Bigger wasn't always better: GPT-5.4 nano scored 3.1% against 8.3% for GPT-5.4 Pro, and Gemini 2.5 Flash-Lite scored 3.3% against 13.6% for Gemini 3 Pro Preview.</li>
+<li><strong>Open factual questions.</strong> In OpenAI's 2025 SimpleQA comparison above, error rates ran from 26% to 75%, driven largely by each model's willingness to abstain.</li>
+<li><strong>Specialized retrieval tools.</strong> A 2024 study by <a href="https://arxiv.org/abs/2405.20362">Magesh and colleagues</a> found that commercial legal research tools built on retrieval made fewer errors than a general-purpose chatbot, yet still hallucinated between 17% and 33% of the time.</li>
+</ul>
+<p>Treat these as snapshots, not specifications. The lesson that lasts is that retrieval lowers error rates without removing them, and that your rate on your own data is the only one that matters. For how to read scores like these, see <a href="llm-benchmarks-explained.html">LLM benchmarks explained</a>.</p>
+
+<h2 id="how-to-reduce-hallucinations">How to reduce hallucinations</h2>
+<p>No single technique solves the problem. Stack several, starting with whichever removes the most risk for your use case.</p>
+
+<h3 id="ground-answers-in-sources">Ground answers in your sources</h3>
+<p><a href="glossary.html#grounding">Grounding</a> means giving the model the facts it needs and instructing it to answer only from them. <a href="glossary.html#rag">Retrieval-augmented generation</a> (RAG) automates this by searching your documents for each question; the original <a href="https://arxiv.org/abs/2005.11401">RAG paper</a> found retrieval made generated text more specific and factual than a model working from memory alone.</p>
+<p>Ask for citations a program can check, and say exactly what to do when the sources fall short:</p>
+<pre><code>Answer using only the sources below. End each sentence with its source ID, like [S2].
+If the sources don't contain the answer, reply exactly:
+"I couldn't find this in the provided documents."
+If sources disagree, say so and cite both. Do not use outside knowledge.
+
+&lt;sources&gt;
+[S1] ...
+[S2] ...
+&lt;/sources&gt;
+
+Question: {question}</code></pre>
+<p>For long documents, Anthropic's <a href="https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations">guidance on reducing hallucinations</a> suggests having the model extract word-for-word quotes first, answer from those quotes, and retract any claim it can't support with one. The <a href="prompts.html">prompt library</a> includes grounded-answer templates you can adapt.</p>
+
+<h3 id="fix-retrieval-first">Fix retrieval before blaming the model</h3>
+<p>If the right passage never reaches the prompt, even a careful model will guess or fall back on stale memory. When a grounded answer is wrong, first check whether the retrieved passages contained the answer at all.</p>
+<p>Common fixes include better <a href="glossary.html#chunking">chunking</a>, hybrid keyword and semantic search, a reranking step, metadata filters for dates and versions, and removing outdated duplicates from the index. <a href="rag-explained.html">RAG explained</a> covers each in detail.</p>
+
+<h3 id="make-uncertainty-acceptable">Make "I don't know" an acceptable answer</h3>
+<p>State in the <a href="glossary.html#system-prompt">system prompt</a> that saying the information isn't available is a correct response, and give the exact wording to use. Ask the model to flag uncertain claims and to point out false premises instead of answering around them. Then make sure your app handles abstentions well, for example by offering a search or a handoff to a person.</p>
+
+<h3 id="constrain-and-validate">Constrain the output and validate it</h3>
+<p><a href="glossary.html#structured-outputs">Structured outputs</a> force a response to match a JSON schema. OpenAI's documentation describes the guarantee as schema adherence, and a perfectly shaped field can still hold a wrong value, so validate content too: check that IDs exist in your database, dates parse, totals add up and quoted text actually appears in the source.</p>
+<p>Make fields nullable and tell the model to return null when information is missing. A required field with no data behind it is an invitation to invent.</p>
+
+<h3 id="use-tools-for-facts">Use tools for facts, math and code</h3>
+<p>With <a href="glossary.html#tool-calling">tool calling</a>, the model can look up live data, query a database, use a calculator or run code instead of recalling or estimating. A currency conversion done by a code tool can be checked; one done in the model's head is a guess that looks like arithmetic. For generated code, run it, type-check it and confirm each dependency exists in your package registry before installing anything.</p>
+
+<h3 id="add-a-verification-pass">Add a verification pass</h3>
+<p>A second pass catches errors the first one made. <a href="https://arxiv.org/abs/2309.11495">Chain-of-Verification</a>, from a 2023 paper by Dhuliawala and colleagues, drafts an answer, writes fact-checking questions about it, answers them independently and then revises.</p>
+<p>Simpler variants work too: a separate checker prompt that compares each claim against the sources, or asking the same question several times and flagging disagreement. A 2024 <a href="https://www.nature.com/articles/s41586-024-07421-0">Nature paper</a> formalized the second idea as semantic entropy, detecting confabulations by measuring how much sampled answers differ in meaning. Verification adds calls and cost, so reserve it for high-stakes outputs.</p>
+
+<h3 id="choose-model-and-settings">Choose the model and settings deliberately</h3>
+<p>Models differ substantially, and rankings change by task, so compare candidates on your own test set rather than a general leaderboard. Extra reasoning doesn't automatically help: on Vectara's leaderboard, the heavier-reasoning settings of several models scored slightly worse than lighter settings of the same model.</p>
+<p>Lower temperature makes outputs more consistent, but a model can be consistently wrong, so treat it as a small lever rather than a fix.</p>
+<p>Before launch, confirm each of these:</p>
+<div class="checklist"><ul>
+<li>Factual answers come from retrieved sources or tools, not model memory.</li>
+<li>Every claim carries a citation your code can check against the source.</li>
+<li>The prompt defines exactly what to say when the answer isn't available.</li>
+<li>Extraction fields are nullable, and outputs are validated before use.</li>
+<li>Math, dates and live data go through tools.</li>
+<li>High-stakes outputs get a verification pass or human review.</li>
+<li>Your test set includes unanswerable and false-premise questions.</li>
+</ul></div>
+
+<h2 id="ux-patterns">UX patterns that keep users safe</h2>
+<p>Your interface decides whether an error gets caught or acted on. These patterns help:</p>
+<ul>
+<li><strong>Show sources beside claims.</strong> Link each citation to the exact passage, not just the document, so checking takes one click.</li>
+<li><strong>Make "not found" a visible state.</strong> A clear "I couldn't find this in your documents" with a next step beats a confident guess.</li>
+<li><strong>Highlight what to verify.</strong> Numbers, names, dates, prices and legal or medical references are where errors hurt most, so mark them visually.</li>
+<li><strong>Avoid fake precision.</strong> Don't display confidence percentages unless you've checked that they match observed accuracy.</li>
+<li><strong>Keep people in the loop for consequential actions.</strong> Let the model draft the email, refund or code change, and let a person approve it.</li>
+<li><strong>Route high-stakes topics.</strong> Use <a href="glossary.html#guardrails">guardrails</a> to send medical, legal, financial or safety questions to a person or a vetted source.</li>
+<li><strong>Make errors easy to report.</strong> A one-click "this is wrong" button that captures the conversation feeds your test set.</li>
+<li><strong>Set honest expectations.</strong> Tell users the assistant can make mistakes, and what it is and isn't for.</li>
+</ul>
+
+<h2 id="how-to-measure-hallucinations">How to measure hallucinations in your app</h2>
+<p>A repeatable <a href="glossary.html#evaluation">evaluation</a> turns "it seems fine" into a number you can improve:</p>
+<ol>
+<li><strong>Build a test set.</strong> Collect 100 to 300 real questions with reference answers and supporting sources. Include questions your sources can't answer and questions with false premises, because that's where models invent.</li>
+<li><strong>Grade three outcomes.</strong> Following the <a href="https://arxiv.org/abs/2411.04368">SimpleQA</a> approach, label each answer correct, incorrect or not attempted. For grounded apps, also check that every claim is supported by its cited passage.</li>
+<li><strong>Scale grading with a judge model.</strong> <a href="glossary.html#llm-as-a-judge">LLM-as-a-judge</a> grading is fast, but calibrate it against human labels on at least 50 answers, and recheck whenever you change the judge.</li>
+<li><strong>Rerun on every change.</strong> A new model, prompt, chunking strategy or retriever can move the rate in either direction.</li>
+<li><strong>Monitor production.</strong> Review a sample of live conversations each week, track user reports and add confirmed failures to the test set.</li>
+</ol>
+<p>Here's how the numbers work in a hypothetical set of 200 questions, 40 of them unanswerable from your documents. The model gets 150 right, answers 18 wrongly and abstains on 32. Its overall error rate is 18 ÷ 200 = 9%, and its abstention rate is 32 ÷ 200 = 16%.</p>
+<p>Splitting by question type is more revealing. On the 40 unanswerable questions it abstained 28 times and invented 12 answers, so 30% of them got a made-up response. On the 160 answerable ones it got 150 right, 6 wrong and abstained on 4, an over-caution rate of 2.5%. Drive the 30% down first, and watch the 2.5% to make sure your fixes don't make the assistant unhelpfully timid.</p>
+<p>If you'd like help designing an evaluation set or review workflow, you can <a href="hire-llm-experts.html">get hands-on help from LLM specialists</a>.</p>
+
+<h2 id="when-invention-is-fine">When some invention is fine</h2>
+<p>The same tendency that produces a fake citation also produces a fresh plot twist, a product name or twenty headline options. For brainstorming, fiction, naming, role-play, sample dialogues and placeholder data, invention is the point, and a higher temperature often helps.</p>
+<p>Keep three boundaries. Label invented material clearly, especially realistic sample data that could leak into real records. Never let the model attribute invented quotes or facts to real people or organizations. And keep creative and factual modes apart: a brainstorming prompt shouldn't share a system prompt with your support assistant.</p>
+
+<h2 id="common-mistakes">Common mistakes</h2>
+<ul>
+<li><strong>Trusting a citation because it exists.</strong> Check that the cited passage actually supports the claim.</li>
+<li><strong>Asking the model whether it's sure.</strong> A model asked to double-check itself in the same conversation can simply restate its error. Verify against sources or with a separate checker prompt.</li>
+<li><strong>Testing only answerable questions.</strong> Your test set needs questions the model should decline.</li>
+<li><strong>Blaming the model for retrieval failures.</strong> Inspect the retrieved passages before switching models.</li>
+<li><strong>Treating temperature 0 as a fix.</strong> It reduces randomness, not error.</li>
+<li><strong>Choosing a model from a general leaderboard.</strong> Rankings shift across tasks, so test on your own data.</li>
+<li><strong>Taking an agent's report at face value.</strong> Confirm actions in tool logs; <a href="ai-agents-explained.html">AI agents explained</a> covers why.</li>
+</ul>
+
+<h2 id="next-steps">Next steps</h2>
+<ul>
+<li>Build an assistant that answers from your documents and cites them with <a href="rag-explained.html">RAG explained</a>.</li>
+<li>Write tighter instructions, including abstention rules and output formats, with the <a href="prompt-builder.html">prompt builder</a>.</li>
+<li>Shortlist models to compare on your own test set with the <a href="llm-picker.html">LLM picker</a>.</li>
+</ul>

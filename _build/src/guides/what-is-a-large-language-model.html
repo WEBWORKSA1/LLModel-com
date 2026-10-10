@@ -1,0 +1,162 @@
+<!--meta
+{
+  "slug": "what-is-a-large-language-model",
+  "title": "What Is a Large Language Model? A Plain-English Guide",
+  "h1": "What is a large language model?",
+  "description": "A large language model (LLM) is AI that predicts text. Learn what LLMs can and can't do, how they're trained, the main types and how to start using one.",
+  "category": "Fundamentals",
+  "level": "Beginner",
+  "updated": "2026-10-10",
+  "keywords": ["large language model", "what is an llm", "llm meaning", "how llms are trained", "types of llms", "llm examples"],
+  "summary": "A large language model is a neural network trained on enormous amounts of text to predict what comes next, which turns out to be enough to draft, summarize, translate and write code. This guide explains what LLMs are, how they're trained, the kinds you'll meet, the major families as of October 2026 and the limits to plan around.",
+  "key_takeaways": [
+    "An LLM is a neural network trained to predict the next token of text; scale and extra training turn that simple objective into a general-purpose language tool.",
+    "Training runs in stages: pretraining on trillions of tokens, instruction tuning, then preference training, with reinforcement learning on checkable problems for reasoning models.",
+    "The distinctions that matter are base vs instruct vs reasoning, closed API vs open weights, text-only vs multimodal, and frontier vs small.",
+    "As of October 2026, the major hosted model families are OpenAI's GPT-6, Anthropic's Claude, Google's Gemini, xAI's Grok and Meta's Muse Spark, while DeepSeek, Qwen, Gemma, gpt-oss and Kimi are prominent open-weight options.",
+    "Plan around hallucination, knowledge cutoffs, context limits and per-token cost, which can differ a hundredfold between the cheapest and most capable tiers."
+  ],
+  "faq": [
+    {"q": "What does LLM stand for?", "a": "LLM stands for large language model. It is a type of AI model trained on enormous amounts of text to predict the next piece of text in a sequence. That simple objective, applied at large scale and followed by training to follow instructions, produces systems that can answer questions, write, summarize, translate and generate code. ChatGPT, Claude and Gemini are apps built on LLMs."},
+    {"q": "Is ChatGPT a large language model?", "a": "Strictly speaking, ChatGPT is an app, and the large language models are the engines inside it. As of October 2026, ChatGPT offers models from OpenAI's GPT-6 family, such as GPT-6 Astra and GPT-6.1 Sol, depending on your plan. The same distinction applies to Claude and Gemini, which are each both a chat app and the name of the model family behind it."},
+    {"q": "Do LLMs understand what they say?", "a": "It depends on what you mean by understand. LLMs build rich internal representations of meaning, which lets them answer new questions, follow analogies and write working code. But they have no direct access to the world, no built-in way to check facts, and they can produce confident errors. A practical stance is to treat them as capable but unverified collaborators whose output you review."},
+    {"q": "What is the difference between AI and an LLM?", "a": "AI is the broad field of building systems that perform tasks associated with intelligence, from chess engines to fraud detection. An LLM is one specific kind of AI model, focused on language and trained on text. Image generators, speech recognizers and recommendation systems are other kinds of AI, and many current products combine an LLM with several of these components."},
+    {"q": "Can I run a large language model on my own computer?", "a": "Yes, if you use an open-weight model. Free tools such as Ollama and LM Studio download and run models locally, and small models with a few billion parameters work on a recent laptop. Larger models need a GPU with plenty of memory or a high-memory workstation. Local models keep your data private and cost nothing per token, but they are generally less capable than the largest cloud models."}
+  ],
+  "sources": [
+    {"title": "Attention Is All You Need (Vaswani et al., 2017)", "url": "https://arxiv.org/abs/1706.03762"},
+    {"title": "Training language models to follow instructions with human feedback (Ouyang et al., 2022)", "url": "https://arxiv.org/abs/2203.02155"},
+    {"title": "Why Language Models Hallucinate (Kalai et al., 2025)", "url": "https://arxiv.org/abs/2509.04664"},
+    {"title": "What are tokens and how to count them (OpenAI Help Center)", "url": "https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them"},
+    {"title": "Models overview (Claude documentation)", "url": "https://platform.claude.com/docs/en/about-claude/models/overview"},
+    {"title": "Models (OpenAI API documentation)", "url": "https://developers.openai.com/api/docs/models"},
+    {"title": "Gemini models (Google AI for Developers)", "url": "https://ai.google.dev/gemini-api/docs/models"},
+    {"title": "Open-weight vs closed-weight models (Epoch AI)", "url": "https://epoch.ai/data-insights/open-weights-vs-closed-weights-models"},
+    {"title": "DeepSeek-V4.1-Flash model card (Hugging Face)", "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash"}
+  ],
+  "related_tools": ["llm-picker", "token-counter", "llm-cost-calculator"],
+  "related_guides": ["how-llms-work", "how-to-choose-an-llm", "open-source-vs-closed-llms", "llm-hallucinations"]
+}
+-->
+<p>A large language model, or LLM, is the technology behind chat assistants such as ChatGPT, Claude and Gemini, and behind a growing share of the software you use at work. This guide explains what an LLM is without the math, what it can and can't do, how it's trained, and the kinds you'll run into. By the end, you'll be able to read a model announcement and know what it actually means for you.</p>
+
+<h2 id="what-an-llm-is">What an LLM is, in plain English</h2>
+<p>An LLM is a program that has learned to continue text. You give it some words, and it predicts the most plausible next piece of text, then the next, one small chunk at a time. Those chunks are called <a href="glossary.html#token">tokens</a>; in English, a token averages about four characters, or roughly three-quarters of a word.</p>
+<p>The "large" refers to two things. The model contains billions to trillions of internal numbers, called <a href="glossary.html#parameters">parameters</a>, and it was trained on trillions of tokens of text. DeepSeek, for example, reports pretraining one of its 2026 models on 45 trillion tokens, more than a person could read in thousands of lifetimes.</p>
+<p>Under the hood, an LLM is a neural network built on the <a href="glossary.html#transformer">transformer</a> architecture, which Google researchers introduced in 2017. One idea matters more than the details: the model doesn't look facts up in a database. It generates text that fits the patterns it absorbed during training, which is why it can be fluent and wrong at the same time. Our guide to <a href="how-llms-work.html">how LLMs work</a> walks through the mechanics step by step.</p>
+
+<h2 id="what-llms-can-and-cant-do">What LLMs can and can't do</h2>
+<p>Because so much work runs through language, next-token prediction covers a surprising amount of ground. Modern LLMs are useful whenever the input or output is text, code or structured data, and the leading models also read images, audio and documents.</p>
+<table>
+<thead><tr><th>Usually strong at</th><th>Weak or risky at</th></tr></thead>
+<tbody>
+<tr><td>Drafting and rewriting emails, reports and product copy</td><td>Guaranteeing that facts, numbers or citations are correct</td></tr>
+<tr><td>Summarizing long documents, threads and meetings</td><td>Knowing about events after their training data ends</td></tr>
+<tr><td>Writing, explaining and reviewing code</td><td>Exact arithmetic and counting without a tool</td></tr>
+<tr><td>Pulling fields out of messy text into a clean format</td><td>Keeping secrets that are placed in the prompt</td></tr>
+<tr><td>Translating and adjusting tone</td><td>Giving the same answer every time</td></tr>
+<tr><td>Answering questions about documents you supply</td><td>Taking responsibility for high-stakes decisions</td></tr>
+</tbody>
+</table>
+<p>The pattern behind the table is simple. LLMs are strong at transforming and generating language, and weak wherever correctness depends on facts they can't see or calculations they can't check. Connecting a model to tools, such as web search, a calculator or your own database, closes much of that gap, which is why serious products wrap the model in software rather than using it bare.</p>
+
+<h2 id="how-llms-are-trained">How LLMs are trained</h2>
+<p>Training happens in stages, each building on the last. The early stage gives the model its knowledge, and the later stages turn a raw text predictor into a helpful assistant.</p>
+<h3 id="pretraining">Pretraining</h3>
+<p>In <a href="glossary.html#pretraining">pretraining</a>, the model reads a vast mix of web pages, books, code and other text and repeatedly guesses the next token. Each wrong guess nudges its parameters slightly. This stage uses most of the computing budget, often months on thousands of specialized chips, and produces a base model that knows a great deal but simply continues whatever text you give it.</p>
+<h3 id="instruction-tuning">Instruction tuning</h3>
+<p>Next, the model trains on many examples of instructions paired with good responses, a step called <a href="glossary.html#instruction-tuning">instruction tuning</a> or supervised fine-tuning. This teaches it the shape of a conversation: answer the question, follow the requested format, stop when done. The examples come from human writers and, increasingly, from other models.</p>
+<h3 id="preference-training">Preference training</h3>
+<p>Finally, the model learns from comparisons. People, or AI judges following written guidelines, rank pairs of answers, and techniques such as <a href="glossary.html#rlhf">reinforcement learning from human feedback (RLHF)</a> or <a href="glossary.html#dpo">direct preference optimization (DPO)</a> push the model toward the preferred style. OpenAI's 2022 InstructGPT paper showed how much this matters: evaluators preferred answers from a tuned 1.3-billion-parameter model over those from the original 175-billion-parameter GPT-3, a model more than 100 times larger.</p>
+<p>Reasoning models add one more ingredient: reinforcement learning on problems with checkable answers, such as math and programming tasks. Rewarding correct final answers teaches the model to work through a problem step by step, which is why the newest models pause to "think" before replying.</p>
+
+<h2 id="kinds-of-llms">The kinds of LLMs you'll meet</h2>
+<p>Model names rarely tell you what you're getting. Four distinctions explain most of the differences between them.</p>
+<h3 id="base-instruct-reasoning">Base, instruct and reasoning models</h3>
+<p>A base model is the raw result of pretraining; it continues text and is mostly used by researchers and teams who fine-tune. An instruct, or chat, model has been through instruction and preference training, and it's what you talk to in apps. A <a href="glossary.html#reasoning-model">reasoning model</a> spends extra tokens working through a problem before it answers, which improves results on math, code and multi-step planning at the cost of speed and money.</p>
+<p>The line between instruct and reasoning models is blurring. As of October 2026, most flagship models let you dial the amount of reasoning up or down per request instead of choosing a separate model.</p>
+<h3 id="closed-vs-open-weight">Closed API models and open-weight models</h3>
+<p>Closed models, such as OpenAI's GPT-6 and Anthropic's Claude families, are available only as a service: you send text to the provider's servers and pay per token. <a href="glossary.html#open-weights">Open-weight</a> models, such as Google's Gemma, Alibaba's Qwen, DeepSeek's V4 series and OpenAI's gpt-oss, publish their parameters so you can run them on your own hardware. Open weights give you control and privacy, while closed models usually lead on raw capability and are easier to start with. Our guide to <a href="open-source-vs-closed-llms.html">open-source vs closed LLMs</a> covers the trade-off and the license fine print.</p>
+<h3 id="text-vs-multimodal">Text-only and multimodal models</h3>
+<p>Early LLMs read and wrote only text. Most current flagships are <a href="glossary.html#multimodal">multimodal</a>: they accept images, PDFs, audio or video alongside text. Check the output side carefully, because many models that read images still reply only in text.</p>
+<h3 id="frontier-vs-small">Frontier and small models</h3>
+<p>Frontier models are each lab's largest and most capable systems, and they're priced accordingly. <a href="glossary.html#small-language-model">Small language models</a>, from a few hundred million to a few tens of billions of parameters, are faster and cheaper and can run on a laptop or phone. For narrow jobs such as classification or extraction, a small model is often good enough, and it can cost one-hundredth as much per token.</p>
+
+<h2 id="major-model-families">Major model families as of October 2026</h2>
+<p>The lineup changes every few weeks, so treat this table as a snapshot from early October 2026 and check our <a href="models.html">model directory</a> for current details. Prices are list prices in US dollars per million input and output tokens on each provider's own API.</p>
+<table>
+<thead><tr><th>Provider</th><th>Family</th><th>Current lineup</th><th>How you get it</th></tr></thead>
+<tbody>
+<tr><td>OpenAI</td><td>GPT-6</td><td>GPT-6 Astra ($10 / $50), GPT-6.1 Sol ($2 / $10), GPT-6 Luna ($0.10 / $0.50)</td><td>ChatGPT; OpenAI API; Microsoft Azure; AWS Bedrock</td></tr>
+<tr><td>Anthropic</td><td>Claude</td><td>Fable 5.1 ($10 / $50), Opus 5.5 ($4 / $20), Sonnet 5.5 ($2 / $10), Haiku 5.5 (from $0.10 / $0.50)</td><td>Claude apps; Claude API; Amazon Bedrock; Google Cloud Vertex AI; Microsoft Foundry</td></tr>
+<tr><td>Google</td><td>Gemini</td><td>Gemini 3.1 Pro (preview, $2 / $12), Gemini 3.8 Flash ($0.75 / $3.75 through 2026) and the newly announced Gemini 4 Argon</td><td>Gemini app; Gemini API; Google Cloud</td></tr>
+<tr><td>xAI</td><td>Grok</td><td>Grok 4.7 ($2 / $6)</td><td>Grok apps; xAI API</td></tr>
+<tr><td>Meta</td><td>Muse and Llama</td><td>Muse Spark (hosted); Llama 4 Scout and Maverick (open weights, released 2025)</td><td>Meta AI app; Meta's model API; Llama downloads</td></tr>
+<tr><td>Open-weight labs</td><td>Several</td><td>DeepSeek V4 and V4.1, Alibaba Qwen3.8, Google Gemma 4, OpenAI gpt-oss, Moonshot Kimi K3, Mistral's open models</td><td>Download from Hugging Face; hosting providers; some first-party APIs</td></tr>
+</tbody>
+</table>
+<p>Two patterns matter more than any single name. First, every major provider now sells a ladder of sizes, and at OpenAI and Anthropic the cheapest rung costs about 1% of the top one per token. Second, the strongest open-weight models, several of them from Chinese labs, have trailed the closed frontier by months rather than years, which gives you real alternatives when privacy or cost dominates.</p>
+<p>Availability also varies within a family. As of early October 2026, for example, Google's Gemini 4 Argon wasn't yet listed among the models in its Gemini API documentation.</p>
+
+<h2 id="how-to-start-using-an-llm">How to start using an LLM</h2>
+<p>There are three ways in, and most people should try them in this order. Each step gives you more control in exchange for more setup.</p>
+<h3 id="chat-apps">Chat apps</h3>
+<p>The quickest start is a chat app such as ChatGPT, Claude, Gemini, Grok or Meta AI, each available on the web and on phones, most with a free tier and paid plans. Paid plans raise usage limits and unlock the strongest models. If you use one for work, check whether your conversations may be used for training and whether your company has an approved business plan, which usually comes with stricter data terms.</p>
+<h3 id="apis">APIs</h3>
+<p>To build an LLM into your own product, you call a provider's API: your code sends the prompt, and you're billed per token in and out. Most providers use similar request formats, publish SDKs for popular languages, and offer a <a href="glossary.html#batch-api">batch API</a> at roughly half price for work that can wait. Our <a href="llm-cost-calculator.html">LLM cost calculator</a> estimates the monthly bill before you write any code.</p>
+<h3 id="running-locally">Running a model locally</h3>
+<p>Open-weight models can run entirely on your own machine, so no data leaves it. Free tools such as Ollama and LM Studio handle the download and setup; with Ollama, the command <code>ollama run gemma4:e4b</code> fetches a small Google model and opens a chat in your terminal. Small models run on a recent laptop, while larger ones need a GPU with plenty of memory, and the <a href="vram-calculator.html">VRAM calculator</a> shows what fits.</p>
+<p>Whichever route you take, a structured first week teaches you more than a month of casual use. Use this checklist as a starting point.</p>
+<div class="checklist">
+<ul>
+<li>Pick one real task you do every week and try it in two different apps.</li>
+<li>Check each app's data and training settings before pasting work material.</li>
+<li>Save three prompts that worked well and three answers that were wrong.</li>
+<li>Verify every fact, number and citation before you reuse an answer.</li>
+<li>If you plan to build, estimate token volume and cost before choosing a model.</li>
+</ul>
+</div>
+
+<h2 id="key-limits">Key limits to plan around</h2>
+<h3 id="hallucination">Hallucination</h3>
+<p>LLMs sometimes state false things with complete confidence, a failure called <a href="glossary.html#hallucination">hallucination</a>. A 2025 paper by Kalai and colleagues argues that standard training and benchmark scoring reward confident guessing over admitting uncertainty, so the behavior is built into how models are optimized. Ground answers in sources you supply, ask for citations you can check, and keep a person in the loop where errors are costly.</p>
+<h3 id="knowledge-cutoff">Knowledge cutoff</h3>
+<p>A model knows only what was in its training data, which ends at a knowledge cutoff some months before release. Anthropic, for instance, lists June 2026 as the reliable cutoff for its current Claude models. Anything newer has to come from a search tool or from documents you provide, a pattern called <a href="glossary.html#rag">retrieval-augmented generation (RAG)</a>.</p>
+<h3 id="context-limits">Context limits</h3>
+<p>The <a href="glossary.html#context-window">context window</a> is the maximum amount of text the model can consider at once, including your prompt, any documents and its own reply. As of October 2026, the current GPT-6 and Claude models and Google's Gemini 3.1 Pro and 3.8 Flash accept about one million tokens, roughly 750,000 words, though replies are capped far lower, at 64K to 128K tokens. Bigger isn't automatically better: long prompts cost more, run slower and can bury the detail you care about.</p>
+<h3 id="cost">Cost</h3>
+<p>API pricing is per token, and output tokens cost several times more than input tokens. Consider a support assistant handling 10,000 conversations a month, each with 2,000 input tokens and 300 output tokens: that's 20 million input and 3 million output tokens. At $2 and $10 per million, the bill is $40 plus $30, or $70 a month; at $10 and $50 it's $350, and at $0.10 and $0.50 it's $3.50.</p>
+<div class="callout note">
+<p>Reasoning models also generate hidden thinking tokens, which are billed as output. Measure real usage on a sample of your traffic instead of estimating from prompt length alone.</p>
+</div>
+
+<h2 id="mini-glossary">How to talk about LLMs: a mini glossary</h2>
+<p>These terms appear in nearly every model announcement and pricing page. Each links to a fuller entry in our <a href="glossary.html">glossary</a>.</p>
+<table>
+<thead><tr><th>Term</th><th>What it means</th></tr></thead>
+<tbody>
+<tr><td><a href="glossary.html#token">Token</a></td><td>A chunk of text, about four characters of English; the unit for pricing and limits.</td></tr>
+<tr><td><a href="glossary.html#parameters">Parameters</a></td><td>The learned numbers inside a model; "70B" means 70 billion of them.</td></tr>
+<tr><td><a href="glossary.html#context-window">Context window</a></td><td>How much text a model can handle in one request, input and output combined.</td></tr>
+<tr><td><a href="glossary.html#inference">Inference</a></td><td>Running a trained model to get an answer, as opposed to training it.</td></tr>
+<tr><td><a href="glossary.html#system-prompt">System prompt</a></td><td>Standing instructions from the app or developer that shape every reply.</td></tr>
+<tr><td><a href="glossary.html#temperature">Temperature</a></td><td>A setting that controls randomness; lower values give more predictable output.</td></tr>
+<tr><td><a href="glossary.html#fine-tuning">Fine-tuning</a></td><td>Extra training on your own examples to specialize a model.</td></tr>
+<tr><td><a href="glossary.html#rag">RAG</a></td><td>Retrieving relevant documents and adding them to the prompt so answers are grounded.</td></tr>
+<tr><td><a href="glossary.html#open-weights">Open weights</a></td><td>Parameters published for download, usually under a license with conditions.</td></tr>
+<tr><td><a href="glossary.html#ai-agent">AI agent</a></td><td>A model that plans and calls tools in a loop to finish multi-step tasks.</td></tr>
+</tbody>
+</table>
+
+<h2 id="common-mistakes">Common mistakes</h2>
+<p>Most early disappointments with LLMs trace back to a handful of avoidable errors. Each is easy to fix once you know to look for it.</p>
+<ul>
+<li><strong>Treating fluent output as verified.</strong> Confident wording says nothing about accuracy, so check facts and citations.</li>
+<li><strong>Asking about recent events without search.</strong> A model without a search tool can't know what happened after its cutoff.</li>
+<li><strong>Choosing by leaderboard rank alone.</strong> A top-ranked model can be slower and 100 times pricier than one that handles your task just as well.</li>
+<li><strong>Pasting sensitive data into consumer apps.</strong> Read the data terms first, or use a business plan or a local model.</li>
+<li><strong>Assuming the same prompt gives the same answer.</strong> Outputs vary between runs and between model versions, so test before you depend on them.</li>
+</ul>
+
+<h2 id="next-steps">Next steps</h2>
+<p>Once the basics click, go one level deeper. Read <a href="how-llms-work.html">how LLMs work</a> to see what happens between your prompt and the reply, then use <a href="how-to-choose-an-llm.html">how to choose an LLM</a> to pick a model for a real project. If you'd rather start from a shortlist, the <a href="llm-picker.html">LLM picker</a> asks a few questions and suggests models that fit your use case and budget, and if you want hands-on help with a first build, you can <a href="hire-llm-experts.html">get expert help</a>.</p>
