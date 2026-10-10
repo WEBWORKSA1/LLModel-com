@@ -1,0 +1,618 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prompt Engineering Guide: Techniques, Examples and a Reusable Template | LLModel.com</title>
+<meta name="description" content="Prompt engineering guide with before-and-after examples: the parts of a prompt, core techniques, prompting reasoning models, testing, and a reusable template.">
+<link rel="canonical" href="https://llmodel.com/prompt-engineering-guide.html">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="google-adsense-account" content="ca-pub-6620975821265271">
+<meta name="theme-color" content="#f4f6fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12101e" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="LLModel.com">
+<meta property="og:title" content="Prompt Engineering Guide: Techniques, Examples and a Reusable Template">
+<meta property="og:description" content="Prompt engineering guide with before-and-after examples: the parts of a prompt, core techniques, prompting reasoning models, testing, and a reusable template.">
+<meta property="og:url" content="https://llmodel.com/prompt-engineering-guide.html">
+<meta property="og:image" content="https://llmodel.com/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="LLModel: the independent field guide to large language models">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="alternate" type="text/plain" href="llms.txt" title="llms.txt">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Martian+Mono:wght@400..500&family=Newsreader:ital,opsz,wght@0,6..72,400..650;1,6..72,400&display=swap">
+<link rel="stylesheet" href="assets/css/style.css?v=dae4813595">
+<script>(function(){var d=document.documentElement,t=null;try{t=localStorage.getItem('llm-theme')}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}d.setAttribute('data-theme',t)})();</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6620975821265271" crossorigin="anonymous"></script>
+<script type="application/ld+json">{
+ "@type": "Organization",
+ "@id": "https://llmodel.com/#org",
+ "name": "LLModel.com",
+ "url": "https://llmodel.com/",
+ "logo": "https://llmodel.com/assets/img/icon-512.png",
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://llmodel.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Guides",
+   "item": "https://llmodel.com/guides.html"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "Prompt engineering: a practical guide with examples"
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "Article",
+ "headline": "Prompt Engineering Guide: Techniques, Examples and a Reusable Template",
+ "description": "Prompt engineering guide with before-and-after examples: the parts of a prompt, core techniques, prompting reasoning models, testing, and a reusable template.",
+ "datePublished": "2026-10-10",
+ "dateModified": "2026-10-10",
+ "inLanguage": "en",
+ "mainEntityOfPage": "https://llmodel.com/prompt-engineering-guide.html",
+ "image": "https://llmodel.com/assets/img/og-image.png",
+ "author": {
+  "@type": "Organization",
+  "name": "LLModel editorial team",
+  "url": "https://llmodel.com/about.html"
+ },
+ "publisher": {
+  "@id": "https://llmodel.com/#org"
+ },
+ "keywords": "prompt engineering, prompt engineering guide, prompt engineering techniques, few-shot prompting, how to write prompts, prompting reasoning models",
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is prompt engineering?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Prompt engineering is the practice of designing the instructions, context, examples and format rules you give a language model so it produces useful, consistent output. It covers wording, structure, choosing techniques such as few-shot examples or prompt chaining, and testing prompts against real inputs. It is usually the cheapest and fastest way to improve results before you consider retrieval or fine-tuning."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does 'think step by step' still work?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "With standard, non-reasoning models, asking for step-by-step reasoning still tends to help on multi-step math and logic. With reasoning models it is usually unnecessary, because they reason internally before answering, and OpenAI's guidance warns it can even reduce quality. Set the reasoning effort or thinking level in the API instead, and use the prompt to describe the goal and what a correct answer looks like."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How many examples should a few-shot prompt include?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Start with two or three and add more only if test results improve. Anthropic's guidance suggests three to five varied examples, while OpenAI recommends trying reasoning models with no examples first. Make the examples diverse, include an edge case, keep their format identical, and make sure they agree with your written instructions, since models tend to imitate examples over rules when the two conflict."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Should instructions go in the system prompt or the user message?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Put stable rules, the role, the output format and examples in the system prompt or developer message, and put the changing input in the user message. Providers give system-level instructions higher priority, and keeping that prefix identical across requests lets prompt caching cut cost and latency. Never place secrets or access rules in either, because prompts can leak."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How do I know if a prompt change made things better?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Run the old and new versions on the same test set of real inputs, ideally 30 to 100 cases including known failures, and compare pass rates, cost and latency. Score structured outputs with code and open-ended answers with a rubric. Run each case more than once, because outputs vary, and treat small differences as noise until they repeat."
+   }
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+
+</head>
+<body class="page-prompt-engineering-guide">
+<a class="skip" href="#main">Skip to content</a>
+<div class="partner-bar"><a href="https://web.works/contact" target="_blank" rel="noopener"><span>Contact, if you are interested in this website / domain name / sponsorship / advertisement / partnership</span></a></div>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+    <nav class="nav" aria-label="Main"><a href="models.html">Models</a><a href="compare.html">Compare</a><a href="leaderboard.html">Rankings</a><a href="tools.html">Tools</a><a href="guides.html" aria-current="page">Learn</a><a href="videos.html">Videos</a></nav>
+    <div class="header-actions">
+      <button class="search-btn" type="button" data-open-search aria-label="Search the site"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="search-label">Search</span><span class="kbd" aria-hidden="true">/</span></button>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><svg class="theme-icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="theme-icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+      <a class="btn btn--primary btn--sm header-cta" href="hire-llm-experts.html">Get expert help</a>
+      <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile">
+    <ul><li><a href="models.html">Models</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="tools.html">Tools</a></li>
+<li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="contact.html">Contact</a></li>
+<li class="mobile-cta"><a class="btn btn--primary btn--block" href="hire-llm-experts.html">Get expert help</a></li>
+</ul>
+  </nav>
+</header>
+<main id="main">
+<nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li>
+<li><a href="guides.html">Guides</a></li>
+<li aria-current="page">Prompt engineering: a practical guide with examples</li>
+</ol>
+</nav>
+<div class="read-progress" id="read-progress" aria-hidden="true"></div>
+<header class="page-head wrap"><h1>Prompt engineering: a practical guide with examples</h1><p class="lede">A practical guide to writing prompts that work: the five parts of a prompt, core principles, eight techniques with before-and-after examples, and how reasoning models change the rules. Includes a testing workflow and a reusable template.</p>
+<div class="page-meta"><span>Building</span><span>Beginner</span><span>11 min read</span><span>Updated October 10, 2026</span></div>
+</header>
+<div class="wrap article">
+  <nav class="article__toc toc" aria-label="On this page"><p class="toc-title">On this page</p>
+<ol><li><a href="#what-a-prompt-is-made-of">What a prompt is made of</a></li>
+<li><a href="#core-principles">Core principles</a></li>
+<li><a href="#techniques">Techniques with before-and-after examples</a></li>
+<li><a href="#prompting-reasoning-models">Prompting reasoning models in 2026</a></li>
+<li><a href="#testing-and-versioning-prompts">Testing and versioning prompts</a></li>
+<li><a href="#common-mistakes">Common mistakes</a></li>
+<li><a href="#reusable-prompt-template">A reusable prompt template</a></li>
+<li><a href="#next-steps">Next steps</a></li>
+</ol>
+</nav>
+  <article class="prose" id="article">
+    <div class="takeaways"><h2>Key takeaways</h2>
+<ul><li>A complete prompt has five parts: instructions, context, examples, the input and an output format.</li>
+<li>Specific goals, stated reasons and explicit formats do more for quality than clever phrasing.</li>
+<li>Use schema-enforced structured outputs when code reads the response, and delimiters to separate instructions from data.</li>
+<li>For reasoning models, describe the outcome and success criteria and set effort in the API instead of writing &#x27;think step by step&#x27;.</li>
+<li>Treat prompts like code: version them, pin model snapshots and rerun a test set after every change.</li>
+</ul>
+</div>
+    <p>A prompt is the main lever you have over a language model's behavior at run time, so small wording changes can swing quality, cost and reliability. This guide breaks a prompt into its parts, covers the principles that matter most, walks through eight techniques with before-and-after examples, explains what changes with reasoning models as of October 2026, and ends with a template you can reuse.</p>
+<p>The advice applies to chat apps and APIs alike. If the term is new to you, the <a href="glossary-prompting.html#prompt-engineering">prompt engineering</a> glossary entry is a one-minute primer.</p>
+
+<h2 id="what-a-prompt-is-made-of">What a prompt is made of</h2>
+<p>Most effective prompts combine five parts. You won't need all five every time, but knowing them makes it obvious what a weak prompt is missing.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Part</th><th>What it does</th><th>Example</th></tr>
+</thead>
+<tbody>
+<tr><td>Instructions</td><td>States the task and the rules</td><td>"Classify each support ticket by urgency."</td></tr>
+<tr><td>Context</td><td>Explains background, audience and purpose</td><td>"Customers are small businesses; urgent means they can't take payments."</td></tr>
+<tr><td>Examples</td><td>Shows the pattern you want</td><td>Three sample tickets with correct labels</td></tr>
+<tr><td>Input</td><td>The data to work on this time</td><td>The text of today's ticket</td></tr>
+<tr><td>Output format</td><td>Defines the shape of the answer</td><td>"Return JSON with the fields urgency and reason."</td></tr>
+</tbody>
+</table>
+</div>
+<p>In an API call, the stable parts (role, rules, format, examples) usually go in the <a href="glossary-prompting.html#system-prompt">system prompt</a> or developer message, while the changing input goes in the user message. That split keeps behavior consistent across requests and lets <a href="glossary-business-pricing.html#prompt-caching">prompt caching</a> reuse the repeated prefix, which lowers cost and latency.</p>
+<p>Every part also costs <a href="glossary-fundamentals.html#token">tokens</a>. A 1,500-token system prompt sent with 200,000 requests a month adds up to 300 million input tokens before any user text, so cut anything that doesn't change the output. The <a href="token-counter.html">token counter</a> shows what yours costs.</p>
+
+<h2 id="core-principles">Core principles</h2>
+<h3 id="be-specific">Be specific</h3>
+<p>Vague requests get generic answers because the model fills the gaps with the most average interpretation. Name the audience, length, scope and what a good result looks like.</p>
+<pre><code>Before:
+Write about our new feature.
+
+After:
+Write a 120-word announcement of our new CSV export for existing
+customers of a payroll app. Lead with the benefit (exports open
+cleanly in Excel), say it's included on every plan, and end with
+one sentence on where to find it (Settings &gt; Reports).</code></pre>
+<h3 id="give-context-and-purpose">Give context and purpose</h3>
+<p>Explaining why a rule exists helps the model apply it to cases you didn't foresee. "Keep answers under 40 words" is a rule. "Keep answers under 40 words because they appear in a phone notification" is a rule the model can generalize, for example by also dropping greetings and sign-offs.</p>
+<h3 id="show-examples">Show examples</h3>
+<p>One or two worked examples often communicate format and tone faster than a paragraph of description. Anthropic's current guidance suggests three to five varied examples, while OpenAI advises starting reasoning models with none and adding examples only if needed. Either way, examples must agree with your written instructions, because models tend to copy the examples when the two conflict.</p>
+<h3 id="specify-the-format">Specify the format</h3>
+<p>State exactly what the output should look like: prose or bullets, length, headings, fields, units, date formats. If code will parse the response, enforce a schema, covered below, rather than hoping the model stays consistent.</p>
+<h3 id="set-constraints">Set constraints</h3>
+<p>Constraints mark the boundaries: which sources to use, a word limit, a reading level, what to do when information is missing. Phrase them positively where you can, since "write in plain paragraphs" works better than "don't use Markdown." Save absolute words like "always" and "never" for true invariants such as security rules or required fields.</p>
+
+<aside class="ad-slot" data-ad="in-article" aria-label="Sponsored message"><span class="ad-label">From LLModel</span><div class="ad-fill"><div class="house"><div><strong>Prompt Efficiency Challenge</strong><span>Season 1 is open: solve five tasks for the fewest dollars. $500 in prizes.</span></div>
+<a class="btn btn--ghost btn--sm" href="contests.html">Read the brief</a></div>
+</div>
+</aside>
+<h2 id="techniques">Techniques with before-and-after examples</h2>
+<h3 id="role-and-system-prompts">Role and system prompts</h3>
+<p>A one-line role in the system prompt sets vocabulary, depth and tone. It works best when it names the audience and the job, not just an impressive title.</p>
+<pre><code>Before (user message only):
+Explain this error log.
+
+After (system prompt):
+You are a senior site-reliability engineer helping a junior developer.
+Explain errors in plain language, name the most likely root cause
+first, and give one command they can run to confirm it.</code></pre>
+<p>Don't rely on a role for security. System prompts can be extracted or overridden, so permissions belong in code, as the <a href="llm-security-and-privacy.html">LLM security guide</a> explains.</p>
+<h3 id="few-shot-examples">Few-shot examples</h3>
+<p><a href="glossary-prompting.html#few-shot-prompting">Few-shot prompting</a> means including input-output pairs so the model can copy the pattern. It's especially effective for classification, extraction and matching a house style.</p>
+<pre><code>Before:
+Tag the sentiment of this review: "Shipping took forever but the
+blender is great."
+
+After:
+Tag sentiment as positive, negative or mixed.
+
+Review: "Arrived early, works perfectly."
+Sentiment: positive
+
+Review: "Broke after two uses. The refund took a month."
+Sentiment: negative
+
+Review: "Shipping took forever but the blender is great."
+Sentiment:</code></pre>
+<p>Vary your examples so the model doesn't learn an accidental rule, and include at least one tricky case.</p>
+<h3 id="step-by-step-decomposition">Step-by-step decomposition</h3>
+<p>When a task has distinct stages, list them. The model is less likely to skip one, and you can see exactly which stage goes wrong.</p>
+<pre><code>Before:
+Is this vendor proposal any good?
+
+After:
+Evaluate the vendor proposal below in three steps:
+1. Summarize what they will deliver, by when, and for how much.
+2. List anything missing that a fixed-price IT project normally includes.
+3. Rate the proposal as strong, acceptable or weak, with two reasons.</code></pre>
+<p>This structures the output so you can review it. It isn't the same as telling a model how to think internally, which the next technique covers.</p>
+<h3 id="asking-for-reasoning">Asking for reasoning vs using a reasoning model</h3>
+<p>With a standard model, asking it to reason before answering, known as <a href="glossary-prompting.html#chain-of-thought">chain-of-thought</a> prompting, often improves multi-step math and logic. The 2022 research that named the technique showed large gains simply from including worked reasoning in the examples.</p>
+<p>A <a href="glossary-fundamentals.html#reasoning-model">reasoning model</a> already reasons internally before it writes the answer. Adding "think step by step" is redundant at best, and OpenAI's guidance notes it can hurt. Control depth with the API's effort or thinking setting instead, and spend the prompt on the goal and the success criteria.</p>
+<pre><code>Standard model:
+Solve the problem below. Work through it step by step, then give
+the final answer on its own line, starting with "Answer:".
+
+Reasoning model (effort is set in the API call, not the prompt):
+Solve the problem below. Give the final answer on its own line,
+starting with "Answer:".</code></pre>
+<h3 id="self-critique-and-revision">Self-critique and revision</h3>
+<p>Models catch more of their own errors when reviewing is a separate step with explicit criteria. The most dependable version uses two calls: one drafts, the other checks the draft against a list and rewrites it.</p>
+<pre><code>Before:
+Write a product description for our hiking boots.
+
+After (second call, with the draft attached):
+Review the draft below against these criteria:
+- Mentions weight, waterproofing and sizing advice
+- Under 150 words
+- No claims we can't prove, such as "best" or "lightest"
+List each criterion it fails, then output a corrected version.</code></pre>
+<p>Check this against your model, though. Anthropic advises removing carried-over self-check instructions for Claude Opus 5, which verifies its own work by default and can over-verify when told to.</p>
+<h3 id="structured-json-output">Structured JSON output</h3>
+<p>When software consumes the answer, ask for JSON and enforce it with your provider's <a href="glossary-building-apps.html#structured-outputs">structured outputs</a> feature, which constrains the model to a JSON Schema you supply. OpenAI and Google both recommend schema enforcement over describing the format in prose.</p>
+<pre><code>Before:
+Pull the key details out of this invoice.
+
+After (instruction plus a schema passed to the API):
+Extract the invoice fields. Use null when a field is missing; never guess.
+
+{
+  "type": "object",
+  "properties": {
+    "vendor": {"type": "string"},
+    "invoice_date": {"type": ["string", "null"], "description": "YYYY-MM-DD"},
+    "total": {"type": ["number", "null"]},
+    "currency": {"type": ["string", "null"], "description": "ISO 4217 code"}
+  },
+  "required": ["vendor", "invoice_date", "total", "currency"],
+  "additionalProperties": false
+}</code></pre>
+<p>Keep a validation step anyway, because a valid shape can still hold a wrong value. The old trick of pre-filling the assistant's reply with an opening brace no longer works on newer Claude models, which reject a prefilled final assistant turn, so schema features are the durable approach.</p>
+<h3 id="delimiters">Delimiters</h3>
+<p>Delimiters such as XML-style tags, Markdown headings or triple quotes separate your instructions from the material they act on. They stop the model from confusing a pasted document with your request and make long prompts easier to maintain.</p>
+<pre><code>Before:
+Summarize this for the board: [three pages of meeting notes]
+
+After:
+&lt;meeting_notes&gt;
+...pasted notes...
+&lt;/meeting_notes&gt;
+
+&lt;instructions&gt;
+Summarize the meeting notes above for the board in five bullets.
+Flag any decision that changes the budget.
+&lt;/instructions&gt;</code></pre>
+<p>For long inputs, put the documents first and the question last. Anthropic reports quality gains of up to 30 percent in its tests from that ordering on complex, multi-document prompts. Delimiters aren't a security boundary, though: text inside the tags can still carry a <a href="glossary-safety-governance.html#prompt-injection">prompt injection</a>.</p>
+<h3 id="prompt-chaining">Prompt chaining</h3>
+<p>Prompt chaining splits a job into a sequence of focused calls, where each output feeds the next. You get inspectable intermediate results, the option to use a cheaper model for simple steps, and room for code checks in between.</p>
+<pre><code>Step 1 (small, fast model): Extract every customer complaint from
+these 40 reviews as a JSON list.
+Step 2 (plain code): Remove duplicates and count complaints by theme.
+Step 3 (stronger model): Write a one-page summary of the top five
+themes for the product team, with two quotes each.</code></pre>
+<p>Chaining adds latency and failure points, so use it when one prompt keeps failing or you need to audit the middle steps. Let the model choose the steps and call tools, and it becomes an <a href="ai-agents-explained.html">AI agent</a>.</p>
+
+<h2 id="prompting-reasoning-models">Prompting reasoning models in 2026</h2>
+<p>Reasoning models think before they respond, and that has overturned some long-standing advice. Here is what the three largest API providers recommend as of October 2026, based on their current documentation.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Provider</th><th>How you control reasoning</th><th>Prompting advice</th></tr>
+</thead>
+<tbody>
+<tr><td>OpenAI (GPT-5.5, GPT-6 family)</td><td>A reasoning effort parameter, from none or low up to xhigh or max, depending on the model</td><td>Write outcome-first prompts with success criteria and stop conditions; drop process micromanagement; start at low or medium effort and raise it only when evals improve</td></tr>
+<tr><td>Anthropic (Claude 4.6 and later)</td><td>Adaptive thinking guided by an effort setting; fixed thinking budgets are rejected by the newest models</td><td>Prefer high-level guidance such as "think thoroughly" over scripted steps; examples still help; don't ask for visible reasoning in tags on the newest models</td></tr>
+<tr><td>Google (Gemini 3 series)</td><td>A thinking level (minimal, low, medium or high), with supported values varying by model</td><td>Keep temperature at its default; skip requests to outline steps; read thought summaries to debug odd answers</td></tr>
+</tbody>
+</table>
+</div>
+<p>The common thread is a shift from scripting the process to specifying the outcome. Older prompts spelled out every step because earlier models needed it. With reasoning models, that detail can block a better approach the model would have found on its own, which is why OpenAI's GPT-5.5 guidance favors outcome-first prompts with success criteria and stop conditions over step-by-step process instructions.</p>
+<ul>
+<li><strong>Specify success, not steps.</strong> State the goal, the constraints, what a correct answer must contain and when to stop.</li>
+<li><strong>Tune effort before wording.</strong> Hidden reasoning tokens are billed, so test lower effort first. Many classification and extraction tasks don't need high effort.</li>
+<li><strong>Leave sampling settings alone.</strong> Some reasoning models don't accept temperature changes at all, and Google warns that lowering temperature on Gemini 3 can cause looping.</li>
+<li><strong>Retest when you upgrade.</strong> An instruction that helped one generation, like "double-check everything," can cause overthinking or over-verification in the next.</li>
+</ul>
+
+<figure class="video-figure"><div class="video" data-yt="T9aRN5JkmL8"><button class="video__btn" type="button" aria-label="Play video: AI prompt engineering: A deep dive"><img src="https://i.ytimg.com/vi/T9aRN5JkmL8/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="video__play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></button></div>
+<figcaption>Watch: AI prompt engineering: A deep dive (Anthropic). Anthropic specialists discuss what prompt engineering really involves: communicating clearly, testing against real outputs, and learning how a model reads instructions. It suits anyone who writes prompts often and wants working habits rather than a list of tricks.</figcaption></figure>
+<h2 id="testing-and-versioning-prompts">Testing and versioning prompts</h2>
+<p>A prompt is code running on a probabilistic interpreter, so treat changes like code changes. This workflow is light enough for a solo developer and scales to a team.</p>
+<ol>
+<li><strong>Build a test set.</strong> Collect 30 to 100 real inputs, including edge cases and past failures, each with an expected output or a pass/fail rubric.</li>
+<li><strong>Score automatically where possible.</strong> Use exact-match or schema checks for structured output, and an <a href="glossary-evaluation.html#llm-as-a-judge">LLM-as-a-judge</a> with a clear rubric for open-ended text, spot-checked by a person.</li>
+<li><strong>Change one thing at a time.</strong> Rerun the full set after each edit and compare pass rate, cost and latency with the previous version.</li>
+<li><strong>Version everything.</strong> Keep prompts in your repository with IDs, review changes like code, and log the prompt version and model snapshot with every production output.</li>
+<li><strong>Pin model versions.</strong> Use dated model snapshots in production so a silent update can't change behavior, and rerun your tests before switching.</li>
+</ol>
+<p>OpenAI's documentation now recommends keeping production prompts in application code under tests and code review. Its hosted prompt objects are being retired, with that endpoint scheduled to shut down on November 30, 2026.</p>
+<p>Run each test case more than once. Outputs vary, so a prompt that passes 46 of 50 cases on one run may pass 43 on the next; treat gaps of a few cases as noise until a second run confirms them. Watch cost too: five 200-token examples add 1,000 input tokens per call, which at 500,000 calls a month and $2 per million input tokens is $1,000 a month. The <a href="llm-benchmarks-explained.html">benchmarks guide</a> covers how to size and score an evaluation set.</p>
+
+<h2 id="common-mistakes">Common mistakes</h2>
+<ul>
+<li><strong>Burying the task.</strong> Three paragraphs of background before the actual request makes the model guess what matters. Lead with the task.</li>
+<li><strong>Contradicting yourself.</strong> "Be concise" in the system prompt and "explain thoroughly" in the user message forces the model to pick one, unpredictably.</li>
+<li><strong>Examples that break the rules.</strong> If your instructions say 50 words and your examples run to 120, expect 120.</li>
+<li><strong>Shouting.</strong> All-caps warnings and stacked "CRITICAL" labels make newer models overreact.</li>
+<li><strong>Asking for facts the model can't know.</strong> Recent events and your internal data must be supplied, typically through <a href="rag-explained.html">retrieval</a>; otherwise you invite <a href="glossary-fundamentals.html#hallucination">hallucinations</a>.</li>
+<li><strong>Testing on one input.</strong> A prompt that works on your favorite example can fail on a third of real traffic.</li>
+<li><strong>Porting prompts unchanged.</strong> Wording tuned for one model or generation often underperforms on another.</li>
+</ul>
+
+<aside class="ad-slot" data-ad="in-article-2" aria-label="Sponsored message"><span class="ad-label">From LLModel</span><div class="ad-fill"><div class="house"><div><strong>Building with LLMs?</strong><span>Tell us what you&#x27;re building and get a vendor-neutral stack plan within 2 business days.</span></div>
+<a class="btn btn--ghost btn--sm" href="hire-llm-experts.html">Get my stack plan</a></div>
+</div>
+</aside>
+<h2 id="reusable-prompt-template">A reusable prompt template</h2>
+<p>Copy this skeleton, delete the sections you don't need and fill in the rest. Stable material comes first, which also helps prompt caching, and the changing input comes last.</p>
+<pre><code># Role
+You are a [role] helping [audience] with [job].
+
+# Goal
+[One or two sentences: the outcome you want and why it matters.]
+
+# Context
+[Facts the model can't know: product details, policies, definitions.]
+
+# Instructions and constraints
+- [Rule, with the reason if it isn't obvious]
+- [Scope, sources to use, length, reading level]
+- If information is missing, [ask / reply "unknown" / use null].
+
+# Examples
+&lt;example&gt;
+Input: [...]
+Output: [...]
+&lt;/example&gt;
+
+# Success criteria
+A good answer [contains X], [stays under N words], [cites the source].
+Stop when [condition].
+
+# Output format
+[Prose / bullets / JSON matching the supplied schema]
+
+# Input
+&lt;input&gt;
+{{user_input}}
+&lt;/input&gt;</code></pre>
+<p>Before you ship a prompt built from the template, run through this list:</p>
+<div class="checklist"><ul>
+<li>The task is stated in the first two lines.</li>
+<li>Audience, purpose and length are explicit.</li>
+<li>Pasted or untrusted content sits inside delimiters.</li>
+<li>Examples match the instructions and include an edge case.</li>
+<li>The output format is defined, with a schema if code parses it.</li>
+<li>There's a rule for missing information.</li>
+<li>Reasoning depth is set in the API, not with "think step by step."</li>
+<li>The prompt has a version ID and passes your test set.</li>
+</ul>
+</div>
+
+<h2 id="next-steps">Next steps</h2>
+<p>Turn the template into a working prompt with the <a href="prompt-builder.html">prompt builder</a>, which walks you through role, task, context, format and constraints. Browse the <a href="prompts.html">prompt library</a> for tested starting points by use case.</p>
+<p>If prompting alone isn't getting you there, <a href="fine-tuning-vs-rag-vs-prompting.html">fine-tuning vs RAG vs prompting</a> will help you decide what to try next. Teams that want a hands-on review of production prompts and evaluations can <a href="hire-llm-experts.html">get help from LLM specialists</a>.</p>
+    <section class="sources" aria-labelledby="sources"><h2 id="sources">Sources</h2>
+<ol><li><a href="https://developers.openai.com/api/docs/guides/prompt-engineering" target="_blank" rel="noopener">OpenAI: Prompt engineering guide</a></li>
+<li><a href="https://developers.openai.com/api/docs/guides/reasoning-best-practices" target="_blank" rel="noopener">OpenAI: Reasoning best practices</a></li>
+<li><a href="https://developers.openai.com/api/docs/guides/latest-model/gpt-5.5" target="_blank" rel="noopener">OpenAI: Using the latest models (GPT-6 family and GPT-5.5 guidance)</a></li>
+<li><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices" target="_blank" rel="noopener">Anthropic: Prompting best practices for Claude</a></li>
+<li><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/extended-thinking-tips" target="_blank" rel="noopener">Anthropic: Extended thinking tips</a></li>
+<li><a href="https://ai.google.dev/gemini-api/docs/prompting-strategies" target="_blank" rel="noopener">Google: Prompt design strategies for the Gemini API</a></li>
+<li><a href="https://ai.google.dev/gemini-api/docs/generate-content/thinking" target="_blank" rel="noopener">Google: Gemini thinking</a></li>
+<li><a href="https://arxiv.org/abs/2201.11903" target="_blank" rel="noopener">Chain-of-Thought Prompting Elicits Reasoning in Large Language Models (Wei et al., 2022)</a></li>
+<li><a href="https://arxiv.org/abs/2005.14165" target="_blank" rel="noopener">Language Models are Few-Shot Learners (Brown et al., 2020)</a></li>
+</ol>
+      <p class="small muted">Written by the LLModel editorial team and checked against the sources above on October 10, 2026. Found an error? <a href="contact.html?topic=correction">Send a correction</a>.</p>
+</section>
+    <div class="share" aria-label="Share this guide"><span class="muted">Share:</span><button type="button" data-copy-link>Copy link</button><a href="https://www.linkedin.com/sharing/share-offsite/?url=https://llmodel.com/prompt-engineering-guide.html" target="_blank" rel="noopener">LinkedIn</a><a href="https://twitter.com/intent/tweet?url=https://llmodel.com/prompt-engineering-guide.html&amp;text=Prompt engineering: a practical guide with examples" target="_blank" rel="noopener">X</a><a href="https://news.ycombinator.com/submitlink?u=https://llmodel.com/prompt-engineering-guide.html&amp;t=Prompt engineering: a practical guide with examples" target="_blank" rel="noopener">Hacker News</a><a href="https://www.reddit.com/submit?url=https://llmodel.com/prompt-engineering-guide.html&amp;title=Prompt engineering: a practical guide with examples" target="_blank" rel="noopener">Reddit</a></div>
+  </article>
+  <aside class="article__side" aria-label="Related"><div class="panel"><h2 class="h3">Try the tools</h2>
+<ul style="margin:.5rem 0 0;padding-left:1.1rem"><li><a href="prompt-builder.html">Prompt builder</a></li>
+<li><a href="token-counter.html">Token counter</a></li>
+<li><a href="llm-cost-calculator.html">LLM API cost calculator</a></li>
+</ul>
+</div>
+<div class="panel"><h2 class="h3">Need hands-on help?</h2>
+<p class="small muted" style="margin-top:.4rem">Get a vendor-neutral plan for your project within 2 business days.</p>
+<a class="btn btn--primary btn--block" style="margin-top:.8rem" href="hire-llm-experts.html?from=guide-prompt-engineering-guide">Get expert help</a></div>
+<div class="panel newsletter-box">
+
+  <p class="muted" style="margin-top:.4rem">One short email a week: model releases, price changes and one tool worth trying. Free, and you can unsubscribe anytime.</p>
+  <form class="form" data-form="newsletter" data-subject="Newsletter signup" novalidate style="margin-top:1rem">
+    <div class="inline-form">
+      <label class="visually-hidden" for="nl-side-email">Email address</label>
+      <input class="input" type="email" id="nl-side-email" name="email" required autocomplete="email" placeholder="Your work email">
+      <button class="btn btn--primary" type="submit">Subscribe</button>
+    </div>
+    <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <div class="form-status" role="status" aria-live="polite"></div>
+  </form>
+  <p class="fine" style="margin-top:.6rem">We send one email a week and never sell your address. See the <a href="privacy.html">privacy policy</a>.</p>
+</div>
+</aside>
+</div>
+<div class="wrap wrap--read" style="margin-top:3rem"><section class="faq-wrap" aria-labelledby="faq"><h2 class="h2" id="faq" style="margin-bottom:1rem">Frequently asked questions</h2>
+<div class="faq"><details><summary>What is prompt engineering?</summary><div class="faq__a"><p>Prompt engineering is the practice of designing the instructions, context, examples and format rules you give a language model so it produces useful, consistent output. It covers wording, structure, choosing techniques such as few-shot examples or prompt chaining, and testing prompts against real inputs. It is usually the cheapest and fastest way to improve results before you consider retrieval or fine-tuning.</p>
+</div>
+</details>
+<details><summary>Does &#x27;think step by step&#x27; still work?</summary><div class="faq__a"><p>With standard, non-reasoning models, asking for step-by-step reasoning still tends to help on multi-step math and logic. With reasoning models it is usually unnecessary, because they reason internally before answering, and OpenAI&#x27;s guidance warns it can even reduce quality. Set the reasoning effort or thinking level in the API instead, and use the prompt to describe the goal and what a correct answer looks like.</p>
+</div>
+</details>
+<details><summary>How many examples should a few-shot prompt include?</summary><div class="faq__a"><p>Start with two or three and add more only if test results improve. Anthropic&#x27;s guidance suggests three to five varied examples, while OpenAI recommends trying reasoning models with no examples first. Make the examples diverse, include an edge case, keep their format identical, and make sure they agree with your written instructions, since models tend to imitate examples over rules when the two conflict.</p>
+</div>
+</details>
+<details><summary>Should instructions go in the system prompt or the user message?</summary><div class="faq__a"><p>Put stable rules, the role, the output format and examples in the system prompt or developer message, and put the changing input in the user message. Providers give system-level instructions higher priority, and keeping that prefix identical across requests lets prompt caching cut cost and latency. Never place secrets or access rules in either, because prompts can leak.</p>
+</div>
+</details>
+<details><summary>How do I know if a prompt change made things better?</summary><div class="faq__a"><p>Run the old and new versions on the same test set of real inputs, ideally 30 to 100 cases including known failures, and compare pass rates, cost and latency. Score structured outputs with code and open-ended answers with a rubric. Run each case more than once, because outputs vary, and treat small differences as noise until they repeat.</p>
+</div>
+</details>
+</div>
+</section>
+</div>
+<section class="wrap" aria-labelledby="more-videos" style="margin-top:3rem"><h2 class="h2" id="more-videos" style="margin-bottom:1rem">More videos on this topic</h2>
+<div class="grid grid--3"><article class="video-card" id="v-ysPbXH0LpIE"><div class="video" data-yt="ysPbXH0LpIE"><button class="video__btn" type="button" aria-label="Play video: Prompting 101 | Code w/ Claude"><img src="https://i.ytimg.com/vi/ysPbXH0LpIE/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="video__play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></button></div>
+<h3>Prompting 101 | Code w/ Claude</h3>
+<div class="vc-meta"><span>Anthropic</span><span>Intermediate</span><a href="https://www.youtube.com/watch?v=ysPbXH0LpIE" target="_blank" rel="noopener">Watch on YouTube</a></div>
+<p class="muted small">Anthropic engineers build a real prompt step by step, showing how to organize the task, supply context, add examples and fix an output format. It helps developers and analysts turn a rough one-off prompt into one that behaves consistently.</p>
+</article>
+</div>
+</section>
+<section class="wrap" aria-labelledby="related" style="margin-top:3rem"><h2 class="h2" id="related" style="margin-bottom:1rem">Keep reading</h2>
+<div class="cardlist"><a class="card" href="fine-tuning-vs-rag-vs-prompting.html"><span class="card__kicker">Building</span><span class="card__title">Fine-tuning vs RAG vs prompting: which should you use?</span><span class="card__desc">Prompting changes the instructions, RAG changes the knowledge a model can see and fine-tuning changes its behavior. This guide gives a decision tree, a cost and risk comparison, fine-tuning methods, managed options as of October 2026 and worked examples.</span><span class="card__foot"><span>Intermediate</span><span>9 min read</span></span></a><a class="card" href="llm-hallucinations.html"><span class="card__kicker">Safety &amp; quality</span><span class="card__title">LLM hallucinations: why they happen and how to reduce them</span><span class="card__desc">Hallucinations are fluent, confident outputs that are false or unsupported by the sources a model was given.
+This guide explains why they happen, what published measurements show, and how to reduce, catch and measure them in real applications.</span><span class="card__foot"><span>Beginner</span><span>10 min read</span></span></a><a class="card" href="ai-agents-explained.html"><span class="card__kicker">Building</span><span class="card__title">AI agents explained</span><span class="card__desc">How AI agents work under the hood: a language model calling tools in a loop with memory, the planning patterns they use, and where the Model Context Protocol fits as of October 2026. Covers frameworks, evaluation, cost, security and the tasks agents handle well today.</span><span class="card__foot"><span>Intermediate</span><span>11 min read</span></span></a></div>
+</section>
+<div class="wrap"><section class="lead-band" aria-labelledby="lead-build-guide-prompt-engineering-guide">
+  <div>
+    <h2 id="lead-build-guide-prompt-engineering-guide">Need hands-on help building it?</h2>
+    <p>RAG, agents, fine-tuning or a production chatbot: describe the project and we&#x27;ll suggest an approach and, if you want, partners who build it.</p>
+    <ul><li>Free and vendor-neutral: no model provider pays for placement.</li>
+<li>Your details go only to partners you agree to.</li>
+</ul>
+  </div>
+  <form class="mini-form" action="hire-llm-experts.html" method="get">
+    <label for="need-build-guide-prompt-engineering-guide">What do you need help with?</label>
+    <select id="need-build-guide-prompt-engineering-guide" name="need"><option value="choose-model">Choose the right model</option>
+<option value="chatbot">Build a chatbot or assistant</option>
+<option value="rag">Answer questions over our documents (RAG)</option>
+<option value="agents">Automate work with AI agents</option>
+<option value="self-host">Fine-tune or self-host a model</option>
+<option value="cut-costs">Cut our LLM costs</option>
+<option value="security">Security, privacy or compliance review</option>
+<option value="not-sure">Not sure yet</option>
+</select>
+    <input type="hidden" name="from" value="guide-prompt-engineering-guide">
+    <button class="btn btn--yellow btn--block" type="submit">Start my free plan</button>
+    <p class="fine">Takes about 2 minutes. No sales calls unless you ask for one.</p>
+  </form>
+</section>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+      <p>The independent field guide to large language models. Model data checked against provider documentation; last full check October 10, 2026.</p>
+    </div>
+    <div><h2>Explore</h2>
+<ul><li><a href="models.html">Model directory</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare models</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="search.html">Search</a></li>
+</ul>
+</div>
+<div><h2>Tools</h2>
+<ul><li><a href="llm-cost-calculator.html">Cost calculator</a></li>
+<li><a href="token-counter.html">Token counter</a></li>
+<li><a href="vram-calculator.html">GPU and VRAM calculator</a></li>
+<li><a href="llm-picker.html">Which LLM should I use?</a></li>
+<li><a href="context-window-visualizer.html">Context window visualizer</a></li>
+<li><a href="prompt-builder.html">Prompt builder</a></li>
+<li><a href="self-host-vs-api-calculator.html">Self-host vs API calculator</a></li>
+</ul>
+</div>
+<div><h2>Learn</h2>
+<ul><li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+</ul>
+</div>
+<div><h2>Work with us</h2>
+<ul><li><a href="hire-llm-experts.html">Get expert help</a></li>
+<li><a href="list-your-product.html">List your product</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</div>
+<div><h2>About</h2>
+<ul><li><a href="about.html">About LLModel</a></li>
+<li><a href="editorial-policy.html">Editorial policy</a></li>
+<li><a href="privacy.html">Privacy policy</a></li>
+<li><a href="terms.html">Terms of use</a></li>
+<li><a href="disclaimer.html">Disclaimer</a></li>
+<li><a href="trademark-copyright.html">Trademark and copyright</a></li>
+<li><a href="sitemap.html">Site map</a></li>
+<li><button class="linklike" type="button" data-privacy-choices>Privacy and cookie choices</button></li>
+</ul>
+</div>
+  </div>
+  <div class="wrap footer-legal">
+    <p>&copy; 2026 LLModel.com. Independent: not affiliated with, endorsed by or sponsored by any model provider. Model and company names are trademarks of their respective owners and are used only to identify products. See <a href="trademark-copyright.html">trademark and copyright</a>.</p>
+    <p>Prices and specifications change often. Always confirm on the provider's own pricing page before you buy.</p>
+  </div>
+</footer>
+<div class="palette" id="palette" hidden role="dialog" aria-modal="true" aria-label="Search LLModel">
+  <div class="palette__box">
+    <label class="visually-hidden" for="palette-input">Search models, tools, guides and terms</label>
+    <input class="palette__input" id="palette-input" type="search" placeholder="Search models, tools, guides, terms" autocomplete="off" spellcheck="false" aria-controls="palette-list">
+    <ul class="palette__list" id="palette-list" role="listbox"></ul>
+    <div class="palette__foot"><span><span class="kbd">&uarr;</span> <span class="kbd">&darr;</span> to move</span><span><span class="kbd">Enter</span> to open</span><span><span class="kbd">Esc</span> to close</span></div>
+  </div>
+</div>
+<script src="assets/js/config.js?v=caa5324cbb"></script>
+
+<script src="assets/js/app.js?v=4b39d7c1bd" defer></script>
+<script src="assets/js/article.js?v=0235be8880" defer></script>
+</body>
+</html>
