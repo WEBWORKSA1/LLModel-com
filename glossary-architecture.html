@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Model Architecture Terms: LLM Glossary (16 Definitions) | LLModel.com</title>
+<meta name="description" content="Plain-English definitions of 16 model architecture terms for large language models, including attention, transformers, mixture of experts and RoPE.">
+<link rel="canonical" href="https://llmodel.com/glossary-architecture.html">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="google-adsense-account" content="ca-pub-6620975821265271">
+<meta name="theme-color" content="#f4f6fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12101e" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="LLModel.com">
+<meta property="og:title" content="Model Architecture Terms: LLM Glossary (16 Definitions)">
+<meta property="og:description" content="Plain-English definitions of 16 model architecture terms for large language models, including attention, transformers, mixture of experts and RoPE.">
+<meta property="og:url" content="https://llmodel.com/glossary-architecture.html">
+<meta property="og:image" content="https://llmodel.com/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="LLModel: the independent field guide to large language models">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="alternate" type="text/plain" href="llms.txt" title="llms.txt">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Martian+Mono:wght@400..500&family=Newsreader:ital,opsz,wght@0,6..72,400..650;1,6..72,400&display=swap">
+<link rel="stylesheet" href="assets/css/style.css?v=dae4813595">
+<script>(function(){var d=document.documentElement,t=null;try{t=localStorage.getItem('llm-theme')}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}d.setAttribute('data-theme',t)})();</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6620975821265271" crossorigin="anonymous"></script>
+<script type="application/ld+json">{
+ "@type": "Organization",
+ "@id": "https://llmodel.com/#org",
+ "name": "LLModel.com",
+ "url": "https://llmodel.com/",
+ "logo": "https://llmodel.com/assets/img/icon-512.png",
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://llmodel.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Glossary",
+   "item": "https://llmodel.com/glossary.html"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "Model architecture"
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+<script type="application/ld+json">{
+ "@type": "DefinedTermSet",
+ "name": "LLM glossary: model architecture",
+ "url": "https://llmodel.com/glossary-architecture.html",
+ "hasDefinedTerm": [
+  {
+   "@type": "DefinedTerm",
+   "name": "Attention",
+   "description": "The mechanism that lets each token weigh and combine information from other tokens in the sequence.",
+   "url": "https://llmodel.com/glossary-architecture.html#attention"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Decoder-only model",
+   "description": "A transformer made only of decoder layers that predicts the next token from the tokens before it.",
+   "url": "https://llmodel.com/glossary-architecture.html#decoder-only"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Diffusion language model",
+   "description": "A model that generates text by refining a whole draft in parallel over several steps, not token by token.",
+   "url": "https://llmodel.com/glossary-architecture.html#diffusion-language-model"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Encoder",
+   "description": "A transformer component that reads a whole input at once, in both directions, to build representations of it.",
+   "url": "https://llmodel.com/glossary-architecture.html#encoder"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Feed-forward network (FFN)",
+   "description": "The per-token neural network inside each transformer layer that transforms what attention gathered.",
+   "url": "https://llmodel.com/glossary-architecture.html#feed-forward-network"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "FlashAttention",
+   "description": "A fast, memory-efficient way to compute exact attention by working in small tiles inside fast GPU memory.",
+   "url": "https://llmodel.com/glossary-architecture.html#flash-attention"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Grouped-query attention (GQA)",
+   "description": "An attention variant where groups of query heads share key and value heads to shrink the KV cache.",
+   "url": "https://llmodel.com/glossary-architecture.html#grouped-query-attention"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Layer normalization",
+   "description": "Rescaling each token's vector to a consistent range inside every layer, which keeps training numerically stable.",
+   "url": "https://llmodel.com/glossary-architecture.html#layer-normalization"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Mixture of experts (MoE)",
+   "description": "An architecture that routes each token to a few specialist sub-networks, so only part of the model runs per token.",
+   "url": "https://llmodel.com/glossary-architecture.html#mixture-of-experts"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Positional encoding",
+   "description": "Information added to a transformer so it knows the order of tokens, since attention alone ignores order.",
+   "url": "https://llmodel.com/glossary-architecture.html#positional-encoding"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Residual connection",
+   "description": "A shortcut that adds a layer's input to its output, keeping signals and gradients flowing through deep networks.",
+   "url": "https://llmodel.com/glossary-architecture.html#residual-connection"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Rotary position embedding (RoPE)",
+   "description": "A widely used way of encoding token positions by rotating query and key vectors by position-dependent angles.",
+   "url": "https://llmodel.com/glossary-architecture.html#rope"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Sliding window attention",
+   "description": "Attention limited to a fixed number of recent tokens, keeping cost and memory from growing with length.",
+   "url": "https://llmodel.com/glossary-architecture.html#sliding-window-attention"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Softmax",
+   "description": "A function that turns a list of raw scores into probabilities that are positive and sum to one.",
+   "url": "https://llmodel.com/glossary-architecture.html#softmax"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "State space model (SSM)",
+   "description": "A sequence architecture that carries a fixed-size running state instead of attending over every past token.",
+   "url": "https://llmodel.com/glossary-architecture.html#state-space-model"
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "Transformer",
+   "description": "The neural network design behind nearly all modern LLMs, built around the attention mechanism.",
+   "url": "https://llmodel.com/glossary-architecture.html#transformer"
+  }
+ ],
+ "@context": "https://schema.org"
+}</script>
+
+</head>
+<body class="page-glossary-architecture">
+<a class="skip" href="#main">Skip to content</a>
+<div class="partner-bar"><a href="https://web.works/contact" target="_blank" rel="noopener"><span>Contact, if you are interested in this website / domain name / sponsorship / advertisement / partnership</span></a></div>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+    <nav class="nav" aria-label="Main"><a href="models.html">Models</a><a href="compare.html">Compare</a><a href="leaderboard.html">Rankings</a><a href="tools.html">Tools</a><a href="guides.html" aria-current="page">Learn</a><a href="videos.html">Videos</a></nav>
+    <div class="header-actions">
+      <button class="search-btn" type="button" data-open-search aria-label="Search the site"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="search-label">Search</span><span class="kbd" aria-hidden="true">/</span></button>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><svg class="theme-icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="theme-icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+      <a class="btn btn--primary btn--sm header-cta" href="hire-llm-experts.html">Get expert help</a>
+      <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile">
+    <ul><li><a href="models.html">Models</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="tools.html">Tools</a></li>
+<li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="contact.html">Contact</a></li>
+<li class="mobile-cta"><a class="btn btn--primary btn--block" href="hire-llm-experts.html">Get expert help</a></li>
+</ul>
+  </nav>
+</header>
+<main id="main">
+<nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li aria-current="page">Model architecture</li>
+</ol>
+</nav>
+<header class="page-head wrap"><h1>LLM glossary: model architecture</h1><p class="lede">What sits inside a model: the transformer, attention and its faster variants, positional encodings, mixture-of-experts layers, and alternatives such as state space and diffusion models. 16 terms, each with a short definition, a fuller explanation and links to related terms.</p>
+<div class="page-meta"><span>Updated October 10, 2026</span><span><a href="glossary.html">All 169 terms</a></span></div>
+</header>
+<div class="wrap">
+<nav class="pill-nav" aria-label="Other glossary topics"><a href="glossary-fundamentals.html">Fundamentals</a><a href="glossary-training.html">Training</a><a href="glossary-inference-deployment.html">Inference and deployment</a><a href="glossary-prompting.html">Prompting</a><a href="glossary-building-apps.html">Building LLM apps</a><a href="glossary-evaluation.html">Evaluation and benchmarks</a><a href="glossary-safety-governance.html">Safety and governance</a><a href="glossary-business-pricing.html">Business and pricing</a></nav>
+<div class="filters" style="margin-top:1.5rem"><div class="filters__top"><label class="visually-hidden" for="gl-q">Filter terms</label><input class="input" id="gl-q" type="search" placeholder="Filter 16 terms" autocomplete="off"></div>
+<p class="result-count" id="gl-count" aria-live="polite">16 terms</p>
+</div>
+<aside class="ad-slot" data-ad="glossary-top" aria-label="Sponsored message"><span class="ad-label">From LLModel</span><div class="ad-fill"><div class="house"><div><strong>The LLM Brief</strong><span>One short email a week: new models, price changes and one tool worth trying.</span></div>
+<a class="btn btn--ghost btn--sm" href="newsletter.html">Subscribe free</a></div>
+</div>
+</aside>
+<div id="gl-list"><div class="terms"><article class="term" id="attention" data-cat="Architecture" data-text="attention self-attention multi-head attention"><h3>Attention <span class="aka">self-attention, multi-head attention</span><a class="anchor" href="#attention" aria-label="Link to Attention">#</a></h3>
+<p class="short">The mechanism that lets each token weigh and combine information from other tokens in the sequence.</p>
+<p class="def">Attention is how a transformer decides which other tokens matter when it updates a token&#x27;s representation. Each token produces a query, a key and a value vector; the model compares one token&#x27;s query with every key, turns the scores into weights with softmax, and takes a weighted mix of the values. In &#x27;the trophy didn&#x27;t fit in the suitcase because it was too big&#x27;, attention helps link &#x27;it&#x27; to &#x27;trophy&#x27;. Multi-head attention runs several of these comparisons in parallel so different heads can track different relationships. In LLMs a causal mask stops tokens from looking ahead, and the cost of full attention grows quadratically with sequence length.</p>
+<div class="rel tags"><a class="tag" href="#transformer">Transformer</a><a class="tag" href="#softmax">Softmax</a><a class="tag" href="glossary-inference-deployment.html#kv-cache">KV cache</a><a class="tag" href="#flash-attention">FlashAttention</a></div>
+</article>
+<article class="term" id="decoder-only" data-cat="Architecture" data-text="decoder-only model decoder-only transformer causal language model gpt-style model"><h3>Decoder-only model <span class="aka">decoder-only transformer, causal language model, GPT-style model</span><a class="anchor" href="#decoder-only" aria-label="Link to Decoder-only model">#</a></h3>
+<p class="short">A transformer made only of decoder layers that predicts the next token from the tokens before it.</p>
+<p class="def">A decoder-only model is a stack of transformer decoder layers with causal self-attention: each token can attend only to the tokens before it. It is trained purely on next-token prediction, which makes it a natural fit for open-ended generation. The GPT series, Llama, Mistral, Qwen and most other well-documented LLM families use this design. Compared with the original encoder-decoder transformer, it is simpler to scale and lets one model handle many tasks through prompting alone. The trade-off is that it reads text in one direction only, which is why bidirectional encoder models remain popular for embeddings, classification and reranking.</p>
+<div class="rel tags"><a class="tag" href="#transformer">Transformer</a><a class="tag" href="glossary-fundamentals.html#autoregressive-model">Autoregressive model</a><a class="tag" href="#encoder">Encoder</a><a class="tag" href="#attention">Attention</a></div>
+</article>
+<article class="term" id="diffusion-language-model" data-cat="Architecture" data-text="diffusion language model diffusion llm dllm text diffusion model"><h3>Diffusion language model <span class="aka">diffusion LLM, dLLM, text diffusion model</span><a class="anchor" href="#diffusion-language-model" aria-label="Link to Diffusion language model">#</a></h3>
+<p class="short">A model that generates text by refining a whole draft in parallel over several steps, not token by token.</p>
+<p class="def">A diffusion language model borrows the idea behind image generators: it starts from a fully masked or noisy sequence and repeatedly refines it, filling in many positions at once over a series of steps. Because it is not limited to one token per forward pass, it can generate text very quickly and, in some designs, revise parts of a draft before finishing. Inception&#x27;s Mercury models are commercial examples, Google has demonstrated an experimental Gemini Diffusion, and research models such as LLaDA are openly available. Autoregressive transformers still dominate, and diffusion models have less mature tooling, but they are a serious contender for latency-sensitive uses such as code completion.</p>
+<div class="rel tags"><a class="tag" href="glossary-fundamentals.html#autoregressive-model">Autoregressive model</a><a class="tag" href="glossary-inference-deployment.html#latency">Latency</a><a class="tag" href="#transformer">Transformer</a></div>
+</article>
+<article class="term" id="encoder" data-cat="Architecture" data-text="encoder encoder-only model bidirectional encoder bert-style model"><h3>Encoder <span class="aka">encoder-only model, bidirectional encoder, BERT-style model</span><a class="anchor" href="#encoder" aria-label="Link to Encoder">#</a></h3>
+<p class="short">A transformer component that reads a whole input at once, in both directions, to build representations of it.</p>
+<p class="def">An encoder is the part of a transformer that processes an entire input with bidirectional attention, so every token can see both its left and right context. Encoder-only models such as BERT are trained by hiding words and predicting them, and they excel at understanding tasks: classification, named-entity extraction, embeddings and reranking. Encoder-decoder models such as T5 pair an encoder with a decoder that generates output, a layout suited to translation and summarization. Most chat LLMs drop the encoder entirely, but the embedding model behind your search index or the reranker in your RAG pipeline is often encoder-based, smaller and much cheaper to run.</p>
+<div class="rel tags"><a class="tag" href="#decoder-only">Decoder-only model</a><a class="tag" href="glossary-building-apps.html#embedding-model">Embedding model</a><a class="tag" href="glossary-building-apps.html#reranker">Reranker</a><a class="tag" href="#transformer">Transformer</a></div>
+</article>
+<article class="term" id="feed-forward-network" data-cat="Architecture" data-text="feed-forward network (ffn) ffn mlp layer mlp block"><h3>Feed-forward network (FFN) <span class="aka">FFN, MLP layer, MLP block</span><a class="anchor" href="#feed-forward-network" aria-label="Link to Feed-forward network (FFN)">#</a></h3>
+<p class="short">The per-token neural network inside each transformer layer that transforms what attention gathered.</p>
+<p class="def">Every transformer layer contains a feed-forward network, also called the MLP block, that processes each token&#x27;s vector independently after attention has mixed in context. It typically expands the vector to a larger hidden size, applies a nonlinearity (often a gated variant such as SwiGLU), and projects it back down. In dense models these blocks usually hold two-thirds or more of the non-embedding parameters, and interpretability research suggests they store much of a model&#x27;s factual associations. They are also the part that mixture-of-experts designs replace with many smaller experts, which is how MoE models grow capacity without running every parameter for every token.</p>
+<div class="rel tags"><a class="tag" href="#transformer">Transformer</a><a class="tag" href="#mixture-of-experts">Mixture of experts (MoE)</a><a class="tag" href="#attention">Attention</a><a class="tag" href="glossary-fundamentals.html#parameters">Parameters</a></div>
+</article>
+<article class="term" id="flash-attention" data-cat="Architecture" data-text="flashattention flash attention"><h3>FlashAttention <span class="aka">flash attention</span><a class="anchor" href="#flash-attention" aria-label="Link to FlashAttention">#</a></h3>
+<p class="short">A fast, memory-efficient way to compute exact attention by working in small tiles inside fast GPU memory.</p>
+<p class="def">FlashAttention, first published in 2022, is an algorithm that computes exactly the same result as standard attention but much faster. The naive approach writes a huge table of attention scores, one entry for every pair of tokens, to the GPU&#x27;s relatively slow main memory. FlashAttention instead processes queries and keys in small tiles that fit in fast on-chip memory and never stores the full table, so memory use grows linearly rather than quadratically with sequence length. Later versions were tuned for newer GPU generations. It is built into major training and serving frameworks, and it is one of the reasons long context windows became practical.</p>
+<div class="rel tags"><a class="tag" href="#attention">Attention</a><a class="tag" href="glossary-inference-deployment.html#gpu">GPU (graphics processing unit)</a><a class="tag" href="glossary-fundamentals.html#long-context">Long context</a><a class="tag" href="glossary-inference-deployment.html#vllm">vLLM</a></div>
+</article>
+<article class="term" id="grouped-query-attention" data-cat="Architecture" data-text="grouped-query attention (gqa) gqa"><h3>Grouped-query attention (GQA) <span class="aka">GQA</span><a class="anchor" href="#grouped-query-attention" aria-label="Link to Grouped-query attention (GQA)">#</a></h3>
+<p class="short">An attention variant where groups of query heads share key and value heads to shrink the KV cache.</p>
+<p class="def">In standard multi-head attention, every head has its own query, key and value projections, and all those keys and values must be kept in the KV cache during generation. Grouped-query attention lets several query heads share one key-value head. A model with 32 query heads and 8 key-value heads, a common configuration, needs a KV cache four times smaller than full multi-head attention, with little loss in quality. Multi-query attention is the extreme case: a single key-value head shared by all queries. GQA is now standard in many open models because it cuts memory use and speeds up long-context and high-concurrency serving.</p>
+<div class="rel tags"><a class="tag" href="glossary-inference-deployment.html#kv-cache">KV cache</a><a class="tag" href="#attention">Attention</a><a class="tag" href="glossary-inference-deployment.html#vram">VRAM (GPU memory)</a></div>
+</article>
+<article class="term" id="layer-normalization" data-cat="Architecture" data-text="layer normalization layernorm layer norm"><h3>Layer normalization <span class="aka">LayerNorm, layer norm</span><a class="anchor" href="#layer-normalization" aria-label="Link to Layer normalization">#</a></h3>
+<p class="short">Rescaling each token&#x27;s vector to a consistent range inside every layer, which keeps training numerically stable.</p>
+<p class="def">Layer normalization rescales the numbers in each token&#x27;s vector so they have a consistent average and spread before the next computation, then applies learned scaling factors. Without it, values can drift larger or smaller layer after layer until training becomes unstable. The original transformer normalized after each sublayer; most modern LLMs normalize before each one, a layout called pre-norm that trains more reliably in deep stacks. Many models, including the Llama family, use RMSNorm, a cheaper variant that skips subtracting the mean and divides only by the root mean square. It is a small component, but normalization choices strongly affect whether large training runs stay stable.</p>
+<div class="rel tags"><a class="tag" href="#transformer">Transformer</a><a class="tag" href="#feed-forward-network">Feed-forward network (FFN)</a><a class="tag" href="glossary-training.html#pretraining">Pretraining</a></div>
+</article>
+<article class="term" id="mixture-of-experts" data-cat="Architecture" data-text="mixture of experts (moe) moe sparse mixture of experts sparse moe"><h3>Mixture of experts (MoE) <span class="aka">MoE, sparse mixture of experts, sparse MoE</span><a class="anchor" href="#mixture-of-experts" aria-label="Link to Mixture of experts (MoE)">#</a></h3>
+<p class="short">An architecture that routes each token to a few specialist sub-networks, so only part of the model runs per token.</p>
+<p class="def">A mixture-of-experts model replaces the single feed-forward block in each layer with many parallel expert networks plus a small router that picks a few experts for each token. Mixtral 8x7B, for example, has eight experts per layer and activates two, so each token touches about 13 billion of its roughly 47 billion parameters. The payoff is the knowledge capacity of a large model at the per-token compute cost of a much smaller one. The catch is memory: all experts must still be loaded, so VRAM needs follow the total parameter count. Very large MoE models are often spread across GPUs by placing different experts on different devices, called expert parallelism.</p>
+<div class="rel tags"><a class="tag" href="#feed-forward-network">Feed-forward network (FFN)</a><a class="tag" href="glossary-fundamentals.html#parameters">Parameters</a><a class="tag" href="glossary-inference-deployment.html#vram">VRAM (GPU memory)</a><a class="tag" href="glossary-training.html#parallelism">Parallelism (data, tensor, pipeline, expert)</a></div>
+</article>
+<article class="term" id="positional-encoding" data-cat="Architecture" data-text="positional encoding position embedding positional embedding"><h3>Positional encoding <span class="aka">position embedding, positional embedding</span><a class="anchor" href="#positional-encoding" aria-label="Link to Positional encoding">#</a></h3>
+<p class="short">Information added to a transformer so it knows the order of tokens, since attention alone ignores order.</p>
+<p class="def">Attention by itself treats its input as an unordered set: without extra information, &#x27;dog bites man&#x27; and &#x27;man bites dog&#x27; would look the same. Positional encoding fixes this by giving the model a signal about where each token sits. The original transformer added fixed sine and cosine patterns to the token embeddings, and early GPT models learned a separate vector for each absolute position. Most current LLMs use relative schemes such as rotary position embedding (RoPE), which encode the distance between tokens. The choice matters in practice because it strongly affects how well a model handles sequences longer than those it saw in training.</p>
+<div class="rel tags"><a class="tag" href="#rope">Rotary position embedding (RoPE)</a><a class="tag" href="#transformer">Transformer</a><a class="tag" href="#attention">Attention</a><a class="tag" href="glossary-fundamentals.html#long-context">Long context</a></div>
+</article>
+<article class="term" id="residual-connection" data-cat="Architecture" data-text="residual connection skip connection"><h3>Residual connection <span class="aka">skip connection</span><a class="anchor" href="#residual-connection" aria-label="Link to Residual connection">#</a></h3>
+<p class="short">A shortcut that adds a layer&#x27;s input to its output, keeping signals and gradients flowing through deep networks.</p>
+<p class="def">A residual connection adds a sublayer&#x27;s input directly to its output, so each layer only has to learn an adjustment rather than rebuild the whole representation. In a transformer, both the attention block and the feed-forward block in every layer are wrapped this way. The idea comes from 2015 image-recognition research on ResNets, where it made networks more than 100 layers deep trainable by giving gradients a direct path backward. In LLMs, the running sum that flows from layer to layer is often called the residual stream, and interpretability researchers study it to see how information builds up as text moves through the model.</p>
+<div class="rel tags"><a class="tag" href="#transformer">Transformer</a><a class="tag" href="#layer-normalization">Layer normalization</a><a class="tag" href="#feed-forward-network">Feed-forward network (FFN)</a></div>
+</article>
+<article class="term" id="rope" data-cat="Architecture" data-text="rotary position embedding (rope) rope rotary embedding"><h3>Rotary position embedding (RoPE) <span class="aka">RoPE, rotary embedding</span><a class="anchor" href="#rope" aria-label="Link to Rotary position embedding (RoPE)">#</a></h3>
+<p class="short">A widely used way of encoding token positions by rotating query and key vectors by position-dependent angles.</p>
+<p class="def">Rotary position embedding, introduced in 2021, encodes position by rotating each query and key vector by an angle that depends on the token&#x27;s position. When two rotated vectors are compared in attention, the result depends on how far apart the tokens are, so the model naturally learns relative distance. RoPE is used by Llama, Qwen, Mistral and many other model families. It is also the basis for most context-extension tricks: methods such as position interpolation and YaRN rescale the rotation frequencies so a model trained on shorter sequences can handle much longer ones after a modest amount of extra training.</p>
+<div class="rel tags"><a class="tag" href="#positional-encoding">Positional encoding</a><a class="tag" href="glossary-fundamentals.html#long-context">Long context</a><a class="tag" href="#attention">Attention</a></div>
+</article>
+<article class="term" id="sliding-window-attention" data-cat="Architecture" data-text="sliding window attention local attention windowed attention swa"><h3>Sliding window attention <span class="aka">local attention, windowed attention, SWA</span><a class="anchor" href="#sliding-window-attention" aria-label="Link to Sliding window attention">#</a></h3>
+<p class="short">Attention limited to a fixed number of recent tokens, keeping cost and memory from growing with length.</p>
+<p class="def">With sliding window attention, each token attends only to a fixed span of preceding tokens, such as the last 4,096, instead of the entire sequence. Compute then grows linearly with length, and the KV cache for those layers stops growing once the window is full. Information can still travel further than the window because each layer passes context forward, letting stacked layers reach well beyond a single window. Mistral 7B used this approach, and several later model families interleave sliding-window layers with full-attention layers to balance long-range recall against memory. It is one of several sparse attention patterns designed to make long contexts affordable.</p>
+<div class="rel tags"><a class="tag" href="#attention">Attention</a><a class="tag" href="glossary-inference-deployment.html#kv-cache">KV cache</a><a class="tag" href="glossary-fundamentals.html#long-context">Long context</a></div>
+</article>
+<article class="term" id="softmax" data-cat="Architecture" data-text="softmax softmax function"><h3>Softmax <span class="aka">softmax function</span><a class="anchor" href="#softmax" aria-label="Link to Softmax">#</a></h3>
+<p class="short">A function that turns a list of raw scores into probabilities that are positive and sum to one.</p>
+<p class="def">Softmax converts any list of numbers into a probability distribution by exponentiating each value and dividing by the total. Larger scores get disproportionately more weight: the scores 2.0, 1.0 and 0.1 become roughly 0.66, 0.24 and 0.10. LLMs use softmax in two key places. Inside attention, it turns similarity scores into the weights used to mix information between tokens. At the output, it turns the logits for every vocabulary token into next-token probabilities. Temperature works by dividing the logits before this step, which makes the resulting distribution sharper or flatter.</p>
+<div class="rel tags"><a class="tag" href="glossary-inference-deployment.html#logits">Logits</a><a class="tag" href="glossary-inference-deployment.html#temperature">Temperature</a><a class="tag" href="#attention">Attention</a></div>
+</article>
+<article class="term" id="state-space-model" data-cat="Architecture" data-text="state space model (ssm) ssm state-space model"><h3>State space model (SSM) <span class="aka">SSM, state-space model</span><a class="anchor" href="#state-space-model" aria-label="Link to State space model (SSM)">#</a></h3>
+<p class="short">A sequence architecture that carries a fixed-size running state instead of attending over every past token.</p>
+<p class="def">A state space model processes a sequence by updating a compact hidden state token by token, somewhat like a recurrent network, rather than comparing every token with every other. Mamba, published in 2023, made this approach competitive for language by letting the state update depend on the input. The appeal is efficiency: compute grows linearly with length and generation needs constant memory per step, with no growing KV cache. The weakness is recall, since squeezing all history into a fixed-size state makes exact copying and lookup harder than with attention. Hybrid designs such as AI21&#x27;s Jamba interleave SSM layers with attention layers to get some of both.</p>
+<div class="rel tags"><a class="tag" href="#transformer">Transformer</a><a class="tag" href="#attention">Attention</a><a class="tag" href="glossary-inference-deployment.html#kv-cache">KV cache</a><a class="tag" href="glossary-fundamentals.html#long-context">Long context</a></div>
+</article>
+<article class="term" id="transformer" data-cat="Architecture" data-text="transformer transformer architecture"><h3>Transformer <span class="aka">transformer architecture</span><a class="anchor" href="#transformer" aria-label="Link to Transformer">#</a></h3>
+<p class="short">The neural network design behind nearly all modern LLMs, built around the attention mechanism.</p>
+<p class="def">The transformer is the architecture introduced in the 2017 paper &#x27;Attention Is All You Need&#x27; and used by almost every major LLM since. It processes text as a sequence of token embeddings that pass through a stack of identical layers. Each layer has two main parts: self-attention, which lets every token pull in information from other tokens, and a feed-forward network, which transforms each token&#x27;s representation on its own. Residual connections and normalization keep training stable across dozens of layers. Because attention handles all positions in parallel, transformers train efficiently on GPUs, which is a big reason they displaced older recurrent networks.</p>
+<div class="rel tags"><a class="tag" href="#attention">Attention</a><a class="tag" href="#feed-forward-network">Feed-forward network (FFN)</a><a class="tag" href="#decoder-only">Decoder-only model</a><a class="tag" href="#positional-encoding">Positional encoding</a></div>
+</article>
+</div>
+</div>
+<p class="empty" id="gl-empty" hidden>No terms on this page match that filter. Try a shorter word, or filter <a href="glossary.html">all 169 terms</a>.</p>
+<section class="lead-band" aria-labelledby="lead-default-glossary">
+  <div>
+    <h2 id="lead-default-glossary">Building with LLMs? Get a vendor-neutral plan.</h2>
+    <p>Tell us what you&#x27;re building. Within 2 business days you get a model shortlist, an architecture outline and a cost estimate, plus optional introductions to vetted implementation partners.</p>
+    <ul><li>Free and vendor-neutral: no model provider pays for placement.</li>
+<li>Your details go only to partners you agree to.</li>
+</ul>
+  </div>
+  <form class="mini-form" action="hire-llm-experts.html" method="get">
+    <label for="need-default-glossary">What do you need help with?</label>
+    <select id="need-default-glossary" name="need"><option value="choose-model">Choose the right model</option>
+<option value="chatbot">Build a chatbot or assistant</option>
+<option value="rag">Answer questions over our documents (RAG)</option>
+<option value="agents">Automate work with AI agents</option>
+<option value="self-host">Fine-tune or self-host a model</option>
+<option value="cut-costs">Cut our LLM costs</option>
+<option value="security">Security, privacy or compliance review</option>
+<option value="not-sure">Not sure yet</option>
+</select>
+    <input type="hidden" name="from" value="glossary">
+    <button class="btn btn--yellow btn--block" type="submit">Start my free plan</button>
+    <p class="fine">Takes about 2 minutes. No sales calls unless you ask for one.</p>
+  </form>
+</section>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="index.html" aria-label="LLModel.com home"><span class="tok tok--a">LL</span><span class="tok tok--b">Model</span></a>
+      <p>The independent field guide to large language models. Model data checked against provider documentation; last full check October 10, 2026.</p>
+    </div>
+    <div><h2>Explore</h2>
+<ul><li><a href="models.html">Model directory</a></li>
+<li><a href="providers.html">Providers</a></li>
+<li><a href="compare.html">Compare models</a></li>
+<li><a href="leaderboard.html">Rankings</a></li>
+<li><a href="llm-timeline.html">LLM timeline</a></li>
+<li><a href="search.html">Search</a></li>
+</ul>
+</div>
+<div><h2>Tools</h2>
+<ul><li><a href="llm-cost-calculator.html">Cost calculator</a></li>
+<li><a href="token-counter.html">Token counter</a></li>
+<li><a href="vram-calculator.html">GPU and VRAM calculator</a></li>
+<li><a href="llm-picker.html">Which LLM should I use?</a></li>
+<li><a href="context-window-visualizer.html">Context window visualizer</a></li>
+<li><a href="prompt-builder.html">Prompt builder</a></li>
+<li><a href="self-host-vs-api-calculator.html">Self-host vs API calculator</a></li>
+</ul>
+</div>
+<div><h2>Learn</h2>
+<ul><li><a href="guides.html">Guides</a></li>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="videos.html">Videos</a></li>
+<li><a href="prompts.html">Prompt library</a></li>
+<li><a href="resources.html">Resources</a></li>
+<li><a href="newsletter.html">Newsletter</a></li>
+</ul>
+</div>
+<div><h2>Work with us</h2>
+<ul><li><a href="hire-llm-experts.html">Get expert help</a></li>
+<li><a href="list-your-product.html">List your product</a></li>
+<li><a href="advertise.html">Advertise</a></li>
+<li><a href="support.html">Support us</a></li>
+<li><a href="contests.html">Contests</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</div>
+<div><h2>About</h2>
+<ul><li><a href="about.html">About LLModel</a></li>
+<li><a href="editorial-policy.html">Editorial policy</a></li>
+<li><a href="privacy.html">Privacy policy</a></li>
+<li><a href="terms.html">Terms of use</a></li>
+<li><a href="disclaimer.html">Disclaimer</a></li>
+<li><a href="trademark-copyright.html">Trademark and copyright</a></li>
+<li><a href="sitemap.html">Site map</a></li>
+<li><button class="linklike" type="button" data-privacy-choices>Privacy and cookie choices</button></li>
+</ul>
+</div>
+  </div>
+  <div class="wrap footer-legal">
+    <p>&copy; 2026 LLModel.com. Independent: not affiliated with, endorsed by or sponsored by any model provider. Model and company names are trademarks of their respective owners and are used only to identify products. See <a href="trademark-copyright.html">trademark and copyright</a>.</p>
+    <p>Prices and specifications change often. Always confirm on the provider's own pricing page before you buy.</p>
+  </div>
+</footer>
+<div class="palette" id="palette" hidden role="dialog" aria-modal="true" aria-label="Search LLModel">
+  <div class="palette__box">
+    <label class="visually-hidden" for="palette-input">Search models, tools, guides and terms</label>
+    <input class="palette__input" id="palette-input" type="search" placeholder="Search models, tools, guides, terms" autocomplete="off" spellcheck="false" aria-controls="palette-list">
+    <ul class="palette__list" id="palette-list" role="listbox"></ul>
+    <div class="palette__foot"><span><span class="kbd">&uarr;</span> <span class="kbd">&darr;</span> to move</span><span><span class="kbd">Enter</span> to open</span><span><span class="kbd">Esc</span> to close</span></div>
+  </div>
+</div>
+<script src="assets/js/config.js?v=caa5324cbb"></script>
+
+<script src="assets/js/app.js?v=4b39d7c1bd" defer></script>
+<script src="assets/js/pages/glossary.js?v=a99c13579b" defer></script>
+</body>
+</html>
