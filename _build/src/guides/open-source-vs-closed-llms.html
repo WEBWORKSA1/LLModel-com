@@ -1,0 +1,169 @@
+<!--meta
+{
+  "slug": "open-source-vs-closed-llms",
+  "title": "Open-Source vs Closed LLMs: Licenses, Costs and Trade-offs",
+  "h1": "Open-source vs closed LLMs: how to decide",
+  "description": "Open-source vs closed LLMs: what open weights really mean, license gotchas, a worked total cost of ownership example, and when to self-host or use an API.",
+  "category": "Choosing & buying",
+  "level": "Intermediate",
+  "updated": "2026-10-10",
+  "keywords": ["open source vs closed llm", "open weights vs open source", "open source llm license", "self-host llm cost", "llama license", "llm total cost of ownership"],
+  "summary": "Open-weight models let you run an LLM on your own infrastructure, but 'open' covers licenses ranging from Apache 2.0 to custom terms with user caps and naming rules. This guide compares open and closed models on quality, cost, control and risk, works through a total cost of ownership example and shows when a hybrid setup wins.",
+  "key_takeaways": [
+    "Most 'open' LLMs are open-weight, not open source: the OSI definition also requires the training code and detailed information about the training data.",
+    "Licenses vary widely: Apache 2.0 and MIT are permissive, while custom licenses such as Llama's, Gemma's and Kimi K3's add use policies, user or revenue thresholds, or naming and attribution rules.",
+    "Open-weight models have trailed the closed frontier by months, not years; Epoch AI estimated about three months on average in late 2025.",
+    "Self-hosting pays off at steady, high volume or when data can't leave your control; in our example, it saves money against a mid-tier API but costs about 11 times more than a budget API tier.",
+    "Many teams do best with a hybrid: route routine or sensitive traffic to an open model they control and send hard cases to a closed frontier model."
+  ],
+  "faq": [
+    {"q": "Is Llama open source?", "a": "Not by the Open Source Initiative's definition. Meta releases Llama weights under its own community license, which requires a separate license for services with more than 700 million monthly active users, requires 'Built with Llama' attribution, and binds users to an acceptable use policy. The Llama 4 policy also withholds rights to its multimodal models from people and companies based in the EU. OSI has said Llama's license is not open source."},
+    {"q": "What is the difference between open weights and open source?", "a": "Open weights means the trained parameters are published so you can download and run the model, usually under a license with conditions. Open source, under OSI's Open Source AI Definition, also requires the full training and inference code under approved licenses and enough detail about the training data for a skilled person to build a substantially equivalent system. Most popular open models publish weights but not the full training pipeline."},
+    {"q": "Are open-source LLMs as good as GPT or Claude?", "a": "The best open-weight models come close but have generally trailed the top closed models. Epoch AI estimated in late 2025 that open models lagged the frontier by about three months on its capabilities index. For many production tasks, such as extraction, classification, retrieval-based Q&A and routine coding, a strong open model is good enough, while the hardest reasoning and agentic tasks still tend to favor frontier closed models."},
+    {"q": "Is it cheaper to self-host an LLM than to use an API?", "a": "Only at steady, high volume. A self-hosted model costs GPU time, engineering and monitoring whether or not anyone uses it, while an API charges per token. In our worked example, self-hosting costs about $13,400 a month, which beats a mid-tier API at three million requests a month but costs far more than a budget API model or an open model on a hosted API. Model your own traffic first."},
+    {"q": "Can I use open-weight models commercially?", "a": "Usually yes, but read the license. Apache 2.0 and MIT models, such as gpt-oss, Gemma 4, Qwen3.8-27B and DeepSeek V4.1-Flash, allow commercial use with minimal conditions. Custom licenses can add user or revenue thresholds, naming and attribution rules, or use policies that pass down to your users, and some models are released for research or non-commercial use only. Check the license on each model card, and involve counsel for significant deployments."}
+  ],
+  "sources": [
+    {"title": "The Open Source AI Definition 1.0 (Open Source Initiative)", "url": "https://opensource.org/ai/open-source-ai-definition"},
+    {"title": "Meta's Llama license is still not open source (Open Source Initiative)", "url": "https://opensource.org/blog/metas-llama-license-is-still-not-open-source"},
+    {"title": "Llama 4 Community License Agreement (Meta)", "url": "https://dev.meta.ai/llama/llama4/license"},
+    {"title": "Gemma Terms of Use (Google AI for Developers)", "url": "https://ai.google.dev/gemma/terms"},
+    {"title": "Introducing gpt-oss (OpenAI)", "url": "https://openai.com/index/introducing-gpt-oss/"},
+    {"title": "Kimi K3 License (Moonshot AI on Hugging Face)", "url": "https://huggingface.co/moonshotai/Kimi-K3/blob/main/LICENSE"},
+    {"title": "Open-weight vs closed-weight models (Epoch AI)", "url": "https://epoch.ai/data-insights/open-weights-vs-closed-weights-models"},
+    {"title": "DeepSeek-V4.1-Flash model card (Hugging Face)", "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash"},
+    {"title": "GPU cloud pricing (Lambda)", "url": "https://lambda.ai/pricing"}
+  ],
+  "related_tools": ["self-host-vs-api-calculator", "vram-calculator", "llm-cost-calculator"],
+  "related_guides": ["how-to-choose-an-llm", "run-llms-locally", "fine-tuning-vs-rag-vs-prompting", "llm-security-and-privacy"]
+}
+-->
+<p>Should you run an open model on your own infrastructure or pay for a closed model through an API? The answer depends on licenses, volume, data sensitivity and how much engineering you can take on. This guide untangles what "open" actually means, flags the license terms that catch teams out, works through a real cost comparison and ends with a decision table.</p>
+
+<h2 id="open-weights-vs-open-source">Open weights vs open source</h2>
+<p>Most models described as open source are more precisely <a href="glossary.html#open-weights">open-weight</a>: the trained parameters are published for download, usually under a license with conditions. The training data, the full training code and the recipe usually stay private.</p>
+<p>The Open Source Initiative (OSI) published its Open Source AI Definition 1.0 in October 2024. It requires the freedom to use, study, modify and share a system for any purpose, and three components that make those freedoms real.</p>
+<ul>
+<li><strong>Data information:</strong> enough detail about the training data, including its sources and how it was filtered, for a skilled person to build a substantially equivalent system. The definition doesn't require releasing the data itself when it can't legally be shared.</li>
+<li><strong>Code:</strong> the complete code for data processing, training and inference, under OSI-approved licenses.</li>
+<li><strong>Parameters:</strong> the model weights, under OSI-approved terms.</li>
+</ul>
+<p>By that standard, very few popular models qualify. A small number of research releases, such as the Allen Institute for AI's OLMo models, publish training data, code and intermediate checkpoints, while most commercial labs publish only weights and a technical report. For buyers, the label matters less than the license: it decides what you may legally do with the model.</p>
+<p>Closed models sit at the other end. You can't download GPT-6 Astra, Claude Opus 5.5 or Gemini 3.8 Flash; you send requests to the provider's servers and pay per token, under the provider's terms.</p>
+
+<h2 id="licenses-and-gotchas">Common licenses and their gotchas</h2>
+<p>License terms differ more than the word "open" suggests. The table summarizes the licenses you'll meet most often, as of October 2026; it's general guidance, not legal advice, so read the actual license for any model you deploy.</p>
+<table>
+<thead><tr><th>License</th><th>Example models</th><th>Commercial use</th><th>Gotchas</th></tr></thead>
+<tbody>
+<tr><td>Apache 2.0</td><td>OpenAI gpt-oss, Google Gemma 4, Qwen3.8-27B, several Mistral models</td><td>Yes</td><td>Keep license and notice files; includes an express patent license that ends if you sue over patents in the work</td></tr>
+<tr><td>MIT</td><td>DeepSeek V4.1-Flash and V4-Pro</td><td>Yes</td><td>Very short and permissive, with no express patent grant; keep the copyright notice</td></tr>
+<tr><td>Kimi K3 License (MIT-based, with conditions)</td><td>Moonshot Kimi K3</td><td>Yes, with conditions</td><td>UI attribution above 100 million monthly users or $20 million monthly revenue; a separate agreement for model-as-a-service businesses with over $20 million in revenue over 12 months</td></tr>
+<tr><td>Llama 4 Community License</td><td>Llama 4 Scout and Maverick</td><td>Yes, with conditions</td><td>Separate license above 700 million monthly active users; "Built with Llama" display; derivative model names must begin with "Llama"; acceptable use policy; multimodal rights withheld from EU-based individuals and companies, though end users of products built on them are exempt</td></tr>
+<tr><td>Gemma Terms of Use</td><td>Earlier Gemma generations, such as Gemma 3</td><td>Yes, with conditions</td><td>Prohibited use policy must be passed to your users; Google may restrict use it believes violates the terms; models distilled from Gemma outputs count as derivatives</td></tr>
+<tr><td>Non-commercial licenses</td><td>Some research releases and specialist models, for example under CC BY-NC 4.0</td><td>No</td><td>Fine for experiments, but production use requires a separate commercial agreement</td></tr>
+</tbody>
+</table>
+<p>Three gotchas deserve emphasis. First, licenses change between versions of the same family: Gemma 4 moved to Apache 2.0, while earlier Gemma models remain under Google's custom terms, so check the license for the exact version you download.</p>
+<p>Second, custom licenses can reach your downstream work. The Llama 4 naming rule applies when you use Llama or its outputs to create or improve a model you distribute, and Gemma's terms treat models distilled from Gemma outputs as derivatives.</p>
+<p>Third, use policies flow downstream. Under licenses that incorporate an acceptable use policy, you're responsible for making sure your own users follow it, which belongs in your terms of service.</p>
+<div class="callout warn">
+<p>A non-commercial license on one component, such as a speech or embedding model, can make an entire product non-compliant. Track licenses for every model in your pipeline, not just the main LLM.</p>
+</div>
+
+<h2 id="trade-offs">The trade-offs, criterion by criterion</h2>
+<p>Neither option wins everywhere. This table compares a typical self-hosted open-weight deployment with a typical closed API.</p>
+<table>
+<thead><tr><th>Criterion</th><th>Open weights, self-hosted</th><th>Closed API</th></tr></thead>
+<tbody>
+<tr><td>Peak quality</td><td>Close to the frontier, usually a step behind</td><td>Usually the frontier on the hardest tasks</td></tr>
+<tr><td>Cost structure</td><td>Fixed: GPUs, engineers and operations, whether or not traffic arrives</td><td>Variable: pay per token, with nothing to run when idle</td></tr>
+<tr><td>Control</td><td>You choose the version, settings and upgrade timing</td><td>The provider can update, reroute or retire models</td></tr>
+<tr><td>Privacy</td><td>Data can stay entirely inside your network</td><td>Data goes to the provider under contract terms</td></tr>
+<tr><td>Customization</td><td>Full fine-tuning, <a href="glossary.html#lora">LoRA</a>, <a href="glossary.html#quantization">quantization</a> and <a href="glossary.html#distillation">distillation</a></td><td>Limited to whatever tuning features the provider offers</td></tr>
+<tr><td>Latency</td><td>Predictable and close to users if you co-locate; depends on your tuning</td><td>Good on average, with shared-capacity spikes and rate limits</td></tr>
+<tr><td>Support</td><td>Community, consultants or a paid hosting vendor</td><td>Vendor support and service-level agreements</td></tr>
+<tr><td>Security patching</td><td>You patch the inference stack and track vulnerabilities</td><td>The provider handles infrastructure and model safety updates</td></tr>
+</tbody>
+</table>
+<h3 id="quality-gap-trend">The quality gap is measured in months</h3>
+<p>The capability gap between open and closed models has narrowed to a matter of months. Epoch AI's analysis in October 2025 found open-weight models trailing the best closed models by about three months on average on its capabilities index, a figure that will drift as each new frontier model lands.</p>
+<p>By October 2026, the largest open releases have reached a scale that once belonged only to closed labs. Moonshot's Kimi K3 lists 2.8 trillion total parameters, Alibaba's Qwen3.8 family includes a 2.4-trillion-parameter model, and DeepSeek's V4.1-Flash supports a one-million-token context under an MIT license.</p>
+<p>Closed models still tend to lead on the hardest agentic and reasoning tasks, and a lag of a few months matters if those tasks are your product. For most routine workloads, the gap is smaller than the variation between prompts.</p>
+<h3 id="hardware-reality">The hardware reality</h3>
+<p>"Open" doesn't mean "runs on a laptop". OpenAI's gpt-oss-20b runs in about 16 GB of memory, and gpt-oss-120b fits on a single 80 GB GPU. DeepSeek's own deployment example for V4-Pro uses a node with four GB300 GPUs. Use the <a href="vram-calculator.html">VRAM calculator</a> to size hardware before you commit, and remember that a <a href="glossary.html#mixture-of-experts">mixture-of-experts</a> model needs memory for all of its parameters, not just the active ones.</p>
+
+<h2 id="total-cost-of-ownership">Total cost of ownership: a worked example</h2>
+<p>Consider a document-processing service handling 100,000 requests a day, or about 3 million a month. Each request uses 2,000 input tokens and 400 output tokens, so the month totals 6 billion input and 1.2 billion output tokens.</p>
+<p>For the self-hosted option, assume a mid-sized open model on three H100 GPUs running around the clock. At Lambda's on-demand list price of $3.99 per GPU-hour as of October 2026, that's 3 × $3.99 × 730 hours, or $8,738 a month. Add a quarter of an engineer's time at a $200,000 fully loaded annual cost, about $4,167 a month, and $500 for monitoring, storage and networking, and the total is about $13,400 a month.</p>
+<table>
+<thead><tr><th>Option</th><th>Assumptions</th><th>Monthly cost</th></tr></thead>
+<tbody>
+<tr><td>Mid-tier closed API</td><td>$2 input and $10 output per million tokens</td><td>$24,000</td></tr>
+<tr><td>Same API with prompt caching</td><td>1,500 of 2,000 input tokens read from cache at $0.10 per million; cache-write fees ignored</td><td>$15,450</td></tr>
+<tr><td>Self-hosted open-weight model</td><td>3 H100s on demand, 0.25 engineer, $500 overhead</td><td>About $13,400</td></tr>
+<tr><td>Open model on its maker's API</td><td>DeepSeek V4.1-Flash at peak-hour list prices, $0.30 input and $1.20 output</td><td>$3,240</td></tr>
+<tr><td>Budget closed API</td><td>$0.10 input and $0.50 output per million tokens</td><td>$1,200</td></tr>
+</tbody>
+</table>
+<p>Self-hosting beats the mid-tier API by about $10,600 a month, but only $2,000 once prompt caching is in play. Against a budget closed model or an open model on a hosted API, it costs several times more, and about 11 times the budget API.</p>
+<p>The break-even point against the uncached mid-tier API, at $0.008 per request, is about 1.7 million requests a month, or 56,000 a day. Below that volume, the fixed costs dominate.</p>
+<p>The example also assumes three GPUs can carry your peak load and that a quarter of an engineer is enough; both deserve testing, because underestimating either erases the savings. GPU prices vary widely across providers and commitment terms, and the <a href="self-host-vs-api-calculator.html">self-host vs API calculator</a> lets you plug in your own numbers. The real lesson is that model tier and caching move the bill more than the open-or-closed choice does, so the strongest financial case for self-hosting is steady, high volume.</p>
+
+<h2 id="when-to-choose-which">When to choose which</h2>
+<h3 id="choose-open-weights">Choose open weights when</h3>
+<ul>
+<li>Data must stay inside your network or a specific jurisdiction, for contractual or regulatory reasons.</li>
+<li>Volume is high and steady enough to keep GPUs busy.</li>
+<li>You need deep customization, such as full fine-tuning or a distilled small model for one task.</li>
+<li>You need offline or edge deployment, or exact version control for audits.</li>
+<li>You have, or can hire, people to run inference infrastructure.</li>
+</ul>
+<h3 id="choose-closed">Choose a closed API when</h3>
+<ul>
+<li>You need the strongest available model for hard reasoning, coding or agentic work.</li>
+<li>Traffic is low, spiky or unpredictable.</li>
+<li>Time to market matters more than unit cost.</li>
+<li>You want built-in features such as web search, computer use, file handling and managed caching.</li>
+<li>Your team is small and has no one to run GPUs.</li>
+</ul>
+<p>Both options often satisfy privacy requirements. Business tiers of closed APIs offer contractual data protections, and some offer zero data retention, so self-hosting is a requirement only when data can't reach a third party at all.</p>
+
+<h2 id="hybrid-routing">Hybrid routing strategies</h2>
+<p>You don't have to pick one side. Many production systems use several models behind a single internal interface and send each request to the cheapest model that can handle it.</p>
+<ul>
+<li><strong>Tiered routing:</strong> a small classifier or rules engine sends routine requests to an open model or budget API and escalates complex ones to a frontier model.</li>
+<li><strong>Cascade with fallback:</strong> try the cheap model first and escalate when a validation check fails or the model reports low confidence.</li>
+<li><strong>Sensitivity routing:</strong> requests containing personal or regulated data go to a self-hosted model, and everything else may use a closed API.</li>
+<li><strong>Distillation:</strong> a frontier model labels examples, and a small open model is fine-tuned on them to handle the bulk of traffic, after you confirm the frontier provider's terms allow it.</li>
+<li><strong>Provider failover:</strong> a second model takes over automatically during an outage or rate limiting.</li>
+</ul>
+<p>Routing adds work: each route needs its own prompts, <a href="glossary.html#evaluation">evaluations</a> and monitoring. Start with two tiers and add more only when your data shows clear savings.</p>
+
+<h2 id="decision-table">Decision table</h2>
+<p>Find the row that best describes your situation. If two rows apply, the one with the hardest constraint usually wins.</p>
+<table>
+<thead><tr><th>If your situation is</th><th>Lean toward</th><th>Why</th></tr></thead>
+<tbody>
+<tr><td>Prototype or early product with uncertain demand</td><td>Closed API</td><td>No fixed costs and the fastest path to a working product</td></tr>
+<tr><td>Data that can't leave your environment</td><td>Self-hosted open weights</td><td>Only option that keeps data fully in your control</td></tr>
+<tr><td>Steady, high volume on a well-defined task</td><td>Open weights, self-hosted or on a hosted API</td><td>Fixed costs amortize, and fine-tuning can narrow the quality gap</td></tr>
+<tr><td>Hardest reasoning, coding or agentic tasks</td><td>Closed frontier API</td><td>Frontier models still tend to lead here</td></tr>
+<tr><td>Mixed workload with cost pressure</td><td>Hybrid routing</td><td>Cheap models take most traffic; frontier models take the hard cases</td></tr>
+<tr><td>Regulated industry with audit needs</td><td>Open weights, or a closed API with strong contractual terms</td><td>Version pinning and data control simplify audits</td></tr>
+<tr><td>Small team without infrastructure staff</td><td>Closed API, or open models through a hosted API</td><td>Avoids running GPUs while keeping some portability</td></tr>
+</tbody>
+</table>
+
+<h2 id="common-mistakes">Common mistakes</h2>
+<p>These are the errors that most often turn an open-versus-closed decision into an expensive one. Each is avoidable with a little homework.</p>
+<ul>
+<li><strong>Calling a model open source without reading its license.</strong> The license, not the label, decides what you may do.</li>
+<li><strong>Counting only GPU costs.</strong> Engineering time, monitoring, idle capacity and upgrades often equal or exceed the hardware bill.</li>
+<li><strong>Benchmarking a full-precision model and deploying a heavily quantized one.</strong> Evaluate the exact configuration you'll run.</li>
+<li><strong>Assuming self-hosting is automatically secure.</strong> You now own patching, access control, logging and defenses against <a href="glossary.html#prompt-injection">prompt injection</a>.</li>
+<li><strong>Treating the decision as permanent.</strong> Prices and quality shift monthly, so revisit the choice every quarter with fresh evaluation runs.</li>
+</ul>
+
+<h2 id="next-steps">Next steps</h2>
+<p>Run your own numbers in the <a href="self-host-vs-api-calculator.html">self-host vs API calculator</a>, then read <a href="run-llms-locally.html">how to run LLMs locally</a> to try an open model on your own machine. For the broader selection process, including scoring matrices and evaluation, see <a href="how-to-choose-an-llm.html">how to choose an LLM</a>. If you'd like help planning a self-hosted or hybrid deployment, you can <a href="hire-llm-experts.html">get expert help</a>.</p>
