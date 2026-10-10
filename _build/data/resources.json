@@ -1,0 +1,1489 @@
+{
+  "updated": "2026-10-10",
+  "categories": [
+    {
+      "id": "apis",
+      "name": "Model APIs & platforms",
+      "description": "Hosted developer platforms and gateways where you send prompts to a model and pay per token, from first-party labs to multi-provider aggregators and cloud marketplaces."
+    },
+    {
+      "id": "hubs",
+      "name": "Model hubs & leaderboards",
+      "description": "Places to find open model weights and to compare models on benchmarks, human votes, price and speed before you commit to one."
+    },
+    {
+      "id": "local",
+      "name": "Run models locally",
+      "description": "Apps and runtimes that let you download open-weight models and run them on your own laptop, workstation or server."
+    },
+    {
+      "id": "serving",
+      "name": "Serving & inference engines",
+      "description": "Open-source inference engines and hosted GPU platforms for serving models at production speed, from self-managed clusters to pay-per-token endpoints."
+    },
+    {
+      "id": "frameworks",
+      "name": "Frameworks & orchestration",
+      "description": "Libraries that wire models, prompts, tools and data together so you can build chains, pipelines and applications without hand-rolling every call."
+    },
+    {
+      "id": "retrieval",
+      "name": "Vector databases & retrieval",
+      "description": "Databases, embedding models and rerankers that power semantic search and retrieval-augmented generation over your own documents."
+    },
+    {
+      "id": "evals",
+      "name": "Evaluation & observability",
+      "description": "Tools for testing prompts and models, scoring outputs, and tracing what your LLM application actually does in production."
+    },
+    {
+      "id": "training",
+      "name": "Fine-tuning & training",
+      "description": "Libraries and managed services for adapting open models to your data with supervised fine-tuning, LoRA, and preference or reinforcement learning methods."
+    },
+    {
+      "id": "agents",
+      "name": "Agents & MCP",
+      "description": "Protocols and SDKs for building tool-using agents, connecting models to external systems and coordinating several agents."
+    },
+    {
+      "id": "safety",
+      "name": "Safety & security",
+      "description": "Risk frameworks, guardrail libraries and red-teaming tools for finding and reducing prompt injection, data leakage and other LLM-specific failures."
+    },
+    {
+      "id": "learning",
+      "name": "Courses & learning",
+      "description": "Free and low-cost courses, lecture series and code-along projects that take you from transformer basics to building and training language models."
+    },
+    {
+      "id": "papers",
+      "name": "Key papers",
+      "description": "The research papers behind today's models, from the original transformer to scaling laws, alignment methods and open reasoning models, linked to arXiv."
+    },
+    {
+      "id": "communities",
+      "name": "Communities & newsletters",
+      "description": "Forums, newsletters and blogs where practitioners share releases, benchmarks and hard-won lessons about building with language models."
+    }
+  ],
+  "items": [
+    {
+      "name": "OpenAI API",
+      "url": "https://developers.openai.com/api/docs",
+      "category": "apis",
+      "description": "OpenAI's developer documentation, with quickstarts, the Responses API, a model overview and guides for text, vision, audio and agents. Start here when you want to call GPT models or build with the Agents SDK.",
+      "type": "Commercial",
+      "tags": [
+        "openai",
+        "gpt",
+        "responses-api"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Claude Platform (Anthropic API)",
+      "url": "https://platform.claude.com/docs/en/home",
+      "category": "apis",
+      "description": "Anthropic's developer documentation, from first API call to production use, covering the Messages API, the Claude model family and agent building blocks. Use it when you plan to integrate Claude into an application.",
+      "type": "Commercial",
+      "tags": [
+        "anthropic",
+        "claude",
+        "messages-api"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Google AI Studio & Gemini API",
+      "url": "https://ai.google.dev/gemini-api/docs",
+      "category": "apis",
+      "description": "Google's developer docs for the Gemini API, with AI Studio for trying prompts and generating API keys. A quick route to multimodal Gemini models when you want to prototype before moving to Google Cloud.",
+      "type": "Freemium",
+      "tags": [
+        "google",
+        "gemini",
+        "multimodal"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Gemini Enterprise Agent Platform (formerly Vertex AI)",
+      "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform",
+      "category": "apis",
+      "description": "Google Cloud's managed platform for building, governing and deploying AI agents and apps with Gemini plus partner and open models. Old Vertex AI documentation links now redirect here; choose it for enterprise workloads on Google Cloud.",
+      "type": "Commercial",
+      "tags": [
+        "google-cloud",
+        "gemini",
+        "enterprise"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Mistral Studio & API",
+      "url": "https://docs.mistral.ai/",
+      "category": "apis",
+      "description": "Documentation for Mistral's developer console and API, where you call its hosted models and manage keys, usage and administration. A sensible pick if you want a European provider that also releases open-weight models.",
+      "type": "Commercial",
+      "tags": [
+        "mistral",
+        "api",
+        "open-weights"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Cohere API",
+      "url": "https://docs.cohere.com",
+      "category": "apis",
+      "description": "Cohere's API documentation covering text generation, embeddings and reranking. A practical starting point when your project centers on enterprise search, retrieval-augmented generation or document classification rather than open-ended chat.",
+      "type": "Commercial",
+      "tags": [
+        "cohere",
+        "embeddings",
+        "rerank"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Grok API (xAI)",
+      "url": "https://docs.x.ai",
+      "category": "apis",
+      "description": "Developer documentation for the Grok API, covering text, code, voice, image and video models, plus tools, files and deployment guides. Use it when you want to call Grok models from your own applications.",
+      "type": "Commercial",
+      "tags": [
+        "xai",
+        "grok",
+        "api"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "DeepSeek API",
+      "url": "https://api-docs.deepseek.com",
+      "category": "apis",
+      "description": "Docs for DeepSeek's hosted API, which accepts OpenAI-style and Anthropic-style request formats, so existing client code often needs only a new base URL and key. Use it to try DeepSeek models from tools you already run.",
+      "type": "Commercial",
+      "tags": [
+        "deepseek",
+        "api",
+        "openai-compatible"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "OpenRouter",
+      "url": "https://openrouter.ai",
+      "category": "apis",
+      "description": "One API and billing account that routes requests to hundreds of models from many providers. Useful for comparing models quickly, adding fallbacks, or avoiding separate contracts with every lab.",
+      "type": "Commercial",
+      "tags": [
+        "aggregator",
+        "routing",
+        "multi-provider"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Amazon Bedrock",
+      "url": "https://aws.amazon.com/bedrock/",
+      "category": "apis",
+      "description": "AWS's managed service for calling foundation models from several providers through one API inside your AWS account. Choose it when security reviews, IAM controls and existing AWS billing drive your vendor decisions.",
+      "type": "Commercial",
+      "tags": [
+        "aws",
+        "marketplace",
+        "enterprise"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Microsoft Foundry (formerly Azure AI Foundry)",
+      "url": "https://learn.microsoft.com/en-us/azure/foundry/what-is-foundry",
+      "category": "apis",
+      "description": "Microsoft's platform for building AI agents, models and apps on Azure, renamed from Azure AI Foundry. Use it when your organization standardizes on Microsoft cloud services and wants hosted models with enterprise governance.",
+      "type": "Commercial",
+      "tags": [
+        "azure",
+        "microsoft",
+        "agents"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Hugging Face Hub",
+      "url": "https://huggingface.co/docs/hub/index",
+      "category": "hubs",
+      "description": "The main public registry for open models, datasets and demo apps, hosting millions of repositories with model cards and version history. Search it when you need open weights, a dataset or a reference implementation.",
+      "type": "Freemium",
+      "tags": [
+        "open-weights",
+        "models",
+        "datasets"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Arena (formerly LMArena)",
+      "url": "https://arena.ai/leaderboard",
+      "category": "hubs",
+      "description": "A public leaderboard built from anonymous side-by-side votes, where people compare two models' answers without knowing which is which. Treat it as one signal of conversational quality, alongside task-specific benchmarks.",
+      "type": "Free",
+      "tags": [
+        "leaderboard",
+        "human-preference",
+        "chat"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Artificial Analysis",
+      "url": "https://artificialanalysis.ai",
+      "category": "hubs",
+      "description": "Independent comparisons of AI models and API providers on intelligence scores, price, output speed and latency. Handy when you are choosing both a model and a host and need quality and cost side by side.",
+      "type": "Free",
+      "tags": [
+        "benchmarks",
+        "pricing",
+        "latency"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "LiveBench",
+      "url": "https://livebench.ai",
+      "category": "hubs",
+      "description": "A benchmark built to resist test-set contamination, using questions refreshed over time and scored automatically against ground-truth answers. Check it for objective comparisons of reasoning, coding and math ability across models.",
+      "type": "Free",
+      "tags": [
+        "benchmark",
+        "contamination",
+        "leaderboard"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Epoch AI Benchmarking Hub",
+      "url": "https://epoch.ai/benchmarks",
+      "category": "hubs",
+      "description": "Epoch AI's database of benchmark results, mixing evaluations the team runs itself with figures from outside sources. Use it to see how leading models score on hard tasks and to compare them across several tests.",
+      "type": "Free",
+      "tags": [
+        "benchmarks",
+        "research",
+        "frontier-models"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "SWE-bench",
+      "url": "https://www.swebench.com",
+      "category": "hubs",
+      "description": "A benchmark of real GitHub issues from Python repositories, with public leaderboards for variants such as Verified, Multilingual and Lite. Use it to judge how well a model or coding agent resolves genuine software tasks.",
+      "type": "Open source",
+      "tags": [
+        "coding",
+        "benchmark",
+        "agents"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Stanford HELM",
+      "url": "https://crfm.stanford.edu/helm/",
+      "category": "hubs",
+      "description": "Stanford's Holistic Evaluation of Language Models, an open framework and living set of leaderboards that score models across many scenarios and metrics rather than accuracy alone. Use it for transparent, reproducible comparisons.",
+      "type": "Open source",
+      "tags": [
+        "evaluation",
+        "benchmark",
+        "research"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Ollama",
+      "url": "https://ollama.com",
+      "category": "local",
+      "description": "A runtime that pulls open models with one command and serves them through a local REST API on macOS, Windows and Linux. Choose it for quick experiments and as the backend for other local tools; hosted cloud models are optional.",
+      "type": "Open source",
+      "tags": [
+        "local",
+        "cli",
+        "api"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "LM Studio",
+      "url": "https://lmstudio.ai",
+      "category": "local",
+      "description": "A desktop app for discovering, downloading and chatting with local models, built on llama.cpp and MLX runtimes and able to expose a local server. Pick it if you want a graphical interface rather than a command line.",
+      "type": "Freemium",
+      "tags": [
+        "local",
+        "gui",
+        "gguf"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "llama.cpp",
+      "url": "https://github.com/ggml-org/llama.cpp",
+      "category": "local",
+      "description": "A C/C++ inference engine behind much of the local-model ecosystem, with GGUF quantization and backends for CPUs, Apple silicon and GPUs. Use it directly for tight control over memory, or through the apps built on it.",
+      "type": "Open source",
+      "tags": [
+        "gguf",
+        "quantization",
+        "cpp"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "MLX LM",
+      "url": "https://github.com/ml-explore/mlx-lm",
+      "category": "local",
+      "description": "A Python package for running and fine-tuning language models on Apple silicon with the MLX framework. Reach for it when a Mac is your main machine and you want quantized models and LoRA training in Python.",
+      "type": "Open source",
+      "tags": [
+        "apple-silicon",
+        "mlx",
+        "lora"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Jan",
+      "url": "https://jan.ai",
+      "category": "local",
+      "description": "A free desktop chat app that runs open models on your own computer and can also connect to hosted services such as OpenAI or Anthropic. Suited to people who want a private, ChatGPT-style window they control.",
+      "type": "Open source",
+      "tags": [
+        "desktop",
+        "offline",
+        "chat"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Open WebUI",
+      "url": "https://openwebui.com",
+      "category": "local",
+      "description": "A self-hosted chat interface for Ollama and OpenAI-compatible endpoints that you can extend with Python. Its license requires keeping the Open WebUI branding, so read the terms before white-labeling it.",
+      "type": "Free",
+      "tags": [
+        "self-hosted",
+        "chat-ui",
+        "rag"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "vLLM",
+      "url": "https://docs.vllm.ai/en/latest/",
+      "category": "serving",
+      "description": "A widely used open-source engine for high-throughput LLM serving, built around continuous batching and efficient KV-cache memory management. Choose it to host open models behind an OpenAI-compatible API on your own GPUs.",
+      "type": "Open source",
+      "tags": [
+        "inference",
+        "kv-cache",
+        "gpu"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "SGLang",
+      "url": "https://docs.sglang.io/",
+      "category": "serving",
+      "description": "A high-performance serving framework for language and multimodal models, with strong support for structured output and large mixture-of-experts models. Worth benchmarking against vLLM when you run big open models on your own GPUs.",
+      "type": "Open source",
+      "tags": [
+        "inference",
+        "structured-output",
+        "moe"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "TensorRT-LLM",
+      "url": "https://nvidia.github.io/TensorRT-LLM/",
+      "category": "serving",
+      "description": "NVIDIA's library for optimized LLM inference on its GPUs, with a Python API, quantization, speculative decoding, LoRA support and a trtllm-serve command. Consider it when you run NVIDIA hardware at scale and want vendor-tuned performance.",
+      "type": "Open source",
+      "tags": [
+        "nvidia",
+        "inference",
+        "quantization"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Together AI",
+      "url": "https://www.together.ai",
+      "category": "serving",
+      "description": "A cloud for running open models through serverless or dedicated endpoints, with managed fine-tuning and GPU compute under the same roof. A fit when you want open-weight models without operating inference infrastructure yourself.",
+      "type": "Commercial",
+      "tags": [
+        "inference",
+        "fine-tuning",
+        "gpu-cloud"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Fireworks AI",
+      "url": "https://fireworks.ai",
+      "category": "serving",
+      "description": "A platform for serving open models and training specialized versions of them, with fine-tuning offered alongside inference. Consider it when you plan to tune a model on your own data and deploy it on the same service.",
+      "type": "Commercial",
+      "tags": [
+        "inference",
+        "fine-tuning",
+        "open-models"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Groq (GroqCloud)",
+      "url": "https://console.groq.com/docs/overview",
+      "category": "serving",
+      "description": "A hosted inference service running open models on Groq's custom chips, with an OpenAI-compatible API. Try it when response speed matters most, such as voice agents and interactive tools.",
+      "type": "Commercial",
+      "tags": [
+        "inference",
+        "low-latency",
+        "api"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Cerebras Inference",
+      "url": "https://www.cerebras.ai",
+      "category": "serving",
+      "description": "Inference served from Cerebras's wafer-scale chips through an OpenAI-compatible API, with a free trial for developers. Look at it when you need very fast generation from the open models it supports.",
+      "type": "Commercial",
+      "tags": [
+        "inference",
+        "wafer-scale",
+        "low-latency"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "DeepInfra",
+      "url": "https://deepinfra.com",
+      "category": "serving",
+      "description": "A pay-as-you-go API for running many open models without managing GPUs, with usage-based pricing. A reasonable place to price-check open-weight models against larger providers before committing.",
+      "type": "Commercial",
+      "tags": [
+        "inference",
+        "pay-as-you-go",
+        "open-models"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Replicate",
+      "url": "https://replicate.com",
+      "category": "serving",
+      "description": "A hosted service for running open and custom models through a simple API, billed by usage. Useful for trying community models, including image and audio ones, or packaging your own model for deployment.",
+      "type": "Commercial",
+      "tags": [
+        "inference",
+        "api",
+        "model-hosting"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Modal",
+      "url": "https://modal.com",
+      "category": "serving",
+      "description": "Serverless cloud infrastructure where you define GPU workloads in Python and scale them to zero when idle. Use it to deploy your own inference servers, batch jobs or fine-tuning runs without managing clusters.",
+      "type": "Commercial",
+      "tags": [
+        "serverless",
+        "gpu",
+        "python"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Runpod",
+      "url": "https://www.runpod.io",
+      "category": "serving",
+      "description": "A GPU cloud that rents pods by the hour or second and offers serverless endpoints that scale to zero. A practical option for self-hosting an open model or running a fine-tune on a budget.",
+      "type": "Commercial",
+      "tags": [
+        "gpu-cloud",
+        "serverless",
+        "pods"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "LangChain",
+      "url": "https://docs.langchain.com",
+      "category": "frameworks",
+      "description": "A widely adopted open-source toolkit with standard interfaces for models, tools and retrievers, available in Python and TypeScript. Start here for prebuilt integrations, and add LangGraph when you need stateful agent workflows.",
+      "type": "Open source",
+      "tags": [
+        "python",
+        "typescript",
+        "integrations"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "LangGraph",
+      "url": "https://www.langchain.com/langgraph",
+      "category": "frameworks",
+      "description": "A low-level orchestration framework that models agents as graphs, with persistent state and human-in-the-loop checkpoints. Choose it when a simple chain is not enough and you need explicit control over loops and branching.",
+      "type": "Open source",
+      "tags": [
+        "agents",
+        "workflows",
+        "state"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "LlamaIndex",
+      "url": "https://www.llamaindex.ai",
+      "category": "frameworks",
+      "description": "A framework and hosted services for turning documents into agent-ready context, including parsing, extraction and indexing. Use it when your main challenge is getting messy PDFs and files into a reliable retrieval pipeline.",
+      "type": "Open source",
+      "tags": [
+        "rag",
+        "documents",
+        "python"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Haystack",
+      "url": "https://haystack.deepset.ai",
+      "category": "frameworks",
+      "description": "deepset's open-source Python framework for building search, RAG and agent pipelines from modular components you can inspect and debug. A good fit for teams that want explicit, testable pipelines in production.",
+      "type": "Open source",
+      "tags": [
+        "pipelines",
+        "rag",
+        "python"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "DSPy",
+      "url": "https://dspy.ai/",
+      "category": "frameworks",
+      "description": "A Python framework from Stanford NLP that replaces hand-written prompts with declarative signatures and modules, then optimizes them against your own metric. Reach for it when prompts keep breaking as models or tasks change.",
+      "type": "Open source",
+      "tags": [
+        "prompt-optimization",
+        "python",
+        "programming"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Semantic Kernel",
+      "url": "https://learn.microsoft.com/en-us/semantic-kernel/overview/",
+      "category": "frameworks",
+      "description": "Microsoft's open-source SDK for building AI agents in C#, Python and Java. Microsoft now names Agent Framework as its successor, so consider Semantic Kernel mainly when maintaining existing code.",
+      "type": "Open source",
+      "tags": [
+        "microsoft",
+        "dotnet",
+        "java"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Vercel AI SDK",
+      "url": "https://ai-sdk.dev",
+      "category": "frameworks",
+      "description": "A TypeScript toolkit for building AI apps and agents with one interface across model providers, plus streaming helpers and UI hooks for frameworks like React. A natural choice for Next.js and other JavaScript front ends.",
+      "type": "Open source",
+      "tags": [
+        "typescript",
+        "streaming",
+        "react"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Pydantic AI",
+      "url": "https://pydantic.dev/docs/ai/overview/",
+      "category": "frameworks",
+      "description": "A typed Python agent framework from the Pydantic team, in which tools, dependencies and outputs are validated through type hints. Choose it for production agents when you want structured results and strong editor support.",
+      "type": "Open source",
+      "tags": [
+        "python",
+        "type-safe",
+        "agents"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "pgvector",
+      "url": "https://github.com/pgvector/pgvector",
+      "category": "retrieval",
+      "description": "An extension that adds vector columns and similarity search to PostgreSQL, with exact search and approximate indexes. The simplest route to retrieval when your application data already lives in Postgres.",
+      "type": "Open source",
+      "tags": [
+        "postgres",
+        "vector-search",
+        "hnsw"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Pinecone",
+      "url": "https://www.pinecone.io",
+      "category": "retrieval",
+      "description": "A fully managed vector database service aimed at production search and retrieval without cluster operations. Consider it when you want a hosted index and would rather not run database infrastructure yourself.",
+      "type": "Commercial",
+      "tags": [
+        "managed",
+        "vector-database",
+        "hosted"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Weaviate",
+      "url": "https://weaviate.io",
+      "category": "retrieval",
+      "description": "An open-source AI database that combines vector search with keyword filtering and built-in options for embeddings and retrieval-augmented generation. Run it yourself or use its managed cloud when you need hybrid search at scale.",
+      "type": "Open source",
+      "tags": [
+        "vector-database",
+        "hybrid-search",
+        "rag"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Qdrant",
+      "url": "https://qdrant.tech",
+      "category": "retrieval",
+      "description": "An open-source vector search engine written in Rust, with payload filtering and a managed cloud option. A solid candidate when you want fast, filtered similarity search that you can also self-host.",
+      "type": "Open source",
+      "tags": [
+        "vector-search",
+        "rust",
+        "filtering"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Milvus",
+      "url": "https://milvus.io",
+      "category": "retrieval",
+      "description": "A cloud-native, open-source vector database built to handle very large collections across distributed clusters. Look at it for large-scale similarity search; Zilliz Cloud offers it as a managed service.",
+      "type": "Open source",
+      "tags": [
+        "vector-database",
+        "distributed",
+        "scale"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Chroma",
+      "url": "https://www.trychroma.com",
+      "category": "retrieval",
+      "description": "An Apache 2.0 search backend for AI applications, covering vector, full-text, regex and metadata queries. Easy to start with locally, which makes it popular for prototypes that may later grow into production.",
+      "type": "Open source",
+      "tags": [
+        "vector-database",
+        "python",
+        "prototyping"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Elasticsearch vector search",
+      "url": "https://www.elastic.co/elasticsearch/vector-database",
+      "category": "retrieval",
+      "description": "Elastic's search engine doubles as a vector database, so one system can combine keyword relevance, filters and embedding similarity. A natural pick if you already operate Elasticsearch for search or log analytics.",
+      "type": "Open source",
+      "tags": [
+        "search",
+        "hybrid-search",
+        "vector-database"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "MTEB Leaderboard",
+      "url": "https://huggingface.co/spaces/mteb/leaderboard",
+      "category": "retrieval",
+      "description": "The Massive Text Embedding Benchmark leaderboard on Hugging Face, ranking embedding models on retrieval, classification, clustering and multilingual tasks. Filter it by language to shortlist models before testing them on your own data.",
+      "type": "Free",
+      "tags": [
+        "embeddings",
+        "benchmark",
+        "leaderboard"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Sentence Transformers",
+      "url": "https://www.sbert.net",
+      "category": "retrieval",
+      "description": "A Python library for computing text embeddings and for training embedding, reranker and sparse retrieval models, with many pretrained checkpoints on Hugging Face. Use it to run open embedding models locally or fine-tune one on your domain.",
+      "type": "Open source",
+      "tags": [
+        "embeddings",
+        "rerankers",
+        "python"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "promptfoo",
+      "url": "https://www.promptfoo.dev",
+      "category": "evals",
+      "description": "Runs prompt tests and red-team scans against many models from declarative configs, in the terminal or CI. OpenAI acquired the company in 2026; its README says the project remains open source under the MIT license.",
+      "type": "Open source",
+      "tags": [
+        "testing",
+        "red-teaming",
+        "ci"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Ragas",
+      "url": "https://docs.ragas.io",
+      "category": "evals",
+      "description": "A Python library for evaluating LLM applications, best known for retrieval-augmented generation metrics such as faithfulness and context precision. Use it to replace informal spot checks with repeatable scores and test sets.",
+      "type": "Open source",
+      "tags": [
+        "rag",
+        "metrics",
+        "python"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "DeepEval",
+      "url": "https://deepeval.com",
+      "category": "evals",
+      "description": "An Apache 2.0 framework that brings unit-test style evaluation to LLM apps, RAG pipelines and agents, with many built-in metrics. A good fit for teams that want evals to run inside pytest and CI.",
+      "type": "Open source",
+      "tags": [
+        "testing",
+        "pytest",
+        "llm-as-a-judge"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Langfuse",
+      "url": "https://langfuse.com",
+      "category": "evals",
+      "description": "An MIT-licensed platform for tracing, prompt management and evaluation of LLM applications, self-hostable or available as a cloud service. It joined ClickHouse in January 2026, and the product remains open source.",
+      "type": "Open source",
+      "tags": [
+        "observability",
+        "tracing",
+        "self-hosted"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "LangSmith",
+      "url": "https://www.langchain.com/langsmith",
+      "category": "evals",
+      "description": "LangChain's hosted platform for tracing, monitoring and evaluating agents and LLM apps, and it works with many frameworks beyond LangChain. Consider it if you already use LangChain or LangGraph and want first-party tooling.",
+      "type": "Commercial",
+      "tags": [
+        "observability",
+        "tracing",
+        "evaluation"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Arize Phoenix",
+      "url": "https://arize.com/docs/phoenix",
+      "category": "evals",
+      "description": "A self-hostable tool for tracing LLM calls, running evaluations and comparing prompt experiments. Arize also sells a separate managed platform, so review Phoenix's license terms before embedding it in a product.",
+      "type": "Free",
+      "tags": [
+        "observability",
+        "tracing",
+        "experiments"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Braintrust",
+      "url": "https://www.braintrust.dev",
+      "category": "evals",
+      "description": "A commercial platform that pairs production tracing with evals, so teams can score model output, compare experiments and catch regressions before release. Evaluate it if you want a managed workflow instead of assembling open-source parts.",
+      "type": "Commercial",
+      "tags": [
+        "evals",
+        "observability",
+        "experiments"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Inspect",
+      "url": "https://inspect.aisi.org.uk/",
+      "category": "evals",
+      "description": "An MIT-licensed evaluation framework from the UK AI Security Institute for building benchmarks and agent evaluations, with tool use, multi-turn dialog and model-graded scoring. Use it for rigorous, reproducible model testing.",
+      "type": "Open source",
+      "tags": [
+        "evals",
+        "agents",
+        "python"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Hugging Face TRL",
+      "url": "https://huggingface.co/docs/trl/index",
+      "category": "training",
+      "description": "Hugging Face's library for post-training transformer models with supervised fine-tuning, preference optimization such as DPO, and reinforcement learning methods. A standard starting point for aligning an open model on your own data.",
+      "type": "Open source",
+      "tags": [
+        "post-training",
+        "dpo",
+        "rl"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Hugging Face PEFT",
+      "url": "https://huggingface.co/docs/peft",
+      "category": "training",
+      "description": "A library for parameter-efficient fine-tuning that trains small adapter weights, such as LoRA, instead of every parameter. Use it to tune large models on modest GPUs and keep each variant as a small file.",
+      "type": "Open source",
+      "tags": [
+        "lora",
+        "adapters",
+        "fine-tuning"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Unsloth",
+      "url": "https://unsloth.ai",
+      "category": "training",
+      "description": "A fine-tuning and reinforcement learning toolkit built to cut memory use and training time on a single GPU, now with a local app for running and training models. Suited to individuals and small teams tuning open models.",
+      "type": "Open source",
+      "tags": [
+        "fine-tuning",
+        "lora",
+        "low-vram"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Axolotl",
+      "url": "https://docs.axolotl.ai",
+      "category": "training",
+      "description": "An open-source tool for fine-tuning and post-training language models from a YAML configuration, covering techniques from LoRA to multi-GPU runs. Pick it for repeatable, config-driven training without writing your own training loop.",
+      "type": "Open source",
+      "tags": [
+        "fine-tuning",
+        "yaml",
+        "post-training"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "LLaMA-Factory",
+      "url": "https://github.com/hiyouga/LlamaFactory",
+      "category": "training",
+      "description": "An Apache 2.0 toolkit for fine-tuning more than 100 language and vision-language models, with a web interface and support for LoRA, QLoRA and preference tuning. Handy if you want training without writing much code.",
+      "type": "Open source",
+      "tags": [
+        "fine-tuning",
+        "web-ui",
+        "lora"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Fireworks Training API",
+      "url": "https://docs.fireworks.ai/fine-tuning/training-api/introduction",
+      "category": "training",
+      "description": "Fireworks's managed training service for supervised fine-tuning, preference optimization and reinforcement learning on open models, with serverless and dedicated options. Consider it when you want to tune and then deploy on one platform.",
+      "type": "Commercial",
+      "tags": [
+        "fine-tuning",
+        "reinforcement-learning",
+        "managed"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Together AI Fine-Tuning",
+      "url": "https://docs.together.ai/docs/fine-tuning-overview",
+      "category": "training",
+      "description": "Together AI's managed fine-tuning for open models, accepting instruction, preference and plain-text datasets and serving the result from dedicated endpoints. Useful when you want to tune a model without provisioning GPUs yourself.",
+      "type": "Commercial",
+      "tags": [
+        "fine-tuning",
+        "managed",
+        "preference-tuning"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Model Context Protocol",
+      "url": "https://modelcontextprotocol.io",
+      "category": "agents",
+      "description": "An open standard for connecting AI applications to external data, tools and workflows through a common client-server protocol. Read it when you want assistants to use your own systems or to reuse existing MCP servers.",
+      "type": "Standard",
+      "tags": [
+        "mcp",
+        "tools",
+        "protocol"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Agent2Agent (A2A) Protocol",
+      "url": "https://a2a-protocol.org",
+      "category": "agents",
+      "description": "An open protocol, now hosted by the Linux Foundation, that lets agents built on different frameworks discover each other's capabilities and collaborate on tasks. Relevant when agents from separate teams or vendors must interoperate.",
+      "type": "Standard",
+      "tags": [
+        "a2a",
+        "interoperability",
+        "protocol"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "OpenAI Agents SDK",
+      "url": "https://openai.github.io/openai-agents-python/",
+      "category": "agents",
+      "description": "A lightweight Python framework for multi-agent workflows with handoffs, guardrails and tracing, positioned as the production-ready successor to OpenAI's experimental Swarm project. Start here for agents built around OpenAI's APIs.",
+      "type": "Open source",
+      "tags": [
+        "openai",
+        "agents",
+        "python"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Claude Agent SDK",
+      "url": "https://platform.claude.com/docs/en/agents-and-tools/agent-sdk/overview",
+      "category": "agents",
+      "description": "Anthropic's SDK for building agents on the same loop, tools and context management that power Claude Code, available for Python and TypeScript. Use it for coding, research or file-handling agents.",
+      "type": "Free",
+      "tags": [
+        "anthropic",
+        "agents",
+        "python"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Google Agent Development Kit",
+      "url": "https://adk.dev/",
+      "category": "agents",
+      "description": "Google's open-source framework for building, debugging and deploying agents, with SDKs for Python, TypeScript, Go, Java and Kotlin and support for graph-based workflows. Model-agnostic by design, though tuned for Gemini and Google Cloud.",
+      "type": "Open source",
+      "tags": [
+        "google",
+        "agents",
+        "multi-language"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Microsoft Agent Framework",
+      "url": "https://learn.microsoft.com/en-us/agent-framework/overview/",
+      "category": "agents",
+      "description": "Microsoft's framework for agents and graph-based multi-agent workflows in .NET and Python, with Go in public preview. It is the direct successor to Semantic Kernel and AutoGen, and migration guides cover both.",
+      "type": "Open source",
+      "tags": [
+        "microsoft",
+        "agents",
+        "workflows"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "CrewAI",
+      "url": "https://docs.crewai.com",
+      "category": "agents",
+      "description": "A Python framework for defining role-based agents, called crews, and event-driven flows that coordinate them. Reach for it when a task splits naturally into specialist roles and you want a readable, high-level setup.",
+      "type": "Open source",
+      "tags": [
+        "multi-agent",
+        "python",
+        "workflows"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Strands Agents",
+      "url": "https://strandsagents.com",
+      "category": "agents",
+      "description": "An open-source SDK from AWS for building production agents in Python and TypeScript, designed to work with models from many providers on any cloud. A lightweight choice for teams already building on AWS.",
+      "type": "Open source",
+      "tags": [
+        "aws",
+        "agents",
+        "mcp"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "OWASP Top 10 for LLM Applications",
+      "url": "https://genai.owasp.org/llm-top-10/",
+      "category": "safety",
+      "description": "OWASP's ranked list of the most critical risks in LLM applications, led in the 2025 edition by prompt injection, sensitive information disclosure and supply chain weaknesses. Use it as a threat-modeling checklist before launch.",
+      "type": "Standard",
+      "tags": [
+        "owasp",
+        "prompt-injection",
+        "risks"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "NIST AI Risk Management Framework",
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+      "category": "safety",
+      "description": "NIST's voluntary framework for identifying and managing AI risks, with a companion Generative AI Profile (AI 600-1). NIST says AI RMF 1.0 is being revised, so check the page for the current version.",
+      "type": "Standard",
+      "tags": [
+        "nist",
+        "governance",
+        "risk"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "MITRE ATLAS",
+      "url": "https://atlas.mitre.org",
+      "category": "safety",
+      "description": "A knowledge base of adversary tactics, techniques and case studies for attacks on AI-enabled systems, organized like MITRE ATT&CK. Use it to map threats and structure red-team exercises in a shared vocabulary.",
+      "type": "Free",
+      "tags": [
+        "threat-modeling",
+        "adversarial",
+        "mitre"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "NVIDIA NeMo Guardrails",
+      "url": "https://github.com/NVIDIA-NeMo/Guardrails",
+      "category": "safety",
+      "description": "An open-source toolkit for adding programmable guardrails to LLM-based conversational systems, steering topics and filtering inputs and outputs. Consider it when you want policy defined in configuration rather than scattered through prompts.",
+      "type": "Open source",
+      "tags": [
+        "guardrails",
+        "dialogue",
+        "nvidia"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Guardrails AI",
+      "url": "https://www.guardrailsai.com/docs",
+      "category": "safety",
+      "description": "A Python framework that wraps LLM calls with validators for format, safety and content rules, and can re-ask or fix output that fails. A good fit for enforcing structured, policy-compliant responses.",
+      "type": "Open source",
+      "tags": [
+        "validation",
+        "guardrails",
+        "python"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "garak",
+      "url": "https://garak.ai",
+      "category": "safety",
+      "description": "NVIDIA's open-source LLM vulnerability scanner, which probes a model for prompt injection, data leakage, jailbreaks and other failures using a library of attack probes. Run it before release, much as you would scan a server.",
+      "type": "Open source",
+      "tags": [
+        "red-teaming",
+        "scanner",
+        "nvidia"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "PyRIT",
+      "url": "https://microsoft.github.io/PyRIT/",
+      "category": "safety",
+      "description": "Microsoft's open-source Python Risk Identification Tool for generative AI, which automates red-team campaigns against models and applications. Use it to scale adversarial testing beyond manual probing.",
+      "type": "Open source",
+      "tags": [
+        "red-teaming",
+        "microsoft",
+        "automation"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "DeepLearning.AI Short Courses",
+      "url": "https://www.deeplearning.ai/short-courses/",
+      "category": "learning",
+      "description": "Short, hands-on courses taught with industry partners on prompting, RAG, agents, fine-tuning and evaluation, each with runnable code. Good for learning one technique in an evening without committing to a full curriculum.",
+      "type": "Course",
+      "tags": [
+        "courses",
+        "hands-on",
+        "short-form"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Hugging Face Learn",
+      "url": "https://huggingface.co/learn",
+      "category": "learning",
+      "description": "Free, code-first courses from Hugging Face, including a course on Transformers and LLMs, an Agents course and an MCP course, plus cookbook recipes. Work through them to learn the open-model ecosystem by building.",
+      "type": "Course",
+      "tags": [
+        "courses",
+        "transformers",
+        "agents"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "fast.ai Practical Deep Learning",
+      "url": "https://course.fast.ai",
+      "category": "learning",
+      "description": "Jeremy Howard's free, code-first course that builds working deep-learning models first and explains the theory afterward. A strong foundation in training loops, fine-tuning and NLP before you move on to LLM-specific material.",
+      "type": "Course",
+      "tags": [
+        "deep-learning",
+        "free",
+        "python"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Neural Networks: Zero to Hero",
+      "url": "https://github.com/karpathy/nn-zero-to-hero",
+      "category": "learning",
+      "description": "Andrej Karpathy's video series that builds neural networks in code from the basics up to a GPT-style transformer, with notebooks in the linked repository. Watch it to understand what happens inside a language model.",
+      "type": "Course",
+      "tags": [
+        "from-scratch",
+        "video",
+        "transformers"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Stanford CS336: Language Modeling from Scratch",
+      "url": "https://cs336.stanford.edu",
+      "category": "learning",
+      "description": "Stanford's course on building a language model end to end, with assignments on tokenization, training, systems efficiency, scaling laws, data and alignment. Public course materials let you follow along on your own.",
+      "type": "Course",
+      "tags": [
+        "stanford",
+        "pretraining",
+        "systems"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Prompt Engineering Guide",
+      "url": "https://www.promptingguide.ai",
+      "category": "learning",
+      "description": "An open, community-maintained guide to prompting techniques, with explanations, examples and paper links covering chain-of-thought, RAG, agents and more. Use it as a reference when designing or debugging prompts.",
+      "type": "Free",
+      "tags": [
+        "prompting",
+        "reference",
+        "techniques"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "LLMs from Scratch (Sebastian Raschka)",
+      "url": "https://github.com/rasbt/LLMs-from-scratch",
+      "category": "learning",
+      "description": "Sebastian Raschka's companion repository for building a GPT-style model step by step in PyTorch, covering tokenization, attention, pretraining and instruction fine-tuning in notebooks. Ideal if you learn best by reading and running code.",
+      "type": "Free",
+      "tags": [
+        "pytorch",
+        "from-scratch",
+        "notebooks"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Attention Is All You Need (Vaswani et al., 2017)",
+      "url": "https://arxiv.org/abs/1706.03762",
+      "category": "papers",
+      "description": "The paper that introduced the transformer, replacing recurrence with self-attention so models train in parallel and scale well. Read it for the architecture that nearly every modern LLM builds on.",
+      "type": "Paper",
+      "tags": [
+        "transformer",
+        "attention",
+        "architecture"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Language Models Are Few-Shot Learners (Brown et al., 2020)",
+      "url": "https://arxiv.org/abs/2005.14165",
+      "category": "papers",
+      "description": "OpenAI's GPT-3 paper, showing that a 175-billion-parameter model can pick up new tasks from a few examples in the prompt, with no weight updates. It established in-context learning as a core idea.",
+      "type": "Paper",
+      "tags": [
+        "gpt-3",
+        "few-shot",
+        "in-context-learning"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Training Language Models to Follow Instructions with Human Feedback (Ouyang et al., 2022)",
+      "url": "https://arxiv.org/abs/2203.02155",
+      "category": "papers",
+      "description": "OpenAI's InstructGPT paper, which tunes GPT-3 with human demonstrations and preference-based reinforcement learning. Raters preferred a 1.3B tuned model over the 175B base model, making RLHF the template for chat assistants.",
+      "type": "Paper",
+      "tags": [
+        "rlhf",
+        "instructgpt",
+        "alignment"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Training Compute-Optimal Large Language Models (Hoffmann et al., 2022)",
+      "url": "https://arxiv.org/abs/2203.15556",
+      "category": "papers",
+      "description": "DeepMind's Chinchilla study, which found that model size and training tokens should grow together, and showed a 70B model trained on far more data beating much larger ones. Use it to reason about compute-optimal training budgets.",
+      "type": "Paper",
+      "tags": [
+        "scaling-laws",
+        "chinchilla",
+        "compute"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "LLaMA: Open and Efficient Foundation Language Models (Touvron et al., 2023)",
+      "url": "https://arxiv.org/abs/2302.13971",
+      "category": "papers",
+      "description": "Meta's paper introducing the LLaMA models, trained on publicly available data at sizes from 7B to 65B parameters, with the smaller ones competitive with far larger models. It helped spark the open-weight ecosystem of fine-tuned derivatives.",
+      "type": "Paper",
+      "tags": [
+        "llama",
+        "open-weights",
+        "foundation-model"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models (Wei et al., 2022)",
+      "url": "https://arxiv.org/abs/2201.11903",
+      "category": "papers",
+      "description": "Google researchers show that including worked reasoning steps in the prompt substantially improves large models on arithmetic and logic tasks. The idea behind step-by-step prompting and a precursor to dedicated reasoning models.",
+      "type": "Paper",
+      "tags": [
+        "chain-of-thought",
+        "prompting",
+        "reasoning"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks (Lewis et al., 2020)",
+      "url": "https://arxiv.org/abs/2005.11401",
+      "category": "papers",
+      "description": "The paper that named retrieval-augmented generation, pairing a text generator with a retriever over a document index so answers draw on external knowledge. Read it for the origin of the RAG pattern.",
+      "type": "Paper",
+      "tags": [
+        "rag",
+        "retrieval",
+        "knowledge"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "LoRA: Low-Rank Adaptation of Large Language Models (Hu et al., 2021)",
+      "url": "https://arxiv.org/abs/2106.09685",
+      "category": "papers",
+      "description": "Introduces training small low-rank update matrices while the base weights stay frozen, sharply cutting trainable parameters and memory. The technique behind most adapter-based fine-tuning of open models.",
+      "type": "Paper",
+      "tags": [
+        "lora",
+        "peft",
+        "fine-tuning"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "QLoRA: Efficient Finetuning of Quantized LLMs (Dettmers et al., 2023)",
+      "url": "https://arxiv.org/abs/2305.14314",
+      "category": "papers",
+      "description": "Shows how to fine-tune a 4-bit quantized model through LoRA adapters, making it possible to tune a 65B-parameter model on a single 48 GB GPU. Essential background for budget fine-tuning.",
+      "type": "Paper",
+      "tags": [
+        "qlora",
+        "quantization",
+        "fine-tuning"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Direct Preference Optimization: Your Language Model Is Secretly a Reward Model (Rafailov et al., 2023)",
+      "url": "https://arxiv.org/abs/2305.18290",
+      "category": "papers",
+      "description": "Derives a simple classification-style loss that optimizes a model directly from preference pairs, skipping the separate reward model and reinforcement learning loop of RLHF. A common choice for aligning open models.",
+      "type": "Paper",
+      "tags": [
+        "dpo",
+        "preference-tuning",
+        "alignment"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Constitutional AI: Harmlessness from AI Feedback (Bai et al., 2022)",
+      "url": "https://arxiv.org/abs/2212.08073",
+      "category": "papers",
+      "description": "Anthropic's method for training a harmless assistant from a written set of principles, using AI-generated critiques and preference labels instead of human harm labels. It introduced reinforcement learning from AI feedback.",
+      "type": "Paper",
+      "tags": [
+        "constitutional-ai",
+        "rlaif",
+        "alignment"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Mixtral of Experts (Jiang et al., 2024)",
+      "url": "https://arxiv.org/abs/2401.04088",
+      "category": "papers",
+      "description": "Mistral's sparse mixture-of-experts model, which routes each token to two of eight expert networks per layer, so only a fraction of its parameters is active per token. A readable case study in MoE efficiency.",
+      "type": "Paper",
+      "tags": [
+        "mixture-of-experts",
+        "mixtral",
+        "open-weights"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning (DeepSeek-AI, 2025)",
+      "url": "https://arxiv.org/abs/2501.12948",
+      "category": "papers",
+      "description": "DeepSeek's report on training reasoning models with large-scale reinforcement learning, including an R1-Zero variant trained without a supervised fine-tuning stage, and on distilling the results into smaller models. Key reading on open reasoning models.",
+      "type": "Paper",
+      "tags": [
+        "reasoning",
+        "reinforcement-learning",
+        "deepseek"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Scaling Laws for Neural Language Models (Kaplan et al., 2020)",
+      "url": "https://arxiv.org/abs/2001.08361",
+      "category": "papers",
+      "description": "OpenAI's study showing that language-model loss falls as a smooth power law with model size, dataset size and compute. It set up the scaling debate that Chinchilla later refined.",
+      "type": "Paper",
+      "tags": [
+        "scaling-laws",
+        "compute",
+        "loss"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "r/LocalLLaMA",
+      "url": "https://www.reddit.com/r/LocalLLaMA/",
+      "category": "communities",
+      "description": "A busy subreddit where people trade local-model benchmarks, quantization results, hardware builds and first impressions of new open-weight releases. Useful for practical reports on what actually runs well on consumer machines.",
+      "type": "Community",
+      "tags": [
+        "reddit",
+        "local-models",
+        "open-weights"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Hugging Face Forums",
+      "url": "https://discuss.huggingface.co",
+      "category": "communities",
+      "description": "The official Hugging Face discussion forum for questions about Transformers, datasets, training, Spaces and inference. A reasonable place to ask for help with open-model tooling and to see how others solved similar problems.",
+      "type": "Community",
+      "tags": [
+        "forum",
+        "transformers",
+        "support"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Latent Space",
+      "url": "https://www.latent.space",
+      "category": "communities",
+      "description": "A newsletter and podcast for AI engineers, featuring interviews with builders, analysis of model releases and deep dives into tooling. Follow it to keep up with how practitioners ship LLM products.",
+      "type": "Community",
+      "tags": [
+        "newsletter",
+        "podcast",
+        "ai-engineering"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Simon Willison's Weblog",
+      "url": "https://simonwillison.net",
+      "category": "communities",
+      "description": "Independent developer Simon Willison's running notes on new models, tools and techniques, with frequent hands-on tests and clear writing about prompt injection. A dependable daily read for developers building with LLMs.",
+      "type": "Community",
+      "tags": [
+        "blog",
+        "llms",
+        "prompt-injection"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Interconnects",
+      "url": "https://www.interconnects.ai",
+      "category": "communities",
+      "description": "Nathan Lambert's newsletter on open models, post-training and the AI industry, written from a researcher's vantage point. Worth reading for context on reinforcement learning, open releases and where the field is heading.",
+      "type": "Community",
+      "tags": [
+        "newsletter",
+        "open-models",
+        "post-training"
+      ],
+      "aff_key": ""
+    },
+    {
+      "name": "Hugging Face Daily Papers",
+      "url": "https://huggingface.co/papers",
+      "category": "communities",
+      "description": "A daily, community-voted list of notable new arXiv papers, with discussion threads and links to related models and demos. Skim it to see which research practitioners are paying attention to.",
+      "type": "Community",
+      "tags": [
+        "papers",
+        "research",
+        "curated"
+      ],
+      "aff_key": ""
+    }
+  ]
+}
