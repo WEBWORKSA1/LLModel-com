@@ -1,1 +1,1 @@
-"""Build library for LLModel.com."""
+"""LLModel.com site generator library."""
