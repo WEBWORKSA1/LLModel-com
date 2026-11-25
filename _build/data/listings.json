@@ -1,89 +1,49 @@
 {
-  "updated": "2026-11-25",
+  "reviewed": "2026-11-25",
   "items": [
     {
-      "name": "OmniaKey",
-      "url": "https://omniakey.com/zh",
+      "name": "TheRouter",
+      "url": "https://therouter.ai/",
       "category": "Model or model API",
-      "description": "One API key for reaching multiple AI models through a single API, aimed at developers integrating AI models. Paid, with prepaid, usage-based billing.",
-      "submitted": "2026-11-25"
-    },
-    {
-      "name": "CommentLLM",
-      "url": "https://commentllm.com",
-      "category": "Model or model API",
-      "description": "Hosts abliterated open-weight models (refusal direction removed) behind OpenAI-compatible Chat Completions and Anthropic-compatible Messages endpoints, with tool use on both. Aimed at authorized red-teaming, eval generation and coding agents. Usage-based pricing.",
-      "submitted": "2026-11-25"
-    },
-    {
-      "name": "GeminiReset",
-      "url": "https://geminireset.com/",
-      "category": "Other",
-      "description": "An independent public tracker of one-off Gemini quota resets on Google Antigravity that quotes and links the official X posts. Not affiliated with Google. Free in the browser, with RSS and a calendar feed.",
-      "submitted": "2026-11-25"
-    },
-    {
-      "name": "OpenAny",
-      "url": "https://openany.si",
-      "category": "Other",
-      "description": "A marketplace that lets AI agents find and call third-party APIs and AI models through one MCP endpoint. Browsing the catalog and checking prices is free; running a call needs an OpenAny API key and is paid per call.",
-      "submitted": "2026-11-24"
+      "description": "An OpenAI-compatible AI gateway that its about page says is run by Wrise, LLC. Its docs cover setup for Cursor and Claude Code, model fallbacks and per-request token and cost data in every response. Pay-as-you-go per-token prices are published; you can also bring your own provider keys, though the pricing page says a platform fee may still apply and doesn't say how much.",
+      "submitted": "2026-11-13",
+      "reviewed": "2026-11-25",
+      "sources": [
+        "https://therouter.ai/",
+        "https://therouter.ai/about/",
+        "https://therouter.ai/pricing/",
+        "https://therouter.ai/docs/",
+        "https://therouter.ai/docs/guides/guides/usage-accounting/",
+        "https://therouter.ai/models/"
+      ]
     },
     {
       "name": "AIHOT Model Leaderboard",
       "url": "https://aihot.news/leaderboard",
       "category": "Evaluation or observability",
-      "description": "A Chinese-language public leaderboard that aggregates published third-party benchmark results, with per-model details, for comparing language models on coding, research and other tasks.",
-      "submitted": "2026-11-14"
+      "description": "A free Chinese-language model leaderboard, run as a personal project, that needs no registration. It ranks models only on scores that third-party evaluators measured themselves, leaves out vendor-reported scores, publishes its category weights and links each per-model score to the evaluator's original result.",
+      "submitted": "2026-11-14",
+      "reviewed": "2026-11-25",
+      "sources": [
+        "https://aihot.news/leaderboard",
+        "https://aihot.news/leaderboard/sources",
+        "https://aihot.news/leaderboard/claude-fable-5-2",
+        "https://aihot.news/about",
+        "https://github.com/KKKKhazix/AIHOT"
+      ]
     },
     {
-      "name": "TheRouter",
-      "url": "https://therouter.ai/",
-      "category": "Model or model API",
-      "description": "An OpenAI-compatible AI gateway: point an OpenAI SDK client, Cursor or Claude Code at one endpoint to reach models from several providers. Adds health-aware routing with failover, per-key token and cost tracking, spending limits and bring-your-own provider keys. Pay-as-you-go or BYOK.",
-      "submitted": "2026-11-13"
-    },
-    {
-      "name": "CatCatCode",
-      "url": "https://catcatcode.com",
-      "category": "Model or model API",
-      "description": "A paid service for beginners who want to use GPT and Claude models in tools such as Claude Code or Codex: sign up, get a key, follow a short setup guide and track usage in a dashboard. Monthly plans, no free plan.",
-      "submitted": "2026-11-13"
-    },
-    {
-      "name": "UncensoredLabs",
-      "url": "https://uncensoredlabs.dev",
-      "category": "Model or model API",
-      "description": "A prepaid, OpenAI-compatible API for uncensored and abliterated models, including DeepSeek and GLM variants, plus MiniMax and Kimi. Supports streaming, tool calling and image input on models that offer them, plus a browser chat. Billed per token, no subscription.",
-      "submitted": "2026-11-12"
-    },
-    {
-      "name": "AI in IDE",
-      "url": "https://aiinide.com",
-      "category": "Model or model API",
-      "description": "An independent third-party service for developers using AI models in coding workflows, with Claude Code installation and API configuration guides for VS Code, Cursor and JetBrains. You set its API base URL and use your own AI in IDE key. Paid subscription plans with usage quotas. Not an official Anthropic service or an authorized reseller.",
-      "submitted": "2026-11-12"
-    },
-    {
-      "name": "Kinovi",
-      "url": "https://kinovi.ai",
-      "category": "Model or model API",
-      "description": "One API for video, image and audio models, with pay-as-you-go credits, published model IDs and rates, and documentation with examples. The same balance also works in its Studio app.",
-      "submitted": "2026-11-10"
-    },
-    {
-      "name": "SandBase",
-      "url": "https://www.sandbase.ai",
-      "category": "Agent platform",
-      "description": "One API key for AI models, data APIs, sandboxes and agents, with an OpenAI-compatible Agents API, E2B-compatible sandboxes, an MCP server and unified billing.",
-      "submitted": "2026-11-09"
-    },
-    {
-      "name": "Code By AI",
-      "url": "https://www.codebyai.net",
-      "category": "Model or model API",
-      "description": "One API key and endpoint for Claude Code, Codex and Gemini CLI, accepting Anthropic Messages, OpenAI Responses, OpenAI Chat Completions and Gemini request formats. Pay per token with prepaid top-ups, no subscription.",
-      "submitted": "2026-11-02"
+      "name": "GeminiReset",
+      "url": "https://geminireset.com/",
+      "category": "Other",
+      "description": "An independent tracker, not affiliated with Google, that logs announced Gemini quota resets in Google Antigravity. Entries come only from a short list of named X accounts and link the original post, and its methodology page explains how they're checked. It doesn't predict resets. RSS and calendar feeds are available.",
+      "submitted": "2026-11-25",
+      "reviewed": "2026-11-25",
+      "sources": [
+        "https://geminireset.com/",
+        "https://geminireset.com/methodology/",
+        "https://geminireset.com/feed.xml"
+      ]
     }
   ]
 }

@@ -305,8 +305,10 @@ def prompts_page():
 # ---------------------------------------------------------------- resources
 
 def listing_items():
-    """Maker-submitted products, kept apart from the editorial picks. Only https:// URLs are published."""
-    return sorted((x for x in LISTINGS["items"] if str(x.get("url", "")).startswith("https://")), key=lambda x: x["name"].lower())
+    """Maker-submitted products that passed the free editorial review, kept apart from the editorial picks.
+    Only entries with a review date and an https:// URL are published."""
+    return sorted((x for x in LISTINGS["items"] if x.get("reviewed") and str(x.get("url", "")).startswith("https://")),
+                  key=lambda x: x["name"].lower())
 
 
 def listings_section():
@@ -317,9 +319,13 @@ def listings_section():
         f'<li><a class="row" href="{esc(x["url"])}" target="_blank" rel="nofollow ugc noopener">'
         f'<span class="row__title">{esc(x["name"])}</span><span class="row__desc">{esc(x["description"])}</span>'
         f'<span class="row__meta">{esc(x["category"])}<br>{esc(re.sub(r"^www[.]", "", urlparse(x["url"]).hostname or ""))}</span></a></li>' for x in items)
+    reviewed = max(x["reviewed"] for x in items)
     return ('<section class="section" aria-labelledby="r-submitted"><div class="wrap"><div class="section-head"><div><h2 id="r-submitted">Submitted by makers</h2>'
-            "<p>Products listed at their makers' request. Each description is based on what the maker told us. We haven't tested these products, "
-            "and they aren't editorial picks or endorsements. Want yours here? <a href=\"list-your-product.html\">List your product</a>.</p></div></div>"
+            "<p>Products their makers sent us for a free editorial review. Each one here passed it: we checked it against our "
+            "<a href=\"list-your-product.html#criteria\">listing criteria</a> using its public site, documentation, pricing and terms, "
+            "plus public records such as domain registration, and the descriptions state only what we could confirm. "
+            f"We didn't create accounts or pay for tests, and a listing isn't an endorsement. Last reviewed {fmt_date(reviewed, True)}. "
+            "Want yours here? <a href=\"list-your-product.html\">List your product</a>.</p></div></div>"
             f'<ul class="rowlist">{rows}</ul></div></section>')
 
 
@@ -337,7 +343,9 @@ def resources_page():
             f'<span class="row__meta">{esc(x["type"])}</span></a></li>' for x in its)
         out += (f'<section class="section" aria-labelledby="r-{c["id"]}"><div class="wrap"><div class="section-head"><div><h2 id="r-{c["id"]}">{esc(c["name"])}</h2>'
                 f'<p>{esc(c["description"])}</p></div></div><ul class="rowlist">{rows}</ul>' + (ad_slot("resources-" + str(i), promo=i) if i in (2, 7) else "") + "</div></section>")
-    content = (page_head("LLM resources", f"{len(items)} vendor-neutral picks: model APIs, local runners, serving engines, frameworks, vector databases, evaluation tools, courses and the papers that started it all.",
+    n_listed = len(listing_items())
+    listed = (f", plus {n_listed} maker-submitted product{'s' if n_listed != 1 else ''} that passed our editorial review" if n_listed else "")
+    content = (page_head("LLM resources", f"{len(items)} vendor-neutral picks: model APIs, local runners, serving engines, frameworks, vector databases, evaluation tools, courses and the papers that started it all{listed}.",
                          [f"Checked {fmt_date(UPDATED, True)}", "No paid placements in this list"], extra=f'<div style="margin-top:1.25rem">{nav}</div>') +
                out + listings_section() + f'<div class="wrap"><p class="small muted">Know a tool that belongs here? <a href="list-your-product.html">Suggest it</a>. Editorial picks are never paid for; sponsored listings are labeled.</p>{lead_band("build", "", "resources")}</div>')
     meta = {"slug": "resources", "title": "LLM Resources: Tools, Frameworks, Vector Databases, Courses and Papers",
