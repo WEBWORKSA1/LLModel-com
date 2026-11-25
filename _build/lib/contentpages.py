@@ -2,11 +2,14 @@
 import json
 import re
 from collections import OrderedDict
+from urllib.parse import urlparse
 from .common import (SITE, UPDATED, GUIDES, GUIDE_BY, GLOSSARY, GLOSS_BY, GLOSSARY_TOPICS, glossary_href,
-                     VIDEOS, PROMPTS, RESOURCES, TIMELINE, MODELS,
+                     VIDEOS, PROMPTS, RESOURCES, TIMELINE, MODELS, load_json,
                      PROVIDERS, TOOLS, TOOL_BY, esc, fmt_date, slugify, externalize, wrap_tables, h2_list, ad_slot,
                      lead_band, faq_html, faq_schema, page_head, section_head, video_embed, video_card, newsletter_box, fmt_price, fmt_tokens)
 from .datapages import timeline_html, TL_COLORS, TL_LABEL, HUBS, COMPARISONS, cmp_slug, MODEL_BY
+
+LISTINGS = load_json("listings.json")  # products submitted by their makers through list-your-product.html
 
 GUIDE_CATS = ["Fundamentals", "Choosing & buying", "Building", "Running & deploying", "Safety & quality"]
 LEAD_FOR_CAT = {"Fundamentals": "choose", "Choosing & buying": "choose", "Building": "build",
@@ -301,10 +304,30 @@ def prompts_page():
 
 # ---------------------------------------------------------------- resources
 
+def listing_items():
+    """Maker-submitted products, kept apart from the editorial picks. Only https:// URLs are published."""
+    return sorted((x for x in LISTINGS["items"] if str(x.get("url", "")).startswith("https://")), key=lambda x: x["name"].lower())
+
+
+def listings_section():
+    items = listing_items()
+    if not items:
+        return ""
+    rows = "".join(
+        f'<li><a class="row" href="{esc(x["url"])}" target="_blank" rel="nofollow ugc noopener">'
+        f'<span class="row__title">{esc(x["name"])}</span><span class="row__desc">{esc(x["description"])}</span>'
+        f'<span class="row__meta">{esc(x["category"])}<br>{esc(re.sub(r"^www[.]", "", urlparse(x["url"]).hostname or ""))}</span></a></li>' for x in items)
+    return ('<section class="section" aria-labelledby="r-submitted"><div class="wrap"><div class="section-head"><div><h2 id="r-submitted">Submitted by makers</h2>'
+            "<p>Products listed at their makers' request. Each description is based on what the maker told us. We haven't tested these products, "
+            "and they aren't editorial picks or endorsements. Want yours here? <a href=\"list-your-product.html\">List your product</a>.</p></div></div>"
+            f'<ul class="rowlist">{rows}</ul></div></section>')
+
+
 def resources_page():
     cats = RESOURCES["categories"]
     items = RESOURCES["items"]
-    nav = '<div class="pill-nav">' + "".join(f'<a href="#r-{c["id"]}">{esc(c["name"])}</a>' for c in cats) + "</div>"
+    nav = '<div class="pill-nav">' + "".join(f'<a href="#r-{c["id"]}">{esc(c["name"])}</a>' for c in cats) + (
+        '<a href="#r-submitted">Submitted by makers</a>' if listing_items() else "") + "</div>"
     out = ""
     for i, c in enumerate(cats):
         its = [x for x in items if x["category"] == c["id"]]
@@ -316,7 +339,7 @@ def resources_page():
                 f'<p>{esc(c["description"])}</p></div></div><ul class="rowlist">{rows}</ul>' + (ad_slot("resources-" + str(i), promo=i) if i in (2, 7) else "") + "</div></section>")
     content = (page_head("LLM resources", f"{len(items)} vendor-neutral picks: model APIs, local runners, serving engines, frameworks, vector databases, evaluation tools, courses and the papers that started it all.",
                          [f"Checked {fmt_date(UPDATED, True)}", "No paid placements in this list"], extra=f'<div style="margin-top:1.25rem">{nav}</div>') +
-               out + f'<div class="wrap"><p class="small muted">Know a tool that belongs here? <a href="list-your-product.html">Suggest it</a>. Editorial picks are never paid for; sponsored listings are labeled.</p>{lead_band("build", "", "resources")}</div>')
+               out + listings_section() + f'<div class="wrap"><p class="small muted">Know a tool that belongs here? <a href="list-your-product.html">Suggest it</a>. Editorial picks are never paid for; sponsored listings are labeled.</p>{lead_band("build", "", "resources")}</div>')
     meta = {"slug": "resources", "title": "LLM Resources: Tools, Frameworks, Vector Databases, Courses and Papers",
             "description": f"A curated, vendor-neutral directory of {len(items)} LLM resources: APIs, Ollama and local runners, vLLM, LangChain, vector databases, evals, fine-tuning tools, courses and key papers.",
             "section": "learn", "crumbs": [("Home", "index.html"), ("Resources", None)], "priority": 0.7}
